@@ -9,9 +9,9 @@ CFLAGS = -g -Wall -Iprotocol
 
 # --- Target Executables ---
 # We now define the *full path* for the final executables
-CLIENT_EXEC = client/client_app
-NS_EXEC = name/name_server
-SS_EXEC = storage/storage_server
+CLIENT_EXEC = client_app
+NS_EXEC = name_server
+SS_EXEC = storage_server
 
 # --- Object Files ---
 # The .o files also go into their respective folders
