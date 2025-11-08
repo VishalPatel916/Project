@@ -16,7 +16,7 @@
 #define MAX_FILES_PER_SS 100
 #define MAX_FILES_IN_SYSTEM 1024
 #define FILE_BUFFER_SIZE 4096
-#define MAX_WORD_CONTENT 100 // For WRITE updates
+#define MAX_WORD_CONTENT 100
 
 // --- 2. MESSAGE TYPES ---
 typedef enum {
@@ -40,13 +40,29 @@ typedef enum {
     RES_ERROR_NOT_FOUND,
     RES_SS_FILE_OK,
 
-    // --- Phase 3: WRITE ---
-    REQ_WRITE,              // Client -> NM (like REQ_READ)
-    REQ_CLIENT_WRITE,       // Client -> SS (to request lock)
-    RES_OK_LOCKED,          // SS -> Client
-    RES_ERROR_LOCKED,       // SS -> Client
-    REQ_WRITE_UPDATE,       // Client -> SS (sends one word update)
-    REQ_ETIRW               // Client -> SS (ends write session)
+    // Phase 3: WRITE
+    REQ_WRITE,
+    REQ_CLIENT_WRITE,
+    RES_OK_LOCKED,
+    RES_ERROR_LOCKED,
+    REQ_WRITE_UPDATE,
+    REQ_ETIRW,
+
+    // --- Phase 4 ---
+    REQ_LIST,           // Client -> NM
+    RES_LIST_HDR,       // NM -> Client
+    RES_LIST_ITEM,      // NM -> Client
+    
+    REQ_DELETE,         // Client -> NM
+    REQ_SS_DELETE,      // NM -> SS
+    
+    REQ_UNDO,           // Client -> NM
+    REQ_SS_UNDO,        // NM -> SS
+    
+    REQ_STREAM,         // Client -> NM
+    REQ_CLIENT_STREAM,  // Client -> SS
+    
+    RES_ERROR_ACCESS_DENIED // NM -> Client (for permissions)
 
 } MessageType;
 
@@ -58,28 +74,25 @@ typedef struct {
 
 // --- 4. MESSAGE PAYLOADS (Structs) ---
 
-// (Phase 1 Structs)
+// (Phase 1-2 Structs)
 typedef struct { char username[MAX_USERNAME]; } Msg_Client_Register;
 typedef struct { char ss_ip[MAX_IP_LEN]; int client_port; int file_count; } Msg_SS_Register;
 typedef struct { char filename[MAX_FILENAME]; } Msg_File_Item;
-
-// (Phase 2 Structs)
 typedef struct { char filename[MAX_FILENAME]; } Msg_Filename_Request;
 typedef struct { char ss_ip[MAX_IP_LEN]; int ss_port; } Msg_Read_Response;
 
-// --- Phase 3 Structs ---
+// (Phase 3 Structs)
+typedef struct { char filename[MAX_FILENAME]; int sentence_num; } Msg_Client_Write;
+typedef struct { int word_index; char content[MAX_WORD_CONTENT]; } Msg_Write_Update;
 
-// Client -> SS: Initial request to lock a file for writing
+// --- Phase 4 Structs ---
 typedef struct {
-    char filename[MAX_FILENAME];
-    int sentence_num;
-} Msg_Client_Write;
+    int user_count;
+} Msg_List_Hdr;
 
-// Client -> SS: A single update during a write session
 typedef struct {
-    int word_index;
-    char content[MAX_WORD_CONTENT];
-} Msg_Write_Update;
+    char username[MAX_USERNAME];
+} Msg_List_Item;
 
 
 // --- 5. HELPER FUNCTION ---
