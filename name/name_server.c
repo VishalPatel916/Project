@@ -9,8 +9,8 @@ typedef struct { int active; char ip[MAX_IP_LEN]; int client_port; } SSInfo;
 typedef struct {
     int active;
     char filename[MAX_FILENAME];
-    int ss_sock_fd; // Which SS has this file?
-    char owner[MAX_USERNAME]; // NEW: We now track the owner
+    int ss_sock_fd; 
+    char owner[MAX_USERNAME]; // We now track the owner
 } FileMetadata;
 
 // --- 2. The NM's Global State ---
@@ -23,10 +23,10 @@ FileMetadata file_catalog[MAX_FILES_IN_SYSTEM];
 int find_file_slot(char* filename) {
     for (int i = 0; i < MAX_FILES_IN_SYSTEM; i++) {
         if (file_catalog[i].active && strcmp(file_catalog[i].filename, filename) == 0) {
-            return i; // Found it
+            return i;
         }
     }
-    return -1; // Not found
+    return -1;
 }
 
 // --- Helper: Find an empty file slot ---
@@ -36,17 +36,17 @@ int find_empty_file_slot() {
             return i;
         }
     }
-    return -1; // Catalog is full
+    return -1;
 }
 
 // --- Helper: Find first available SS ---
 int find_available_ss() {
     for (int i = 0; i < MAX_CONNECTIONS; i++) {
         if (ss_state[i].active) {
-            return i; // Return the socket fd of the first active SS
+            return i;
         }
     }
-    return -1; // No SS available
+    return -1;
 }
 
 // --- Helper: Send a simple "OK" response ---
@@ -89,6 +89,7 @@ int main() {
     for (int i = 0; i < MAX_FILES_IN_SYSTEM; i++) { file_catalog[i].active = 0; }
 
     // --- 4. Setup the Listener Socket ---
+    // (Same as Phase 2)
     listener_sock = socket(AF_INET, SOCK_STREAM, 0);
     if (listener_sock < 0) error_exit("socket");
     int yes = 1;
@@ -101,6 +102,7 @@ int main() {
     if (listen(listener_sock, 10) < 0) error_exit("listen");
 
     // --- 5. Setup `select()` ---
+    // (Same as Phase 2)
     FD_ZERO(&master_set);
     FD_SET(listener_sock, &master_set);
     fdmax = listener_sock;
@@ -159,31 +161,27 @@ int main() {
                                         file_catalog[slot].active = 1;
                                         strncpy(file_catalog[slot].filename, item.filename, MAX_FILENAME);
                                         file_catalog[slot].ss_sock_fd = sock_fd;
-                                        strncpy(file_catalog[slot].owner, "system", MAX_USERNAME); // Mark system owner
+                                        strncpy(file_catalog[slot].owner, "system", MAX_USERNAME); 
                                         printf("  -> Cataloged '%s' (owner: system) in slot %d\n", item.filename, slot);
                                     }
                                 }
                                 send_ok_response(sock_fd);
                                 break;
                             }
-                            // --- NEW FOR PHASE 2 ---
-                            case REQ_CREATE: {
+                            case REQ_CREATE: { // (Phase 2)
                                 Msg_Filename_Request req;
                                 recv(sock_fd, &req, sizeof(req), 0);
                                 printf("Got REQ_CREATE for '%s' from client %d\n", req.filename, sock_fd);
                                 
                                 if (find_file_slot(req.filename) != -1) {
-                                    // File already exists
                                     printf("  -> Error: File '%s' already exists.\n", req.filename);
                                     send_simple_header(sock_fd, RES_ERROR_FILE_EXISTS);
                                 } else {
-                                    // Find an SS to send it to
                                     int ss_sock = find_available_ss();
                                     if (ss_sock == -1) {
                                         printf("  -> Error: No Storage Servers available.\n");
                                         send_simple_header(sock_fd, RES_ERROR);
                                     } else {
-                                        // Send REQ_SS_CREATE to the SS
                                         printf("  -> Relaying REQ_SS_CREATE to SS on socket %d\n", ss_sock);
                                         Header ss_header;
                                         ss_header.type = REQ_SS_CREATE;
@@ -191,19 +189,18 @@ int main() {
                                         send(ss_sock, &ss_header, sizeof(ss_header), 0);
                                         send(ss_sock, &req, sizeof(req), 0);
                                         
-                                        // Wait for OK from SS (This is blocking, see note in prev answer)
-                                        recv(ss_sock, &header, sizeof(Header), 0); 
+                                        recv(ss_sock, &header, sizeof(Header), 0); // Blocking wait
                                         
                                         if (header.type == RES_OK) {
                                             printf("  -> SS confirmed creation. Updating catalog.\n");
-                                            // Add to catalog
                                             int slot = find_empty_file_slot();
                                             file_catalog[slot].active = 1;
                                             strncpy(file_catalog[slot].filename, req.filename, MAX_FILENAME);
                                             file_catalog[slot].ss_sock_fd = ss_sock;
+                                            // --- SET THE OWNER ---
                                             strncpy(file_catalog[slot].owner, client_state[sock_fd].username, MAX_USERNAME);
                                             
-                                            send_ok_response(sock_fd); // Send OK to client
+                                            send_ok_response(sock_fd);
                                         } else {
                                             printf("  -> SS failed to create file.\n");
                                             send_simple_header(sock_fd, RES_ERROR);
@@ -212,18 +209,28 @@ int main() {
                                 }
                                 break;
                             }
-                            case REQ_READ: {
+                            
+                            // --- REQ_READ and REQ_WRITE are identical for the NM ---
+                            // They both just return the location of the SS.
+                            // We will add permission checks later.
+                            case REQ_READ:
+                            case REQ_WRITE: {
                                 Msg_Filename_Request req;
                                 recv(sock_fd, &req, sizeof(req), 0);
-                                printf("Got REQ_READ for '%s' from client %d\n", req.filename, sock_fd);
+                                
+                                if(header.type == REQ_READ)
+                                    printf("Got REQ_READ for '%s' from client %d\n", req.filename, sock_fd);
+                                else
+                                    printf("Got REQ_WRITE for '%s' from client %d\n", req.filename, sock_fd);
 
                                 int slot = find_file_slot(req.filename);
                                 if (slot == -1) {
-                                    // File not found
                                     printf("  -> Error: File '%s' not found.\n", req.filename);
                                     send_simple_header(sock_fd, RES_ERROR_NOT_FOUND);
                                 } else {
-                                    // File found! Get SS info
+                                    // TODO: Add permission check here.
+                                    // if (header.type == REQ_WRITE && !has_write_perm(...)) { ... }
+                                    
                                     FileMetadata* meta = &file_catalog[slot];
                                     SSInfo* ss = &ss_state[meta->ss_sock_fd];
                                     
@@ -231,7 +238,6 @@ int main() {
                                         printf("  -> Error: SS for file is offline.\n");
                                         send_simple_header(sock_fd, RES_ERROR);
                                     } else {
-                                        // Send location back to client
                                         printf("  -> File found on SS %d (%s:%d)\n", meta->ss_sock_fd, ss->ip, ss->client_port);
                                         Header res_hdr;
                                         res_hdr.type = RES_READ_LOCATION;
@@ -247,7 +253,7 @@ int main() {
                                 }
                                 break;
                             }
-                            // --- END NEW ---
+                            
                             default:
                                 printf("Socket %d: Unknown message type %d\n", sock_fd, header.type);
                                 break;

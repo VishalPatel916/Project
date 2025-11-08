@@ -15,7 +15,8 @@
 #define MAX_FILENAME 100
 #define MAX_FILES_PER_SS 100
 #define MAX_FILES_IN_SYSTEM 1024
-#define FILE_BUFFER_SIZE 4096 // For sending file data
+#define FILE_BUFFER_SIZE 4096
+#define MAX_WORD_CONTENT 100 // For WRITE updates
 
 // --- 2. MESSAGE TYPES ---
 typedef enum {
@@ -25,21 +26,27 @@ typedef enum {
     REQ_SS_FILE_ITEM,
     
     RES_OK,
-    RES_ERROR, // Generic error
+    RES_ERROR,
     
-    // --- Phase 2: CREATE ---
-    REQ_CREATE,            // Client -> NM
-    REQ_SS_CREATE,         // NM -> SS
-    RES_ERROR_FILE_EXISTS, // NM -> Client
+    // Phase 2: CREATE
+    REQ_CREATE,
+    REQ_SS_CREATE,
+    RES_ERROR_FILE_EXISTS,
     
-    // --- Phase 2: READ ---
-    REQ_READ,              // Client -> NM
-    RES_READ_LOCATION,     // NM -> Client
-    REQ_CLIENT_READ,       // Client -> SS
-    RES_ERROR_NOT_FOUND,   // NM -> Client OR SS -> Client
-    
-    // --- Handshake for READ ---
-    RES_SS_FILE_OK         // SS -> Client (Confirms file is found and data is coming)
+    // Phase 2: READ
+    REQ_READ,
+    RES_READ_LOCATION,
+    REQ_CLIENT_READ,
+    RES_ERROR_NOT_FOUND,
+    RES_SS_FILE_OK,
+
+    // --- Phase 3: WRITE ---
+    REQ_WRITE,              // Client -> NM (like REQ_READ)
+    REQ_CLIENT_WRITE,       // Client -> SS (to request lock)
+    RES_OK_LOCKED,          // SS -> Client
+    RES_ERROR_LOCKED,       // SS -> Client
+    REQ_WRITE_UPDATE,       // Client -> SS (sends one word update)
+    REQ_ETIRW               // Client -> SS (ends write session)
 
 } MessageType;
 
@@ -51,36 +58,28 @@ typedef struct {
 
 // --- 4. MESSAGE PAYLOADS (Structs) ---
 
-// --- Phase 1 Structs ---
-typedef struct {
-    char username[MAX_USERNAME];
-} Msg_Client_Register;
+// (Phase 1 Structs)
+typedef struct { char username[MAX_USERNAME]; } Msg_Client_Register;
+typedef struct { char ss_ip[MAX_IP_LEN]; int client_port; int file_count; } Msg_SS_Register;
+typedef struct { char filename[MAX_FILENAME]; } Msg_File_Item;
 
-typedef struct {
-    char ss_ip[MAX_IP_LEN];
-    int client_port;
-    int file_count;
-} Msg_SS_Register;
+// (Phase 2 Structs)
+typedef struct { char filename[MAX_FILENAME]; } Msg_Filename_Request;
+typedef struct { char ss_ip[MAX_IP_LEN]; int ss_port; } Msg_Read_Response;
 
-typedef struct {
-    char filename[MAX_FILENAME];
-} Msg_File_Item;
+// --- Phase 3 Structs ---
 
-// --- Phase 2 Structs ---
-
-// A generic message for any request that just needs a filename
-// Used for: REQ_CREATE, REQ_READ, REQ_SS_CREATE, REQ_CLIENT_READ
+// Client -> SS: Initial request to lock a file for writing
 typedef struct {
     char filename[MAX_FILENAME];
-} Msg_Filename_Request;
+    int sentence_num;
+} Msg_Client_Write;
 
-
-// The response from NM for a READ request
-// Used for: RES_READ_LOCATION
+// Client -> SS: A single update during a write session
 typedef struct {
-    char ss_ip[MAX_IP_LEN];
-    int ss_port;
-} Msg_Read_Response;
+    int word_index;
+    char content[MAX_WORD_CONTENT];
+} Msg_Write_Update;
 
 
 // --- 5. HELPER FUNCTION ---
