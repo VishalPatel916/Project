@@ -701,3 +701,256 @@ echo hello
 [2025-11-13 16:47:07]   -> File found on SS 5 (127.0.0.1:8082)
 [2025-11-13 16:47:14] Got 13 for 'nigga.txt' from client 'vishal'
 [2025-11-13 16:47:14]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 23:38:29] --- Name Server Started ---
+[2025-11-13 23:38:29] Initializing state...
+[2025-11-13 23:38:29] Name Server listening on port 8080...
+[2025-11-13 23:38:51] New connection from 127.0.0.1 on socket 5
+[2025-11-13 23:38:51] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 18 files.
+[2025-11-13 23:38:51] Receiving file list from SS 5...
+[2025-11-13 23:38:51]   -> Cataloged 'job.txt' (owner: system) in slot 0
+[2025-11-13 23:38:51]   -> Cataloged 'name.txt.bak' (owner: system) in slot 1
+[2025-11-13 23:38:51]   -> Cataloged 'test.txt' (owner: system) in slot 2
+[2025-11-13 23:38:51]   -> Cataloged 'nigga.txt.tmp.6' (owner: system) in slot 3
+[2025-11-13 23:38:51]   -> Cataloged 'name.txt' (owner: system) in slot 4
+[2025-11-13 23:38:51]   -> Cataloged 'stream.txt' (owner: system) in slot 5
+[2025-11-13 23:38:51]   -> Cataloged 'newfile.txt.bak' (owner: system) in slot 6
+[2025-11-13 23:38:51]   -> Cataloged 'name.txt.tmp.8' (owner: system) in slot 7
+[2025-11-13 23:38:51]   -> Cataloged 'nigga.txt.tmp.8' (owner: system) in slot 8
+[2025-11-13 23:38:51]   -> Cataloged 'pets.txt' (owner: system) in slot 9
+[2025-11-13 23:38:51]   -> Cataloged 'test.txt.bak' (owner: system) in slot 10
+[2025-11-13 23:38:51]   -> Cataloged 'newfile.txt' (owner: system) in slot 11
+[2025-11-13 23:38:51]   -> Cataloged 'kys.txt.bak' (owner: system) in slot 12
+[2025-11-13 23:38:51]   -> Cataloged 'job.txt.bak' (owner: system) in slot 13
+[2025-11-13 23:38:51]   -> Cataloged 'saccoor.txt' (owner: system) in slot 14
+[2025-11-13 23:38:51]   -> Cataloged 'saccoor.txt.bak' (owner: system) in slot 15
+[2025-11-13 23:38:51]   -> Cataloged 'kys.txt' (owner: system) in slot 16
+[2025-11-13 23:38:51]   -> Cataloged 'nigga.txt' (owner: system) in slot 17
+[2025-11-13 23:38:51] Got REQ_UPDATE_METADATA for 'job.txt' from SS 5
+[2025-11-13 23:38:51]   -> Metadata updated for 'job.txt'
+[2025-11-13 23:38:51] Got REQ_UPDATE_METADATA for 'name.txt.bak' from SS 5
+[2025-11-13 23:38:51]   -> Metadata updated for 'name.txt.bak'
+[2025-11-13 23:38:51] Got REQ_UPDATE_METADATA for 'test.txt' from SS 5
+[2025-11-13 23:38:51]   -> Metadata updated for 'test.txt'
+[2025-11-13 23:38:51] Got REQ_UPDATE_METADATA for 'nigga.txt.tmp.6' from SS 5
+[2025-11-13 23:38:51]   -> Metadata updated for 'nigga.txt.tmp.6'
+[2025-11-13 23:38:51] Got REQ_UPDATE_METADATA for 'name.txt' from SS 5
+[2025-11-13 23:38:51]   -> Metadata updated for 'name.txt'
+[2025-11-13 23:38:51] Got REQ_UPDATE_METADATA for 'stream.txt' from SS 5
+[2025-11-13 23:38:51]   -> Metadata updated for 'stream.txt'
+[2025-11-13 23:38:51] Got REQ_UPDATE_METADATA for 'newfile.txt.bak' from SS 5
+[2025-11-13 23:38:51]   -> Metadata updated for 'newfile.txt.bak'
+[2025-11-13 23:38:51] Got REQ_UPDATE_METADATA for 'name.txt.tmp.8' from SS 5
+[2025-11-13 23:38:51]   -> Metadata updated for 'name.txt.tmp.8'
+[2025-11-13 23:38:51] Got REQ_UPDATE_METADATA for 'nigga.txt.tmp.8' from SS 5
+[2025-11-13 23:38:51]   -> Metadata updated for 'nigga.txt.tmp.8'
+[2025-11-13 23:38:51] Got REQ_UPDATE_METADATA for 'pets.txt' from SS 5
+[2025-11-13 23:38:51]   -> Metadata updated for 'pets.txt'
+[2025-11-13 23:38:51] Got REQ_UPDATE_METADATA for 'test.txt.bak' from SS 5
+[2025-11-13 23:38:51]   -> Metadata updated for 'test.txt.bak'
+[2025-11-13 23:38:51] Got REQ_UPDATE_METADATA for 'newfile.txt' from SS 5
+[2025-11-13 23:38:51]   -> Metadata updated for 'newfile.txt'
+[2025-11-13 23:38:51] Got REQ_UPDATE_METADATA for 'kys.txt.bak' from SS 5
+[2025-11-13 23:38:51]   -> Metadata updated for 'kys.txt.bak'
+[2025-11-13 23:38:51] Got REQ_UPDATE_METADATA for 'job.txt.bak' from SS 5
+[2025-11-13 23:38:51]   -> Metadata updated for 'job.txt.bak'
+[2025-11-13 23:38:51] Got REQ_UPDATE_METADATA for 'saccoor.txt' from SS 5
+[2025-11-13 23:38:51]   -> Metadata updated for 'saccoor.txt'
+[2025-11-13 23:38:51] Got REQ_UPDATE_METADATA for 'saccoor.txt.bak' from SS 5
+[2025-11-13 23:38:51]   -> Metadata updated for 'saccoor.txt.bak'
+[2025-11-13 23:38:51] Got REQ_UPDATE_METADATA for 'kys.txt' from SS 5
+[2025-11-13 23:38:51]   -> Metadata updated for 'kys.txt'
+[2025-11-13 23:38:51] Got REQ_UPDATE_METADATA for 'nigga.txt' from SS 5
+[2025-11-13 23:38:51]   -> Metadata updated for 'nigga.txt'
+[2025-11-13 23:39:06] New connection from 127.0.0.1 on socket 6
+[2025-11-13 23:39:06] Socket 6 (127.0.0.1): CLIENT registered as 'user 1'
+[2025-11-13 23:39:19] New connection from 127.0.0.1 on socket 7
+[2025-11-13 23:39:19] Socket 7 (127.0.0.1): CLIENT registered as 'user 2'
+[2025-11-13 23:39:30] Got REQ_CREATE for 'g.txt' from client 'user 2' (Sock 7)
+[2025-11-13 23:39:30]   -> Relaying REQ_SS_CREATE to SS on socket 5
+[2025-11-13 23:39:30]   -> SS confirmed creation. Updating catalog.
+[2025-11-13 23:39:30] Got REQ_UPDATE_METADATA for 'g.txt' from SS 5
+[2025-11-13 23:39:30]   -> Metadata updated for 'g.txt'
+[2025-11-13 23:40:13] Got REQ_ADD_ACCESS for 'g.txt' (user: user 1) from client 'user 2'
+[2025-11-13 23:40:13]   -> Access GRANTED for new user 'user 1'.
+[2025-11-13 23:40:25] Got REQ_VIEW (a=0, l=0) from client 'user 2'
+[2025-11-13 23:40:43] Got 13 for 'g.txt' from client 'user 1'
+[2025-11-13 23:40:43]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 23:41:21] Got 13 for 'g.txt' from client 'user 2'
+[2025-11-13 23:41:21]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 23:41:33] Got 13 for 'g.txt' from client 'user 2'
+[2025-11-13 23:41:33]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 23:48:30] --- Name Server Started ---
+[2025-11-13 23:48:30] Initializing state...
+[2025-11-13 23:48:30] Name Server listening on port 8080...
+[2025-11-13 23:48:32] New connection from 127.0.0.1 on socket 5
+[2025-11-13 23:48:32] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 0 files.
+[2025-11-13 23:48:32] Receiving file list from SS 5...
+[2025-11-13 23:48:37] New connection from 127.0.0.1 on socket 6
+[2025-11-13 23:48:37] Socket 6 (127.0.0.1): CLIENT registered as 'user 1'
+[2025-11-13 23:48:43] New connection from 127.0.0.1 on socket 7
+[2025-11-13 23:48:43] Socket 7 (127.0.0.1): CLIENT registered as 'user 2'
+[2025-11-13 23:48:51] Got REQ_CREATE for 'new.txt' from client 'user 1' (Sock 6)
+[2025-11-13 23:48:51]   -> Relaying REQ_SS_CREATE to SS on socket 5
+[2025-11-13 23:48:51]   -> SS confirmed creation. Updating catalog.
+[2025-11-13 23:48:51] Got REQ_UPDATE_METADATA for 'new.txt' from SS 5
+[2025-11-13 23:48:51]   -> Metadata updated for 'new.txt'
+[2025-11-13 23:49:17] Got REQ_ADD_ACCESS for 'new.txt' (user: user 2) from client 'user 1'
+[2025-11-13 23:49:17]   -> Access GRANTED for new user 'user 2'.
+[2025-11-13 23:49:36] Got 13 for 'new.txt' from client 'user 2'
+[2025-11-13 23:49:36]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 23:49:51] Got 13 for 'new.txt' from client 'user 1'
+[2025-11-13 23:49:51]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 23:50:25] Got REQ_UPDATE_METADATA for 'new.txt' from SS 5
+[2025-11-13 23:50:25]   -> Metadata updated for 'new.txt'
+[2025-11-13 23:50:40] Got REQ_UPDATE_METADATA for 'new.txt' from SS 5
+[2025-11-13 23:50:40]   -> Metadata updated for 'new.txt'
+[2025-11-13 23:51:08] Got 13 for 'new.txt' from client 'user 1'
+[2025-11-13 23:51:08]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 23:51:25] Got REQ_UPDATE_METADATA for 'new.txt' from SS 5
+[2025-11-13 23:51:25]   -> Metadata updated for 'new.txt'
+[2025-11-13 23:51:48] Got 13 for 'new.txt' from client 'user 1'
+[2025-11-13 23:51:48]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 23:52:10] Got REQ_UPDATE_METADATA for 'new.txt' from SS 5
+[2025-11-13 23:52:10]   -> Metadata updated for 'new.txt'
+[2025-11-13 23:52:36] Got 13 for 'new.txt' from client 'user 1'
+[2025-11-13 23:52:36]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 23:52:47] Got REQ_UPDATE_METADATA for 'new.txt' from SS 5
+[2025-11-13 23:52:47]   -> Metadata updated for 'new.txt'
+[2025-11-13 23:53:18] Got 13 for 'new.txt' from client 'user 1'
+[2025-11-13 23:53:18]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 23:53:27] Got 13 for 'new.txt' from client 'user 2'
+[2025-11-13 23:53:27]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 23:53:40] Got 13 for 'new.txt' from client 'user 2'
+[2025-11-13 23:53:40]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 23:54:05] Got REQ_UPDATE_METADATA for 'new.txt' from SS 5
+[2025-11-13 23:54:05]   -> Metadata updated for 'new.txt'
+[2025-11-13 23:54:36] Got REQ_UPDATE_METADATA for 'new.txt' from SS 5
+[2025-11-13 23:54:36]   -> Metadata updated for 'new.txt'
+[2025-11-13 23:55:05] Got 13 for 'new.txt' from client 'user 1'
+[2025-11-13 23:55:05]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 23:55:13] Got 13 for 'new.txt' from client 'user 2'
+[2025-11-13 23:55:13]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 23:55:41] Got REQ_UPDATE_METADATA for 'new.txt' from SS 5
+[2025-11-13 23:55:41]   -> Metadata updated for 'new.txt'
+[2025-11-13 23:55:56] Got REQ_UPDATE_METADATA for 'new.txt' from SS 5
+[2025-11-13 23:55:56]   -> Metadata updated for 'new.txt'
+[2025-11-14 00:03:44] --- Name Server Started ---
+[2025-11-14 00:03:44] Initializing state...
+[2025-11-14 00:03:45] Name Server listening on port 8080...
+[2025-11-14 00:03:47] New connection from 127.0.0.1 on socket 5
+[2025-11-14 00:03:47] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 2 files.
+[2025-11-14 00:03:47] Receiving file list from SS 5...
+[2025-11-14 00:03:47]   -> Cataloged 'new.txt.bak' (owner: system) in slot 0
+[2025-11-14 00:03:47]   -> Cataloged 'new.txt' (owner: system) in slot 1
+[2025-11-14 00:03:47] Got REQ_UPDATE_METADATA for 'new.txt.bak' from SS 5
+[2025-11-14 00:03:47]   -> Metadata updated for 'new.txt.bak'
+[2025-11-14 00:03:47] Got REQ_UPDATE_METADATA for 'new.txt' from SS 5
+[2025-11-14 00:03:47]   -> Metadata updated for 'new.txt'
+[2025-11-14 00:03:56] New connection from 127.0.0.1 on socket 6
+[2025-11-14 00:03:56] Socket 6 (127.0.0.1): CLIENT registered as 'user 1'
+[2025-11-14 00:04:02] New connection from 127.0.0.1 on socket 7
+[2025-11-14 00:04:02] Socket 7 (127.0.0.1): CLIENT registered as 'user 2'
+[2025-11-14 00:04:18] Got REQ_CREATE for 'file.txt' from client 'user 1' (Sock 6)
+[2025-11-14 00:04:18]   -> Relaying REQ_SS_CREATE to SS on socket 5
+[2025-11-14 00:04:18]   -> SS confirmed creation. Updating catalog.
+[2025-11-14 00:04:18] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-14 00:04:18]   -> Metadata updated for 'file.txt'
+[2025-11-14 00:04:39] Got REQ_ADD_ACCESS for 'user' (user: 2) from client 'user 1'
+[2025-11-14 00:05:03] Got REQ_ADD_ACCESS for 'file.txt' (user: user 2) from client 'user 1'
+[2025-11-14 00:05:03]   -> Access GRANTED for new user 'user 2'.
+[2025-11-14 00:05:17] Got 13 for 'file.txt' from client 'user 2'
+[2025-11-14 00:05:17]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-14 00:05:51] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-14 00:05:51]   -> Metadata updated for 'file.txt'
+[2025-11-14 00:06:37] Got 13 for 'file.txt' from client 'user 1'
+[2025-11-14 00:06:37]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-14 00:06:45] Got 13 for 'file.txt' from client 'user 2'
+[2025-11-14 00:06:45]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-14 00:07:04] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-14 00:07:04]   -> Metadata updated for 'file.txt'
+[2025-11-14 00:07:26] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-14 00:07:26]   -> Metadata updated for 'file.txt'
+[2025-11-14 00:10:48] Client 'user 1' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-14 00:10:51] Client 'user 2' (Socket 7, IP: 127.0.0.1) disconnected.
+[2025-11-14 00:11:18] --- Name Server Started ---
+[2025-11-14 00:11:18] Initializing state...
+[2025-11-14 00:11:18] Name Server listening on port 8080...
+[2025-11-14 00:11:20] New connection from 127.0.0.1 on socket 5
+[2025-11-14 00:11:20] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 0 files.
+[2025-11-14 00:11:20] Receiving file list from SS 5...
+[2025-11-14 00:11:28] New connection from 127.0.0.1 on socket 6
+[2025-11-14 00:11:28] Socket 6 (127.0.0.1): CLIENT registered as 'user 1'
+[2025-11-14 00:11:31] New connection from 127.0.0.1 on socket 7
+[2025-11-14 00:11:31] Socket 7 (127.0.0.1): CLIENT registered as 'user 2'
+[2025-11-14 00:11:38] Got REQ_CREATE for 'new.txt' from client 'user 2' (Sock 7)
+[2025-11-14 00:11:38]   -> Relaying REQ_SS_CREATE to SS on socket 5
+[2025-11-14 00:11:38]   -> SS confirmed creation. Updating catalog.
+[2025-11-14 00:11:38] Got REQ_UPDATE_METADATA for 'new.txt' from SS 5
+[2025-11-14 00:11:38]   -> Metadata updated for 'new.txt'
+[2025-11-14 00:11:50] Got REQ_ADD_ACCESS for 'user' (user: 1) from client 'user 2'
+[2025-11-14 00:12:10] Got REQ_ADD_ACCESS for 'new.txt' (user: user 1) from client 'user 2'
+[2025-11-14 00:12:10]   -> Access GRANTED for new user 'user 1'.
+[2025-11-14 00:12:20] Got 13 for 'new.txt' from client 'user 1'
+[2025-11-14 00:12:20]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-14 00:12:37] Got REQ_UPDATE_METADATA for 'new.txt' from SS 5
+[2025-11-14 00:12:37]   -> Metadata updated for 'new.txt'
+[2025-11-14 00:12:54] Got 13 for 'new.txt' from client 'user 1'
+[2025-11-14 00:12:54]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-14 00:13:02] Got 13 for 'new.txt' from client 'user 2'
+[2025-11-14 00:13:02]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-14 00:13:24] Got REQ_UPDATE_METADATA for 'new.txt' from SS 5
+[2025-11-14 00:13:24]   -> Metadata updated for 'new.txt'
+[2025-11-14 00:13:53] Got REQ_UPDATE_METADATA for 'new.txt' from SS 5
+[2025-11-14 00:13:53]   -> Metadata updated for 'new.txt'
+[2025-11-14 00:18:31] Client 'user 2' (Socket 7, IP: 127.0.0.1) disconnected.
+[2025-11-14 00:18:33] Client 'user 1' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-14 00:18:44] --- Name Server Started ---
+[2025-11-14 00:18:44] Initializing state...
+[2025-11-14 00:18:44] Name Server listening on port 8080...
+[2025-11-14 00:18:46] New connection from 127.0.0.1 on socket 5
+[2025-11-14 00:18:46] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 2 files.
+[2025-11-14 00:18:46] Receiving file list from SS 5...
+[2025-11-14 00:18:46]   -> Cataloged 'new.txt.bak' (owner: system) in slot 0
+[2025-11-14 00:18:46]   -> Cataloged 'new.txt' (owner: system) in slot 1
+[2025-11-14 00:18:46] Got REQ_UPDATE_METADATA for 'new.txt.bak' from SS 5
+[2025-11-14 00:18:46]   -> Metadata updated for 'new.txt.bak'
+[2025-11-14 00:18:46] Got REQ_UPDATE_METADATA for 'new.txt' from SS 5
+[2025-11-14 00:18:46]   -> Metadata updated for 'new.txt'
+[2025-11-14 00:18:53] New connection from 127.0.0.1 on socket 6
+[2025-11-14 00:18:53] Socket 6 (127.0.0.1): CLIENT registered as 'user 1'
+[2025-11-14 00:18:56] New connection from 127.0.0.1 on socket 7
+[2025-11-14 00:18:56] Socket 7 (127.0.0.1): CLIENT registered as 'user 2'
+[2025-11-14 00:19:01] Got REQ_CREATE for 'n.txt' from client 'user 2' (Sock 7)
+[2025-11-14 00:19:01]   -> Relaying REQ_SS_CREATE to SS on socket 5
+[2025-11-14 00:19:02]   -> SS confirmed creation. Updating catalog.
+[2025-11-14 00:19:02] Got REQ_UPDATE_METADATA for 'n.txt' from SS 5
+[2025-11-14 00:19:02]   -> Metadata updated for 'n.txt'
+[2025-11-14 00:19:18] Got REQ_ADD_ACCESS for 'n.txt' (user: user 1) from client 'user 2'
+[2025-11-14 00:19:18]   -> Access GRANTED for new user 'user 1'.
+[2025-11-14 00:19:29] Got 13 for 'new.txt' from client 'user 1'
+[2025-11-14 00:19:29]   -> Access Denied for user 'user 1'.
+[2025-11-14 00:20:15] Got REQ_ADD_ACCESS for 'n.txt' (user: user 1) from client 'user 2'
+[2025-11-14 00:20:15]   -> Access UPDATED for user 'user 1'.
+[2025-11-14 00:20:33] Got 13 for 'n.txt' from client 'user 1'
+[2025-11-14 00:20:33]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-14 00:20:46] Got REQ_UPDATE_METADATA for 'n.txt' from SS 5
+[2025-11-14 00:20:46]   -> Metadata updated for 'n.txt'
+[2025-11-14 00:20:58] Got 13 for 'n.txt' from client 'user 1'
+[2025-11-14 00:20:58]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-14 00:21:08] Got REQ_UPDATE_METADATA for 'n.txt' from SS 5
+[2025-11-14 00:21:08]   -> Metadata updated for 'n.txt'
+[2025-11-14 00:21:28] Got 13 for 'n.txt' from client 'user 2'
+[2025-11-14 00:21:28]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-14 00:21:39] Got 13 for 'n.txt' from client 'user 1'
+[2025-11-14 00:21:39]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-14 00:21:58] Got REQ_UPDATE_METADATA for 'n.txt' from SS 5
+[2025-11-14 00:21:58]   -> Metadata updated for 'n.txt'
+[2025-11-14 00:22:08] Got REQ_UPDATE_METADATA for 'n.txt' from SS 5
+[2025-11-14 00:22:08]   -> Metadata updated for 'n.txt'
+[2025-11-14 00:22:51] Client 'user 1' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-14 00:22:51] Client 'user 2' (Socket 7, IP: 127.0.0.1) disconnected.
+[2025-11-14 00:22:51] Storage Server (Socket 5, IP: 127.0.0.1) disconnected.
+[2025-11-14 00:22:51] De-listing its files from the catalog...
+[2025-11-14 00:22:51]   -> De-listed 'new.txt.bak'
+[2025-11-14 00:22:51]   -> De-listed 'new.txt'
+[2025-11-14 00:22:51]   -> De-listed 'n.txt'

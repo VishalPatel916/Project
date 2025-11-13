@@ -488,3 +488,313 @@
 [2025-11-13 16:47:30]   -> Applied update (word 0) to temp file for socket 8
 [2025-11-13 16:47:33]   -> Modifying sentence 1
 [2025-11-13 16:47:33]   -> Applied update (word 0) to temp file for socket 8
+[2025-11-13 23:38:51] --- Storage Server Started ---
+[2025-11-13 23:38:51] Scanning storage directory: ./ss_storage
+[2025-11-13 23:38:51] Found 18 files.
+[2025-11-13 23:38:51] Storage Server connected to Name Server on port 8080
+[2025-11-13 23:38:51] Sending file list...
+[2025-11-13 23:38:51] Registration successful!
+[2025-11-13 23:38:51] Sending metadata for 18 existing files...
+[2025-11-13 23:38:51]   -> Calculated stats for 'job.txt': size=13, words=4, chars=13
+[2025-11-13 23:38:51]   -> Calculated stats for 'name.txt.bak': size=6, words=2, chars=6
+[2025-11-13 23:38:51]   -> Calculated stats for 'test.txt': size=10, words=2, chars=10
+[2025-11-13 23:38:51]   -> Calculated stats for 'nigga.txt.tmp.6': size=11, words=2, chars=11
+[2025-11-13 23:38:51]   -> Calculated stats for 'name.txt': size=9, words=3, chars=9
+[2025-11-13 23:38:51]   -> Calculated stats for 'stream.txt': size=33, words=7, chars=33
+[2025-11-13 23:38:51]   -> Calculated stats for 'newfile.txt.bak': size=8, words=2, chars=8
+[2025-11-13 23:38:51]   -> Calculated stats for 'name.txt.tmp.8': size=9, words=3, chars=9
+[2025-11-13 23:38:51]   -> Calculated stats for 'nigga.txt.tmp.8': size=22, words=4, chars=22
+[2025-11-13 23:38:51]   -> Calculated stats for 'pets.txt': size=49, words=10, chars=49
+[2025-11-13 23:38:51]   -> Calculated stats for 'test.txt.bak': size=10, words=2, chars=10
+[2025-11-13 23:38:51]   -> Calculated stats for 'newfile.txt': size=8, words=2, chars=8
+[2025-11-13 23:38:51]   -> Calculated stats for 'kys.txt.bak': size=20, words=4, chars=20
+[2025-11-13 23:38:51]   -> Calculated stats for 'job.txt.bak': size=20, words=5, chars=20
+[2025-11-13 23:38:51]   -> Calculated stats for 'saccoor.txt': size=34, words=1, chars=34
+[2025-11-13 23:38:51]   -> Calculated stats for 'saccoor.txt.bak': size=51, words=5, chars=51
+[2025-11-13 23:38:51]   -> Calculated stats for 'kys.txt': size=10, words=3, chars=10
+[2025-11-13 23:38:51]   -> Calculated stats for 'nigga.txt': size=11, words=2, chars=11
+[2025-11-13 23:38:51] Storage Server now listening for clients on port 8082...
+[2025-11-13 23:39:30] Got REQ_SS_CREATE for 'g.txt' from NM
+[2025-11-13 23:39:30]   -> Creating file at: ./ss_storage/g.txt
+[2025-11-13 23:39:30]   -> Calculated stats for 'g.txt': size=0, words=0, chars=0
+[2025-11-13 23:40:43] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 23:40:43] Got REQ_CLIENT_WRITE for 'g.txt' (sent 0) from socket 6
+[2025-11-13 23:40:43]   -> Lock CREATED for 'g.txt' (sent 0) by socket 6
+[2025-11-13 23:40:43]   -> Lock granted. Session started.
+[2025-11-13 23:41:21] New client connection from 127.0.0.1 on socket 8
+[2025-11-13 23:41:21] Got REQ_CLIENT_WRITE for 'g.txt' (sent 0) from socket 8
+[2025-11-13 23:41:21]   -> Lock conflict! Sending error.
+[2025-11-13 23:41:33] New client connection from 127.0.0.1 on socket 8
+[2025-11-13 23:41:33] Got REQ_CLIENT_WRITE for 'g.txt' (sent 1) from socket 8
+[2025-11-13 23:41:33]   -> Lock CREATED for 'g.txt' (sent 1) by socket 8
+[2025-11-13 23:41:33]   -> Lock granted. Session started.
+[2025-11-13 23:48:18] Name Server disconnected!
+[2025-11-13 23:48:32] --- Storage Server Started ---
+[2025-11-13 23:48:32] Scanning storage directory: ./ss_storage
+[2025-11-13 23:48:32] Found 0 files.
+[2025-11-13 23:48:32] Storage Server connected to Name Server on port 8080
+[2025-11-13 23:48:32] Sending file list...
+[2025-11-13 23:48:32] Registration successful!
+[2025-11-13 23:48:32] Sending metadata for 0 existing files...
+[2025-11-13 23:48:32] Storage Server now listening for clients on port 8082...
+[2025-11-13 23:48:51] Got REQ_SS_CREATE for 'new.txt' from NM
+[2025-11-13 23:48:51]   -> Creating file at: ./ss_storage/new.txt
+[2025-11-13 23:48:51]   -> Calculated stats for 'new.txt': size=0, words=0, chars=0
+[2025-11-13 23:49:36] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 23:49:36] Got REQ_CLIENT_WRITE for 'new.txt' (sent 0) from socket 6
+[2025-11-13 23:49:36]   -> Loading file 'new.txt' into active doc slot 0.
+[2025-11-13 23:49:36]   -> Lock CREATED for 'new.txt' (sent 0) by socket 6
+[2025-11-13 23:49:36]   -> Lock granted. Session started. Users editing: 1
+[2025-11-13 23:49:51] New client connection from 127.0.0.1 on socket 7
+[2025-11-13 23:49:51] Got REQ_CLIENT_WRITE for 'new.txt' (sent 1) from socket 7
+[2025-11-13 23:49:51]   -> File 'new.txt' is already active in memory.
+[2025-11-13 23:49:51]   -> Lock CREATED for 'new.txt' (sent 1) by socket 7
+[2025-11-13 23:49:51]   -> Lock granted. Session started. Users editing: 2
+[2025-11-13 23:50:07]   -> Applied update (word 0) to in-memory list for socket 6
+[2025-11-13 23:50:16]   -> ERROR: Sentence number 1 out of bounds.
+[2025-11-13 23:50:16]   -> Applied update (word 0) to in-memory list for socket 7
+[2025-11-13 23:50:25] Got REQ_ETIRW from socket 6. Committing changes for 'new.txt'.
+[2025-11-13 23:50:25]   -> Lock RELEASED for 'new.txt' (sent 0)
+[2025-11-13 23:50:25]   -> User stopped editing 'new.txt'. Active users: 1
+[2025-11-13 23:50:25]   -> Calculated stats for 'new.txt': size=4, words=1, chars=4
+[2025-11-13 23:50:40] Got REQ_ETIRW from socket 7. Committing changes for 'new.txt'.
+[2025-11-13 23:50:40]   -> Lock RELEASED for 'new.txt' (sent 1)
+[2025-11-13 23:50:40]   -> User stopped editing 'new.txt'. Active users: 0
+[2025-11-13 23:50:40]   -> No users left. Freeing document 'new.txt' from memory.
+[2025-11-13 23:50:40]   -> Calculated stats for 'new.txt': size=4, words=1, chars=4
+[2025-11-13 23:51:08] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 23:51:08] Got REQ_CLIENT_WRITE for 'new.txt' (sent 1) from socket 6
+[2025-11-13 23:51:08]   -> Loading file 'new.txt' into active doc slot 0.
+[2025-11-13 23:51:08]   -> Lock CREATED for 'new.txt' (sent 1) by socket 6
+[2025-11-13 23:51:08]   -> Lock granted. Session started. Users editing: 1
+[2025-11-13 23:51:21]   -> ERROR: Sentence number 1 out of bounds.
+[2025-11-13 23:51:21]   -> Applied update (word 0) to in-memory list for socket 6
+[2025-11-13 23:51:25] Got REQ_ETIRW from socket 6. Committing changes for 'new.txt'.
+[2025-11-13 23:51:25]   -> Lock RELEASED for 'new.txt' (sent 1)
+[2025-11-13 23:51:25]   -> User stopped editing 'new.txt'. Active users: 0
+[2025-11-13 23:51:25]   -> No users left. Freeing document 'new.txt' from memory.
+[2025-11-13 23:51:25]   -> Calculated stats for 'new.txt': size=4, words=1, chars=4
+[2025-11-13 23:51:48] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 23:51:48] Got REQ_CLIENT_WRITE for 'new.txt' (sent 1) from socket 6
+[2025-11-13 23:51:48]   -> Loading file 'new.txt' into active doc slot 0.
+[2025-11-13 23:51:48]   -> Lock CREATED for 'new.txt' (sent 1) by socket 6
+[2025-11-13 23:51:48]   -> Lock granted. Session started. Users editing: 1
+[2025-11-13 23:52:06]   -> ERROR: Sentence number 1 out of bounds.
+[2025-11-13 23:52:06]   -> Applied update (word 0) to in-memory list for socket 6
+[2025-11-13 23:52:10] Got REQ_ETIRW from socket 6. Committing changes for 'new.txt'.
+[2025-11-13 23:52:10]   -> Lock RELEASED for 'new.txt' (sent 1)
+[2025-11-13 23:52:10]   -> User stopped editing 'new.txt'. Active users: 0
+[2025-11-13 23:52:10]   -> No users left. Freeing document 'new.txt' from memory.
+[2025-11-13 23:52:10]   -> Calculated stats for 'new.txt': size=4, words=1, chars=4
+[2025-11-13 23:52:36] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 23:52:36] Got REQ_CLIENT_WRITE for 'new.txt' (sent 0) from socket 6
+[2025-11-13 23:52:36]   -> Loading file 'new.txt' into active doc slot 0.
+[2025-11-13 23:52:36]   -> Lock CREATED for 'new.txt' (sent 0) by socket 6
+[2025-11-13 23:52:36]   -> Lock granted. Session started. Users editing: 1
+[2025-11-13 23:52:43]   -> Applied update (word 0) to in-memory list for socket 6
+[2025-11-13 23:52:47] Got REQ_ETIRW from socket 6. Committing changes for 'new.txt'.
+[2025-11-13 23:52:47]   -> Lock RELEASED for 'new.txt' (sent 0)
+[2025-11-13 23:52:47]   -> User stopped editing 'new.txt'. Active users: 0
+[2025-11-13 23:52:47]   -> No users left. Freeing document 'new.txt' from memory.
+[2025-11-13 23:52:47]   -> Calculated stats for 'new.txt': size=10, words=2, chars=10
+[2025-11-13 23:53:18] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 23:53:18] Got REQ_CLIENT_WRITE for 'new.txt' (sent 1) from socket 6
+[2025-11-13 23:53:18]   -> Loading file 'new.txt' into active doc slot 0.
+[2025-11-13 23:53:18]   -> Lock CREATED for 'new.txt' (sent 1) by socket 6
+[2025-11-13 23:53:18]   -> Lock granted. Session started. Users editing: 1
+[2025-11-13 23:53:27] New client connection from 127.0.0.1 on socket 7
+[2025-11-13 23:53:27] Got REQ_CLIENT_WRITE for 'new.txt' (sent 1) from socket 7
+[2025-11-13 23:53:27]   -> Lock conflict! Sending error.
+[2025-11-13 23:53:40] New client connection from 127.0.0.1 on socket 7
+[2025-11-13 23:53:40] Got REQ_CLIENT_WRITE for 'new.txt' (sent 0) from socket 7
+[2025-11-13 23:53:40]   -> File 'new.txt' is already active in memory.
+[2025-11-13 23:53:40]   -> Lock CREATED for 'new.txt' (sent 0) by socket 7
+[2025-11-13 23:53:40]   -> Lock granted. Session started. Users editing: 2
+[2025-11-13 23:53:54]   -> Applied update (word 1) to in-memory list for socket 7
+[2025-11-13 23:54:05] Got REQ_ETIRW from socket 7. Committing changes for 'new.txt'.
+[2025-11-13 23:54:05]   -> Lock RELEASED for 'new.txt' (sent 0)
+[2025-11-13 23:54:05]   -> User stopped editing 'new.txt'. Active users: 1
+[2025-11-13 23:54:05]   -> Calculated stats for 'new.txt': size=26, words=4, chars=26
+[2025-11-13 23:54:32]   -> Applied update (word 1) to in-memory list for socket 6
+[2025-11-13 23:54:36] Got REQ_ETIRW from socket 6. Committing changes for 'new.txt'.
+[2025-11-13 23:54:36]   -> Lock RELEASED for 'new.txt' (sent 1)
+[2025-11-13 23:54:36]   -> User stopped editing 'new.txt'. Active users: 0
+[2025-11-13 23:54:36]   -> No users left. Freeing document 'new.txt' from memory.
+[2025-11-13 23:54:36]   -> Calculated stats for 'new.txt': size=31, words=5, chars=31
+[2025-11-13 23:55:05] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 23:55:05] Got REQ_CLIENT_WRITE for 'new.txt' (sent 0) from socket 6
+[2025-11-13 23:55:05]   -> Loading file 'new.txt' into active doc slot 0.
+[2025-11-13 23:55:05]   -> Lock CREATED for 'new.txt' (sent 0) by socket 6
+[2025-11-13 23:55:05]   -> Lock granted. Session started. Users editing: 1
+[2025-11-13 23:55:13] New client connection from 127.0.0.1 on socket 7
+[2025-11-13 23:55:13] Got REQ_CLIENT_WRITE for 'new.txt' (sent 1) from socket 7
+[2025-11-13 23:55:13]   -> File 'new.txt' is already active in memory.
+[2025-11-13 23:55:13]   -> Lock CREATED for 'new.txt' (sent 1) by socket 7
+[2025-11-13 23:55:13]   -> Lock granted. Session started. Users editing: 2
+[2025-11-13 23:55:27]   -> ERROR: Sentence number 1 out of bounds.
+[2025-11-13 23:55:27]   -> Applied update (word 0) to in-memory list for socket 7
+[2025-11-13 23:55:33]   -> Applied update (word 0) to in-memory list for socket 6
+[2025-11-13 23:55:41] Got REQ_ETIRW from socket 6. Committing changes for 'new.txt'.
+[2025-11-13 23:55:41]   -> Lock RELEASED for 'new.txt' (sent 0)
+[2025-11-13 23:55:41]   -> User stopped editing 'new.txt'. Active users: 1
+[2025-11-13 23:55:41]   -> Calculated stats for 'new.txt': size=19, words=4, chars=19
+[2025-11-13 23:55:56] Got REQ_ETIRW from socket 7. Committing changes for 'new.txt'.
+[2025-11-13 23:55:56]   -> Lock RELEASED for 'new.txt' (sent 1)
+[2025-11-13 23:55:56]   -> User stopped editing 'new.txt'. Active users: 0
+[2025-11-13 23:55:56]   -> No users left. Freeing document 'new.txt' from memory.
+[2025-11-13 23:55:56]   -> Calculated stats for 'new.txt': size=19, words=4, chars=19
+[2025-11-14 00:03:32] Name Server disconnected!
+[2025-11-14 00:03:47] --- Storage Server Started ---
+[2025-11-14 00:03:47] Scanning storage directory: ./ss_storage
+[2025-11-14 00:03:47] Found 2 files.
+[2025-11-14 00:03:47] Storage Server connected to Name Server on port 8080
+[2025-11-14 00:03:47] Sending file list...
+[2025-11-14 00:03:47] Registration successful!
+[2025-11-14 00:03:47] Sending metadata for 2 existing files...
+[2025-11-14 00:03:47]   -> Calculated stats for 'new.txt.bak': size=19, words=4, chars=19
+[2025-11-14 00:03:47]   -> Calculated stats for 'new.txt': size=19, words=4, chars=19
+[2025-11-14 00:03:47] Storage Server now listening for clients on port 8082...
+[2025-11-14 00:04:18] Got REQ_SS_CREATE for 'file.txt' from NM
+[2025-11-14 00:04:18]   -> Creating file at: ./ss_storage/file.txt
+[2025-11-14 00:04:18]   -> Calculated stats for 'file.txt': size=0, words=0, chars=0
+[2025-11-14 00:05:17] New client connection from 127.0.0.1 on socket 6
+[2025-11-14 00:05:17] Got REQ_CLIENT_WRITE for 'file.txt' (sent 0) from socket 6
+[2025-11-14 00:05:17]   -> Loading file 'file.txt' into active doc slot 0.
+[2025-11-14 00:05:17]   -> Lock CREATED for 'file.txt' (sent 0) by socket 6
+[2025-11-14 00:05:17]   -> Lock granted. Session started. Users editing: 1
+[2025-11-14 00:05:27]   -> Applied update (word 0) to in-memory list for socket 6
+[2025-11-14 00:05:34]   -> Applied update (word 1) to in-memory list for socket 6
+[2025-11-14 00:05:42]   -> Applied update (word 2) to in-memory list for socket 6
+[2025-11-14 00:05:47]   -> Applied update (word 3) to in-memory list for socket 6
+[2025-11-14 00:05:51] Got REQ_ETIRW from socket 6. Committing changes for 'file.txt'.
+[2025-11-14 00:05:51]   -> Lock RELEASED for 'file.txt' (sent 0)
+[2025-11-14 00:05:51]   -> User stopped editing 'file.txt'. Active users: 0
+[2025-11-14 00:05:51]   -> No users left. Freeing document 'file.txt' from memory.
+[2025-11-14 00:05:51]   -> Calculated stats for 'file.txt': size=14, words=3, chars=14
+[2025-11-14 00:06:37] New client connection from 127.0.0.1 on socket 6
+[2025-11-14 00:06:37] Got REQ_CLIENT_WRITE for 'file.txt' (sent 0) from socket 6
+[2025-11-14 00:06:37]   -> Loading file 'file.txt' into active doc slot 0.
+[2025-11-14 00:06:37]   -> Lock CREATED for 'file.txt' (sent 0) by socket 6
+[2025-11-14 00:06:37]   -> Lock granted. Session started. Users editing: 1
+[2025-11-14 00:06:45] New client connection from 127.0.0.1 on socket 7
+[2025-11-14 00:06:45] Got REQ_CLIENT_WRITE for 'file.txt' (sent 1) from socket 7
+[2025-11-14 00:06:45]   -> File 'file.txt' is already active in memory.
+[2025-11-14 00:06:45]   -> Lock CREATED for 'file.txt' (sent 1) by socket 7
+[2025-11-14 00:06:45]   -> Lock granted. Session started. Users editing: 2
+[2025-11-14 00:07:01]   -> Applied update (word 1) to in-memory list for socket 6
+[2025-11-14 00:07:04] Got REQ_ETIRW from socket 6. Committing changes for 'file.txt'.
+[2025-11-14 00:07:04]   -> Lock RELEASED for 'file.txt' (sent 0)
+[2025-11-14 00:07:04]   -> User stopped editing 'file.txt'. Active users: 1
+[2025-11-14 00:07:04]   -> Calculated stats for 'file.txt': size=24, words=5, chars=24
+[2025-11-14 00:07:22]   -> Applied update (word 1) to in-memory list for socket 7
+[2025-11-14 00:07:26] Got REQ_ETIRW from socket 7. Committing changes for 'file.txt'.
+[2025-11-14 00:07:26]   -> Lock RELEASED for 'file.txt' (sent 1)
+[2025-11-14 00:07:26]   -> User stopped editing 'file.txt'. Active users: 0
+[2025-11-14 00:07:26]   -> No users left. Freeing document 'file.txt' from memory.
+[2025-11-14 00:07:26]   -> Calculated stats for 'file.txt': size=26, words=6, chars=26
+[2025-11-14 00:11:12] Name Server disconnected!
+[2025-11-14 00:11:20] --- Storage Server Started ---
+[2025-11-14 00:11:20] Scanning storage directory: ./ss_storage
+[2025-11-14 00:11:20] Found 0 files.
+[2025-11-14 00:11:20] Storage Server connected to Name Server on port 8080
+[2025-11-14 00:11:20] Sending file list...
+[2025-11-14 00:11:20] Registration successful!
+[2025-11-14 00:11:20] Sending metadata for 0 existing files...
+[2025-11-14 00:11:20] Storage Server now listening for clients on port 8082...
+[2025-11-14 00:11:38] Got REQ_SS_CREATE for 'new.txt' from NM
+[2025-11-14 00:11:38]   -> Creating file at: ./ss_storage/new.txt
+[2025-11-14 00:11:38]   -> Calculated stats for 'new.txt': size=0, words=0, chars=0
+[2025-11-14 00:12:20] New client connection from 127.0.0.1 on socket 6
+[2025-11-14 00:12:20] Got REQ_CLIENT_WRITE for 'new.txt' (sent 0) from socket 6
+[2025-11-14 00:12:20]   -> Loading file 'new.txt' into active doc slot 0.
+[2025-11-14 00:12:20]   -> Lock CREATED for 'new.txt' (sent 0) by socket 6
+[2025-11-14 00:12:20]   -> Lock granted. Session started. Users editing: 1
+[2025-11-14 00:12:33]   -> Applied update (word 0) to in-memory list for socket 6
+[2025-11-14 00:12:34]   -> Applied update (word 1) to in-memory list for socket 6
+[2025-11-14 00:12:37] Got REQ_ETIRW from socket 6. Committing changes for 'new.txt'.
+[2025-11-14 00:12:37]   -> Lock RELEASED for 'new.txt' (sent 0)
+[2025-11-14 00:12:37]   -> User stopped editing 'new.txt'. Active users: 0
+[2025-11-14 00:12:37]   -> No users left. Freeing document 'new.txt' from memory.
+[2025-11-14 00:12:37]   -> Calculated stats for 'new.txt': size=6, words=1, chars=6
+[2025-11-14 00:12:54] New client connection from 127.0.0.1 on socket 6
+[2025-11-14 00:12:54] Got REQ_CLIENT_WRITE for 'new.txt' (sent 0) from socket 6
+[2025-11-14 00:12:54]   -> Loading file 'new.txt' into active doc slot 0.
+[2025-11-14 00:12:54]   -> Lock CREATED for 'new.txt' (sent 0) by socket 6
+[2025-11-14 00:12:54]   -> Lock granted. Session started. Users editing: 1
+[2025-11-14 00:13:02] New client connection from 127.0.0.1 on socket 7
+[2025-11-14 00:13:02] Got REQ_CLIENT_WRITE for 'new.txt' (sent 1) from socket 7
+[2025-11-14 00:13:02]   -> File 'new.txt' is already active in memory.
+[2025-11-14 00:13:02]   -> Lock CREATED for 'new.txt' (sent 1) by socket 7
+[2025-11-14 00:13:02]   -> Lock granted. Session started. Users editing: 2
+[2025-11-14 00:13:14]   -> Applied update (word 0) to in-memory list for socket 7
+[2025-11-14 00:13:18]   -> Applied update (word 1) to in-memory list for socket 7
+[2025-11-14 00:13:21]   -> Applied update (word 2) to in-memory list for socket 7
+[2025-11-14 00:13:24] Got REQ_ETIRW from socket 7. Committing changes for 'new.txt'.
+[2025-11-14 00:13:24]   -> Lock RELEASED for 'new.txt' (sent 1)
+[2025-11-14 00:13:24]   -> User stopped editing 'new.txt'. Active users: 1
+[2025-11-14 00:13:24]   -> Calculated stats for 'new.txt': size=17, words=3, chars=17
+[2025-11-14 00:13:49]   -> Applied update (word 1) to in-memory list for socket 6
+[2025-11-14 00:13:53] Got REQ_ETIRW from socket 6. Committing changes for 'new.txt'.
+[2025-11-14 00:13:53]   -> Lock RELEASED for 'new.txt' (sent 0)
+[2025-11-14 00:13:53]   -> User stopped editing 'new.txt'. Active users: 0
+[2025-11-14 00:13:53]   -> No users left. Freeing document 'new.txt' from memory.
+[2025-11-14 00:13:53]   -> Calculated stats for 'new.txt': size=23, words=4, chars=23
+[2025-11-14 00:18:34] Name Server disconnected!
+[2025-11-14 00:18:46] --- Storage Server Started ---
+[2025-11-14 00:18:46] Scanning storage directory: ./ss_storage
+[2025-11-14 00:18:46] Found 2 files.
+[2025-11-14 00:18:46] Storage Server connected to Name Server on port 8080
+[2025-11-14 00:18:46] Sending file list...
+[2025-11-14 00:18:46] Registration successful!
+[2025-11-14 00:18:46] Sending metadata for 2 existing files...
+[2025-11-14 00:18:46]   -> Calculated stats for 'new.txt.bak': size=17, words=3, chars=17
+[2025-11-14 00:18:46]   -> Calculated stats for 'new.txt': size=23, words=4, chars=23
+[2025-11-14 00:18:46] Storage Server now listening for clients on port 8082...
+[2025-11-14 00:19:02] Got REQ_SS_CREATE for 'n.txt' from NM
+[2025-11-14 00:19:02]   -> Creating file at: ./ss_storage/n.txt
+[2025-11-14 00:19:02]   -> Calculated stats for 'n.txt': size=0, words=0, chars=0
+[2025-11-14 00:20:33] New client connection from 127.0.0.1 on socket 6
+[2025-11-14 00:20:33] Got REQ_CLIENT_WRITE for 'n.txt' (sent 0) from socket 6
+[2025-11-14 00:20:33]   -> Loading file 'n.txt' into active doc slot 0.
+[2025-11-14 00:20:33]   -> Lock CREATED for 'n.txt' (sent 0) by socket 6
+[2025-11-14 00:20:33]   -> Lock granted. Session started. Users editing: 1
+[2025-11-14 00:20:38]   -> Applied update (word 0) to in-memory list for socket 6
+[2025-11-14 00:20:43]   -> Applied update (word 1) to in-memory list for socket 6
+[2025-11-14 00:20:46] Got REQ_ETIRW from socket 6. Committing changes for 'n.txt'.
+[2025-11-14 00:20:46]   -> Lock RELEASED for 'n.txt' (sent 0)
+[2025-11-14 00:20:46]   -> User stopped editing 'n.txt'. Active users: 0
+[2025-11-14 00:20:46]   -> No users left. Freeing document 'n.txt' from memory.
+[2025-11-14 00:20:46]   -> Calculated stats for 'n.txt': size=5, words=1, chars=5
+[2025-11-14 00:20:58] New client connection from 127.0.0.1 on socket 6
+[2025-11-14 00:20:58] Got REQ_CLIENT_WRITE for 'n.txt' (sent 1) from socket 6
+[2025-11-14 00:20:58]   -> Loading file 'n.txt' into active doc slot 0.
+[2025-11-14 00:20:58]   -> Lock CREATED for 'n.txt' (sent 1) by socket 6
+[2025-11-14 00:20:58]   -> Lock granted. Session started. Users editing: 1
+[2025-11-14 00:21:03]   -> Applied update (word 0) to in-memory list for socket 6
+[2025-11-14 00:21:05]   -> Applied update (word 1) to in-memory list for socket 6
+[2025-11-14 00:21:08] Got REQ_ETIRW from socket 6. Committing changes for 'n.txt'.
+[2025-11-14 00:21:08]   -> Lock RELEASED for 'n.txt' (sent 1)
+[2025-11-14 00:21:08]   -> User stopped editing 'n.txt'. Active users: 0
+[2025-11-14 00:21:08]   -> No users left. Freeing document 'n.txt' from memory.
+[2025-11-14 00:21:08]   -> Calculated stats for 'n.txt': size=12, words=2, chars=12
+[2025-11-14 00:21:28] New client connection from 127.0.0.1 on socket 6
+[2025-11-14 00:21:28] Got REQ_CLIENT_WRITE for 'n.txt' (sent 1) from socket 6
+[2025-11-14 00:21:28]   -> Loading file 'n.txt' into active doc slot 0.
+[2025-11-14 00:21:28]   -> Lock CREATED for 'n.txt' (sent 1) by socket 6
+[2025-11-14 00:21:28]   -> Lock granted. Session started. Users editing: 1
+[2025-11-14 00:21:39] New client connection from 127.0.0.1 on socket 7
+[2025-11-14 00:21:39] Got REQ_CLIENT_WRITE for 'n.txt' (sent 0) from socket 7
+[2025-11-14 00:21:39]   -> File 'n.txt' is already active in memory.
+[2025-11-14 00:21:39]   -> Lock CREATED for 'n.txt' (sent 0) by socket 7
+[2025-11-14 00:21:39]   -> Lock granted. Session started. Users editing: 2
+[2025-11-14 00:21:48]   -> Applied update (word 1) to in-memory list for socket 7
+[2025-11-14 00:21:55]   -> Applied update (word 1) to in-memory list for socket 6
+[2025-11-14 00:21:58] Got REQ_ETIRW from socket 6. Committing changes for 'n.txt'.
+[2025-11-14 00:21:58]   -> Lock RELEASED for 'n.txt' (sent 1)
+[2025-11-14 00:21:58]   -> User stopped editing 'n.txt'. Active users: 1
+[2025-11-14 00:21:58]   -> Calculated stats for 'n.txt': size=20, words=4, chars=20
+[2025-11-14 00:22:08] Got REQ_ETIRW from socket 7. Committing changes for 'n.txt'.
+[2025-11-14 00:22:08]   -> Lock RELEASED for 'n.txt' (sent 0)
+[2025-11-14 00:22:08]   -> User stopped editing 'n.txt'. Active users: 0
+[2025-11-14 00:22:08]   -> No users left. Freeing document 'n.txt' from memory.
+[2025-11-14 00:22:08]   -> Calculated stats for 'n.txt': size=20, words=4, chars=20

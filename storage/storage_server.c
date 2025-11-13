@@ -20,13 +20,41 @@
 // --- Global Log File ---
 FILE* ss_log_file;
 
-// --- 1. Global State & Helpers for SS ---
-typedef struct { int active; char filename[MAX_FILENAME]; int sentence_num; int sock_fd; } LockInfo;
-LockInfo global_locks[MAX_LOCKS];
-typedef struct { int active; char filename[MAX_FILENAME]; int sentence_num; char original_path[256]; char temp_path[256]; char backup_path[256]; FILE* temp_file; } WriteSession;
-WriteSession write_sessions[MAX_CONNECTIONS];
+// --- 1. NEW LINKED LIST DATA STRUCTURES ---
+typedef struct WordNode {
+    char* word;
+    struct WordNode* next;
+} WordNode;
 
-// --- 2. Logging Function ---
+typedef struct SentenceNode {
+    WordNode* word_head;
+    char delimiter; // The sentence terminator ('.', '!', '?', or '\n')
+    struct SentenceNode* next;
+} SentenceNode;
+
+// --- 2. UPDATED GLOBAL STATE STRUCTS ---
+typedef struct { int active; char filename[MAX_FILENAME]; int sentence_num; int sock_fd; } LockInfo;
+LockInfo global_locks[MAX_LOCKS]; 
+
+typedef struct {
+    int active;
+    char filename[MAX_FILENAME];
+    SentenceNode* doc_head; 
+    int num_users_editing;  
+    char original_path[256];
+    char backup_path[256];
+} ActiveDoc;
+ActiveDoc active_documents[MAX_FILES_IN_SYSTEM];
+
+typedef struct {
+    int active;
+    int doc_index;    
+    int sentence_num; 
+} WriteSession;
+WriteSession write_sessions[MAX_CONNECTIONS]; 
+
+
+// --- 3. Logging Function (Same as before) ---
 void log_event(const char* format, ...) {
     char time_buf[50]; time_t now = time(NULL); strftime(time_buf, sizeof(time_buf), "%Y-%m-%d %H:%M:%S", localtime(&now));
     va_list args;
@@ -35,31 +63,288 @@ void log_event(const char* format, ...) {
     fflush(ss_log_file);
 }
 
-// --- 3. Lock Helper Functions ---
+// --- 4. Lock Helpers (Same as before) ---
 void init_locks() { for (int i = 0; i < MAX_LOCKS; i++) global_locks[i].active = 0; }
 int find_lock(char* f, int s) { for (int i = 0; i < MAX_LOCKS; i++) if (global_locks[i].active && !strcmp(global_locks[i].filename, f) && global_locks[i].sentence_num == s) return i; return -1; }
 int create_lock(char* f, int s, int sock) { if (find_lock(f, s) != -1) return 0; for (int i = 0; i < MAX_LOCKS; i++) if (!global_locks[i].active) { global_locks[i].active = 1; strncpy(global_locks[i].filename, f, MAX_FILENAME); global_locks[i].sentence_num = s; global_locks[i].sock_fd = sock; log_event("  -> Lock CREATED for '%s' (sent %d) by socket %d", f, s, sock); return 1; } return -1; }
 void release_lock(char* f, int s) { int i = find_lock(f, s); if (i != -1) { global_locks[i].active = 0; log_event("  -> Lock RELEASED for '%s' (sent %d)", f, s); } }
 
+// --- 5. NEW Linked List Helper Functions ---
+WordNode* create_word_node(const char* word_str) {
+    WordNode* node = (WordNode*)malloc(sizeof(WordNode));
+    node->word = strdup(word_str); 
+    node->next = NULL;
+    return node;
+}
+SentenceNode* create_sentence_node(char delim) {
+    SentenceNode* node = (SentenceNode*)malloc(sizeof(SentenceNode));
+    node->word_head = NULL;
+    node->delimiter = delim;
+    node->next = NULL;
+    return node;
+}
+void free_document(SentenceNode* sent_head) {
+    SentenceNode* current_sent = sent_head;
+    while (current_sent != NULL) {
+        WordNode* current_word = current_sent->word_head;
+        while (current_word != NULL) {
+            WordNode* next_word = current_word->next;
+            free(current_word->word); free(current_word);
+            current_word = next_word;
+        }
+        SentenceNode* next_sent = current_sent->next;
+        free(current_sent); current_sent = next_sent;
+    }
+}
 
-// --- 4. Metadata Helper ---
-void calculate_and_send_metadata(int nm_sock, char* filename, char* file_path) {
+// *** THIS FUNCTION IS REWRITTEN TO BE SAFER ***
+SentenceNode* parse_file_to_list(const char* file_path) {
     FILE* f = fopen(file_path, "r");
-    if (f == NULL) {
-        log_event("  -> ERROR: Could not open file %s to calculate metadata.", file_path);
+    if (!f) return NULL;
+
+    fseek(f, 0, SEEK_END); long file_size = ftell(f); rewind(f);
+    char* buffer = (char*)malloc(file_size + 1);
+    fread(buffer, 1, file_size, f);
+    buffer[file_size] = '\0';
+    fclose(f);
+
+    SentenceNode* doc_head = NULL;
+    SentenceNode* current_sent = NULL;
+    WordNode* current_word = NULL;
+
+    char* word_buffer = (char*)malloc(file_size + 1); // Buffer for the current word
+    int word_idx = 0;
+    
+    // Start with a new sentence
+    doc_head = create_sentence_node(' ');
+    current_sent = doc_head;
+
+    for (int i = 0; i < file_size; i++) {
+        char c = buffer[i];
+
+        if (c == '.' || c == '!' || c == '?') {
+            // Found a sentence delimiter
+            if (word_idx > 0) { // Save the last word
+                word_buffer[word_idx] = '\0';
+                WordNode* new_word = create_word_node(word_buffer);
+                if (current_word == NULL) current_sent->word_head = new_word;
+                else current_word->next = new_word;
+                current_word = new_word;
+                word_idx = 0;
+            }
+            
+            // Create a new sentence
+            current_sent->delimiter = c;
+            SentenceNode* new_sent = create_sentence_node(' ');
+            current_sent->next = new_sent;
+            current_sent = new_sent;
+            current_word = NULL;
+        } 
+        else if (isspace(c)) { // Found a word delimiter
+            if (word_idx > 0) { // Save the last word
+                word_buffer[word_idx] = '\0';
+                WordNode* new_word = create_word_node(word_buffer);
+                if (current_word == NULL) current_sent->word_head = new_word;
+                else current_word->next = new_word;
+                current_word = new_word;
+                word_idx = 0;
+            }
+            // If it's a newline, it's also a sentence
+            if (c == '\n') {
+                current_sent->delimiter = '\n';
+                SentenceNode* new_sent = create_sentence_node(' ');
+                current_sent->next = new_sent;
+                current_sent = new_sent;
+                current_word = NULL;
+            }
+        } 
+        else {
+            // Just a normal character, add to word
+            word_buffer[word_idx++] = c;
+        }
+    }
+
+    // Save any trailing word
+    if (word_idx > 0) {
+        word_buffer[word_idx] = '\0';
+        WordNode* new_word = create_word_node(word_buffer);
+        if (current_word == NULL) current_sent->word_head = new_word;
+        else current_word->next = new_word;
+    }
+
+    free(buffer);
+    free(word_buffer);
+    return doc_head;
+}
+
+// This function writes the linked list structure back to the physical file
+void flush_list_to_file(SentenceNode* sent_head, const char* file_path) {
+    FILE* f = fopen(file_path, "w");
+    if (!f) { log_event("  -> ERROR: Could not open file for flushing: %s", file_path); return; }
+
+    SentenceNode* current_sent = sent_head;
+    while (current_sent != NULL) {
+        WordNode* current_word = current_sent->word_head;
+        while (current_word != NULL) {
+            fprintf(f, "%s", current_word->word);
+            if (current_word->next != NULL) {
+                fprintf(f, " "); // Add space between words
+            }
+            current_word = current_word->next;
+        }
+        
+        if(current_sent->delimiter == '\n') {
+            fprintf(f, "\n");
+        } else if (current_sent->delimiter != ' ' || current_sent->next != NULL) {
+            // Add delimiter if it's not a space, OR if it's a space
+            // but not the very last sentence.
+            fprintf(f, "%c ", current_sent->delimiter);
+        }
+        
+        current_sent = current_sent->next;
+    }
+    fclose(f);
+}
+
+// This is the new, complex function that handles word insertion AND sentence splitting
+// It now takes the doc_head directly
+void handle_write_update_list(SentenceNode* doc_head, int sent_num, int word_idx, char* content) {
+    // 1. Find the target sentence
+    SentenceNode* target_sent = doc_head;
+    for (int i = 0; i < sent_num && target_sent != NULL; i++) {
+        target_sent = target_sent->next;
+    }
+    if (target_sent == NULL) {
+        log_event("  -> ERROR: Sentence number %d out of bounds.", sent_num);
         return;
     }
-    long file_size = 0; int word_count = 0; int char_count = 0;
-    int in_word = 0; char c;
+
+    // 2. Find the insertion point (the node *before* word_idx)
+    WordNode* insertion_point_prev = NULL;
+    WordNode* insertion_point_next = target_sent->word_head;
+    for (int i = 0; i < word_idx && insertion_point_next != NULL; i++) {
+        insertion_point_prev = insertion_point_next;
+        insertion_point_next = insertion_point_next->next;
+    }
+
+    // 3. Tokenize the new content by spaces
+    char* content_copy = strdup(content); // Use a copy so strtok doesn't destroy original
+    char* content_context = NULL;
+    char* content_word = strtok_r(content_copy, " \t\r", &content_context);
+    
+    while(content_word != NULL) {
+        // 4. Check *this word* for a delimiter
+        char* delim_ptr = strpbrk(content_word, ".!?");
+        
+        if (delim_ptr != NULL) {
+            // --- This word contains a delimiter! ---
+            char delim_char = *delim_ptr;
+            *delim_ptr = '\0'; 
+            
+            if (strlen(content_word) > 0) {
+                WordNode* new_word = create_word_node(content_word);
+                if (insertion_point_prev == NULL) target_sent->word_head = new_word;
+                else insertion_point_prev->next = new_word;
+                new_word->next = NULL; 
+                insertion_point_prev = new_word;
+            }
+            
+            SentenceNode* new_sent = create_sentence_node(target_sent->delimiter); 
+            target_sent->delimiter = delim_char;
+            
+            new_sent->next = target_sent->next;
+            target_sent->next = new_sent;
+            new_sent->word_head = insertion_point_next;
+            
+            content_word = delim_ptr + 1;
+            if (strlen(content_word) > 0) {
+                WordNode* final_word = create_word_node(content_word);
+                final_word->next = new_sent->word_head; 
+                new_sent->word_head = final_word;
+                insertion_point_prev = final_word;
+            } else {
+                insertion_point_prev = NULL;
+            }
+
+            target_sent = new_sent;
+            insertion_point_next = target_sent->word_head;
+
+        } else {
+            // --- Simple word, no delimiter ---
+            WordNode* new_word = create_word_node(content_word);
+            if (insertion_point_prev == NULL) target_sent->word_head = new_word;
+            else insertion_point_prev->next = new_word;
+            new_word->next = insertion_point_next;
+            insertion_point_prev = new_word;
+        }
+        
+        content_word = strtok_r(NULL, " \t\r", &content_context);
+    }
+    free(content_copy);
+}
+
+
+// --- 6. NEW Active Document Helpers ---
+int find_empty_active_doc_slot() {
+    for (int i = 0; i < MAX_FILES_IN_SYSTEM; i++) { if (!active_documents[i].active) return i; }
+    return -1;
+}
+int find_active_doc(char* filename) {
+    for (int i = 0; i < MAX_FILES_IN_SYSTEM; i++) {
+        if (active_documents[i].active && strcmp(active_documents[i].filename, filename) == 0) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+ActiveDoc* find_or_load_active_doc(char* filename) {
+    int doc_idx = find_active_doc(filename);
+    if (doc_idx != -1) {
+        log_event("  -> File '%s' is already active in memory.", filename);
+        return &active_documents[doc_idx];
+    }
+    int new_slot = find_empty_active_doc_slot();
+    if (new_slot == -1) { log_event("  -> ERROR: Active document list is full!"); return NULL; }
+    
+    ActiveDoc* doc = &active_documents[new_slot];
+    log_event("  -> Loading file '%s' into active doc slot %d.", filename, new_slot);
+    
+    sprintf(doc->original_path, "%s/%s", MY_STORAGE_PATH, filename);
+    sprintf(doc->backup_path, "%s/%s.bak", MY_STORAGE_PATH, filename);
+    
+    doc->doc_head = parse_file_to_list(doc->original_path);
+    if (doc->doc_head == NULL) { log_event("  -> ERROR: Failed to parse file '%s' into list.", filename); return NULL; }
+
+    doc->active = 1;
+    strncpy(doc->filename, filename, MAX_FILENAME);
+    doc->num_users_editing = 0;
+    
+    return doc;
+}
+
+void release_active_doc(ActiveDoc* doc) {
+    doc->num_users_editing--;
+    log_event("  -> User stopped editing '%s'. Active users: %d", doc->filename, doc->num_users_editing);
+    if (doc->num_users_editing <= 0) {
+        log_event("  -> No users left. Freeing document '%s' from memory.", doc->filename);
+        free_document(doc->doc_head);
+        doc->active = 0;
+    }
+}
+
+// --- 7. Metadata, File Ops, & Disconnect Helpers ---
+void calculate_and_send_metadata(int nm_sock, char* filename, char* file_path) {
+    FILE* f = fopen(file_path, "r");
+    if (f == NULL) { log_event("  -> ERROR: Could not open file %s to calculate metadata.", file_path); return; }
+    long file_size = 0; int word_count = 0; int char_count = 0; int in_word = 0; char c;
     fseek(f, 0, SEEK_END); file_size = ftell(f); rewind(f);
     while ((c = fgetc(f)) != EOF) {
         char_count++;
-        if (isspace(c)) { in_word = 0; }
-        else { if (in_word == 0) { word_count++; in_word = 1; } }
+        if (isspace(c)) { in_word = 0; } else { if (in_word == 0) { word_count++; in_word = 1; } }
     }
     fclose(f);
-    struct stat st; time_t mod_time = 0;
-    if (stat(file_path, &st) == 0) { mod_time = st.st_mtime; }
+    struct stat st; time_t mod_time = 0; if (stat(file_path, &st) == 0) { mod_time = st.st_mtime; }
     log_event("  -> Calculated stats for '%s': size=%ld, words=%d, chars=%d", filename, file_size, word_count, char_count);
     Header header; header.type = REQ_UPDATE_METADATA; header.payload_size = sizeof(Msg_Update_Metadata);
     Msg_Update_Metadata msg;
@@ -69,8 +354,6 @@ void calculate_and_send_metadata(int nm_sock, char* filename, char* file_path) {
     if (send(nm_sock, &header, sizeof(header), 0) < 0) log_event("  -> ERROR: send metadata header failed");
     if (send(nm_sock, &msg, sizeof(msg), 0) < 0) log_event("  -> ERROR: send metadata payload failed");
 }
-
-// --- 5. File Operation Helpers ---
 void handle_create_file(char* filename, char* file_path) {
     sprintf(file_path, "%s/%s", MY_STORAGE_PATH, filename);
     log_event("  -> Creating file at: %s", file_path);
@@ -78,51 +361,6 @@ void handle_create_file(char* filename, char* file_path) {
     if (f) { fclose(f); }
 }
 void handle_send_file(int client_sock, char* filename) { char file_path[256]; sprintf(file_path, "%s/%s", MY_STORAGE_PATH, filename); int fd = open(file_path, O_RDONLY); if (fd < 0) { log_event("  -> File not found. Sending error to socket %d", client_sock); send_simple_header(client_sock, RES_ERROR_NOT_FOUND); return; } send_simple_header(client_sock, RES_SS_FILE_OK); log_event("  -> Sending file '%s' to socket %d", filename, client_sock); char buffer[FILE_BUFFER_SIZE]; int bytes_read; while ((bytes_read = read(fd, buffer, FILE_BUFFER_SIZE)) > 0) if (send(client_sock, buffer, bytes_read, 0) < 0) break; close(fd); log_event("  -> Finished sending file to socket %d", client_sock); }
-
-// --- 6. Disconnect Helper ---
-void handle_client_disconnect(int sock_fd, fd_set* master_set) {
-    struct sockaddr_in addr; socklen_t len = sizeof(addr);
-    char ip_buf[MAX_IP_LEN] = "UNKNOWN_IP";
-    if (getpeername(sock_fd, (struct sockaddr*)&addr, &len) == 0) { strncpy(ip_buf, inet_ntoa(addr.sin_addr), MAX_IP_LEN); }
-    log_event("Client on socket %d (%s) disconnected", sock_fd, ip_buf);
-    if (write_sessions[sock_fd].active) { WriteSession* session = &write_sessions[sock_fd]; log_event("  -> Client was in a write session! Rolling back changes."); release_lock(session->filename, session->sentence_num); fclose(session->temp_file); remove(session->temp_path); session->active = 0; }
-    close(sock_fd); FD_CLR(sock_fd, master_set);
-}
-
-// --- 7. Write Update Helper ---
-void handle_write_update(WriteSession* session, Msg_Write_Update* req) {
-    rewind(session->temp_file); fseek(session->temp_file, 0, SEEK_END); long file_size = ftell(session->temp_file); rewind(session->temp_file);
-    char* mem_buffer = (char*)malloc(file_size + 1); char* file_content_orig = (char*)malloc(file_size + 1);
-    if (!mem_buffer || !file_content_orig) { perror("malloc update buffer"); return; }
-    fread(mem_buffer, 1, file_size, session->temp_file); mem_buffer[file_size] = '\0'; strcpy(file_content_orig, mem_buffer);
-    long new_buf_size = file_size + strlen(req->content) + 1024; char* new_mem_buffer = (char*)malloc(new_buf_size);
-    char* write_ptr = new_mem_buffer;
-    if (!new_mem_buffer) { perror("malloc new buffer"); free(mem_buffer); free(file_content_orig); return; }
-    *write_ptr = '\0'; char* sent_context = NULL; char* sentence = strtok_r(mem_buffer, ".!?\n", &sent_context); int sent_count = 0;
-    while (sentence != NULL) {
-        long sent_start_offset = sentence - mem_buffer; long orig_sent_len = strlen(sentence); char delimiter = file_content_orig[sent_start_offset + orig_sent_len];
-        while (isspace((unsigned char)*sentence)) { *write_ptr++ = *sentence++; }
-        long sent_len = strlen(sentence);
-        if (sent_count == session->sentence_num) {
-            log_event("  -> Modifying sentence %d", sent_count);
-            char* word_context = NULL; char* word = strtok_r(sentence, " ", &word_context); int word_count = 0;
-            while (word != NULL && word_count < req->word_index) { strcpy(write_ptr, word); write_ptr += strlen(word); *write_ptr++ = ' '; word_count++; word = strtok_r(NULL, " ", &word_context); }
-            strcpy(write_ptr, req->content); write_ptr += strlen(req->content);
-            if (word != NULL) {
-                *write_ptr++ = ' '; strcpy(write_ptr, word); write_ptr += strlen(word); *write_ptr++ = ' ';
-                word = strtok_r(NULL, " ", &word_context);
-                while (word != NULL) { strcpy(write_ptr, word); write_ptr += strlen(word); *write_ptr++ = ' '; word = strtok_r(NULL, " ", &word_context); }
-            }
-            if (write_ptr > new_mem_buffer && *(write_ptr - 1) == ' ') { write_ptr--; }
-        } else { strcpy(write_ptr, sentence); write_ptr += sent_len; }
-        if (delimiter != '\0') { *write_ptr++ = delimiter; }
-        sent_count++; sentence = strtok_r(NULL, ".!?\n", &sent_context);
-    }
-    *write_ptr = '\0'; rewind(session->temp_file); fputs(new_mem_buffer, session->temp_file); fflush(session->temp_file); ftruncate(fileno(session->temp_file), ftell(session->temp_file));
-    free(mem_buffer); free(file_content_orig); free(new_mem_buffer);
-}
-
-// --- 8. Stream Helper ---
 void handle_stream_file(int client_sock, char* filename) {
     char file_path[256]; sprintf(file_path, "%s/%s", MY_STORAGE_PATH, filename);
     int fd = open(file_path, O_RDONLY);
@@ -143,14 +381,37 @@ void handle_stream_file(int client_sock, char* filename) {
     free(mem_buffer); log_event("  -> Finished streaming file to socket %d", client_sock);
 }
 
-// --- 9. Main Function ---
+void handle_client_disconnect(int sock_fd, fd_set* master_set) {
+    struct sockaddr_in addr; socklen_t len = sizeof(addr);
+    char ip_buf[MAX_IP_LEN] = "UNKNOWN_IP";
+    if (getpeername(sock_fd, (struct sockaddr*)&addr, &len) == 0) { strncpy(ip_buf, inet_ntoa(addr.sin_addr), MAX_IP_LEN); }
+    log_event("Client on socket %d (%s) disconnected", sock_fd, ip_buf);
+    
+    if (write_sessions[sock_fd].active) {
+        WriteSession* session = &write_sessions[sock_fd];
+        ActiveDoc* doc = &active_documents[session->doc_index];
+        log_event("  -> Client was in a write session!");
+        
+        release_lock(doc->filename, session->sentence_num);
+        release_active_doc(doc); 
+        session->active = 0;
+    }
+    close(sock_fd);
+    FD_CLR(sock_fd, master_set);
+}
+
+
+// --- 8. Main Function ---
 int main() {
     ss_log_file = fopen("ss.log", "a"); if (ss_log_file == NULL) error_exit("fopen ss.log");
     log_event("--- Storage Server Started ---");
     int nm_sock, client_listener_sock, new_client_sock;
     struct sockaddr_in nm_addr, client_listen_addr, client_addr;
     socklen_t client_len; fd_set master_set, read_set; int fdmax;
-    init_locks(); for(int i = 0; i < MAX_CONNECTIONS; i++) write_sessions[i].active = 0;
+    init_locks(); 
+    for(int i = 0; i < MAX_CONNECTIONS; i++) write_sessions[i].active = 0;
+    for(int i = 0; i < MAX_FILES_IN_SYSTEM; i++) active_documents[i].active = 0; 
+    
     char my_files[MAX_FILES_PER_SS][MAX_FILENAME]; int file_count = 0; mkdir(MY_STORAGE_PATH, 0777);
     log_event("Scanning storage directory: %s", MY_STORAGE_PATH);
     DIR *d = opendir(MY_STORAGE_PATH);
@@ -219,9 +480,7 @@ int main() {
                             sprintf(temp_swap_path, "%s/%s.swap", MY_STORAGE_PATH, req.filename);
                             rename(original_path, temp_swap_path); rename(backup_path, original_path); rename(temp_swap_path, backup_path);
                             log_event("  -> Swapped backup file.");
-                            // Send RES_OK first so NM's synchronous recv() gets the expected acknowledgement
                             send_simple_header(nm_sock, RES_OK);
-                            // Then asynchronously push updated metadata like other operations
                             calculate_and_send_metadata(nm_sock, req.filename, original_path);
                             break;
                         }
@@ -261,49 +520,55 @@ int main() {
                             case REQ_CLIENT_WRITE: {
                                 Msg_Client_Write req; recv(sock_fd, &req, sizeof(req), 0);
                                 log_event("Got REQ_CLIENT_WRITE for '%s' (sent %d) from socket %d", req.filename, req.sentence_num, sock_fd);
+                                
                                 if (find_lock(req.filename, req.sentence_num) != -1) {
                                     log_event("  -> Lock conflict! Sending error.");
                                     send_simple_header(sock_fd, RES_ERROR_LOCKED);
                                     close(sock_fd); FD_CLR(sock_fd, &master_set);
                                 } else {
-                                    create_lock(req.filename, req.sentence_num, sock_fd);
-                                    WriteSession* session = &write_sessions[sock_fd];
-                                    session->active = 1; strncpy(session->filename, req.filename, MAX_FILENAME);
-                                    session->sentence_num = req.sentence_num;
-                                    sprintf(session->original_path, "%s/%s", MY_STORAGE_PATH, req.filename);
-                                    sprintf(session->temp_path, "%s/%s.tmp.%d", MY_STORAGE_PATH, req.filename, sock_fd);
-                                    sprintf(session->backup_path, "%s/%s.bak", MY_STORAGE_PATH, req.filename);
-                                    char cmd[520]; snprintf(cmd, sizeof(cmd), "cp %s %s", session->original_path, session->temp_path);
-                                    system(cmd);
-                                    session->temp_file = fopen(session->temp_path, "r+");
-                                    if(session->temp_file == NULL) {
-                                        log_event("  -> ERROR: fopen temp file failed.");
+                                    ActiveDoc* doc = find_or_load_active_doc(req.filename);
+                                    if(doc == NULL) {
+                                        log_event("  -> ERROR: Failed to load document for writing.");
                                         send_simple_header(sock_fd, RES_ERROR);
                                         close(sock_fd); FD_CLR(sock_fd, &master_set);
-                                    } else {
-                                        log_event("  -> Lock granted. Session started.");
-                                        send_simple_header(sock_fd, RES_OK_LOCKED);
+                                        break;
                                     }
+                                    create_lock(req.filename, req.sentence_num, sock_fd);
+                                    doc->num_users_editing++;
+                                    WriteSession* session = &write_sessions[sock_fd];
+                                    session->active = 1;
+                                    session->doc_index = doc - active_documents;
+                                    session->sentence_num = req.sentence_num;
+                                    log_event("  -> Lock granted. Session started. Users editing: %d", doc->num_users_editing);
+                                    send_simple_header(sock_fd, RES_OK_LOCKED);
                                 }
                                 break;
                             }
                             case REQ_WRITE_UPDATE: {
                                 if (!write_sessions[sock_fd].active) { log_event("Error: Got REQ_WRITE_UPDATE from socket %d with no active session.", sock_fd); break; }
+                                WriteSession* session = &write_sessions[sock_fd];
+                                ActiveDoc* doc = &active_documents[session->doc_index];
                                 Msg_Write_Update req; recv(sock_fd, &req, sizeof(req), 0);
-                                handle_write_update(&write_sessions[sock_fd], &req);
-                                log_event("  -> Applied update (word %d) to temp file for socket %d", req.word_index, sock_fd);
+                                
+                                char* content_copy = strdup(req.content); // Need to copy, strtok modifies
+                                handle_write_update_list(doc->doc_head, session->sentence_num, req.word_index, content_copy);
+                                free(content_copy); // Free the copy
+                                
+                                log_event("  -> Applied update (word %d) to in-memory list for socket %d", req.word_index, sock_fd);
                                 break;
                             }
                             case REQ_ETIRW: {
                                 if (!write_sessions[sock_fd].active) { log_event("Error: Got REQ_ETIRW from socket %d with no active session.", sock_fd); break; }
-                                log_event("Got REQ_ETIRW from socket %d. Committing changes.", sock_fd);
                                 WriteSession* session = &write_sessions[sock_fd];
-                                fclose(session->temp_file);
-                                rename(session->original_path, session->backup_path);
-                                rename(session->temp_path, session->original_path);
-                                release_lock(session->filename, session->sentence_num);
+                                ActiveDoc* doc = &active_documents[session->doc_index];
+                                log_event("Got REQ_ETIRW from socket %d. Committing changes for '%s'.", sock_fd, doc->filename);
+                                
+                                rename(doc->original_path, doc->backup_path);
+                                flush_list_to_file(doc->doc_head, doc->original_path);
+                                release_lock(doc->filename, session->sentence_num);
                                 session->active = 0;
-                                calculate_and_send_metadata(nm_sock, session->filename, session->original_path);
+                                release_active_doc(doc); 
+                                calculate_and_send_metadata(nm_sock, doc->filename, doc->original_path);
                                 send_simple_header(sock_fd, RES_OK);
                                 close(sock_fd);
                                 FD_CLR(sock_fd, &master_set);
