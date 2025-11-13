@@ -7,8 +7,8 @@
 #include <malloc.h> 
 #include <ctype.h>
 #include <errno.h>
-#include <time.h>     // For logging timestamp
-#include <stdarg.h>   // For ... in log_event
+#include <time.h>
+#include <stdarg.h>
 
 #define MY_IP_FOR_CLIENTS "127.0.0.1"
 #define MY_PORT_FOR_CLIENTS 8082
@@ -17,67 +17,79 @@
 #define MAX_CONNECTIONS FD_SETSIZE
 #define MAX_LOCKS 100
 
-// --- NEW: Global Log File ---
+// --- Global Log File ---
 FILE* ss_log_file;
 
 // --- 1. Global State & Helpers for SS ---
-// (Structs, init_locks, find_lock, create_lock, release_lock... same as Phase 3)
 typedef struct { int active; char filename[MAX_FILENAME]; int sentence_num; int sock_fd; } LockInfo;
 LockInfo global_locks[MAX_LOCKS];
 typedef struct { int active; char filename[MAX_FILENAME]; int sentence_num; char original_path[256]; char temp_path[256]; char backup_path[256]; FILE* temp_file; } WriteSession;
 WriteSession write_sessions[MAX_CONNECTIONS];
+
+// --- 2. Logging Function ---
+void log_event(const char* format, ...) {
+    char time_buf[50]; time_t now = time(NULL); strftime(time_buf, sizeof(time_buf), "%Y-%m-%d %H:%M:%S", localtime(&now));
+    va_list args;
+    printf("[%s] ", time_buf); va_start(args, format); vprintf(format, args); va_end(args); printf("\n");
+    fprintf(ss_log_file, "[%s] ", time_buf); va_start(args, format); vfprintf(ss_log_file, format, args); va_end(args); fprintf(ss_log_file, "\n");
+    fflush(ss_log_file);
+}
+
+// --- 3. Lock Helper Functions ---
 void init_locks() { for (int i = 0; i < MAX_LOCKS; i++) global_locks[i].active = 0; }
 int find_lock(char* f, int s) { for (int i = 0; i < MAX_LOCKS; i++) if (global_locks[i].active && !strcmp(global_locks[i].filename, f) && global_locks[i].sentence_num == s) return i; return -1; }
 int create_lock(char* f, int s, int sock) { if (find_lock(f, s) != -1) return 0; for (int i = 0; i < MAX_LOCKS; i++) if (!global_locks[i].active) { global_locks[i].active = 1; strncpy(global_locks[i].filename, f, MAX_FILENAME); global_locks[i].sentence_num = s; global_locks[i].sock_fd = sock; log_event("  -> Lock CREATED for '%s' (sent %d) by socket %d", f, s, sock); return 1; } return -1; }
 void release_lock(char* f, int s) { int i = find_lock(f, s); if (i != -1) { global_locks[i].active = 0; log_event("  -> Lock RELEASED for '%s' (sent %d)", f, s); } }
 
 
-// --- NEW: Logging Function ---
-void log_event(const char* format, ...) {
-    char time_buf[50];
-    time_t now = time(NULL);
-    strftime(time_buf, sizeof(time_buf), "%Y-%m-%d %H:%M:%S", localtime(&now));
-    
-    va_list args;
-    
-    // Print to stdout
-    printf("[%s] ", time_buf);
-    va_start(args, format);
-    vprintf(format, args);
-    va_end(args);
-    printf("\n");
-
-    // Print to log file
-    fprintf(ss_log_file, "[%s] ", time_buf);
-    va_start(args, format);
-    vfprintf(ss_log_file, format, args);
-    va_end(args);
-    fprintf(ss_log_file, "\n");
-    
-    fflush(ss_log_file); // Ensure it's written immediately
+// --- 4. Metadata Helper ---
+void calculate_and_send_metadata(int nm_sock, char* filename, char* file_path) {
+    FILE* f = fopen(file_path, "r");
+    if (f == NULL) {
+        log_event("  -> ERROR: Could not open file %s to calculate metadata.", file_path);
+        return;
+    }
+    long file_size = 0; int word_count = 0; int char_count = 0;
+    int in_word = 0; char c;
+    fseek(f, 0, SEEK_END); file_size = ftell(f); rewind(f);
+    while ((c = fgetc(f)) != EOF) {
+        char_count++;
+        if (isspace(c)) { in_word = 0; }
+        else { if (in_word == 0) { word_count++; in_word = 1; } }
+    }
+    fclose(f);
+    struct stat st; time_t mod_time = 0;
+    if (stat(file_path, &st) == 0) { mod_time = st.st_mtime; }
+    log_event("  -> Calculated stats for '%s': size=%ld, words=%d, chars=%d", filename, file_size, word_count, char_count);
+    Header header; header.type = REQ_UPDATE_METADATA; header.payload_size = sizeof(Msg_Update_Metadata);
+    Msg_Update_Metadata msg;
+    strncpy(msg.filename, filename, MAX_FILENAME);
+    msg.file_size = file_size; msg.word_count = word_count; msg.char_count = char_count;
+    msg.last_modified = mod_time;
+    if (send(nm_sock, &header, sizeof(header), 0) < 0) log_event("  -> ERROR: send metadata header failed");
+    if (send(nm_sock, &msg, sizeof(msg), 0) < 0) log_event("  -> ERROR: send metadata payload failed");
 }
 
-// --- 3. File Operation Helpers ---
-void handle_create_file(char* filename) { char file_path[256]; sprintf(file_path, "%s/%s", MY_STORAGE_PATH, filename); log_event("  -> Creating file at: %s", file_path); FILE* f = fopen(file_path, "w"); if (f) fclose(f); }
+// --- 5. File Operation Helpers ---
+void handle_create_file(char* filename, char* file_path) {
+    sprintf(file_path, "%s/%s", MY_STORAGE_PATH, filename);
+    log_event("  -> Creating file at: %s", file_path);
+    FILE* f = fopen(file_path, "w");
+    if (f) { fclose(f); }
+}
 void handle_send_file(int client_sock, char* filename) { char file_path[256]; sprintf(file_path, "%s/%s", MY_STORAGE_PATH, filename); int fd = open(file_path, O_RDONLY); if (fd < 0) { log_event("  -> File not found. Sending error to socket %d", client_sock); send_simple_header(client_sock, RES_ERROR_NOT_FOUND); return; } send_simple_header(client_sock, RES_SS_FILE_OK); log_event("  -> Sending file '%s' to socket %d", filename, client_sock); char buffer[FILE_BUFFER_SIZE]; int bytes_read; while ((bytes_read = read(fd, buffer, FILE_BUFFER_SIZE)) > 0) if (send(client_sock, buffer, bytes_read, 0) < 0) break; close(fd); log_event("  -> Finished sending file to socket %d", client_sock); }
 
-// --- 4. Disconnect Helper ---
+// --- 6. Disconnect Helper ---
 void handle_client_disconnect(int sock_fd, fd_set* master_set) {
-    // Get client IP *before* closing
     struct sockaddr_in addr; socklen_t len = sizeof(addr);
     char ip_buf[MAX_IP_LEN] = "UNKNOWN_IP";
-    if (getpeername(sock_fd, (struct sockaddr*)&addr, &len) == 0) {
-        strncpy(ip_buf, inet_ntoa(addr.sin_addr), MAX_IP_LEN);
-    }
-    
+    if (getpeername(sock_fd, (struct sockaddr*)&addr, &len) == 0) { strncpy(ip_buf, inet_ntoa(addr.sin_addr), MAX_IP_LEN); }
     log_event("Client on socket %d (%s) disconnected", sock_fd, ip_buf);
     if (write_sessions[sock_fd].active) { WriteSession* session = &write_sessions[sock_fd]; log_event("  -> Client was in a write session! Rolling back changes."); release_lock(session->filename, session->sentence_num); fclose(session->temp_file); remove(session->temp_path); session->active = 0; }
-    close(sock_fd);
-    FD_CLR(sock_fd, master_set);
+    close(sock_fd); FD_CLR(sock_fd, master_set);
 }
 
-// --- 5. Write Update Helper ---
-// (The complex handle_write_update function with INSERT logic... same as Phase 3 fix)
+// --- 7. Write Update Helper ---
 void handle_write_update(WriteSession* session, Msg_Write_Update* req) {
     rewind(session->temp_file); fseek(session->temp_file, 0, SEEK_END); long file_size = ftell(session->temp_file); rewind(session->temp_file);
     char* mem_buffer = (char*)malloc(file_size + 1); char* file_content_orig = (char*)malloc(file_size + 1);
@@ -110,7 +122,7 @@ void handle_write_update(WriteSession* session, Msg_Write_Update* req) {
     free(mem_buffer); free(file_content_orig); free(new_mem_buffer);
 }
 
-// --- NEW FOR PHASE 4: Stream Helper ---
+// --- 8. Stream Helper ---
 void handle_stream_file(int client_sock, char* filename) {
     char file_path[256]; sprintf(file_path, "%s/%s", MY_STORAGE_PATH, filename);
     int fd = open(file_path, O_RDONLY);
@@ -131,38 +143,24 @@ void handle_stream_file(int client_sock, char* filename) {
     free(mem_buffer); log_event("  -> Finished streaming file to socket %d", client_sock);
 }
 
-
-// --- 6. Main Function ---
+// --- 9. Main Function ---
 int main() {
-    // --- Open Log File ---
-    ss_log_file = fopen("ss.log", "a");
-    if (ss_log_file == NULL) error_exit("fopen ss.log");
+    ss_log_file = fopen("ss.log", "a"); if (ss_log_file == NULL) error_exit("fopen ss.log");
     log_event("--- Storage Server Started ---");
-    
     int nm_sock, client_listener_sock, new_client_sock;
     struct sockaddr_in nm_addr, client_listen_addr, client_addr;
-    socklen_t client_len;
-    fd_set master_set, read_set;
-    int fdmax;
-    init_locks();
-    for(int i = 0; i < MAX_CONNECTIONS; i++) write_sessions[i].active = 0;
-    
-    char my_files[MAX_FILES_PER_SS][MAX_FILENAME];
-    int file_count = 0;
-    mkdir(MY_STORAGE_PATH, 0777);
+    socklen_t client_len; fd_set master_set, read_set; int fdmax;
+    init_locks(); for(int i = 0; i < MAX_CONNECTIONS; i++) write_sessions[i].active = 0;
+    char my_files[MAX_FILES_PER_SS][MAX_FILENAME]; int file_count = 0; mkdir(MY_STORAGE_PATH, 0777);
     log_event("Scanning storage directory: %s", MY_STORAGE_PATH);
     DIR *d = opendir(MY_STORAGE_PATH);
     if (d) { struct dirent *dir; while ((dir = readdir(d)) != NULL && file_count < MAX_FILES_PER_SS) { if (strcmp(dir->d_name, ".") == 0 || strcmp(dir->d_name, "..") == 0) continue; strncpy(my_files[file_count], dir->d_name, MAX_FILENAME); file_count++; } closedir(d); }
     log_event("Found %d files.", file_count);
-    nm_sock = socket(AF_INET, SOCK_STREAM, 0);
-    if (nm_sock < 0) error_exit("socket");
-    memset(&nm_addr, 0, sizeof(nm_addr));
-    nm_addr.sin_family = AF_INET;
-    nm_addr.sin_port = htons(NM_PORT);
+    nm_sock = socket(AF_INET, SOCK_STREAM, 0); if (nm_sock < 0) error_exit("socket");
+    memset(&nm_addr, 0, sizeof(nm_addr)); nm_addr.sin_family = AF_INET; nm_addr.sin_port = htons(NM_PORT);
     if (inet_pton(AF_INET, "127.0.0.1", &nm_addr.sin_addr) <= 0) error_exit("inet_pton");
     if (connect(nm_sock, (struct sockaddr *)&nm_addr, sizeof(nm_addr)) < 0) error_exit("connect");
     log_event("Storage Server connected to Name Server on port %d", NM_PORT);
-    
     Header header; header.type = REQ_SS_REGISTER; header.payload_size = sizeof(Msg_SS_Register);
     Msg_SS_Register reg_msg; strncpy(reg_msg.ss_ip, MY_IP_FOR_CLIENTS, MAX_IP_LEN); reg_msg.client_port = MY_PORT_FOR_CLIENTS; reg_msg.file_count = file_count;
     if (send(nm_sock, &header, sizeof(Header), 0) < 0) error_exit("send header");
@@ -171,47 +169,44 @@ int main() {
     for (int i = 0; i < file_count; i++) { Msg_File_Item item; strncpy(item.filename, my_files[i], MAX_FILENAME); if (send(nm_sock, &item, sizeof(item), 0) < 0) error_exit("send file item"); }
     if (recv(nm_sock, &header, sizeof(Header), 0) < 0 || header.type != RES_OK) error_exit("Registration failed");
     log_event("Registration successful!");
-    
-    client_listener_sock = socket(AF_INET, SOCK_STREAM, 0);
-    if (client_listener_sock < 0) error_exit("client listener socket");
+    log_event("Sending metadata for %d existing files...", file_count);
+    for (int i = 0; i < file_count; i++) {
+        char file_path[256];
+        sprintf(file_path, "%s/%s", MY_STORAGE_PATH, my_files[i]);
+        calculate_and_send_metadata(nm_sock, my_files[i], file_path);
+    }
+    client_listener_sock = socket(AF_INET, SOCK_STREAM, 0); if (client_listener_sock < 0) error_exit("client listener socket");
     int yes = 1; if (setsockopt(client_listener_sock, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int)) < 0) error_exit("setsockopt");
-    memset(&client_listen_addr, 0, sizeof(client_listen_addr));
-    client_listen_addr.sin_family = AF_INET; client_listen_addr.sin_addr.s_addr = INADDR_ANY; client_listen_addr.sin_port = htons(MY_PORT_FOR_CLIENTS);
+    memset(&client_listen_addr, 0, sizeof(client_listen_addr)); client_listen_addr.sin_family = AF_INET; client_listen_addr.sin_addr.s_addr = INADDR_ANY; client_listen_addr.sin_port = htons(MY_PORT_FOR_CLIENTS);
     if (bind(client_listener_sock, (struct sockaddr *)&client_listen_addr, sizeof(client_listen_addr)) < 0) error_exit("client listener bind");
     if (listen(client_listener_sock, 10) < 0) error_exit("client listener listen");
     log_event("Storage Server now listening for clients on port %d...", MY_PORT_FOR_CLIENTS);
-    
     FD_ZERO(&master_set); FD_SET(nm_sock, &master_set); FD_SET(client_listener_sock, &master_set);
     fdmax = (nm_sock > client_listener_sock) ? nm_sock : client_listener_sock;
 
-    // --- Main Server Loop ---
     while (1) {
         read_set = master_set;
         if (select(fdmax + 1, &read_set, NULL, NULL, NULL) < 0) { log_event("select() error"); error_exit("select"); }
-
         for (int sock_fd = 0; sock_fd <= fdmax; sock_fd++) {
             if (FD_ISSET(sock_fd, &read_set)) {
-                
-                // A) --- Activity from Name Server ---
                 if (sock_fd == nm_sock) {
-                    if (recv(nm_sock, &header, sizeof(Header), 0) <= 0) {
-                        log_event("Name Server disconnected!"); error_exit("Name Server disconnected");
-                    }
+                    if (recv(nm_sock, &header, sizeof(Header), 0) <= 0) { log_event("Name Server disconnected!"); error_exit("Name Server disconnected"); }
                     switch (header.type) {
                         case REQ_SS_CREATE: {
                             Msg_Filename_Request req; recv(nm_sock, &req, sizeof(req), 0);
                             log_event("Got REQ_SS_CREATE for '%s' from NM", req.filename);
-                            handle_create_file(req.filename); send_simple_header(nm_sock, RES_OK);
+                            char file_path[256];
+                            handle_create_file(req.filename, file_path);
+                            send_simple_header(nm_sock, RES_OK);
+                            calculate_and_send_metadata(nm_sock, req.filename, file_path);
                             break;
                         }
                         case REQ_SS_DELETE: {
                             Msg_Filename_Request req; recv(nm_sock, &req, sizeof(req), 0);
                             log_event("Got REQ_SS_DELETE for '%s' from NM", req.filename);
                             char file_path[256]; sprintf(file_path, "%s/%s", MY_STORAGE_PATH, req.filename);
-                            if (remove(file_path) == 0) { log_event("  -> File deleted."); }
-                            else { log_event("  -> Error deleting file: %s", strerror(errno)); }
-                            char backup_path[256]; sprintf(backup_path, "%s/%s.bak", MY_STORAGE_PATH, req.filename);
-                            remove(backup_path);
+                            if (remove(file_path) == 0) { log_event("  -> File deleted."); } else { log_event("  -> Error deleting file: %s", strerror(errno)); }
+                            char backup_path[256]; sprintf(backup_path, "%s/%s.bak", MY_STORAGE_PATH, req.filename); remove(backup_path);
                             send_simple_header(nm_sock, RES_OK);
                             break;
                         }
@@ -223,15 +218,15 @@ int main() {
                             sprintf(backup_path, "%s/%s.bak", MY_STORAGE_PATH, req.filename);
                             sprintf(temp_swap_path, "%s/%s.swap", MY_STORAGE_PATH, req.filename);
                             rename(original_path, temp_swap_path); rename(backup_path, original_path); rename(temp_swap_path, backup_path);
-                            log_event("  -> Swapped backup file."); send_simple_header(nm_sock, RES_OK);
+                            log_event("  -> Swapped backup file.");
+                            calculate_and_send_metadata(nm_sock, req.filename, original_path);
+                            send_simple_header(nm_sock, RES_OK);
                             break;
                         }
                         default:
                             log_event("Got unknown command %d from NM", header.type);
                     }
                 }
-                
-                // B) --- New Client Connection ---
                 else if (sock_fd == client_listener_sock) {
                     client_len = sizeof(client_addr);
                     new_client_sock = accept(client_listener_sock, (struct sockaddr *)&client_addr, &client_len);
@@ -242,8 +237,6 @@ int main() {
                         log_event("New client connection from %s on socket %d", inet_ntoa(client_addr.sin_addr), new_client_sock);
                     }
                 }
-                
-                // C) --- Activity from Existing Client ---
                 else {
                     if (recv(sock_fd, &header, sizeof(Header), 0) <= 0) {
                         handle_client_disconnect(sock_fd, &master_set);
@@ -308,6 +301,7 @@ int main() {
                                 rename(session->temp_path, session->original_path);
                                 release_lock(session->filename, session->sentence_num);
                                 session->active = 0;
+                                calculate_and_send_metadata(nm_sock, session->filename, session->original_path);
                                 send_simple_header(sock_fd, RES_OK);
                                 close(sock_fd);
                                 FD_CLR(sock_fd, &master_set);

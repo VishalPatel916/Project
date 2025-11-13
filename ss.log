@@ -1,0 +1,157 @@
+[2025-11-13 09:44:28] --- Storage Server Started ---
+[2025-11-13 09:44:28] Scanning storage directory: ./ss_storage
+[2025-11-13 09:44:28] Found 5 files.
+[2025-11-13 09:44:28] Storage Server connected to Name Server on port 8080
+[2025-11-13 09:44:28] Sending file list...
+[2025-11-13 09:44:28] Registration successful!
+[2025-11-13 09:44:28] Storage Server now listening for clients on port 8082...
+[2025-11-13 09:54:20] Name Server disconnected!
+[2025-11-13 09:54:32] --- Storage Server Started ---
+[2025-11-13 09:54:32] Scanning storage directory: ./ss_storage
+[2025-11-13 09:54:32] Found 5 files.
+[2025-11-13 09:54:32] Storage Server connected to Name Server on port 8080
+[2025-11-13 09:54:32] Sending file list...
+[2025-11-13 09:54:32] Registration successful!
+[2025-11-13 09:54:32] Storage Server now listening for clients on port 8082...
+[2025-11-13 10:04:00] Name Server disconnected!
+[2025-11-13 10:04:23] --- Storage Server Started ---
+[2025-11-13 10:04:23] Scanning storage directory: ./ss_storage
+[2025-11-13 10:04:23] Found 5 files.
+[2025-11-13 10:04:23] Storage Server connected to Name Server on port 8080
+[2025-11-13 10:04:23] Sending file list...
+[2025-11-13 10:04:23] Registration successful!
+[2025-11-13 10:04:23] Storage Server now listening for clients on port 8082...
+[2025-11-13 10:09:12] Got REQ_SS_CREATE for 'newfile.txt' from NM
+[2025-11-13 10:09:12]   -> Creating file at: ./ss_storage/newfile.txt
+[2025-11-13 10:09:12]   -> Calculated stats for 'newfile.txt': size=0, words=0, chars=0
+[2025-11-13 10:09:13] Got unknown command 3 from NM
+[2025-11-13 10:09:13] Got unknown command 3 from NM
+[2025-11-13 10:12:27] --- Storage Server Started ---
+[2025-11-13 10:12:27] Scanning storage directory: ./ss_storage
+[2025-11-13 10:12:27] Found 6 files.
+[2025-11-13 10:12:27] Storage Server connected to Name Server on port 8080
+[2025-11-13 10:12:27] Sending file list...
+[2025-11-13 10:12:27] Registration successful!
+[2025-11-13 10:12:27] Storage Server now listening for clients on port 8082...
+[2025-11-13 10:13:22] Got REQ_SS_CREATE for 'asd.txt' from NM
+[2025-11-13 10:13:22]   -> Creating file at: ./ss_storage/asd.txt
+[2025-11-13 10:13:22]   -> Calculated stats for 'asd.txt': size=0, words=0, chars=0
+[2025-11-13 10:13:22] Got unknown command 3 from NM
+[2025-11-13 10:13:22] Got unknown command 3 from NM
+[2025-11-13 10:13:22] Got unknown command 3 from NM
+[2025-11-13 10:19:06] --- Storage Server Started ---
+[2025-11-13 10:19:06] Scanning storage directory: ./ss_storage
+[2025-11-13 10:19:06] Found 7 files.
+[2025-11-13 10:19:06] Storage Server connected to Name Server on port 8080
+[2025-11-13 10:19:06] Sending file list...
+[2025-11-13 10:19:06] Registration successful!
+[2025-11-13 10:19:06] Storage Server now listening for clients on port 8082...
+[2025-11-13 10:19:21] Got REQ_SS_CREATE for 'd.txt' from NM
+[2025-11-13 10:19:21]   -> Creating file at: ./ss_storage/d.txt
+[2025-11-13 10:19:21]   -> Calculated stats for 'd.txt': size=0, words=0, chars=0
+[2025-11-13 10:19:21] Got unknown command 3 from NM
+[2025-11-13 10:19:21] Got unknown command 3 from NM
+[2025-11-13 10:19:21] Got unknown command 3 from NM
+[2025-11-13 10:28:15] Name Server disconnected!
+[2025-11-13 10:28:27] --- Storage Server Started ---
+[2025-11-13 10:28:27] Scanning storage directory: ./ss_storage
+[2025-11-13 10:28:27] Found 2 files.
+[2025-11-13 10:28:27] Storage Server connected to Name Server on port 8080
+[2025-11-13 10:28:27] Sending file list...
+[2025-11-13 10:28:27] Registration successful!
+[2025-11-13 10:28:27] Storage Server now listening for clients on port 8082...
+[2025-11-13 10:28:45] Got REQ_SS_CREATE for 'newfile.txt' from NM
+[2025-11-13 10:28:45]   -> Creating file at: ./ss_storage/newfile.txt
+[2025-11-13 10:28:45]   -> Calculated stats for 'newfile.txt': size=0, words=0, chars=0
+[2025-11-13 10:28:45] Got unknown command 3 from NM
+[2025-11-13 10:28:45] Got unknown command 3 from NM
+[2025-11-13 10:36:32] Name Server disconnected!
+[2025-11-13 10:36:52] --- Storage Server Started ---
+[2025-11-13 10:36:52] Scanning storage directory: ./ss_storage
+[2025-11-13 10:36:52] Found 2 files.
+[2025-11-13 10:36:52] Storage Server connected to Name Server on port 8080
+[2025-11-13 10:36:52] Sending file list...
+[2025-11-13 10:36:52] Registration successful!
+[2025-11-13 10:36:52] Storage Server now listening for clients on port 8082...
+[2025-11-13 10:37:07] Got REQ_SS_CREATE for 'newfile.txt' from NM
+[2025-11-13 10:37:07]   -> Creating file at: ./ss_storage/newfile.txt
+[2025-11-13 10:37:07]   -> Calculated stats for 'newfile.txt': size=0, words=0, chars=0
+[2025-11-13 10:46:13] Name Server disconnected!
+[2025-11-13 10:46:28] --- Storage Server Started ---
+[2025-11-13 10:46:28] Scanning storage directory: ./ss_storage
+[2025-11-13 10:46:28] Found 2 files.
+[2025-11-13 10:46:28] Storage Server connected to Name Server on port 8080
+[2025-11-13 10:46:28] Sending file list...
+[2025-11-13 10:46:28] Registration successful!
+[2025-11-13 10:46:28] Sending metadata for 2 existing files...
+[2025-11-13 10:46:28]   -> Calculated stats for 'stream.txt': size=33, words=7, chars=33
+[2025-11-13 10:46:28]   -> Calculated stats for 'pets.txt': size=49, words=10, chars=49
+[2025-11-13 10:46:28] Storage Server now listening for clients on port 8082...
+[2025-11-13 10:46:40] Got REQ_SS_CREATE for 'newfile.txt' from NM
+[2025-11-13 10:46:40]   -> Creating file at: ./ss_storage/newfile.txt
+[2025-11-13 10:46:40]   -> Calculated stats for 'newfile.txt': size=0, words=0, chars=0
+[2025-11-13 10:49:02] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 10:49:02] Got REQ_CLIENT_READ for 'newfile.txt' from socket 6
+[2025-11-13 10:49:02]   -> Sending file 'newfile.txt' to socket 6
+[2025-11-13 10:49:02]   -> Finished sending file to socket 6
+[2025-11-13 10:50:04] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 10:50:04] Got REQ_CLIENT_WRITE for 'newfile.txt' (sent 0) from socket 6
+[2025-11-13 10:50:04]   -> Lock CREATED for 'newfile.txt' (sent 0) by socket 6
+[2025-11-13 10:50:04]   -> Lock granted. Session started.
+[2025-11-13 10:50:25]   -> Modifying sentence 0
+[2025-11-13 10:50:25]   -> Applied update (word 0) to temp file for socket 6
+[2025-11-13 10:50:43] Got REQ_ETIRW from socket 6. Committing changes.
+[2025-11-13 10:50:43]   -> Lock RELEASED for 'newfile.txt' (sent 0)
+[2025-11-13 10:50:43]   -> Calculated stats for 'newfile.txt': size=9, words=2, chars=9
+[2025-11-13 10:52:19] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 10:52:19] Got REQ_CLIENT_WRITE for 'newfile.txt' (sent 0) from socket 6
+[2025-11-13 10:52:19]   -> Lock CREATED for 'newfile.txt' (sent 0) by socket 6
+[2025-11-13 10:52:19]   -> Lock granted. Session started.
+[2025-11-13 10:52:36]   -> Modifying sentence 0
+[2025-11-13 10:52:36]   -> Applied update (word 0) to temp file for socket 6
+[2025-11-13 10:52:55] Got REQ_ETIRW from socket 6. Committing changes.
+[2025-11-13 10:52:55]   -> Lock RELEASED for 'newfile.txt' (sent 0)
+[2025-11-13 10:52:55]   -> Calculated stats for 'newfile.txt': size=13, words=3, chars=13
+[2025-11-13 10:53:42] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 10:53:42] Got REQ_CLIENT_WRITE for 'newfile.txt' (sent 0) from socket 6
+[2025-11-13 10:53:42]   -> Lock CREATED for 'newfile.txt' (sent 0) by socket 6
+[2025-11-13 10:53:42]   -> Lock granted. Session started.
+[2025-11-13 10:53:48]   -> Modifying sentence 0
+[2025-11-13 10:53:48]   -> Applied update (word 0) to temp file for socket 6
+[2025-11-13 10:54:17]   -> Modifying sentence 0
+[2025-11-13 10:54:17]   -> Applied update (word 0) to temp file for socket 6
+[2025-11-13 11:02:06] Name Server disconnected!
+[2025-11-13 11:02:47] --- Storage Server Started ---
+[2025-11-13 11:02:47] Scanning storage directory: ./ss_storage
+[2025-11-13 11:02:47] Found 2 files.
+[2025-11-13 11:02:47] Storage Server connected to Name Server on port 8080
+[2025-11-13 11:02:47] Sending file list...
+[2025-11-13 11:02:47] Registration successful!
+[2025-11-13 11:02:47] Sending metadata for 2 existing files...
+[2025-11-13 11:02:47]   -> Calculated stats for 'stream.txt': size=33, words=7, chars=33
+[2025-11-13 11:02:47]   -> Calculated stats for 'pets.txt': size=49, words=10, chars=49
+[2025-11-13 11:02:47] Storage Server now listening for clients on port 8082...
+[2025-11-13 11:03:17] Got REQ_SS_CREATE for 'newfile.txt' from NM
+[2025-11-13 11:03:17]   -> Creating file at: ./ss_storage/newfile.txt
+[2025-11-13 11:03:17]   -> Calculated stats for 'newfile.txt': size=0, words=0, chars=0
+[2025-11-13 11:03:44] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 11:03:44] Got REQ_CLIENT_READ for 'newfile.txt' from socket 6
+[2025-11-13 11:03:44]   -> Sending file 'newfile.txt' to socket 6
+[2025-11-13 11:03:44]   -> Finished sending file to socket 6
+[2025-11-13 11:04:02] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 11:04:02] Got REQ_CLIENT_WRITE for 'newfile.txt' (sent 0) from socket 6
+[2025-11-13 11:04:02]   -> Lock CREATED for 'newfile.txt' (sent 0) by socket 6
+[2025-11-13 11:04:02]   -> Lock granted. Session started.
+[2025-11-13 11:04:17]   -> Modifying sentence 0
+[2025-11-13 11:04:17]   -> Applied update (word 0) to temp file for socket 6
+[2025-11-13 11:04:27] Got REQ_ETIRW from socket 6. Committing changes.
+[2025-11-13 11:04:27]   -> Lock RELEASED for 'newfile.txt' (sent 0)
+[2025-11-13 11:04:27]   -> Calculated stats for 'newfile.txt': size=13, words=3, chars=13
+[2025-11-13 11:04:46] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 11:04:46] Got REQ_CLIENT_READ for 'newfile.txt' from socket 6
+[2025-11-13 11:04:46]   -> Sending file 'newfile.txt' to socket 6
+[2025-11-13 11:04:46]   -> Finished sending file to socket 6
+[2025-11-13 11:05:17] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 11:05:17] Got REQ_CLIENT_READ for 'newfile.txt' from socket 6
+[2025-11-13 11:05:17]   -> Sending file 'newfile.txt' to socket 6
+[2025-11-13 11:05:17]   -> Finished sending file to socket 6

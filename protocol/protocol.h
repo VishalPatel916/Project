@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
+#include <time.h>
 
 // --- 1. GLOBAL CONSTANTS ---
 #define NM_PORT 8080
@@ -17,98 +18,72 @@
 #define MAX_FILES_IN_SYSTEM 1024
 #define FILE_BUFFER_SIZE 4096
 #define MAX_WORD_CONTENT 100
+#define MAX_PERMISSIONS_PER_FILE 50
 
-// --- 2. MESSAGE TYPES ---
+// --- 2. PERMISSION LEVELS ---
+typedef enum { NO_PERM, READ_ONLY, READ_WRITE } PermissionLevel;
+
+// --- 3. MESSAGE TYPES ---
 typedef enum {
     // Phase 1
-    REQ_CLIENT_REGISTER,
-    REQ_SS_REGISTER,
-    REQ_SS_FILE_ITEM,
-    
-    RES_OK,
-    RES_ERROR,
-    
-    // Phase 2: CREATE
-    REQ_CREATE,
-    REQ_SS_CREATE,
-    RES_ERROR_FILE_EXISTS,
-    
-    // Phase 2: READ
-    REQ_READ,
-    RES_READ_LOCATION,
-    REQ_CLIENT_READ,
-    RES_ERROR_NOT_FOUND,
-    RES_SS_FILE_OK,
+    REQ_CLIENT_REGISTER, REQ_SS_REGISTER, REQ_SS_FILE_ITEM,
+    RES_OK, RES_ERROR,
+    // Phase 2
+    REQ_CREATE, REQ_SS_CREATE, RES_ERROR_FILE_EXISTS,
+    REQ_READ, RES_READ_LOCATION, REQ_CLIENT_READ,
+    RES_ERROR_NOT_FOUND, RES_SS_FILE_OK,
+    // Phase 3
+    REQ_WRITE, REQ_CLIENT_WRITE, RES_OK_LOCKED,
+    RES_ERROR_LOCKED, REQ_WRITE_UPDATE, REQ_ETIRW,
+    // Phase 4
+    REQ_LIST, RES_LIST_HDR, RES_LIST_ITEM,
+    REQ_DELETE, REQ_SS_DELETE, REQ_UNDO, REQ_SS_UNDO,
+    REQ_STREAM, REQ_CLIENT_STREAM,
+    RES_ERROR_ACCESS_DENIED,
+    // Phase 5
+    REQ_UPDATE_METADATA, REQ_VIEW, RES_VIEW_HDR,
+    RES_VIEW_ITEM_SHORT, RES_VIEW_ITEM_LONG, REQ_INFO,
+    RES_INFO, REQ_ADD_ACCESS, REQ_REM_ACCESS,
 
-    // Phase 3: WRITE
-    REQ_WRITE,
-    REQ_CLIENT_WRITE,
-    RES_OK_LOCKED,
-    RES_ERROR_LOCKED,
-    REQ_WRITE_UPDATE,
-    REQ_ETIRW,
-
-    // --- Phase 4 ---
-    REQ_LIST,           // Client -> NM
-    RES_LIST_HDR,       // NM -> Client
-    RES_LIST_ITEM,      // NM -> Client
-    
-    REQ_DELETE,         // Client -> NM
-    REQ_SS_DELETE,      // NM -> SS
-    
-    REQ_UNDO,           // Client -> NM
-    REQ_SS_UNDO,        // NM -> SS
-    
-    REQ_STREAM,         // Client -> NM
-    REQ_CLIENT_STREAM,  // Client -> SS
-    
-    RES_ERROR_ACCESS_DENIED // NM -> Client (for permissions)
+    // --- NEW: Exec ---
+    REQ_EXEC,           // Client -> NM
+    RES_EXEC_OUTPUT,    // NM -> Client (sends one line of output)
+    RES_EXEC_DONE       // NM -> Client (signals end of output)
 
 } MessageType;
 
-// --- 3. HEADER STRUCT ---
-typedef struct {
-    MessageType type;
-    int payload_size;
-} Header;
+// --- 4. HEADER STRUCT ---
+typedef struct { MessageType type; int payload_size; } Header;
 
-// --- 4. MESSAGE PAYLOADS (Structs) ---
-
-// (Phase 1-2 Structs)
+// --- 5. MESSAGE PAYLOADS (Structs) ---
 typedef struct { char username[MAX_USERNAME]; } Msg_Client_Register;
 typedef struct { char ss_ip[MAX_IP_LEN]; int client_port; int file_count; } Msg_SS_Register;
 typedef struct { char filename[MAX_FILENAME]; } Msg_File_Item;
 typedef struct { char filename[MAX_FILENAME]; } Msg_Filename_Request;
 typedef struct { char ss_ip[MAX_IP_LEN]; int ss_port; } Msg_Read_Response;
-
-// (Phase 3 Structs)
 typedef struct { char filename[MAX_FILENAME]; int sentence_num; } Msg_Client_Write;
 typedef struct { int word_index; char content[MAX_WORD_CONTENT]; } Msg_Write_Update;
+typedef struct { int user_count; } Msg_List_Hdr;
+typedef struct { char username[MAX_USERNAME]; } Msg_List_Item;
+typedef struct { char filename[MAX_FILENAME]; long file_size; int word_count; int char_count; time_t last_modified; } Msg_Update_Metadata;
+typedef struct { char username[MAX_USERNAME]; PermissionLevel permission; } AccessEntry;
+typedef struct { int flag_a; int flag_l; } Msg_View_Request;
+typedef struct { int file_count; } Msg_View_Hdr;
+typedef struct { char filename[MAX_FILENAME]; } Msg_View_Item_Short;
+typedef struct { char filename[MAX_FILENAME]; char owner[MAX_USERNAME]; long file_size; int word_count; int char_count; time_t last_modified; int access_count; } Msg_Full_Metadata;
+typedef struct { char filename[MAX_FILENAME]; char username[MAX_USERNAME]; PermissionLevel perm; } Msg_Access_Request;
 
-// --- Phase 4 Structs ---
+// --- NEW: Exec Payload ---
 typedef struct {
-    int user_count;
-} Msg_List_Hdr;
-
-typedef struct {
-    char username[MAX_USERNAME];
-} Msg_List_Item;
+    char line[FILE_BUFFER_SIZE]; // Holds one line of shell output
+} Msg_Exec_Output;
 
 
-// --- 5. HELPER FUNCTION ---
-static inline void error_exit(const char *msg) {
-    perror(msg);
-    exit(EXIT_FAILURE);
-}
-
-// Helper to send just a header
+// --- 6. HELPER FUNCTION ---
+static inline void error_exit(const char *msg) { perror(msg); exit(EXIT_FAILURE); }
 static inline void send_simple_header(int sock, MessageType type) {
-    Header header;
-    header.type = type;
-    header.payload_size = 0;
-    if (send(sock, &header, sizeof(Header), 0) < 0) {
-        perror("send_simple_header");
-    }
+    Header header; header.type = type; header.payload_size = 0;
+    if (send(sock, &header, sizeof(Header), 0) < 0) { perror("send_simple_header"); }
 }
 
 #endif //PROTOCOL_H

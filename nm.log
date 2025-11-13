@@ -1,0 +1,230 @@
+[2025-11-13 09:43:48] --- Name Server Started ---
+[2025-11-13 09:43:48] Initializing state...
+[2025-11-13 09:43:48] Name Server listening on port 8080...
+[2025-11-13 09:44:28] New connection from 127.0.0.1 on socket 5
+[2025-11-13 09:44:28] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 5 files.
+[2025-11-13 09:44:28] Receiving file list from SS 5...
+[2025-11-13 09:44:28]   -> Cataloged 'stream.txt' (owner: system) in slot 0
+[2025-11-13 09:44:28]   -> Cataloged 'pets.txt.bak' (owner: system) in slot 1
+[2025-11-13 09:44:28]   -> Cataloged 'new' (owner: system) in slot 2
+[2025-11-13 09:44:28]   -> Cataloged 'stream.txt.bak' (owner: system) in slot 3
+[2025-11-13 09:44:28]   -> Cataloged 'pets.txt' (owner: system) in slot 4
+[2025-11-13 09:45:12] New connection from 127.0.0.1 on socket 6
+[2025-11-13 09:45:12] Socket 6 (127.0.0.1): CLIENT registered as 'user 1'
+[2025-11-13 09:54:16] Client 'user 1' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-13 09:54:29] --- Name Server Started ---
+[2025-11-13 09:54:29] Initializing state...
+[2025-11-13 09:54:29] Name Server listening on port 8080...
+[2025-11-13 09:54:32] New connection from 127.0.0.1 on socket 5
+[2025-11-13 09:54:32] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 5 files.
+[2025-11-13 09:54:32] Receiving file list from SS 5...
+[2025-11-13 09:54:32]   -> Cataloged 'stream.txt' (owner: system) in slot 0
+[2025-11-13 09:54:32]   -> Cataloged 'pets.txt.bak' (owner: system) in slot 1
+[2025-11-13 09:54:32]   -> Cataloged 'new' (owner: system) in slot 2
+[2025-11-13 09:54:32]   -> Cataloged 'stream.txt.bak' (owner: system) in slot 3
+[2025-11-13 09:54:32]   -> Cataloged 'pets.txt' (owner: system) in slot 4
+[2025-11-13 09:54:37] New connection from 127.0.0.1 on socket 6
+[2025-11-13 09:54:37] Socket 6 (127.0.0.1): CLIENT registered as 'user 1'
+[2025-11-13 09:54:48] Got REQ_LIST from client 'user 1' (Sock 6)
+[2025-11-13 10:03:58] Client 'user 1' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-13 10:04:12] --- Name Server Started ---
+[2025-11-13 10:04:12] Initializing state...
+[2025-11-13 10:04:12] Name Server listening on port 8080...
+[2025-11-13 10:04:23] New connection from 127.0.0.1 on socket 5
+[2025-11-13 10:04:23] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 5 files.
+[2025-11-13 10:04:23] Receiving file list from SS 5...
+[2025-11-13 10:04:23]   -> Cataloged 'stream.txt' (owner: system) in slot 0
+[2025-11-13 10:04:23]   -> Cataloged 'pets.txt.bak' (owner: system) in slot 1
+[2025-11-13 10:04:23]   -> Cataloged 'new' (owner: system) in slot 2
+[2025-11-13 10:04:23]   -> Cataloged 'stream.txt.bak' (owner: system) in slot 3
+[2025-11-13 10:04:23]   -> Cataloged 'pets.txt' (owner: system) in slot 4
+[2025-11-13 10:04:37] New connection from 127.0.0.1 on socket 6
+[2025-11-13 10:04:37] Socket 6 (127.0.0.1): CLIENT registered as 'user 1'
+[2025-11-13 10:09:12] Got REQ_CREATE for 'newfile.txt' from client 'user 1' (Sock 6)
+[2025-11-13 10:09:12]   -> Relaying REQ_SS_CREATE to SS on socket 5
+[2025-11-13 10:09:12]   -> SS failed to create file.
+[2025-11-13 10:09:13] Socket 5: Unknown message type 1719100782
+[2025-11-13 10:09:13] Socket 5: Unknown message type 7633012
+[2025-11-13 10:09:13] Socket 5 (127.0.0.1): CLIENT registered as ''
+[2025-11-13 10:09:13] Socket 5 (127.0.0.1): CLIENT registered as ''
+[2025-11-13 10:12:14] Socket 5 (127.0.0.1): CLIENT registered as ''
+[2025-11-13 10:12:14] Client '' (Socket 5, IP: 127.0.0.1) disconnected.
+[2025-11-13 10:12:14] Got REQ_CREATE for 'new.txt' from client 'user 1' (Sock 6)
+[2025-11-13 10:12:14]   -> Error: No Storage Servers available.
+[2025-11-13 10:12:14] Client 'user 1' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-13 10:12:24] --- Name Server Started ---
+[2025-11-13 10:12:24] Initializing state...
+[2025-11-13 10:12:24] Name Server listening on port 8080...
+[2025-11-13 10:12:27] New connection from 127.0.0.1 on socket 5
+[2025-11-13 10:12:27] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 6 files.
+[2025-11-13 10:12:27] Receiving file list from SS 5...
+[2025-11-13 10:12:27]   -> Cataloged 'stream.txt' (owner: system) in slot 0
+[2025-11-13 10:12:27]   -> Cataloged 'pets.txt.bak' (owner: system) in slot 1
+[2025-11-13 10:12:27]   -> Cataloged 'new' (owner: system) in slot 2
+[2025-11-13 10:12:27]   -> Cataloged 'stream.txt.bak' (owner: system) in slot 3
+[2025-11-13 10:12:27]   -> Cataloged 'pets.txt' (owner: system) in slot 4
+[2025-11-13 10:12:27]   -> Cataloged 'newfile.txt' (owner: system) in slot 5
+[2025-11-13 10:12:33] New connection from 127.0.0.1 on socket 6
+[2025-11-13 10:12:33] Socket 6 (127.0.0.1): CLIENT registered as 'user 1'
+[2025-11-13 10:13:22] Got REQ_CREATE for 'asd.txt' from client 'user 1' (Sock 6)
+[2025-11-13 10:13:22]   -> Relaying REQ_SS_CREATE to SS on socket 5
+[2025-11-13 10:13:22]   -> SS failed to create file.
+[2025-11-13 10:13:22] Socket 5: Unknown message type 778335073
+[2025-11-13 10:13:22] Socket 5 (127.0.0.1): CLIENT registered as ''
+[2025-11-13 10:13:22] Socket 5 (127.0.0.1): CLIENT registered as ''
+[2025-11-13 10:13:22] Socket 5 (127.0.0.1): CLIENT registered as ''
+[2025-11-13 10:18:53] Client '' (Socket 5, IP: 127.0.0.1) disconnected.
+[2025-11-13 10:19:04] --- Name Server Started ---
+[2025-11-13 10:19:04] Initializing state...
+[2025-11-13 10:19:04] Name Server listening on port 8080...
+[2025-11-13 10:19:06] New connection from 127.0.0.1 on socket 5
+[2025-11-13 10:19:06] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 7 files.
+[2025-11-13 10:19:06] Receiving file list from SS 5...
+[2025-11-13 10:19:06]   -> Cataloged 'stream.txt' (owner: system) in slot 0
+[2025-11-13 10:19:06]   -> Cataloged 'pets.txt.bak' (owner: system) in slot 1
+[2025-11-13 10:19:06]   -> Cataloged 'new' (owner: system) in slot 2
+[2025-11-13 10:19:06]   -> Cataloged 'asd.txt' (owner: system) in slot 3
+[2025-11-13 10:19:06]   -> Cataloged 'stream.txt.bak' (owner: system) in slot 4
+[2025-11-13 10:19:06]   -> Cataloged 'pets.txt' (owner: system) in slot 5
+[2025-11-13 10:19:06]   -> Cataloged 'newfile.txt' (owner: system) in slot 6
+[2025-11-13 10:19:11] New connection from 127.0.0.1 on socket 6
+[2025-11-13 10:19:11] Socket 6 (127.0.0.1): CLIENT registered as 'user 1'
+[2025-11-13 10:19:21] Got REQ_CREATE for 'd.txt' from client 'user 1' (Sock 6)
+[2025-11-13 10:19:21]   -> Relaying REQ_SS_CREATE to SS on socket 5
+[2025-11-13 10:19:21]   -> SS failed to create file.
+[2025-11-13 10:19:21] Socket 5: Unknown message type 2020879972
+[2025-11-13 10:19:21] Socket 5 (127.0.0.1): CLIENT registered as ''
+[2025-11-13 10:19:21] Socket 5 (127.0.0.1): CLIENT registered as ''
+[2025-11-13 10:19:21] Socket 5 (127.0.0.1): CLIENT registered as ''
+[2025-11-13 10:19:53] Got REQ_INFO for 'pets.txt' from client 'user 1'
+[2025-11-13 10:20:18] Got REQ_INFO for 'd.txt' from client 'user 1'
+[2025-11-13 10:23:40] Got REQ_CREATE for 'newfile.txt' from client 'user 1' (Sock 6)
+[2025-11-13 10:23:40]   -> Error: File 'newfile.txt' already exists.
+[2025-11-13 10:28:24] --- Name Server Started ---
+[2025-11-13 10:28:24] Initializing state...
+[2025-11-13 10:28:24] Name Server listening on port 8080...
+[2025-11-13 10:28:27] New connection from 127.0.0.1 on socket 5
+[2025-11-13 10:28:27] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 2 files.
+[2025-11-13 10:28:27] Receiving file list from SS 5...
+[2025-11-13 10:28:27]   -> Cataloged 'stream.txt' (owner: system) in slot 0
+[2025-11-13 10:28:27]   -> Cataloged 'pets.txt' (owner: system) in slot 1
+[2025-11-13 10:28:32] New connection from 127.0.0.1 on socket 6
+[2025-11-13 10:28:32] Socket 6 (127.0.0.1): CLIENT registered as 'user 1'
+[2025-11-13 10:28:45] Got REQ_CREATE for 'newfile.txt' from client 'user 1' (Sock 6)
+[2025-11-13 10:28:45]   -> Relaying REQ_SS_CREATE to SS on socket 5
+[2025-11-13 10:28:45]   -> SS failed to create file.
+[2025-11-13 10:28:45] Socket 5: Unknown message type 1719100782
+[2025-11-13 10:28:45] Socket 5: Unknown message type 7633012
+[2025-11-13 10:28:45] Socket 5 (127.0.0.1): CLIENT registered as ''
+[2025-11-13 10:28:45] Socket 5 (127.0.0.1): CLIENT registered as ''
+[2025-11-13 10:36:49] --- Name Server Started ---
+[2025-11-13 10:36:50] Initializing state...
+[2025-11-13 10:36:50] Name Server listening on port 8080...
+[2025-11-13 10:36:52] New connection from 127.0.0.1 on socket 5
+[2025-11-13 10:36:52] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 2 files.
+[2025-11-13 10:36:52] Receiving file list from SS 5...
+[2025-11-13 10:36:52]   -> Cataloged 'stream.txt' (owner: system) in slot 0
+[2025-11-13 10:36:52]   -> Cataloged 'pets.txt' (owner: system) in slot 1
+[2025-11-13 10:36:57] New connection from 127.0.0.1 on socket 6
+[2025-11-13 10:36:57] Socket 6 (127.0.0.1): CLIENT registered as 'user 1'
+[2025-11-13 10:37:07] Got REQ_CREATE for 'newfile.txt' from client 'user 1' (Sock 6)
+[2025-11-13 10:37:07]   -> Relaying REQ_SS_CREATE to SS on socket 5
+[2025-11-13 10:37:07]   -> SS confirmed creation. Updating catalog.
+[2025-11-13 10:37:07] Got REQ_UPDATE_METADATA for 'newfile.txt' from SS 5
+[2025-11-13 10:37:07]   -> Metadata updated for 'newfile.txt'
+[2025-11-13 10:37:19] Got REQ_INFO for 'newfile.txt' from client 'user 1'
+[2025-11-13 10:37:37] Got REQ_VIEW (a=0, l=1) from client 'user 1'
+[2025-11-13 10:37:46] Got REQ_VIEW (a=1, l=0) from client 'user 1'
+[2025-11-13 10:37:53] Got REQ_VIEW (a=1, l=1) from client 'user 1'
+[2025-11-13 10:39:13] Got REQ_ADD_ACCESS for 'usser' (user: 1) from client 'user 1'
+[2025-11-13 10:39:43] Got REQ_ADD_ACCESS for 'pets.txt' (user: user) from client 'user 1'
+[2025-11-13 10:46:08] Client 'user 1' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-13 10:46:26] --- Name Server Started ---
+[2025-11-13 10:46:26] Initializing state...
+[2025-11-13 10:46:26] Name Server listening on port 8080...
+[2025-11-13 10:46:28] New connection from 127.0.0.1 on socket 5
+[2025-11-13 10:46:28] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 2 files.
+[2025-11-13 10:46:28] Receiving file list from SS 5...
+[2025-11-13 10:46:28]   -> Cataloged 'stream.txt' (owner: system) in slot 0
+[2025-11-13 10:46:28]   -> Cataloged 'pets.txt' (owner: system) in slot 1
+[2025-11-13 10:46:28] Got REQ_UPDATE_METADATA for 'stream.txt' from SS 5
+[2025-11-13 10:46:28]   -> Metadata updated for 'stream.txt'
+[2025-11-13 10:46:28] Got REQ_UPDATE_METADATA for 'pets.txt' from SS 5
+[2025-11-13 10:46:28]   -> Metadata updated for 'pets.txt'
+[2025-11-13 10:46:33] New connection from 127.0.0.1 on socket 6
+[2025-11-13 10:46:33] Socket 6 (127.0.0.1): CLIENT registered as 'user 1'
+[2025-11-13 10:46:40] Got REQ_CREATE for 'newfile.txt' from client 'user 1' (Sock 6)
+[2025-11-13 10:46:40]   -> Relaying REQ_SS_CREATE to SS on socket 5
+[2025-11-13 10:46:40]   -> SS confirmed creation. Updating catalog.
+[2025-11-13 10:46:40] Got REQ_UPDATE_METADATA for 'newfile.txt' from SS 5
+[2025-11-13 10:46:40]   -> Metadata updated for 'newfile.txt'
+[2025-11-13 10:46:52] Got REQ_INFO for 'newfile.txt' from client 'user 1'
+[2025-11-13 10:47:02] Got REQ_INFO for 'pets.txt' from client 'user 1'
+[2025-11-13 10:47:16] Got REQ_VIEW (a=1, l=1) from client 'user 1'
+[2025-11-13 10:48:08] Got REQ_ADD_ACCESS for 'newfile.txt' (user: user) from client 'user 1'
+[2025-11-13 10:48:08]   -> Access granted.
+[2025-11-13 10:48:43] Got 8 for 'pets.txt' from client 'user 1'
+[2025-11-13 10:48:43]   -> Access Denied for user 'user 1'.
+[2025-11-13 10:49:02] Got 8 for 'newfile.txt' from client 'user 1'
+[2025-11-13 10:49:02]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 10:49:25] Got REQ_INFO for 'newfile.txt' from client 'user 1'
+[2025-11-13 10:50:04] Got 13 for 'newfile.txt' from client 'user 1'
+[2025-11-13 10:50:04]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 10:50:43] Got REQ_UPDATE_METADATA for 'newfile.txt' from SS 5
+[2025-11-13 10:50:43]   -> Metadata updated for 'newfile.txt'
+[2025-11-13 10:50:56] Got REQ_INFO for 'newfile.txt' from client 'user 1'
+[2025-11-13 10:52:19] Got 13 for 'newfile.txt' from client 'user 1'
+[2025-11-13 10:52:19]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 10:52:55] Got REQ_UPDATE_METADATA for 'newfile.txt' from SS 5
+[2025-11-13 10:52:55]   -> Metadata updated for 'newfile.txt'
+[2025-11-13 10:53:42] Got 13 for 'newfile.txt' from client 'user 1'
+[2025-11-13 10:53:42]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 11:02:43] --- Name Server Started ---
+[2025-11-13 11:02:43] Initializing state...
+[2025-11-13 11:02:43] Name Server listening on port 8080...
+[2025-11-13 11:02:47] New connection from 127.0.0.1 on socket 5
+[2025-11-13 11:02:47] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 2 files.
+[2025-11-13 11:02:47] Receiving file list from SS 5...
+[2025-11-13 11:02:47]   -> Cataloged 'stream.txt' (owner: system) in slot 0
+[2025-11-13 11:02:47]   -> Cataloged 'pets.txt' (owner: system) in slot 1
+[2025-11-13 11:02:47] Got REQ_UPDATE_METADATA for 'stream.txt' from SS 5
+[2025-11-13 11:02:47]   -> Metadata updated for 'stream.txt'
+[2025-11-13 11:02:47] Got REQ_UPDATE_METADATA for 'pets.txt' from SS 5
+[2025-11-13 11:02:47]   -> Metadata updated for 'pets.txt'
+[2025-11-13 11:02:55] New connection from 127.0.0.1 on socket 6
+[2025-11-13 11:02:55] Socket 6 (127.0.0.1): CLIENT registered as 'user 1'
+[2025-11-13 11:03:17] Got REQ_CREATE for 'newfile.txt' from client 'user 1' (Sock 6)
+[2025-11-13 11:03:17]   -> Relaying REQ_SS_CREATE to SS on socket 5
+[2025-11-13 11:03:17]   -> SS confirmed creation. Updating catalog.
+[2025-11-13 11:03:17] Got REQ_UPDATE_METADATA for 'newfile.txt' from SS 5
+[2025-11-13 11:03:17]   -> Metadata updated for 'newfile.txt'
+[2025-11-13 11:03:44] Got 8 for 'newfile.txt' from client 'user 1'
+[2025-11-13 11:03:44]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 11:03:51] Got REQ_INFO for 'newfile.txt' from client 'user 1'
+[2025-11-13 11:04:02] Got 13 for 'newfile.txt' from client 'user 1'
+[2025-11-13 11:04:02]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 11:04:27] Got REQ_UPDATE_METADATA for 'newfile.txt' from SS 5
+[2025-11-13 11:04:27]   -> Metadata updated for 'newfile.txt'
+[2025-11-13 11:04:34] Got REQ_INFO for 'newfile.txt' from client 'user 1'
+[2025-11-13 11:04:46] Got REQ_EXEC for 'newfile.txt' from client 'user 1'
+[2025-11-13 11:04:46]   -> NM acting as client to fetch file content from SS...
+[2025-11-13 11:04:46]   -> EXEC: Successfully fetched script content (13 bytes).
+[2025-11-13 11:04:46]   -> Executing script: 
+---
+echo echo hii
+---
+[2025-11-13 11:04:46]   -> Execution finished. Sending DONE.
+[2025-11-13 11:05:17] Got REQ_EXEC for 'newfile.txt' from client 'user 1'
+[2025-11-13 11:05:17]   -> NM acting as client to fetch file content from SS...
+[2025-11-13 11:05:17]   -> EXEC: Successfully fetched script content (8 bytes).
+[2025-11-13 11:05:17]   -> Executing script: 
+---
+echo hii
+---
+[2025-11-13 11:05:17]   -> Execution finished. Sending DONE.
+[2025-11-13 11:05:28] Client 'user 1' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-13 11:05:31] Storage Server (Socket 5, IP: 127.0.0.1) disconnected.
+[2025-11-13 11:05:31] De-listing its files from the catalog...
+[2025-11-13 11:05:31]   -> De-listed 'stream.txt'
+[2025-11-13 11:05:31]   -> De-listed 'pets.txt'
+[2025-11-13 11:05:31]   -> De-listed 'newfile.txt'
