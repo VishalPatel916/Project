@@ -98,7 +98,7 @@ void handle_write_update(WriteSession* session, Msg_Write_Update* req) {
     long new_buf_size = file_size + strlen(req->content) + 1024; char* new_mem_buffer = (char*)malloc(new_buf_size);
     char* write_ptr = new_mem_buffer;
     if (!new_mem_buffer) { perror("malloc new buffer"); free(mem_buffer); free(file_content_orig); return; }
-    *write_ptr = '\0'; char* sent_context = NULL; char* sentence = strtok_r(mem_buffer, ".!?", &sent_context); int sent_count = 0;
+    *write_ptr = '\0'; char* sent_context = NULL; char* sentence = strtok_r(mem_buffer, ".!?\n", &sent_context); int sent_count = 0;
     while (sentence != NULL) {
         long sent_start_offset = sentence - mem_buffer; long orig_sent_len = strlen(sentence); char delimiter = file_content_orig[sent_start_offset + orig_sent_len];
         while (isspace((unsigned char)*sentence)) { *write_ptr++ = *sentence++; }
@@ -116,7 +116,7 @@ void handle_write_update(WriteSession* session, Msg_Write_Update* req) {
             if (write_ptr > new_mem_buffer && *(write_ptr - 1) == ' ') { write_ptr--; }
         } else { strcpy(write_ptr, sentence); write_ptr += sent_len; }
         if (delimiter != '\0') { *write_ptr++ = delimiter; }
-        sent_count++; sentence = strtok_r(NULL, ".!?", &sent_context);
+        sent_count++; sentence = strtok_r(NULL, ".!?\n", &sent_context);
     }
     *write_ptr = '\0'; rewind(session->temp_file); fputs(new_mem_buffer, session->temp_file); fflush(session->temp_file); ftruncate(fileno(session->temp_file), ftell(session->temp_file));
     free(mem_buffer); free(file_content_orig); free(new_mem_buffer);
@@ -219,8 +219,10 @@ int main() {
                             sprintf(temp_swap_path, "%s/%s.swap", MY_STORAGE_PATH, req.filename);
                             rename(original_path, temp_swap_path); rename(backup_path, original_path); rename(temp_swap_path, backup_path);
                             log_event("  -> Swapped backup file.");
-                            calculate_and_send_metadata(nm_sock, req.filename, original_path);
+                            // Send RES_OK first so NM's synchronous recv() gets the expected acknowledgement
                             send_simple_header(nm_sock, RES_OK);
+                            // Then asynchronously push updated metadata like other operations
+                            calculate_and_send_metadata(nm_sock, req.filename, original_path);
                             break;
                         }
                         default:

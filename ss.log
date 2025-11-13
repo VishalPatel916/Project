@@ -155,3 +155,336 @@
 [2025-11-13 11:05:17] Got REQ_CLIENT_READ for 'newfile.txt' from socket 6
 [2025-11-13 11:05:17]   -> Sending file 'newfile.txt' to socket 6
 [2025-11-13 11:05:17]   -> Finished sending file to socket 6
+[2025-11-13 15:15:14] --- Storage Server Started ---
+[2025-11-13 15:15:14] Scanning storage directory: ./ss_storage
+[2025-11-13 15:15:14] Found 4 files.
+[2025-11-13 15:15:42] --- Storage Server Started ---
+[2025-11-13 15:15:42] Scanning storage directory: ./ss_storage
+[2025-11-13 15:15:42] Found 4 files.
+[2025-11-13 15:15:42] Storage Server connected to Name Server on port 8080
+[2025-11-13 15:15:42] Sending file list...
+[2025-11-13 15:15:42] Registration successful!
+[2025-11-13 15:15:42] Sending metadata for 4 existing files...
+[2025-11-13 15:15:42]   -> Calculated stats for 'pets.txt': size=49, words=10, chars=49
+[2025-11-13 15:15:42]   -> Calculated stats for 'newfile.txt': size=8, words=2, chars=8
+[2025-11-13 15:15:42]   -> Calculated stats for 'stream.txt': size=33, words=7, chars=33
+[2025-11-13 15:15:42]   -> Calculated stats for 'newfile.txt.bak': size=8, words=2, chars=8
+[2025-11-13 15:15:42] Storage Server now listening for clients on port 8082...
+[2025-11-13 15:17:55] Got REQ_SS_CREATE for 'saccoor.txt' from NM
+[2025-11-13 15:17:55]   -> Creating file at: ./ss_storage/saccoor.txt
+[2025-11-13 15:17:55]   -> Calculated stats for 'saccoor.txt': size=0, words=0, chars=0
+[2025-11-13 15:18:31] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 15:18:31] Got REQ_CLIENT_READ for 'saccoor.txt' from socket 6
+[2025-11-13 15:18:31]   -> Sending file 'saccoor.txt' to socket 6
+[2025-11-13 15:18:31]   -> Finished sending file to socket 6
+[2025-11-13 15:19:12] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 15:19:12] Got REQ_CLIENT_WRITE for 'saccoor.txt' (sent 0) from socket 6
+[2025-11-13 15:19:12]   -> Lock CREATED for 'saccoor.txt' (sent 0) by socket 6
+[2025-11-13 15:19:12]   -> Lock granted. Session started.
+[2025-11-13 15:19:24]   -> Modifying sentence 0
+[2025-11-13 15:19:24]   -> Applied update (word 0) to temp file for socket 6
+[2025-11-13 15:19:55]   -> Modifying sentence 0
+[2025-11-13 15:19:55]   -> Applied update (word 1) to temp file for socket 6
+[2025-11-13 15:20:01]   -> Modifying sentence 0
+[2025-11-13 15:20:01]   -> Applied update (word 3) to temp file for socket 6
+[2025-11-13 15:20:06]   -> Modifying sentence 0
+[2025-11-13 15:20:06]   -> Applied update (word 4) to temp file for socket 6
+[2025-11-13 15:20:14] Got REQ_ETIRW from socket 6. Committing changes.
+[2025-11-13 15:20:14]   -> Lock RELEASED for 'saccoor.txt' (sent 0)
+[2025-11-13 15:20:14]   -> Calculated stats for 'saccoor.txt': size=51, words=5, chars=51
+[2025-11-13 15:20:35] Got REQ_SS_UNDO for 'saccoor.txt' from NM
+[2025-11-13 15:20:35]   -> Swapped backup file.
+[2025-11-13 15:20:35]   -> Calculated stats for 'saccoor.txt': size=34, words=1, chars=34
+[2025-11-13 15:20:35] Got unknown command 3 from NM
+[2025-11-13 15:20:35] Got unknown command 3 from NM
+[2025-11-13 15:21:33] Name Server disconnected!
+[2025-11-13 15:21:39] --- Storage Server Started ---
+[2025-11-13 15:21:39] Scanning storage directory: ./ss_storage
+[2025-11-13 15:21:39] Found 6 files.
+[2025-11-13 15:21:39] Storage Server connected to Name Server on port 8080
+[2025-11-13 15:21:39] Sending file list...
+[2025-11-13 15:21:39] Registration successful!
+[2025-11-13 15:21:39] Sending metadata for 6 existing files...
+[2025-11-13 15:21:39]   -> Calculated stats for 'saccoor.txt.bak': size=51, words=5, chars=51
+[2025-11-13 15:21:39]   -> Calculated stats for 'pets.txt': size=49, words=10, chars=49
+[2025-11-13 15:21:39]   -> Calculated stats for 'newfile.txt': size=8, words=2, chars=8
+[2025-11-13 15:21:39]   -> Calculated stats for 'stream.txt': size=33, words=7, chars=33
+[2025-11-13 15:21:39]   -> Calculated stats for 'saccoor.txt': size=34, words=1, chars=34
+[2025-11-13 15:21:39]   -> Calculated stats for 'newfile.txt.bak': size=8, words=2, chars=8
+[2025-11-13 15:21:39] Storage Server now listening for clients on port 8082...
+[2025-11-13 15:22:40] Got REQ_SS_CREATE for 'kys.txt' from NM
+[2025-11-13 15:22:40]   -> Creating file at: ./ss_storage/kys.txt
+[2025-11-13 15:22:40]   -> Calculated stats for 'kys.txt': size=0, words=0, chars=0
+[2025-11-13 15:22:52] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 15:22:52] Got REQ_CLIENT_READ for 'kys.txt' from socket 6
+[2025-11-13 15:22:52]   -> Sending file 'kys.txt' to socket 6
+[2025-11-13 15:22:52]   -> Finished sending file to socket 6
+[2025-11-13 15:23:03] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 15:23:03] Got REQ_CLIENT_WRITE for 'kys.txt' (sent 0) from socket 6
+[2025-11-13 15:23:03]   -> Lock CREATED for 'kys.txt' (sent 0) by socket 6
+[2025-11-13 15:23:03]   -> Lock granted. Session started.
+[2025-11-13 15:23:22]   -> Modifying sentence 0
+[2025-11-13 15:23:22]   -> Applied update (word 3) to temp file for socket 6
+[2025-11-13 15:23:28] Got REQ_ETIRW from socket 6. Committing changes.
+[2025-11-13 15:23:28]   -> Lock RELEASED for 'kys.txt' (sent 0)
+[2025-11-13 15:23:28]   -> Calculated stats for 'kys.txt': size=20, words=4, chars=20
+[2025-11-13 15:23:32] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 15:23:32] Got REQ_CLIENT_READ for 'kys.txt' from socket 6
+[2025-11-13 15:23:32]   -> Sending file 'kys.txt' to socket 6
+[2025-11-13 15:23:32]   -> Finished sending file to socket 6
+[2025-11-13 15:23:37] Got REQ_SS_UNDO for 'kys.txt' from NM
+[2025-11-13 15:23:37]   -> Swapped backup file.
+[2025-11-13 15:23:37]   -> Calculated stats for 'kys.txt': size=10, words=3, chars=10
+[2025-11-13 15:23:37] Got unknown command 3 from NM
+[2025-11-13 15:23:37] Got unknown command 3 from NM
+[2025-11-13 15:23:37] Got unknown command 3 from NM
+[2025-11-13 15:30:37] --- Storage Server Started ---
+[2025-11-13 15:30:37] Scanning storage directory: ./ss_storage
+[2025-11-13 15:30:37] Found 8 files.
+[2025-11-13 15:30:37] Storage Server connected to Name Server on port 8080
+[2025-11-13 15:30:37] Sending file list...
+[2025-11-13 15:30:37] Registration successful!
+[2025-11-13 15:30:37] Sending metadata for 8 existing files...
+[2025-11-13 15:30:37]   -> Calculated stats for 'saccoor.txt.bak': size=51, words=5, chars=51
+[2025-11-13 15:30:37]   -> Calculated stats for 'pets.txt': size=49, words=10, chars=49
+[2025-11-13 15:30:37]   -> Calculated stats for 'newfile.txt': size=8, words=2, chars=8
+[2025-11-13 15:30:37]   -> Calculated stats for 'stream.txt': size=33, words=7, chars=33
+[2025-11-13 15:30:37]   -> Calculated stats for 'saccoor.txt': size=34, words=1, chars=34
+[2025-11-13 15:30:37]   -> Calculated stats for 'kys.txt': size=10, words=3, chars=10
+[2025-11-13 15:30:37]   -> Calculated stats for 'newfile.txt.bak': size=8, words=2, chars=8
+[2025-11-13 15:30:37]   -> Calculated stats for 'kys.txt.bak': size=20, words=4, chars=20
+[2025-11-13 15:30:37] Storage Server now listening for clients on port 8082...
+[2025-11-13 15:30:59] Got REQ_SS_CREATE for 'test.txt' from NM
+[2025-11-13 15:30:59]   -> Creating file at: ./ss_storage/test.txt
+[2025-11-13 15:30:59]   -> Calculated stats for 'test.txt': size=0, words=0, chars=0
+[2025-11-13 15:31:07] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 15:31:07] Got REQ_CLIENT_WRITE for 'test.txt' (sent 0) from socket 6
+[2025-11-13 15:31:07]   -> Lock CREATED for 'test.txt' (sent 0) by socket 6
+[2025-11-13 15:31:07]   -> Lock granted. Session started.
+[2025-11-13 15:31:19]   -> Applied update (word 0) to temp file for socket 6
+[2025-11-13 15:31:42]   -> Modifying sentence 0
+[2025-11-13 15:31:42]   -> Applied update (word 1) to temp file for socket 6
+[2025-11-13 15:31:44]   -> Modifying sentence 0
+[2025-11-13 15:31:44]   -> Applied update (word 2) to temp file for socket 6
+[2025-11-13 15:31:46]   -> Modifying sentence 0
+[2025-11-13 15:31:46]   -> Applied update (word 3) to temp file for socket 6
+[2025-11-13 15:31:52]   -> Modifying sentence 0
+[2025-11-13 15:31:52]   -> Applied update (word 4) to temp file for socket 6
+[2025-11-13 15:31:58] Got REQ_ETIRW from socket 6. Committing changes.
+[2025-11-13 15:31:58]   -> Lock RELEASED for 'test.txt' (sent 0)
+[2025-11-13 15:31:58]   -> Calculated stats for 'test.txt': size=19, words=5, chars=19
+[2025-11-13 15:32:07] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 15:32:07] Got REQ_CLIENT_READ for 'test.txt' from socket 6
+[2025-11-13 15:32:07]   -> Sending file 'test.txt' to socket 6
+[2025-11-13 15:32:07]   -> Finished sending file to socket 6
+[2025-11-13 15:32:48] Got REQ_SS_UNDO for 'test.txt' from NM
+[2025-11-13 15:32:48]   -> Swapped backup file.
+[2025-11-13 15:32:48]   -> Calculated stats for 'test.txt': size=5, words=1, chars=5
+[2025-11-13 15:32:56] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 15:32:56] Got REQ_CLIENT_READ for 'test.txt' from socket 6
+[2025-11-13 15:32:56]   -> Sending file 'test.txt' to socket 6
+[2025-11-13 15:32:56]   -> Finished sending file to socket 6
+[2025-11-13 15:33:05] Got REQ_SS_UNDO for 'test.txt' from NM
+[2025-11-13 15:33:05]   -> Swapped backup file.
+[2025-11-13 15:33:05]   -> Calculated stats for 'test.txt': size=19, words=5, chars=19
+[2025-11-13 15:33:18] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 15:33:18] Got REQ_CLIENT_READ for 'test.txt' from socket 6
+[2025-11-13 15:33:18]   -> Sending file 'test.txt' to socket 6
+[2025-11-13 15:33:18]   -> Finished sending file to socket 6
+[2025-11-13 15:38:24] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 15:38:24] Got REQ_CLIENT_STREAM for 'test.txt' from socket 6
+[2025-11-13 15:38:24]   -> Streaming file 'test.txt' to socket 6
+[2025-11-13 15:38:24]   -> Finished streaming file to socket 6
+[2025-11-13 15:39:34] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 15:39:34] Got REQ_CLIENT_READ for 'test.txt' from socket 6
+[2025-11-13 15:39:34]   -> Sending file 'test.txt' to socket 6
+[2025-11-13 15:39:34]   -> Finished sending file to socket 6
+[2025-11-13 15:41:17] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 15:41:17] Got REQ_CLIENT_READ for 'test.txt' from socket 6
+[2025-11-13 15:41:17]   -> Sending file 'test.txt' to socket 6
+[2025-11-13 15:41:17]   -> Finished sending file to socket 6
+[2025-11-13 15:52:09] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 15:52:09] Got REQ_CLIENT_READ for 'test.txt' from socket 6
+[2025-11-13 15:52:09]   -> Sending file 'test.txt' to socket 6
+[2025-11-13 15:52:09]   -> Finished sending file to socket 6
+[2025-11-13 15:52:21] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 15:52:21] Got REQ_CLIENT_READ for 'test.txt' from socket 6
+[2025-11-13 15:52:21]   -> Sending file 'test.txt' to socket 6
+[2025-11-13 15:52:21]   -> Finished sending file to socket 6
+[2025-11-13 15:53:08] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 15:53:08] Got REQ_CLIENT_READ for 'test.txt' from socket 6
+[2025-11-13 15:53:08]   -> Sending file 'test.txt' to socket 6
+[2025-11-13 15:53:08]   -> Finished sending file to socket 6
+[2025-11-13 15:55:38] --- Storage Server Started ---
+[2025-11-13 15:55:38] Scanning storage directory: ./ss_storage
+[2025-11-13 15:55:38] Found 10 files.
+[2025-11-13 15:55:38] Storage Server connected to Name Server on port 8080
+[2025-11-13 15:55:38] Sending file list...
+[2025-11-13 15:55:38] Registration successful!
+[2025-11-13 15:55:38] Sending metadata for 10 existing files...
+[2025-11-13 15:55:38]   -> Calculated stats for 'saccoor.txt.bak': size=51, words=5, chars=51
+[2025-11-13 15:55:38]   -> Calculated stats for 'test.txt': size=10, words=2, chars=10
+[2025-11-13 15:55:38]   -> Calculated stats for 'pets.txt': size=49, words=10, chars=49
+[2025-11-13 15:55:38]   -> Calculated stats for 'newfile.txt': size=8, words=2, chars=8
+[2025-11-13 15:55:38]   -> Calculated stats for 'test.txt.bak': size=10, words=2, chars=10
+[2025-11-13 15:55:38]   -> Calculated stats for 'stream.txt': size=33, words=7, chars=33
+[2025-11-13 15:55:38]   -> Calculated stats for 'saccoor.txt': size=34, words=1, chars=34
+[2025-11-13 15:55:38]   -> Calculated stats for 'kys.txt': size=10, words=3, chars=10
+[2025-11-13 15:55:38]   -> Calculated stats for 'newfile.txt.bak': size=8, words=2, chars=8
+[2025-11-13 15:55:38]   -> Calculated stats for 'kys.txt.bak': size=20, words=4, chars=20
+[2025-11-13 15:55:38] Storage Server now listening for clients on port 8082...
+[2025-11-13 15:59:27] Got REQ_SS_CREATE for 'name.txt' from NM
+[2025-11-13 15:59:27]   -> Creating file at: ./ss_storage/name.txt
+[2025-11-13 15:59:27]   -> Calculated stats for 'name.txt': size=0, words=0, chars=0
+[2025-11-13 16:00:01] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 16:00:01] Got REQ_CLIENT_READ for 'name.txt' from socket 6
+[2025-11-13 16:00:01]   -> Sending file 'name.txt' to socket 6
+[2025-11-13 16:00:01]   -> Finished sending file to socket 6
+[2025-11-13 16:00:54] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 16:00:54] Got REQ_CLIENT_READ for 'name.txt' from socket 6
+[2025-11-13 16:00:54]   -> Sending file 'name.txt' to socket 6
+[2025-11-13 16:00:54]   -> Finished sending file to socket 6
+[2025-11-13 16:01:28] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 16:01:28] Got REQ_CLIENT_WRITE for 'name.txt' (sent 0) from socket 6
+[2025-11-13 16:01:28]   -> Lock CREATED for 'name.txt' (sent 0) by socket 6
+[2025-11-13 16:01:28]   -> Lock granted. Session started.
+[2025-11-13 16:01:43]   -> Modifying sentence 0
+[2025-11-13 16:01:43]   -> Applied update (word 2) to temp file for socket 6
+[2025-11-13 16:01:49]   -> Modifying sentence 0
+[2025-11-13 16:01:49]   -> Applied update (word 3) to temp file for socket 6
+[2025-11-13 16:05:40] New client connection from 127.0.0.1 on socket 8
+[2025-11-13 16:05:40] Got REQ_CLIENT_WRITE for 'name.txt' (sent 0) from socket 8
+[2025-11-13 16:05:40]   -> Lock conflict! Sending error.
+[2025-11-13 16:08:48] New client connection from 127.0.0.1 on socket 8
+[2025-11-13 16:08:48] Got REQ_CLIENT_WRITE for 'name.txt' (sent 1) from socket 8
+[2025-11-13 16:08:48]   -> Lock CREATED for 'name.txt' (sent 1) by socket 8
+[2025-11-13 16:08:48]   -> Lock granted. Session started.
+[2025-11-13 16:09:09]   -> Applied update (word 0) to temp file for socket 8
+[2025-11-13 16:09:31]   -> Applied update (word 0) to temp file for socket 8
+[2025-11-13 16:09:45]   -> Applied update (word 1) to temp file for socket 8
+[2025-11-13 16:09:57]   -> Applied update (word 0) to temp file for socket 8
+[2025-11-13 16:10:02]   -> Applied update (word 2) to temp file for socket 8
+[2025-11-13 16:10:17]   -> Modifying sentence 0
+[2025-11-13 16:10:17]   -> Applied update (word 4) to temp file for socket 6
+[2025-11-13 16:11:15] Got REQ_ETIRW from socket 8. Committing changes.
+[2025-11-13 16:11:15]   -> Lock RELEASED for 'name.txt' (sent 1)
+[2025-11-13 16:11:15]   -> Calculated stats for 'name.txt': size=9, words=3, chars=9
+[2025-11-13 16:11:34] New client connection from 127.0.0.1 on socket 8
+[2025-11-13 16:11:34] Got REQ_CLIENT_WRITE for 'name.txt' (sent 1) from socket 8
+[2025-11-13 16:11:34]   -> Lock CREATED for 'name.txt' (sent 1) by socket 8
+[2025-11-13 16:11:34]   -> Lock granted. Session started.
+[2025-11-13 16:11:42]   -> Applied update (word 1) to temp file for socket 8
+[2025-11-13 16:12:03]   -> Modifying sentence 0
+[2025-11-13 16:12:03]   -> Applied update (word 1) to temp file for socket 6
+[2025-11-13 16:12:23]   -> Applied update (word 0) to temp file for socket 8
+[2025-11-13 16:15:39] Client on socket 6 (127.0.0.1) disconnected
+[2025-11-13 16:15:39]   -> Client was in a write session! Rolling back changes.
+[2025-11-13 16:15:39]   -> Lock RELEASED for 'name.txt' (sent 0)
+[2025-11-13 16:15:41] Name Server disconnected!
+[2025-11-13 16:16:00] --- Storage Server Started ---
+[2025-11-13 16:16:00] Scanning storage directory: ./ss_storage
+[2025-11-13 16:16:00] Found 13 files.
+[2025-11-13 16:16:00] Storage Server connected to Name Server on port 8080
+[2025-11-13 16:16:00] Sending file list...
+[2025-11-13 16:16:00] Registration successful!
+[2025-11-13 16:16:00] Sending metadata for 13 existing files...
+[2025-11-13 16:16:00]   -> Calculated stats for 'saccoor.txt.bak': size=51, words=5, chars=51
+[2025-11-13 16:16:00]   -> Calculated stats for 'test.txt': size=10, words=2, chars=10
+[2025-11-13 16:16:00]   -> Calculated stats for 'pets.txt': size=49, words=10, chars=49
+[2025-11-13 16:16:00]   -> Calculated stats for 'newfile.txt': size=8, words=2, chars=8
+[2025-11-13 16:16:00]   -> Calculated stats for 'name.txt': size=9, words=3, chars=9
+[2025-11-13 16:16:00]   -> Calculated stats for 'test.txt.bak': size=10, words=2, chars=10
+[2025-11-13 16:16:00]   -> Calculated stats for 'stream.txt': size=33, words=7, chars=33
+[2025-11-13 16:16:00]   -> Calculated stats for 'name.txt.tmp.8': size=9, words=3, chars=9
+[2025-11-13 16:16:00]   -> Calculated stats for 'saccoor.txt': size=34, words=1, chars=34
+[2025-11-13 16:16:00]   -> Calculated stats for 'kys.txt': size=10, words=3, chars=10
+[2025-11-13 16:16:00]   -> Calculated stats for 'name.txt.bak': size=6, words=2, chars=6
+[2025-11-13 16:16:00]   -> Calculated stats for 'newfile.txt.bak': size=8, words=2, chars=8
+[2025-11-13 16:16:00]   -> Calculated stats for 'kys.txt.bak': size=20, words=4, chars=20
+[2025-11-13 16:16:00] Storage Server now listening for clients on port 8082...
+[2025-11-13 16:17:26] Got REQ_SS_CREATE for 'job.txt' from NM
+[2025-11-13 16:17:26]   -> Creating file at: ./ss_storage/job.txt
+[2025-11-13 16:17:26]   -> Calculated stats for 'job.txt': size=0, words=0, chars=0
+[2025-11-13 16:17:43] Got REQ_SS_DELETE for 'job.txt' from NM
+[2025-11-13 16:17:43]   -> File deleted.
+[2025-11-13 16:17:52] Got REQ_SS_CREATE for 'job.txt' from NM
+[2025-11-13 16:17:52]   -> Creating file at: ./ss_storage/job.txt
+[2025-11-13 16:17:52]   -> Calculated stats for 'job.txt': size=0, words=0, chars=0
+[2025-11-13 16:18:31] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 16:18:31] Got REQ_CLIENT_READ for 'job.txt' from socket 6
+[2025-11-13 16:18:31]   -> Sending file 'job.txt' to socket 6
+[2025-11-13 16:18:31]   -> Finished sending file to socket 6
+[2025-11-13 16:19:07] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 16:19:07] Got REQ_CLIENT_READ for 'job.txt' from socket 6
+[2025-11-13 16:19:07]   -> Sending file 'job.txt' to socket 6
+[2025-11-13 16:19:07]   -> Finished sending file to socket 6
+[2025-11-13 16:19:16] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 16:19:16] Got REQ_CLIENT_WRITE for 'job.txt' (sent 0) from socket 6
+[2025-11-13 16:19:16]   -> Lock CREATED for 'job.txt' (sent 0) by socket 6
+[2025-11-13 16:19:16]   -> Lock granted. Session started.
+[2025-11-13 16:19:25] New client connection from 127.0.0.1 on socket 8
+[2025-11-13 16:19:25] Got REQ_CLIENT_WRITE for 'job.txt' (sent 1) from socket 8
+[2025-11-13 16:19:25]   -> Lock CREATED for 'job.txt' (sent 1) by socket 8
+[2025-11-13 16:19:25]   -> Lock granted. Session started.
+[2025-11-13 16:19:34]   -> Modifying sentence 0
+[2025-11-13 16:19:34]   -> Applied update (word 1) to temp file for socket 6
+[2025-11-13 16:19:38]   -> Modifying sentence 0
+[2025-11-13 16:19:38]   -> Applied update (word 2) to temp file for socket 6
+[2025-11-13 16:19:48]   -> Modifying sentence 1
+[2025-11-13 16:19:48]   -> Applied update (word 0) to temp file for socket 8
+[2025-11-13 16:19:53]   -> Modifying sentence 1
+[2025-11-13 16:19:53]   -> Applied update (word 1) to temp file for socket 8
+[2025-11-13 16:20:03]   -> Modifying sentence 0
+[2025-11-13 16:20:03]   -> Applied update (word 0) to temp file for socket 6
+[2025-11-13 16:20:13] Got REQ_ETIRW from socket 6. Committing changes.
+[2025-11-13 16:20:13]   -> Lock RELEASED for 'job.txt' (sent 0)
+[2025-11-13 16:20:13]   -> Calculated stats for 'job.txt': size=20, words=5, chars=20
+[2025-11-13 16:20:24] Got REQ_ETIRW from socket 8. Committing changes.
+[2025-11-13 16:20:24]   -> Lock RELEASED for 'job.txt' (sent 1)
+[2025-11-13 16:20:24]   -> Calculated stats for 'job.txt': size=13, words=4, chars=13
+[2025-11-13 16:42:13] --- Storage Server Started ---
+[2025-11-13 16:42:13] Scanning storage directory: ./ss_storage
+[2025-11-13 16:42:13] Found 15 files.
+[2025-11-13 16:42:13] Storage Server connected to Name Server on port 8080
+[2025-11-13 16:42:13] Sending file list...
+[2025-11-13 16:42:13] Registration successful!
+[2025-11-13 16:42:13] Sending metadata for 15 existing files...
+[2025-11-13 16:42:13]   -> Calculated stats for 'saccoor.txt.bak': size=51, words=5, chars=51
+[2025-11-13 16:42:13]   -> Calculated stats for 'test.txt': size=10, words=2, chars=10
+[2025-11-13 16:42:13]   -> Calculated stats for 'pets.txt': size=49, words=10, chars=49
+[2025-11-13 16:42:13]   -> Calculated stats for 'job.txt': size=13, words=4, chars=13
+[2025-11-13 16:42:13]   -> Calculated stats for 'newfile.txt': size=8, words=2, chars=8
+[2025-11-13 16:42:13]   -> Calculated stats for 'name.txt': size=9, words=3, chars=9
+[2025-11-13 16:42:13]   -> Calculated stats for 'test.txt.bak': size=10, words=2, chars=10
+[2025-11-13 16:42:13]   -> Calculated stats for 'stream.txt': size=33, words=7, chars=33
+[2025-11-13 16:42:13]   -> Calculated stats for 'name.txt.tmp.8': size=9, words=3, chars=9
+[2025-11-13 16:42:13]   -> Calculated stats for 'saccoor.txt': size=34, words=1, chars=34
+[2025-11-13 16:42:13]   -> Calculated stats for 'kys.txt': size=10, words=3, chars=10
+[2025-11-13 16:42:13]   -> Calculated stats for 'name.txt.bak': size=6, words=2, chars=6
+[2025-11-13 16:42:13]   -> Calculated stats for 'job.txt.bak': size=20, words=5, chars=20
+[2025-11-13 16:42:13]   -> Calculated stats for 'newfile.txt.bak': size=8, words=2, chars=8
+[2025-11-13 16:42:13]   -> Calculated stats for 'kys.txt.bak': size=20, words=4, chars=20
+[2025-11-13 16:42:13] Storage Server now listening for clients on port 8082...
+[2025-11-13 16:42:57] Got REQ_SS_CREATE for 'nigga.txt' from NM
+[2025-11-13 16:42:57]   -> Creating file at: ./ss_storage/nigga.txt
+[2025-11-13 16:42:57]   -> Calculated stats for 'nigga.txt': size=0, words=0, chars=0
+[2025-11-13 16:43:17] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 16:43:17] Got REQ_CLIENT_READ for 'nigga.txt' from socket 6
+[2025-11-13 16:43:17]   -> Sending file 'nigga.txt' to socket 6
+[2025-11-13 16:43:17]   -> Finished sending file to socket 6
+[2025-11-13 16:44:02] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 16:44:02] Got REQ_CLIENT_READ for 'nigga.txt' from socket 6
+[2025-11-13 16:44:02]   -> Sending file 'nigga.txt' to socket 6
+[2025-11-13 16:44:02]   -> Finished sending file to socket 6
+[2025-11-13 16:47:07] New client connection from 127.0.0.1 on socket 6
+[2025-11-13 16:47:07] Got REQ_CLIENT_WRITE for 'nigga.txt' (sent 0) from socket 6
+[2025-11-13 16:47:07]   -> Lock CREATED for 'nigga.txt' (sent 0) by socket 6
+[2025-11-13 16:47:07]   -> Lock granted. Session started.
+[2025-11-13 16:47:14] New client connection from 127.0.0.1 on socket 8
+[2025-11-13 16:47:14] Got REQ_CLIENT_WRITE for 'nigga.txt' (sent 1) from socket 8
+[2025-11-13 16:47:14]   -> Lock CREATED for 'nigga.txt' (sent 1) by socket 8
+[2025-11-13 16:47:14]   -> Lock granted. Session started.
+[2025-11-13 16:47:30]   -> Modifying sentence 1
+[2025-11-13 16:47:30]   -> Applied update (word 0) to temp file for socket 8
+[2025-11-13 16:47:33]   -> Modifying sentence 1
+[2025-11-13 16:47:33]   -> Applied update (word 0) to temp file for socket 8

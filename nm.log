@@ -228,3 +228,476 @@ echo hii
 [2025-11-13 11:05:31]   -> De-listed 'stream.txt'
 [2025-11-13 11:05:31]   -> De-listed 'pets.txt'
 [2025-11-13 11:05:31]   -> De-listed 'newfile.txt'
+[2025-11-13 15:15:34] --- Name Server Started ---
+[2025-11-13 15:15:34] Initializing state...
+[2025-11-13 15:15:34] Name Server listening on port 8080...
+[2025-11-13 15:15:42] New connection from 127.0.0.1 on socket 5
+[2025-11-13 15:15:42] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 4 files.
+[2025-11-13 15:15:42] Receiving file list from SS 5...
+[2025-11-13 15:15:42]   -> Cataloged 'pets.txt' (owner: system) in slot 0
+[2025-11-13 15:15:42]   -> Cataloged 'newfile.txt' (owner: system) in slot 1
+[2025-11-13 15:15:42]   -> Cataloged 'stream.txt' (owner: system) in slot 2
+[2025-11-13 15:15:42]   -> Cataloged 'newfile.txt.bak' (owner: system) in slot 3
+[2025-11-13 15:15:42] Got REQ_UPDATE_METADATA for 'pets.txt' from SS 5
+[2025-11-13 15:15:42]   -> Metadata updated for 'pets.txt'
+[2025-11-13 15:15:42] Got REQ_UPDATE_METADATA for 'newfile.txt' from SS 5
+[2025-11-13 15:15:42]   -> Metadata updated for 'newfile.txt'
+[2025-11-13 15:15:42] Got REQ_UPDATE_METADATA for 'stream.txt' from SS 5
+[2025-11-13 15:15:42]   -> Metadata updated for 'stream.txt'
+[2025-11-13 15:15:42] Got REQ_UPDATE_METADATA for 'newfile.txt.bak' from SS 5
+[2025-11-13 15:15:42]   -> Metadata updated for 'newfile.txt.bak'
+[2025-11-13 15:16:02] New connection from 127.0.0.1 on socket 6
+[2025-11-13 15:16:02] Socket 6 (127.0.0.1): CLIENT registered as 'vishal'
+[2025-11-13 15:16:39] Got REQ_VIEW (a=0, l=0) from client 'vishal'
+[2025-11-13 15:16:42] Got REQ_VIEW (a=1, l=0) from client 'vishal'
+[2025-11-13 15:17:04] Got REQ_VIEW (a=0, l=1) from client 'vishal'
+[2025-11-13 15:17:09] Got REQ_VIEW (a=1, l=1) from client 'vishal'
+[2025-11-13 15:17:31] Got 8 for 'newfile.txt' from client 'vishal'
+[2025-11-13 15:17:31]   -> Access Denied for user 'vishal'.
+[2025-11-13 15:17:55] Got REQ_CREATE for 'saccoor.txt' from client 'vishal' (Sock 6)
+[2025-11-13 15:17:55]   -> Relaying REQ_SS_CREATE to SS on socket 5
+[2025-11-13 15:17:55]   -> SS confirmed creation. Updating catalog.
+[2025-11-13 15:17:55] Got REQ_UPDATE_METADATA for 'saccoor.txt' from SS 5
+[2025-11-13 15:17:55]   -> Metadata updated for 'saccoor.txt'
+[2025-11-13 15:18:31] Got 8 for 'saccoor.txt' from client 'vishal'
+[2025-11-13 15:18:31]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 15:19:12] Got 13 for 'saccoor.txt' from client 'vishal'
+[2025-11-13 15:19:12]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 15:20:14] Got REQ_UPDATE_METADATA for 'saccoor.txt' from SS 5
+[2025-11-13 15:20:14]   -> Metadata updated for 'saccoor.txt'
+[2025-11-13 15:20:35] Got REQ_UNDO for 'saccoor.txt' from client 'vishal'
+[2025-11-13 15:20:35]   -> Relaying REQ_SS_UNDO to SS 5
+[2025-11-13 15:20:35] Socket 5: Unknown message type 1667457395
+[2025-11-13 15:20:35] Socket 5: Unknown message type 7633012
+[2025-11-13 15:20:35] Socket 5 (127.0.0.1): CLIENT registered as ''
+[2025-11-13 15:20:35] Socket 5 (127.0.0.1): CLIENT registered as ''
+[2025-11-13 15:21:37] --- Name Server Started ---
+[2025-11-13 15:21:37] Initializing state...
+[2025-11-13 15:21:37] Name Server listening on port 8080...
+[2025-11-13 15:21:39] New connection from 127.0.0.1 on socket 5
+[2025-11-13 15:21:39] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 6 files.
+[2025-11-13 15:21:39] Receiving file list from SS 5...
+[2025-11-13 15:21:39]   -> Cataloged 'saccoor.txt.bak' (owner: system) in slot 0
+[2025-11-13 15:21:39]   -> Cataloged 'pets.txt' (owner: system) in slot 1
+[2025-11-13 15:21:39]   -> Cataloged 'newfile.txt' (owner: system) in slot 2
+[2025-11-13 15:21:39]   -> Cataloged 'stream.txt' (owner: system) in slot 3
+[2025-11-13 15:21:39]   -> Cataloged 'saccoor.txt' (owner: system) in slot 4
+[2025-11-13 15:21:39]   -> Cataloged 'newfile.txt.bak' (owner: system) in slot 5
+[2025-11-13 15:21:39] Got REQ_UPDATE_METADATA for 'saccoor.txt.bak' from SS 5
+[2025-11-13 15:21:39]   -> Metadata updated for 'saccoor.txt.bak'
+[2025-11-13 15:21:39] Got REQ_UPDATE_METADATA for 'pets.txt' from SS 5
+[2025-11-13 15:21:39]   -> Metadata updated for 'pets.txt'
+[2025-11-13 15:21:39] Got REQ_UPDATE_METADATA for 'newfile.txt' from SS 5
+[2025-11-13 15:21:39]   -> Metadata updated for 'newfile.txt'
+[2025-11-13 15:21:39] Got REQ_UPDATE_METADATA for 'stream.txt' from SS 5
+[2025-11-13 15:21:39]   -> Metadata updated for 'stream.txt'
+[2025-11-13 15:21:39] Got REQ_UPDATE_METADATA for 'saccoor.txt' from SS 5
+[2025-11-13 15:21:39]   -> Metadata updated for 'saccoor.txt'
+[2025-11-13 15:21:39] Got REQ_UPDATE_METADATA for 'newfile.txt.bak' from SS 5
+[2025-11-13 15:21:39]   -> Metadata updated for 'newfile.txt.bak'
+[2025-11-13 15:21:44] New connection from 127.0.0.1 on socket 6
+[2025-11-13 15:21:44] Socket 6 (127.0.0.1): CLIENT registered as 'asda'
+[2025-11-13 15:21:52] Got 8 for 'saccoor.txt' from client 'asda'
+[2025-11-13 15:21:52]   -> Access Denied for user 'asda'.
+[2025-11-13 15:21:57] Client 'asda' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-13 15:22:01] New connection from 127.0.0.1 on socket 6
+[2025-11-13 15:22:01] Socket 6 (127.0.0.1): CLIENT registered as 'vishal'
+[2025-11-13 15:22:26] Got 8 for 'saccoor.txt' from client 'vishal'
+[2025-11-13 15:22:26]   -> Access Denied for user 'vishal'.
+[2025-11-13 15:22:40] Got REQ_CREATE for 'kys.txt' from client 'vishal' (Sock 6)
+[2025-11-13 15:22:40]   -> Relaying REQ_SS_CREATE to SS on socket 5
+[2025-11-13 15:22:40]   -> SS confirmed creation. Updating catalog.
+[2025-11-13 15:22:40] Got REQ_UPDATE_METADATA for 'kys.txt' from SS 5
+[2025-11-13 15:22:40]   -> Metadata updated for 'kys.txt'
+[2025-11-13 15:22:52] Got 8 for 'kys.txt' from client 'vishal'
+[2025-11-13 15:22:52]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 15:23:03] Got 13 for 'kys.txt' from client 'vishal'
+[2025-11-13 15:23:03]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 15:23:28] Got REQ_UPDATE_METADATA for 'kys.txt' from SS 5
+[2025-11-13 15:23:28]   -> Metadata updated for 'kys.txt'
+[2025-11-13 15:23:32] Got 8 for 'kys.txt' from client 'vishal'
+[2025-11-13 15:23:32]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 15:23:37] Got REQ_UNDO for 'kys.txt' from client 'vishal'
+[2025-11-13 15:23:37]   -> Relaying REQ_SS_UNDO to SS 5
+[2025-11-13 15:23:37] Socket 5: Unknown message type 779319659
+[2025-11-13 15:23:37] Socket 5 (127.0.0.1): CLIENT registered as ''
+[2025-11-13 15:23:37] Socket 5 (127.0.0.1): CLIENT registered as ''
+[2025-11-13 15:23:37] Socket 5 (127.0.0.1): CLIENT registered as ''
+[2025-11-13 15:23:40] Got 8 for 'kys.txt' from client 'vishal'
+[2025-11-13 15:23:40]   -> Error: SS for file is offline.
+[2025-11-13 15:23:56] Got REQ_UNDO for 'kys.txt' from client 'vishal'
+[2025-11-13 15:24:02] Got 8 for 'kys.txt' from client 'vishal'
+[2025-11-13 15:24:02]   -> Error: SS for file is offline.
+[2025-11-13 15:25:10] Got REQ_INFO for 'kys.txt' from client 'vishal'
+[2025-11-13 15:25:21] Got REQ_LIST from client 'vishal' (Sock 6)
+[2025-11-13 15:29:58] Client '' (Socket 5, IP: 127.0.0.1) disconnected.
+[2025-11-13 15:30:34] --- Name Server Started ---
+[2025-11-13 15:30:34] Initializing state...
+[2025-11-13 15:30:34] Name Server listening on port 8080...
+[2025-11-13 15:30:37] New connection from 127.0.0.1 on socket 5
+[2025-11-13 15:30:37] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 8 files.
+[2025-11-13 15:30:37] Receiving file list from SS 5...
+[2025-11-13 15:30:37]   -> Cataloged 'saccoor.txt.bak' (owner: system) in slot 0
+[2025-11-13 15:30:37]   -> Cataloged 'pets.txt' (owner: system) in slot 1
+[2025-11-13 15:30:37]   -> Cataloged 'newfile.txt' (owner: system) in slot 2
+[2025-11-13 15:30:37]   -> Cataloged 'stream.txt' (owner: system) in slot 3
+[2025-11-13 15:30:37]   -> Cataloged 'saccoor.txt' (owner: system) in slot 4
+[2025-11-13 15:30:37]   -> Cataloged 'kys.txt' (owner: system) in slot 5
+[2025-11-13 15:30:37]   -> Cataloged 'newfile.txt.bak' (owner: system) in slot 6
+[2025-11-13 15:30:37]   -> Cataloged 'kys.txt.bak' (owner: system) in slot 7
+[2025-11-13 15:30:37] Got REQ_UPDATE_METADATA for 'saccoor.txt.bak' from SS 5
+[2025-11-13 15:30:37]   -> Metadata updated for 'saccoor.txt.bak'
+[2025-11-13 15:30:37] Got REQ_UPDATE_METADATA for 'pets.txt' from SS 5
+[2025-11-13 15:30:37]   -> Metadata updated for 'pets.txt'
+[2025-11-13 15:30:37] Got REQ_UPDATE_METADATA for 'newfile.txt' from SS 5
+[2025-11-13 15:30:37]   -> Metadata updated for 'newfile.txt'
+[2025-11-13 15:30:37] Got REQ_UPDATE_METADATA for 'stream.txt' from SS 5
+[2025-11-13 15:30:37]   -> Metadata updated for 'stream.txt'
+[2025-11-13 15:30:37] Got REQ_UPDATE_METADATA for 'saccoor.txt' from SS 5
+[2025-11-13 15:30:37]   -> Metadata updated for 'saccoor.txt'
+[2025-11-13 15:30:37] Got REQ_UPDATE_METADATA for 'kys.txt' from SS 5
+[2025-11-13 15:30:37]   -> Metadata updated for 'kys.txt'
+[2025-11-13 15:30:37] Got REQ_UPDATE_METADATA for 'newfile.txt.bak' from SS 5
+[2025-11-13 15:30:37]   -> Metadata updated for 'newfile.txt.bak'
+[2025-11-13 15:30:37] Got REQ_UPDATE_METADATA for 'kys.txt.bak' from SS 5
+[2025-11-13 15:30:37]   -> Metadata updated for 'kys.txt.bak'
+[2025-11-13 15:30:44] New connection from 127.0.0.1 on socket 6
+[2025-11-13 15:30:44] Socket 6 (127.0.0.1): CLIENT registered as 'vishal'
+[2025-11-13 15:30:59] Got REQ_CREATE for 'test.txt' from client 'vishal' (Sock 6)
+[2025-11-13 15:30:59]   -> Relaying REQ_SS_CREATE to SS on socket 5
+[2025-11-13 15:30:59]   -> SS confirmed creation. Updating catalog.
+[2025-11-13 15:30:59] Got REQ_UPDATE_METADATA for 'test.txt' from SS 5
+[2025-11-13 15:30:59]   -> Metadata updated for 'test.txt'
+[2025-11-13 15:31:07] Got 13 for 'test.txt' from client 'vishal'
+[2025-11-13 15:31:07]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 15:31:58] Got REQ_UPDATE_METADATA for 'test.txt' from SS 5
+[2025-11-13 15:31:58]   -> Metadata updated for 'test.txt'
+[2025-11-13 15:32:07] Got 8 for 'test.txt' from client 'vishal'
+[2025-11-13 15:32:07]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 15:32:48] Got REQ_UNDO for 'test.txt' from client 'vishal'
+[2025-11-13 15:32:48]   -> Relaying REQ_SS_UNDO to SS 5
+[2025-11-13 15:32:48] Got REQ_UPDATE_METADATA for 'test.txt' from SS 5
+[2025-11-13 15:32:48]   -> Metadata updated for 'test.txt'
+[2025-11-13 15:32:56] Got 8 for 'test.txt' from client 'vishal'
+[2025-11-13 15:32:56]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 15:33:05] Got REQ_UNDO for 'test.txt' from client 'vishal'
+[2025-11-13 15:33:05]   -> Relaying REQ_SS_UNDO to SS 5
+[2025-11-13 15:33:05] Got REQ_UPDATE_METADATA for 'test.txt' from SS 5
+[2025-11-13 15:33:05]   -> Metadata updated for 'test.txt'
+[2025-11-13 15:33:18] Got 8 for 'test.txt' from client 'vishal'
+[2025-11-13 15:33:18]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 15:38:24] Got 26 for 'test.txt' from client 'vishal'
+[2025-11-13 15:38:24]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 15:38:32] Got REQ_LIST from client 'vishal' (Sock 6)
+[2025-11-13 15:39:34] Got REQ_EXEC for 'test.txt' from client 'vishal'
+[2025-11-13 15:39:34]   -> NM acting as client to fetch file content from SS...
+[2025-11-13 15:39:34]   -> EXEC: Successfully fetched script content (10 bytes).
+[2025-11-13 15:39:34]   -> Executing script: 
+---
+echo hello
+---
+[2025-11-13 15:39:34]   -> Execution finished. Sending DONE.
+[2025-11-13 15:40:45] New connection from 127.0.0.1 on socket 7
+[2025-11-13 15:40:45] Socket 7 (127.0.0.1): CLIENT registered as 'sree'
+[2025-11-13 15:40:57] Got 8 for 'test.txt' from client 'sree'
+[2025-11-13 15:40:57]   -> Access Denied for user 'sree'.
+[2025-11-13 15:41:13] Got REQ_ADD_ACCESS for 'test.txt' (user: sree) from client 'vishal'
+[2025-11-13 15:41:13]   -> Access granted.
+[2025-11-13 15:41:17] Got 8 for 'test.txt' from client 'sree'
+[2025-11-13 15:41:17]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 15:44:19] Got 13 for 'test.txt' from client 'sree'
+[2025-11-13 15:44:19]   -> Access Denied for user 'sree'.
+[2025-11-13 15:44:29] Got REQ_ADD_ACCESS for 'test.txt' (user: sree) from client 'vishal'
+[2025-11-13 15:44:29]   -> Access granted.
+[2025-11-13 15:44:35] Got 13 for 'test.txt' from client 'sree'
+[2025-11-13 15:44:35]   -> Access Denied for user 'sree'.
+[2025-11-13 15:44:47] Got 13 for 'test.txt' from client 'sree'
+[2025-11-13 15:44:47]   -> Access Denied for user 'sree'.
+[2025-11-13 15:50:38] Client 'sree' (Socket 7, IP: 127.0.0.1) disconnected.
+[2025-11-13 15:50:39] Client 'vishal' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-13 15:51:30] New connection from 127.0.0.1 on socket 6
+[2025-11-13 15:51:30] Socket 6 (127.0.0.1): CLIENT registered as 'vishal'
+[2025-11-13 15:51:31] Got REQ_LIST from client 'vishal' (Sock 6)
+[2025-11-13 15:51:43] New connection from 127.0.0.1 on socket 7
+[2025-11-13 15:51:43] Socket 7 (127.0.0.1): CLIENT registered as 'sreevijay'
+[2025-11-13 15:51:45] Got REQ_LIST from client 'vishal' (Sock 6)
+[2025-11-13 15:52:00] Got 8 for 'test.txt' from client 'sreevijay'
+[2025-11-13 15:52:00]   -> Access Denied for user 'sreevijay'.
+[2025-11-13 15:52:09] Got 8 for 'test.txt' from client 'vishal'
+[2025-11-13 15:52:09]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 15:52:21] Got REQ_EXEC for 'test.txt' from client 'vishal'
+[2025-11-13 15:52:21]   -> NM acting as client to fetch file content from SS...
+[2025-11-13 15:52:21]   -> EXEC: Successfully fetched script content (10 bytes).
+[2025-11-13 15:52:21]   -> Executing script: 
+---
+echo hello
+---
+[2025-11-13 15:52:21]   -> Execution finished. Sending DONE.
+[2025-11-13 15:53:02] Got REQ_ADD_ACCESS for 'test.txt' (user: sreevijay) from client 'vishal'
+[2025-11-13 15:53:02]   -> Access granted.
+[2025-11-13 15:53:08] Got 8 for 'test.txt' from client 'sreevijay'
+[2025-11-13 15:53:08]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 15:53:27] Got 13 for 'test.txt' from client 'sreevijay'
+[2025-11-13 15:53:27]   -> Access Denied for user 'sreevijay'.
+[2025-11-13 15:53:29] Got REQ_ADD_ACCESS for 'test.txt' (user: sreevijay) from client 'vishal'
+[2025-11-13 15:53:29]   -> Access granted.
+[2025-11-13 15:53:33] Got 13 for 'test.txt' from client 'sreevijay'
+[2025-11-13 15:53:33]   -> Access Denied for user 'sreevijay'.
+[2025-11-13 15:55:15] Storage Server (Socket 5, IP: 127.0.0.1) disconnected.
+[2025-11-13 15:55:15] De-listing its files from the catalog...
+[2025-11-13 15:55:15]   -> De-listed 'saccoor.txt.bak'
+[2025-11-13 15:55:15]   -> De-listed 'pets.txt'
+[2025-11-13 15:55:15]   -> De-listed 'newfile.txt'
+[2025-11-13 15:55:15]   -> De-listed 'stream.txt'
+[2025-11-13 15:55:15]   -> De-listed 'saccoor.txt'
+[2025-11-13 15:55:15]   -> De-listed 'kys.txt'
+[2025-11-13 15:55:15]   -> De-listed 'newfile.txt.bak'
+[2025-11-13 15:55:15]   -> De-listed 'kys.txt.bak'
+[2025-11-13 15:55:15]   -> De-listed 'test.txt'
+[2025-11-13 15:55:15] Client 'sreevijay' (Socket 7, IP: 127.0.0.1) disconnected.
+[2025-11-13 15:55:29] --- Name Server Started ---
+[2025-11-13 15:55:29] Initializing state...
+[2025-11-13 15:55:29] Name Server listening on port 8080...
+[2025-11-13 15:55:38] New connection from 127.0.0.1 on socket 5
+[2025-11-13 15:55:38] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 10 files.
+[2025-11-13 15:55:38] Receiving file list from SS 5...
+[2025-11-13 15:55:38]   -> Cataloged 'saccoor.txt.bak' (owner: system) in slot 0
+[2025-11-13 15:55:38]   -> Cataloged 'test.txt' (owner: system) in slot 1
+[2025-11-13 15:55:38]   -> Cataloged 'pets.txt' (owner: system) in slot 2
+[2025-11-13 15:55:38]   -> Cataloged 'newfile.txt' (owner: system) in slot 3
+[2025-11-13 15:55:38]   -> Cataloged 'test.txt.bak' (owner: system) in slot 4
+[2025-11-13 15:55:38]   -> Cataloged 'stream.txt' (owner: system) in slot 5
+[2025-11-13 15:55:38]   -> Cataloged 'saccoor.txt' (owner: system) in slot 6
+[2025-11-13 15:55:38]   -> Cataloged 'kys.txt' (owner: system) in slot 7
+[2025-11-13 15:55:38]   -> Cataloged 'newfile.txt.bak' (owner: system) in slot 8
+[2025-11-13 15:55:38]   -> Cataloged 'kys.txt.bak' (owner: system) in slot 9
+[2025-11-13 15:55:38] Got REQ_UPDATE_METADATA for 'saccoor.txt.bak' from SS 5
+[2025-11-13 15:55:38]   -> Metadata updated for 'saccoor.txt.bak'
+[2025-11-13 15:55:38] Got REQ_UPDATE_METADATA for 'test.txt' from SS 5
+[2025-11-13 15:55:38]   -> Metadata updated for 'test.txt'
+[2025-11-13 15:55:38] Got REQ_UPDATE_METADATA for 'pets.txt' from SS 5
+[2025-11-13 15:55:38]   -> Metadata updated for 'pets.txt'
+[2025-11-13 15:55:38] Got REQ_UPDATE_METADATA for 'newfile.txt' from SS 5
+[2025-11-13 15:55:38]   -> Metadata updated for 'newfile.txt'
+[2025-11-13 15:55:38] Got REQ_UPDATE_METADATA for 'test.txt.bak' from SS 5
+[2025-11-13 15:55:38]   -> Metadata updated for 'test.txt.bak'
+[2025-11-13 15:55:38] Got REQ_UPDATE_METADATA for 'stream.txt' from SS 5
+[2025-11-13 15:55:38]   -> Metadata updated for 'stream.txt'
+[2025-11-13 15:55:38] Got REQ_UPDATE_METADATA for 'saccoor.txt' from SS 5
+[2025-11-13 15:55:38]   -> Metadata updated for 'saccoor.txt'
+[2025-11-13 15:55:38] Got REQ_UPDATE_METADATA for 'kys.txt' from SS 5
+[2025-11-13 15:55:38]   -> Metadata updated for 'kys.txt'
+[2025-11-13 15:55:38] Got REQ_UPDATE_METADATA for 'newfile.txt.bak' from SS 5
+[2025-11-13 15:55:38]   -> Metadata updated for 'newfile.txt.bak'
+[2025-11-13 15:55:38] Got REQ_UPDATE_METADATA for 'kys.txt.bak' from SS 5
+[2025-11-13 15:55:38]   -> Metadata updated for 'kys.txt.bak'
+[2025-11-13 15:55:49] New connection from 127.0.0.1 on socket 6
+[2025-11-13 15:55:49] Socket 6 (127.0.0.1): CLIENT registered as 'vishal'
+[2025-11-13 15:55:54] New connection from 127.0.0.1 on socket 7
+[2025-11-13 15:55:54] Socket 7 (127.0.0.1): CLIENT registered as 'sreevijay'
+[2025-11-13 15:56:02] Got 8 for 'test.txt' from client 'vishal'
+[2025-11-13 15:56:02]   -> Access Denied for user 'vishal'.
+[2025-11-13 15:56:07] Got REQ_LIST from client 'vishal' (Sock 6)
+[2025-11-13 15:56:14] Got 8 for 'test.txt' from client 'vishal'
+[2025-11-13 15:56:14]   -> Access Denied for user 'vishal'.
+[2025-11-13 15:59:21] Got REQ_CREATE for 'test.txt' from client 'vishal' (Sock 6)
+[2025-11-13 15:59:21]   -> Error: File 'test.txt' already exists.
+[2025-11-13 15:59:27] Got REQ_CREATE for 'name.txt' from client 'vishal' (Sock 6)
+[2025-11-13 15:59:27]   -> Relaying REQ_SS_CREATE to SS on socket 5
+[2025-11-13 15:59:27]   -> SS confirmed creation. Updating catalog.
+[2025-11-13 15:59:27] Got REQ_UPDATE_METADATA for 'name.txt' from SS 5
+[2025-11-13 15:59:27]   -> Metadata updated for 'name.txt'
+[2025-11-13 16:00:01] Got 8 for 'name.txt' from client 'vishal'
+[2025-11-13 16:00:01]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 16:00:08] Got 8 for 'name.txt' from client 'sreevijay'
+[2025-11-13 16:00:08]   -> Access Denied for user 'sreevijay'.
+[2025-11-13 16:00:30] Got REQ_ADD_ACCESS for 'name.txt' (user: sreevijat) from client 'vishal'
+[2025-11-13 16:00:30]   -> Access granted.
+[2025-11-13 16:00:49] Got 8 for 'name.txt' from client 'sreevijay'
+[2025-11-13 16:00:49]   -> Access Denied for user 'sreevijay'.
+[2025-11-13 16:00:51] Got REQ_ADD_ACCESS for 'name.txt' (user: sreevijay) from client 'vishal'
+[2025-11-13 16:00:51]   -> Access granted.
+[2025-11-13 16:00:54] Got 8 for 'name.txt' from client 'sreevijay'
+[2025-11-13 16:00:54]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 16:01:28] Got 13 for 'name.txt' from client 'sreevijay'
+[2025-11-13 16:01:28]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 16:05:40] Got 13 for 'name.txt' from client 'vishal'
+[2025-11-13 16:05:40]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 16:08:48] Got 13 for 'name.txt' from client 'vishal'
+[2025-11-13 16:08:48]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 16:11:15] Got REQ_UPDATE_METADATA for 'name.txt' from SS 5
+[2025-11-13 16:11:15]   -> Metadata updated for 'name.txt'
+[2025-11-13 16:11:34] Got 13 for 'name.txt' from client 'vishal'
+[2025-11-13 16:11:34]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 16:15:39] Client 'sreevijay' (Socket 7, IP: 127.0.0.1) disconnected.
+[2025-11-13 16:15:58] --- Name Server Started ---
+[2025-11-13 16:15:58] Initializing state...
+[2025-11-13 16:15:58] Name Server listening on port 8080...
+[2025-11-13 16:16:00] New connection from 127.0.0.1 on socket 5
+[2025-11-13 16:16:00] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 13 files.
+[2025-11-13 16:16:00] Receiving file list from SS 5...
+[2025-11-13 16:16:00]   -> Cataloged 'saccoor.txt.bak' (owner: system) in slot 0
+[2025-11-13 16:16:00]   -> Cataloged 'test.txt' (owner: system) in slot 1
+[2025-11-13 16:16:00]   -> Cataloged 'pets.txt' (owner: system) in slot 2
+[2025-11-13 16:16:00]   -> Cataloged 'newfile.txt' (owner: system) in slot 3
+[2025-11-13 16:16:00]   -> Cataloged 'name.txt' (owner: system) in slot 4
+[2025-11-13 16:16:00]   -> Cataloged 'test.txt.bak' (owner: system) in slot 5
+[2025-11-13 16:16:00]   -> Cataloged 'stream.txt' (owner: system) in slot 6
+[2025-11-13 16:16:00]   -> Cataloged 'name.txt.tmp.8' (owner: system) in slot 7
+[2025-11-13 16:16:00]   -> Cataloged 'saccoor.txt' (owner: system) in slot 8
+[2025-11-13 16:16:00]   -> Cataloged 'kys.txt' (owner: system) in slot 9
+[2025-11-13 16:16:00]   -> Cataloged 'name.txt.bak' (owner: system) in slot 10
+[2025-11-13 16:16:00]   -> Cataloged 'newfile.txt.bak' (owner: system) in slot 11
+[2025-11-13 16:16:00]   -> Cataloged 'kys.txt.bak' (owner: system) in slot 12
+[2025-11-13 16:16:00] Got REQ_UPDATE_METADATA for 'saccoor.txt.bak' from SS 5
+[2025-11-13 16:16:00]   -> Metadata updated for 'saccoor.txt.bak'
+[2025-11-13 16:16:00] Got REQ_UPDATE_METADATA for 'test.txt' from SS 5
+[2025-11-13 16:16:00]   -> Metadata updated for 'test.txt'
+[2025-11-13 16:16:00] Got REQ_UPDATE_METADATA for 'pets.txt' from SS 5
+[2025-11-13 16:16:00]   -> Metadata updated for 'pets.txt'
+[2025-11-13 16:16:00] Got REQ_UPDATE_METADATA for 'newfile.txt' from SS 5
+[2025-11-13 16:16:00]   -> Metadata updated for 'newfile.txt'
+[2025-11-13 16:16:00] Got REQ_UPDATE_METADATA for 'name.txt' from SS 5
+[2025-11-13 16:16:00]   -> Metadata updated for 'name.txt'
+[2025-11-13 16:16:00] Got REQ_UPDATE_METADATA for 'test.txt.bak' from SS 5
+[2025-11-13 16:16:00]   -> Metadata updated for 'test.txt.bak'
+[2025-11-13 16:16:00] Got REQ_UPDATE_METADATA for 'stream.txt' from SS 5
+[2025-11-13 16:16:00]   -> Metadata updated for 'stream.txt'
+[2025-11-13 16:16:00] Got REQ_UPDATE_METADATA for 'name.txt.tmp.8' from SS 5
+[2025-11-13 16:16:00]   -> Metadata updated for 'name.txt.tmp.8'
+[2025-11-13 16:16:00] Got REQ_UPDATE_METADATA for 'saccoor.txt' from SS 5
+[2025-11-13 16:16:00]   -> Metadata updated for 'saccoor.txt'
+[2025-11-13 16:16:00] Got REQ_UPDATE_METADATA for 'kys.txt' from SS 5
+[2025-11-13 16:16:00]   -> Metadata updated for 'kys.txt'
+[2025-11-13 16:16:00] Got REQ_UPDATE_METADATA for 'name.txt.bak' from SS 5
+[2025-11-13 16:16:00]   -> Metadata updated for 'name.txt.bak'
+[2025-11-13 16:16:00] Got REQ_UPDATE_METADATA for 'newfile.txt.bak' from SS 5
+[2025-11-13 16:16:00]   -> Metadata updated for 'newfile.txt.bak'
+[2025-11-13 16:16:00] Got REQ_UPDATE_METADATA for 'kys.txt.bak' from SS 5
+[2025-11-13 16:16:00]   -> Metadata updated for 'kys.txt.bak'
+[2025-11-13 16:16:09] New connection from 127.0.0.1 on socket 6
+[2025-11-13 16:16:09] Socket 6 (127.0.0.1): CLIENT registered as 'vishal'
+[2025-11-13 16:16:12] New connection from 127.0.0.1 on socket 7
+[2025-11-13 16:16:12] Socket 7 (127.0.0.1): CLIENT registered as 'sreevijay'
+[2025-11-13 16:16:45] Got REQ_CREATE for 'name.txt' from client 'vishal' (Sock 6)
+[2025-11-13 16:16:45]   -> Error: File 'name.txt' already exists.
+[2025-11-13 16:17:01] Got REQ_DELETE for 'name.txt' from client 'vishal'
+[2025-11-13 16:17:01]   -> Access Denied. User 'vishal' is not owner 'system'.
+[2025-11-13 16:17:26] Got REQ_CREATE for 'job.txt' from client 'vishal' (Sock 6)
+[2025-11-13 16:17:26]   -> Relaying REQ_SS_CREATE to SS on socket 5
+[2025-11-13 16:17:26]   -> SS confirmed creation. Updating catalog.
+[2025-11-13 16:17:26] Got REQ_UPDATE_METADATA for 'job.txt' from SS 5
+[2025-11-13 16:17:26]   -> Metadata updated for 'job.txt'
+[2025-11-13 16:17:37] Got REQ_DELETE for 'job.txtt' from client 'vishal'
+[2025-11-13 16:17:43] Got REQ_DELETE for 'job.txt' from client 'vishal'
+[2025-11-13 16:17:43]   -> Relaying REQ_SS_DELETE to SS 5
+[2025-11-13 16:17:52] Got REQ_CREATE for 'job.txt' from client 'vishal' (Sock 6)
+[2025-11-13 16:17:52]   -> Relaying REQ_SS_CREATE to SS on socket 5
+[2025-11-13 16:17:52]   -> SS confirmed creation. Updating catalog.
+[2025-11-13 16:17:52] Got REQ_UPDATE_METADATA for 'job.txt' from SS 5
+[2025-11-13 16:17:52]   -> Metadata updated for 'job.txt'
+[2025-11-13 16:18:24] Got 8 for 'job.txt' from client 'sreevijay'
+[2025-11-13 16:18:24]   -> Access Denied for user 'sreevijay'.
+[2025-11-13 16:18:31] Got 8 for 'job.txt' from client 'vishal'
+[2025-11-13 16:18:31]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 16:19:02] Got REQ_ADD_ACCESS for 'job.txt' (user: sreevijay) from client 'vishal'
+[2025-11-13 16:19:02]   -> Access granted.
+[2025-11-13 16:19:07] Got 8 for 'job.txt' from client 'sreevijay'
+[2025-11-13 16:19:07]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 16:19:16] Got 13 for 'job.txt' from client 'sreevijay'
+[2025-11-13 16:19:16]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 16:19:25] Got 13 for 'job.txt' from client 'vishal'
+[2025-11-13 16:19:25]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 16:20:13] Got REQ_UPDATE_METADATA for 'job.txt' from SS 5
+[2025-11-13 16:20:13]   -> Metadata updated for 'job.txt'
+[2025-11-13 16:20:24] Got REQ_UPDATE_METADATA for 'job.txt' from SS 5
+[2025-11-13 16:20:24]   -> Metadata updated for 'job.txt'
+[2025-11-13 16:41:56] Client 'sreevijay' (Socket 7, IP: 127.0.0.1) disconnected.
+[2025-11-13 16:41:56] Storage Server (Socket 5, IP: 127.0.0.1) disconnected.
+[2025-11-13 16:41:56] De-listing its files from the catalog...
+[2025-11-13 16:41:56]   -> De-listed 'saccoor.txt.bak'
+[2025-11-13 16:41:56]   -> De-listed 'test.txt'
+[2025-11-13 16:41:56]   -> De-listed 'pets.txt'
+[2025-11-13 16:41:56]   -> De-listed 'newfile.txt'
+[2025-11-13 16:41:56]   -> De-listed 'name.txt'
+[2025-11-13 16:41:56]   -> De-listed 'test.txt.bak'
+[2025-11-13 16:41:56]   -> De-listed 'stream.txt'
+[2025-11-13 16:41:56]   -> De-listed 'name.txt.tmp.8'
+[2025-11-13 16:41:56]   -> De-listed 'saccoor.txt'
+[2025-11-13 16:41:56]   -> De-listed 'kys.txt'
+[2025-11-13 16:41:56]   -> De-listed 'name.txt.bak'
+[2025-11-13 16:41:56]   -> De-listed 'newfile.txt.bak'
+[2025-11-13 16:41:56]   -> De-listed 'kys.txt.bak'
+[2025-11-13 16:41:56]   -> De-listed 'job.txt'
+[2025-11-13 16:42:10] --- Name Server Started ---
+[2025-11-13 16:42:10] Initializing state...
+[2025-11-13 16:42:10] Name Server listening on port 8080...
+[2025-11-13 16:42:13] New connection from 127.0.0.1 on socket 5
+[2025-11-13 16:42:13] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 15 files.
+[2025-11-13 16:42:13] Receiving file list from SS 5...
+[2025-11-13 16:42:13]   -> Cataloged 'saccoor.txt.bak' (owner: system) in slot 0
+[2025-11-13 16:42:13]   -> Cataloged 'test.txt' (owner: system) in slot 1
+[2025-11-13 16:42:13]   -> Cataloged 'pets.txt' (owner: system) in slot 2
+[2025-11-13 16:42:13]   -> Cataloged 'job.txt' (owner: system) in slot 3
+[2025-11-13 16:42:13]   -> Cataloged 'newfile.txt' (owner: system) in slot 4
+[2025-11-13 16:42:13]   -> Cataloged 'name.txt' (owner: system) in slot 5
+[2025-11-13 16:42:13]   -> Cataloged 'test.txt.bak' (owner: system) in slot 6
+[2025-11-13 16:42:13]   -> Cataloged 'stream.txt' (owner: system) in slot 7
+[2025-11-13 16:42:13]   -> Cataloged 'name.txt.tmp.8' (owner: system) in slot 8
+[2025-11-13 16:42:13]   -> Cataloged 'saccoor.txt' (owner: system) in slot 9
+[2025-11-13 16:42:13]   -> Cataloged 'kys.txt' (owner: system) in slot 10
+[2025-11-13 16:42:13]   -> Cataloged 'name.txt.bak' (owner: system) in slot 11
+[2025-11-13 16:42:13]   -> Cataloged 'job.txt.bak' (owner: system) in slot 12
+[2025-11-13 16:42:13]   -> Cataloged 'newfile.txt.bak' (owner: system) in slot 13
+[2025-11-13 16:42:13]   -> Cataloged 'kys.txt.bak' (owner: system) in slot 14
+[2025-11-13 16:42:13] Got REQ_UPDATE_METADATA for 'saccoor.txt.bak' from SS 5
+[2025-11-13 16:42:13]   -> Metadata updated for 'saccoor.txt.bak'
+[2025-11-13 16:42:13] Got REQ_UPDATE_METADATA for 'test.txt' from SS 5
+[2025-11-13 16:42:13]   -> Metadata updated for 'test.txt'
+[2025-11-13 16:42:13] Got REQ_UPDATE_METADATA for 'pets.txt' from SS 5
+[2025-11-13 16:42:13]   -> Metadata updated for 'pets.txt'
+[2025-11-13 16:42:13] Got REQ_UPDATE_METADATA for 'job.txt' from SS 5
+[2025-11-13 16:42:13]   -> Metadata updated for 'job.txt'
+[2025-11-13 16:42:13] Got REQ_UPDATE_METADATA for 'newfile.txt' from SS 5
+[2025-11-13 16:42:13]   -> Metadata updated for 'newfile.txt'
+[2025-11-13 16:42:13] Got REQ_UPDATE_METADATA for 'name.txt' from SS 5
+[2025-11-13 16:42:13]   -> Metadata updated for 'name.txt'
+[2025-11-13 16:42:13] Got REQ_UPDATE_METADATA for 'test.txt.bak' from SS 5
+[2025-11-13 16:42:13]   -> Metadata updated for 'test.txt.bak'
+[2025-11-13 16:42:13] Got REQ_UPDATE_METADATA for 'stream.txt' from SS 5
+[2025-11-13 16:42:13]   -> Metadata updated for 'stream.txt'
+[2025-11-13 16:42:13] Got REQ_UPDATE_METADATA for 'name.txt.tmp.8' from SS 5
+[2025-11-13 16:42:13]   -> Metadata updated for 'name.txt.tmp.8'
+[2025-11-13 16:42:13] Got REQ_UPDATE_METADATA for 'saccoor.txt' from SS 5
+[2025-11-13 16:42:13]   -> Metadata updated for 'saccoor.txt'
+[2025-11-13 16:42:13] Got REQ_UPDATE_METADATA for 'kys.txt' from SS 5
+[2025-11-13 16:42:13]   -> Metadata updated for 'kys.txt'
+[2025-11-13 16:42:13] Got REQ_UPDATE_METADATA for 'name.txt.bak' from SS 5
+[2025-11-13 16:42:13]   -> Metadata updated for 'name.txt.bak'
+[2025-11-13 16:42:13] Got REQ_UPDATE_METADATA for 'job.txt.bak' from SS 5
+[2025-11-13 16:42:13]   -> Metadata updated for 'job.txt.bak'
+[2025-11-13 16:42:13] Got REQ_UPDATE_METADATA for 'newfile.txt.bak' from SS 5
+[2025-11-13 16:42:13]   -> Metadata updated for 'newfile.txt.bak'
+[2025-11-13 16:42:13] Got REQ_UPDATE_METADATA for 'kys.txt.bak' from SS 5
+[2025-11-13 16:42:13]   -> Metadata updated for 'kys.txt.bak'
+[2025-11-13 16:42:30] New connection from 127.0.0.1 on socket 6
+[2025-11-13 16:42:30] Socket 6 (127.0.0.1): CLIENT registered as 'vishal'
+[2025-11-13 16:42:34] New connection from 127.0.0.1 on socket 7
+[2025-11-13 16:42:34] Socket 7 (127.0.0.1): CLIENT registered as 'sreevijay'
+[2025-11-13 16:42:56] Got REQ_CREATE for 'nigga.txt' from client 'vishal' (Sock 6)
+[2025-11-13 16:42:56]   -> Relaying REQ_SS_CREATE to SS on socket 5
+[2025-11-13 16:42:57]   -> SS confirmed creation. Updating catalog.
+[2025-11-13 16:42:57] Got REQ_UPDATE_METADATA for 'nigga.txt' from SS 5
+[2025-11-13 16:42:57]   -> Metadata updated for 'nigga.txt'
+[2025-11-13 16:43:17] Got 8 for 'nigga.txt' from client 'vishal'
+[2025-11-13 16:43:17]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 16:43:25] Got 8 for 'nigga.txt' from client 'sreevijay'
+[2025-11-13 16:43:25]   -> Access Denied for user 'sreevijay'.
+[2025-11-13 16:43:57] Got REQ_ADD_ACCESS for 'nigga.txt' (user: sreevijay) from client 'vishal'
+[2025-11-13 16:43:57]   -> Access GRANTED for new user 'sreevijay'.
+[2025-11-13 16:44:02] Got 8 for 'nigga.txt' from client 'sreevijay'
+[2025-11-13 16:44:02]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 16:47:07] Got 13 for 'nigga.txt' from client 'sreevijay'
+[2025-11-13 16:47:07]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-13 16:47:14] Got 13 for 'nigga.txt' from client 'vishal'
+[2025-11-13 16:47:14]   -> File found on SS 5 (127.0.0.1:8082)

@@ -289,40 +289,55 @@ int main() {
         else if (strcmp(command, "addaccess") == 0) {
             char* flag = strtok(NULL, " \n");
             char* filename = strtok(NULL, " \n");
-            char* user = strtok(NULL, " \n");
+            // Capture the rest of the line as username (allow spaces)
+            char* user = strtok(NULL, "\n");
             if (flag == NULL || filename == NULL || user == NULL) { printf("Usage: addaccess -R|-W <filename> <username>\n"); }
             else {
-                Msg_Access_Request req;
-                strncpy(req.filename, filename, MAX_FILENAME);
-                strncpy(req.username, user, MAX_USERNAME);
-                if (strcmp(flag, "-W") == 0) req.perm = READ_WRITE;
-                else req.perm = READ_ONLY;
-                
-                header.type = REQ_ADD_ACCESS; header.payload_size = sizeof(req);
-                send(sock, &header, sizeof(header), 0); send(sock, &req, sizeof(req), 0);
-                
-                recv(sock, &header, sizeof(header), 0);
-                if (header.type == RES_OK) printf("Access granted.\n");
-                else if (header.type == RES_ERROR_ACCESS_DENIED) printf("Error: Access denied (you are not the owner).\n");
-                else printf("Error: Could not add access.\n");
+                // Trim leading/trailing spaces around username
+                while (*user == ' ') user++;
+                size_t ulen = strlen(user);
+                while (ulen > 0 && user[ulen - 1] == ' ') { user[--ulen] = '\0'; }
+                if (ulen == 0) { printf("Usage: addaccess -R|-W <filename> <username>\n"); }
+                else {
+                    Msg_Access_Request req;
+                    strncpy(req.filename, filename, MAX_FILENAME);
+                    strncpy(req.username, user, MAX_USERNAME);
+                    if (strcmp(flag, "-W") == 0) req.perm = READ_WRITE;
+                    else req.perm = READ_ONLY;
+                    
+                    header.type = REQ_ADD_ACCESS; header.payload_size = sizeof(req);
+                    send(sock, &header, sizeof(header), 0); send(sock, &req, sizeof(req), 0);
+                    
+                    recv(sock, &header, sizeof(header), 0);
+                    if (header.type == RES_OK) printf("Access granted.\n");
+                    else if (header.type == RES_ERROR_ACCESS_DENIED) printf("Error: Access denied (you are not the owner).\n");
+                    else printf("Error: Could not add access.\n");
+                }
             }
         }
         else if (strcmp(command, "remaccess") == 0) {
             char* filename = strtok(NULL, " \n");
-            char* user = strtok(NULL, " \n");
+            // Capture the rest of the line as username (allow spaces)
+            char* user = strtok(NULL, "\n");
             if (filename == NULL || user == NULL) { printf("Usage: remaccess <filename> <username>\n"); }
             else {
-                Msg_Access_Request req;
-                strncpy(req.filename, filename, MAX_FILENAME);
-                strncpy(req.username, user, MAX_USERNAME);
-                
-                header.type = REQ_REM_ACCESS; header.payload_size = sizeof(req);
-                send(sock, &header, sizeof(header), 0); send(sock, &req, sizeof(req), 0);
-                
-                recv(sock, &header, sizeof(header), 0);
-                if (header.type == RES_OK) printf("Access removed.\n");
-                else if (header.type == RES_ERROR_ACCESS_DENIED) printf("Error: Access denied (you are not the owner).\n");
-                else printf("Error: Could not remove access.\n");
+                while (*user == ' ') user++;
+                size_t ulen = strlen(user);
+                while (ulen > 0 && user[ulen - 1] == ' ') { user[--ulen] = '\0'; }
+                if (ulen == 0) { printf("Usage: remaccess <filename> <username>\n"); }
+                else {
+                    Msg_Access_Request req;
+                    strncpy(req.filename, filename, MAX_FILENAME);
+                    strncpy(req.username, user, MAX_USERNAME);
+                    
+                    header.type = REQ_REM_ACCESS; header.payload_size = sizeof(req);
+                    send(sock, &header, sizeof(header), 0); send(sock, &req, sizeof(req), 0);
+                    
+                    recv(sock, &header, sizeof(header), 0);
+                    if (header.type == RES_OK) printf("Access removed.\n");
+                    else if (header.type == RES_ERROR_ACCESS_DENIED) printf("Error: Access denied (you are not the owner).\n");
+                    else printf("Error: Could not remove access.\n");
+                }
             }
         }
         
