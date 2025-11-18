@@ -207,10 +207,16 @@ int main() {
                                     Msg_File_Item item; recv(sock_fd, &item, sizeof(item), 0);
                                     int slot = find_empty_file_slot();
                                     if (slot != -1) {
-                                        file_catalog[slot].active = 1; strncpy(file_catalog[slot].filename, item.filename, MAX_FILENAME);
-                                        file_catalog[slot].ss_sock_fd = sock_fd; strncpy(file_catalog[slot].owner, "system", MAX_USERNAME);
-                                        file_catalog[slot].access_count = 0;
-                                        log_event("  -> Cataloged '%s' (owner: system) in slot %d", item.filename, slot);
+                                        file_catalog[slot].active = 1; 
+                                        strncpy(file_catalog[slot].filename, item.filename, MAX_FILENAME);
+                                        file_catalog[slot].ss_sock_fd = sock_fd; 
+                                        strncpy(file_catalog[slot].owner, item.owner, MAX_USERNAME);
+                                        file_catalog[slot].access_count = item.access_count;
+                                        for (int j = 0; j < item.access_count; j++) {
+                                            file_catalog[slot].access_list[j] = item.access_list[j];
+                                        }
+                                        log_event("  -> Cataloged '%s' (owner: %s, %d access entries) in slot %d", 
+                                            item.filename, item.owner, item.access_count, slot);
                                     }
                                 }
                                 send_ok_response(sock_fd);
@@ -225,8 +231,11 @@ int main() {
                                     if (ss_sock == -1) { log_event("  -> Error: No Storage Servers available."); send_simple_header(sock_fd, RES_ERROR); }
                                     else {
                                         log_event("  -> Relaying REQ_SS_CREATE to SS on socket %d", ss_sock);
-                                        Header ss_header; ss_header.type = REQ_SS_CREATE; ss_header.payload_size = sizeof(Msg_Filename_Request);
-                                        send(ss_sock, &ss_header, sizeof(ss_header), 0); send(ss_sock, &req, sizeof(req), 0);
+                                        Header ss_header; ss_header.type = REQ_SS_CREATE; ss_header.payload_size = sizeof(Msg_SS_Create_Request);
+                                        Msg_SS_Create_Request ss_req;
+                                        strncpy(ss_req.filename, req.filename, MAX_FILENAME);
+                                        strncpy(ss_req.owner, client_state[sock_fd].username, MAX_USERNAME);
+                                        send(ss_sock, &ss_header, sizeof(ss_header), 0); send(ss_sock, &ss_req, sizeof(ss_req), 0);
                                         recv(ss_sock, &header, sizeof(Header), 0); 
                                         if (header.type == RES_OK) {
                                             log_event("  -> SS confirmed creation. Updating catalog.");
@@ -362,9 +371,7 @@ int main() {
                                 int slot = find_file_slot(req.filename);
                                 if (slot == -1) { send_simple_header(sock_fd, RES_ERROR_NOT_FOUND); break; }
                                 FileMetadata* meta = &file_catalog[slot];
-                                if (!has_read_access(meta, client_state[sock_fd].username)) {
-                                    send_simple_header(sock_fd, RES_ERROR_ACCESS_DENIED); break;
-                                }
+                                // INFO is public - no permission check needed (like ls -al)
                                 meta->active = 0; send_full_metadata(sock_fd, meta); meta->active = 1;
                                 break;
                             }
@@ -385,6 +392,15 @@ int main() {
                                 new_entry->permission = req.perm;
                                 meta->access_count++;
                                 log_event("  -> Access granted.");
+                                
+                                // Relay to SS for persistence
+                                int ss_sock = meta->ss_sock_fd;
+                                if (ss_state[ss_sock].active) {
+                                    Header ss_header; ss_header.type = REQ_SS_ADD_ACCESS; ss_header.payload_size = sizeof(Msg_Access_Request);
+                                    send(ss_sock, &ss_header, sizeof(ss_header), 0);
+                                    send(ss_sock, &req, sizeof(req), 0);
+                                }
+                                
                                 send_ok_response(sock_fd);
                                 break;
                             }
@@ -409,6 +425,14 @@ int main() {
                                     }
                                     meta->access_count--;
                                     log_event("  -> Access removed.");
+                                    
+                                    // Relay to SS for persistence
+                                    int ss_sock = meta->ss_sock_fd;
+                                    if (ss_state[ss_sock].active) {
+                                        Header ss_header; ss_header.type = REQ_SS_REM_ACCESS; ss_header.payload_size = sizeof(Msg_Access_Request);
+                                        send(ss_sock, &ss_header, sizeof(ss_header), 0);
+                                        send(ss_sock, &req, sizeof(req), 0);
+                                    }
                                 }
                                 send_ok_response(sock_fd);
                                 break;

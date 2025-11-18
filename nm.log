@@ -954,3 +954,1092 @@ echo hello
 [2025-11-14 00:22:51]   -> De-listed 'new.txt.bak'
 [2025-11-14 00:22:51]   -> De-listed 'new.txt'
 [2025-11-14 00:22:51]   -> De-listed 'n.txt'
+[2025-11-18 10:24:55] --- Name Server Started ---
+[2025-11-18 10:24:55] Initializing state...
+[2025-11-18 10:24:55] Name Server listening on port 8080...
+[2025-11-18 10:25:07] New connection from 127.0.0.1 on socket 5
+[2025-11-18 10:25:07] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 6 files.
+[2025-11-18 10:25:07] Receiving file list from SS 5...
+[2025-11-18 10:25:07]   -> Cataloged 'test.txt' (owner: system) in slot 0
+[2025-11-18 10:25:07]   -> Cataloged 'test.txt.bak' (owner: system) in slot 1
+[2025-11-18 10:25:07]   -> Cataloged 'sree.txt' (owner: system) in slot 2
+[2025-11-18 10:25:07]   -> Cataloged 'vishal.txt.bak' (owner: system) in slot 3
+[2025-11-18 10:25:07]   -> Cataloged 'vishal.txt' (owner: system) in slot 4
+[2025-11-18 10:25:07]   -> Cataloged 'sree.txt.bak' (owner: system) in slot 5
+[2025-11-18 10:25:07] Got REQ_UPDATE_METADATA for 'test.txt' from SS 5
+[2025-11-18 10:25:07]   -> Metadata updated for 'test.txt'
+[2025-11-18 10:25:07] Got REQ_UPDATE_METADATA for 'test.txt.bak' from SS 5
+[2025-11-18 10:25:07]   -> Metadata updated for 'test.txt.bak'
+[2025-11-18 10:25:07] Got REQ_UPDATE_METADATA for 'sree.txt' from SS 5
+[2025-11-18 10:25:07]   -> Metadata updated for 'sree.txt'
+[2025-11-18 10:25:07] Got REQ_UPDATE_METADATA for 'vishal.txt.bak' from SS 5
+[2025-11-18 10:25:07]   -> Metadata updated for 'vishal.txt.bak'
+[2025-11-18 10:25:07] Got REQ_UPDATE_METADATA for 'vishal.txt' from SS 5
+[2025-11-18 10:25:07]   -> Metadata updated for 'vishal.txt'
+[2025-11-18 10:25:07] Got REQ_UPDATE_METADATA for 'sree.txt.bak' from SS 5
+[2025-11-18 10:25:07]   -> Metadata updated for 'sree.txt.bak'
+[2025-11-18 10:25:53] New connection from 127.0.0.1 on socket 6
+[2025-11-18 10:25:53] Socket 6 (127.0.0.1): CLIENT registered as 'sreevijay'
+[2025-11-18 10:25:58] New connection from 127.0.0.1 on socket 7
+[2025-11-18 10:25:58] Socket 7 (127.0.0.1): CLIENT registered as 'vishal'
+[2025-11-18 10:26:10] Got REQ_VIEW (a=0, l=0) from client 'sreevijay'
+[2025-11-18 10:26:36] Got REQ_CREATE for 'file.txt' from client 'sreevijay' (Sock 6)
+[2025-11-18 10:26:36]   -> Relaying REQ_SS_CREATE to SS on socket 5
+[2025-11-18 10:26:36]   -> SS confirmed creation. Updating catalog.
+[2025-11-18 10:26:36] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-18 10:26:36]   -> Metadata updated for 'file.txt'
+[2025-11-18 10:26:47] Got REQ_ADD_ACCESS for 'file.txt' (user: vishal) from client 'sreevijay'
+[2025-11-18 10:26:47]   -> Access GRANTED for new user 'vishal'.
+[2025-11-18 10:26:52] Got 8 for 'file.txt' from client 'vishal'
+[2025-11-18 10:26:52]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 10:27:13] Got 13 for 'file.txt' from client 'sreevijay'
+[2025-11-18 10:27:13]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 10:27:53] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-18 10:27:53]   -> Metadata updated for 'file.txt'
+[2025-11-18 10:28:01] Got 8 for 'file.txt' from client 'sreevijay'
+[2025-11-18 10:28:01]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 10:28:08] Got 13 for 'file.txt' from client 'sreevijay'
+[2025-11-18 10:28:08]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 10:28:42] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-18 10:28:42]   -> Metadata updated for 'file.txt'
+[2025-11-18 10:28:45] Got 8 for 'file.txt' from client 'sreevijay'
+[2025-11-18 10:28:45]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 10:29:32] Got 13 for 'file.txt' from client 'sreevijay'
+[2025-11-18 10:29:32]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 10:29:45] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-18 10:29:45]   -> Metadata updated for 'file.txt'
+[2025-11-18 10:29:49] Got 8 for 'file.txt' from client 'sreevijay'
+[2025-11-18 10:29:49]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 10:30:19] Got 8 for 'file.txt' from client 'sreevijay'
+[2025-11-18 10:30:19]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 10:30:27] Got 13 for 'file.txt' from client 'sreevijay'
+[2025-11-18 10:30:27]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 10:30:37] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-18 10:30:37]   -> Metadata updated for 'file.txt'
+[2025-11-18 10:30:39] Got 8 for 'file.txt' from client 'sreevijay'
+[2025-11-18 10:30:39]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 10:30:58] Got 13 for 'file.txt' from client 'sreevijay'
+[2025-11-18 10:30:58]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 10:31:12] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-18 10:31:12]   -> Metadata updated for 'file.txt'
+[2025-11-18 10:31:14] Got 8 for 'file.txt' from client 'sreevijay'
+[2025-11-18 10:31:14]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 10:32:13] Got 13 for 'file.txt' from client 'sreevijay'
+[2025-11-18 10:32:13]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 10:32:18] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-18 10:32:18]   -> Metadata updated for 'file.txt'
+[2025-11-18 10:32:23] Got 13 for 'file.txt' from client 'sreevijay'
+[2025-11-18 10:32:23]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 10:32:36] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-18 10:32:36]   -> Metadata updated for 'file.txt'
+[2025-11-18 10:32:39] Got 8 for 'file.txt' from client 'sreevijay'
+[2025-11-18 10:32:39]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 10:36:23] Got REQ_UNDO for 'file.txt' from client 'sreevijay'
+[2025-11-18 10:36:23]   -> Relaying REQ_SS_UNDO to SS 5
+[2025-11-18 10:36:24] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-18 10:36:24]   -> Metadata updated for 'file.txt'
+[2025-11-18 10:36:31] Got 8 for 'file.txt' from client 'sreevijay'
+[2025-11-18 10:36:31]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 11:55:11] Got REQ_VIEW (a=0, l=0) from client 'sreevijay'
+[2025-11-18 11:56:24] Client 'vishal' (Socket 7, IP: 127.0.0.1) disconnected.
+[2025-11-18 11:56:26] Client 'sreevijay' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-18 11:57:05] --- Name Server Started ---
+[2025-11-18 11:57:05] Initializing state...
+[2025-11-18 11:57:05] Name Server listening on port 8080...
+[2025-11-18 11:57:16] New connection from 127.0.0.1 on socket 5
+[2025-11-18 11:57:16] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 8 files.
+[2025-11-18 11:57:16] Receiving file list from SS 5...
+[2025-11-18 11:57:16]   -> Cataloged 'file.txt' (owner: system) in slot 0
+[2025-11-18 11:57:16]   -> Cataloged 'test.txt' (owner: system) in slot 1
+[2025-11-18 11:57:16]   -> Cataloged 'file.txt.bak' (owner: system) in slot 2
+[2025-11-18 11:57:16]   -> Cataloged 'test.txt.bak' (owner: system) in slot 3
+[2025-11-18 11:57:16]   -> Cataloged 'sree.txt' (owner: system) in slot 4
+[2025-11-18 11:57:16]   -> Cataloged 'vishal.txt.bak' (owner: system) in slot 5
+[2025-11-18 11:57:16]   -> Cataloged 'vishal.txt' (owner: system) in slot 6
+[2025-11-18 11:57:16]   -> Cataloged 'sree.txt.bak' (owner: system) in slot 7
+[2025-11-18 11:57:16] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-18 11:57:16]   -> Metadata updated for 'file.txt'
+[2025-11-18 11:57:16] Got REQ_UPDATE_METADATA for 'test.txt' from SS 5
+[2025-11-18 11:57:16]   -> Metadata updated for 'test.txt'
+[2025-11-18 11:57:16] Got REQ_UPDATE_METADATA for 'file.txt.bak' from SS 5
+[2025-11-18 11:57:16]   -> Metadata updated for 'file.txt.bak'
+[2025-11-18 11:57:16] Got REQ_UPDATE_METADATA for 'test.txt.bak' from SS 5
+[2025-11-18 11:57:16]   -> Metadata updated for 'test.txt.bak'
+[2025-11-18 11:57:16] Got REQ_UPDATE_METADATA for 'sree.txt' from SS 5
+[2025-11-18 11:57:16]   -> Metadata updated for 'sree.txt'
+[2025-11-18 11:57:16] Got REQ_UPDATE_METADATA for 'vishal.txt.bak' from SS 5
+[2025-11-18 11:57:16]   -> Metadata updated for 'vishal.txt.bak'
+[2025-11-18 11:57:16] Got REQ_UPDATE_METADATA for 'vishal.txt' from SS 5
+[2025-11-18 11:57:16]   -> Metadata updated for 'vishal.txt'
+[2025-11-18 11:57:16] Got REQ_UPDATE_METADATA for 'sree.txt.bak' from SS 5
+[2025-11-18 11:57:16]   -> Metadata updated for 'sree.txt.bak'
+[2025-11-18 11:57:35] New connection from 127.0.0.1 on socket 6
+[2025-11-18 11:57:35] Socket 6 (127.0.0.1): CLIENT registered as 'sreevijay'
+[2025-11-18 11:57:38] Got REQ_VIEW (a=0, l=0) from client 'sreevijay'
+[2025-11-18 11:57:40] Got REQ_LIST from client 'sreevijay' (Sock 6)
+[2025-11-18 11:57:53] Got REQ_CREATE for 'file.txt' from client 'sreevijay' (Sock 6)
+[2025-11-18 11:57:53]   -> Error: File 'file.txt' already exists.
+[2025-11-18 11:58:06] Got REQ_VIEW (a=0, l=0) from client 'sreevijay'
+[2025-11-18 11:58:51] Got 8 for 'file.txt' from client 'sreevijay'
+[2025-11-18 11:58:51]   -> Access Denied for user 'sreevijay'.
+[2025-11-18 11:58:57] Got 8 for 'h.txt' from client 'sreevijay'
+[2025-11-18 11:58:57]   -> Error: File not found.
+[2025-11-18 11:59:09] Got REQ_CREATE for 'temp.txt' from client 'sreevijay' (Sock 6)
+[2025-11-18 11:59:09]   -> Relaying REQ_SS_CREATE to SS on socket 5
+[2025-11-18 11:59:09]   -> SS confirmed creation. Updating catalog.
+[2025-11-18 11:59:09] Got REQ_UPDATE_METADATA for 'temp.txt' from SS 5
+[2025-11-18 11:59:09]   -> Metadata updated for 'temp.txt'
+[2025-11-18 11:59:16] Got 13 for 'temp.txt' from client 'sreevijay'
+[2025-11-18 11:59:16]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 11:59:36] Got REQ_UPDATE_METADATA for 'temp.txt' from SS 5
+[2025-11-18 11:59:36]   -> Metadata updated for 'temp.txt'
+[2025-11-18 11:59:38] Got 8 for 'temp.txt' from client 'sreevijay'
+[2025-11-18 11:59:38]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 11:59:47] Got 13 for 'temp.txt' from client 'sreevijay'
+[2025-11-18 11:59:47]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 11:59:57] Got 13 for 'temp.txt' from client 'sreevijay'
+[2025-11-18 11:59:57]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 12:00:00] Got REQ_UPDATE_METADATA for 'temp.txt' from SS 5
+[2025-11-18 12:00:00]   -> Metadata updated for 'temp.txt'
+[2025-11-18 12:00:06] Got 13 for 'temp.txt' from client 'sreevijay'
+[2025-11-18 12:00:06]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 12:00:26] Got 13 for 'temp.txt' from client 'sreevijay'
+[2025-11-18 12:00:26]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 12:00:29] Got REQ_UPDATE_METADATA for 'temp.txt' from SS 5
+[2025-11-18 12:00:29]   -> Metadata updated for 'temp.txt'
+[2025-11-18 12:00:32] Got 8 for 'temp.txt' from client 'sreevijay'
+[2025-11-18 12:00:32]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 12:00:38] Got 13 for 'temp.txt' from client 'sreevijay'
+[2025-11-18 12:00:38]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 12:00:44] Got 13 for 'temp.txt' from client 'sreevijay'
+[2025-11-18 12:00:44]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 12:00:59] Got REQ_UPDATE_METADATA for 'temp.txt' from SS 5
+[2025-11-18 12:00:59]   -> Metadata updated for 'temp.txt'
+[2025-11-18 12:01:01] Got 8 for 'temp.txt' from client 'sreevijay'
+[2025-11-18 12:01:01]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 12:05:45] Client 'sreevijay' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-18 12:05:48] Storage Server (Socket 5, IP: 127.0.0.1) disconnected.
+[2025-11-18 12:05:48] De-listing its files from the catalog...
+[2025-11-18 12:05:48]   -> De-listed 'file.txt'
+[2025-11-18 12:05:48]   -> De-listed 'test.txt'
+[2025-11-18 12:05:48]   -> De-listed 'file.txt.bak'
+[2025-11-18 12:05:48]   -> De-listed 'test.txt.bak'
+[2025-11-18 12:05:48]   -> De-listed 'sree.txt'
+[2025-11-18 12:05:48]   -> De-listed 'vishal.txt.bak'
+[2025-11-18 12:05:48]   -> De-listed 'vishal.txt'
+[2025-11-18 12:05:48]   -> De-listed 'sree.txt.bak'
+[2025-11-18 12:05:48]   -> De-listed 'temp.txt'
+[2025-11-18 12:06:00] --- Name Server Started ---
+[2025-11-18 12:06:00] Initializing state...
+[2025-11-18 12:06:00] Name Server listening on port 8080...
+[2025-11-18 12:06:06] New connection from 127.0.0.1 on socket 5
+[2025-11-18 12:06:06] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 10 files.
+[2025-11-18 12:06:06] Receiving file list from SS 5...
+[2025-11-18 12:06:06]   -> Cataloged 'file.txt' (owner: system) in slot 0
+[2025-11-18 12:06:06]   -> Cataloged 'test.txt' (owner: system) in slot 1
+[2025-11-18 12:06:06]   -> Cataloged 'file.txt.bak' (owner: system) in slot 2
+[2025-11-18 12:06:06]   -> Cataloged 'temp.txt' (owner: system) in slot 3
+[2025-11-18 12:06:06]   -> Cataloged 'test.txt.bak' (owner: system) in slot 4
+[2025-11-18 12:06:06]   -> Cataloged 'sree.txt' (owner: system) in slot 5
+[2025-11-18 12:06:06]   -> Cataloged 'vishal.txt.bak' (owner: system) in slot 6
+[2025-11-18 12:06:06]   -> Cataloged 'temp.txt.bak' (owner: system) in slot 7
+[2025-11-18 12:06:06]   -> Cataloged 'vishal.txt' (owner: system) in slot 8
+[2025-11-18 12:06:06]   -> Cataloged 'sree.txt.bak' (owner: system) in slot 9
+[2025-11-18 12:06:07] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-18 12:06:07]   -> Metadata updated for 'file.txt'
+[2025-11-18 12:06:07] Got REQ_UPDATE_METADATA for 'test.txt' from SS 5
+[2025-11-18 12:06:07]   -> Metadata updated for 'test.txt'
+[2025-11-18 12:06:07] Got REQ_UPDATE_METADATA for 'file.txt.bak' from SS 5
+[2025-11-18 12:06:07]   -> Metadata updated for 'file.txt.bak'
+[2025-11-18 12:06:07] Got REQ_UPDATE_METADATA for 'temp.txt' from SS 5
+[2025-11-18 12:06:07]   -> Metadata updated for 'temp.txt'
+[2025-11-18 12:06:07] Got REQ_UPDATE_METADATA for 'test.txt.bak' from SS 5
+[2025-11-18 12:06:07]   -> Metadata updated for 'test.txt.bak'
+[2025-11-18 12:06:07] Got REQ_UPDATE_METADATA for 'sree.txt' from SS 5
+[2025-11-18 12:06:07]   -> Metadata updated for 'sree.txt'
+[2025-11-18 12:06:07] Got REQ_UPDATE_METADATA for 'vishal.txt.bak' from SS 5
+[2025-11-18 12:06:07]   -> Metadata updated for 'vishal.txt.bak'
+[2025-11-18 12:06:07] Got REQ_UPDATE_METADATA for 'temp.txt.bak' from SS 5
+[2025-11-18 12:06:07]   -> Metadata updated for 'temp.txt.bak'
+[2025-11-18 12:06:07] Got REQ_UPDATE_METADATA for 'vishal.txt' from SS 5
+[2025-11-18 12:06:07]   -> Metadata updated for 'vishal.txt'
+[2025-11-18 12:06:07] Got REQ_UPDATE_METADATA for 'sree.txt.bak' from SS 5
+[2025-11-18 12:06:07]   -> Metadata updated for 'sree.txt.bak'
+[2025-11-18 12:06:15] New connection from 127.0.0.1 on socket 6
+[2025-11-18 12:06:15] Socket 6 (127.0.0.1): CLIENT registered as 'sree'
+[2025-11-18 12:06:17] Got REQ_VIEW (a=0, l=0) from client 'sree'
+[2025-11-18 12:06:18] Got REQ_LIST from client 'sree' (Sock 6)
+[2025-11-18 12:06:29] Got REQ_CREATE for 'test.txt' from client 'sree' (Sock 6)
+[2025-11-18 12:06:29]   -> Error: File 'test.txt' already exists.
+[2025-11-18 12:06:36] Got REQ_CREATE for 'nga.txt' from client 'sree' (Sock 6)
+[2025-11-18 12:06:36]   -> Relaying REQ_SS_CREATE to SS on socket 5
+[2025-11-18 12:06:36]   -> SS confirmed creation. Updating catalog.
+[2025-11-18 12:06:36] Got REQ_UPDATE_METADATA for 'nga.txt' from SS 5
+[2025-11-18 12:06:36]   -> Metadata updated for 'nga.txt'
+[2025-11-18 12:06:43] Got 13 for 'nga.txt' from client 'sree'
+[2025-11-18 12:06:43]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 12:06:55] Got REQ_UPDATE_METADATA for 'nga.txt' from SS 5
+[2025-11-18 12:06:55]   -> Metadata updated for 'nga.txt'
+[2025-11-18 12:07:00] Got 8 for 'nga.txt' from client 'sree'
+[2025-11-18 12:07:00]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 12:07:05] Got 13 for 'nga.txt' from client 'sree'
+[2025-11-18 12:07:05]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 12:07:12] Got 13 for 'nga.txt' from client 'sree'
+[2025-11-18 12:07:12]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 12:07:16] Got 13 for 'nga.txt' from client 'sree'
+[2025-11-18 12:07:16]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 12:07:18] Got REQ_UPDATE_METADATA for 'nga.txt' from SS 5
+[2025-11-18 12:07:18]   -> Metadata updated for 'nga.txt'
+[2025-11-18 12:07:26] Got 13 for 'nga.txt' from client 'sree'
+[2025-11-18 12:07:26]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 12:07:56] Got REQ_UPDATE_METADATA for 'nga.txt' from SS 5
+[2025-11-18 12:07:56]   -> Metadata updated for 'nga.txt'
+[2025-11-18 12:08:01] Got 8 for 'nga.txt' from client 'sree'
+[2025-11-18 12:08:01]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 12:08:13] Client 'sree' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-18 12:08:16] New connection from 127.0.0.1 on socket 6
+[2025-11-18 12:08:16] Socket 6 (127.0.0.1): CLIENT registered as 'sree'
+[2025-11-18 12:08:24] Got REQ_VIEW (a=0, l=0) from client 'sree'
+[2025-11-18 12:08:30] Got REQ_LIST from client 'sree' (Sock 6)
+[2025-11-18 12:08:33] Client 'sree' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-18 12:08:36] New connection from 127.0.0.1 on socket 6
+[2025-11-18 12:08:36] Socket 6 (127.0.0.1): CLIENT registered as 'vishal'
+[2025-11-18 12:08:38] Got REQ_VIEW (a=0, l=0) from client 'vishal'
+[2025-11-18 12:08:42] Got REQ_VIEW (a=1, l=0) from client 'vishal'
+[2025-11-18 12:08:50] Got REQ_VIEW (a=0, l=1) from client 'vishal'
+[2025-11-18 12:08:53] Got REQ_VIEW (a=1, l=1) from client 'vishal'
+[2025-11-18 12:08:56] Got REQ_LIST from client 'vishal' (Sock 6)
+[2025-11-18 12:08:59] Got REQ_LIST from client 'vishal' (Sock 6)
+[2025-11-18 12:09:04] Got REQ_LIST from client 'vishal' (Sock 6)
+[2025-11-18 12:10:59] Got REQ_INFO for 'nga.txt' from client 'vishal'
+[2025-11-18 12:11:17] Got REQ_LIST from client 'vishal' (Sock 6)
+[2025-11-18 12:11:22] Got REQ_VIEW (a=0, l=1) from client 'vishal'
+[2025-11-18 12:11:27] Got REQ_VIEW (a=1, l=1) from client 'vishal'
+[2025-11-18 12:18:25] Client 'vishal' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-18 12:18:28] New connection from 127.0.0.1 on socket 6
+[2025-11-18 12:18:28] Socket 6 (127.0.0.1): CLIENT registered as 'sree'
+[2025-11-18 12:18:31] Got 8 for 'nga.txt' from client 'sree'
+[2025-11-18 12:18:31]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 12:18:41] Got REQ_VIEW (a=0, l=0) from client 'sree'
+[2025-11-18 12:18:43] Got REQ_LIST from client 'sree' (Sock 6)
+[2025-11-18 12:19:06] Got REQ_ADD_ACCESS for 'nga.txt' (user: vishal) from client 'sree'
+[2025-11-18 12:19:06]   -> Access granted.
+[2025-11-18 12:19:08] Client 'sree' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-18 12:19:09] New connection from 127.0.0.1 on socket 6
+[2025-11-18 12:19:09] Socket 6 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 12 files.
+[2025-11-18 12:19:09] Receiving file list from SS 6...
+[2025-11-18 12:19:09]   -> Cataloged 'file.txt' (owner: system) in slot 11
+[2025-11-18 12:19:09]   -> Cataloged 'test.txt' (owner: system) in slot 12
+[2025-11-18 12:19:09]   -> Cataloged 'nga.txt.bak' (owner: system) in slot 13
+[2025-11-18 12:19:09]   -> Cataloged 'file.txt.bak' (owner: system) in slot 14
+[2025-11-18 12:19:09]   -> Cataloged 'temp.txt' (owner: system) in slot 15
+[2025-11-18 12:19:09]   -> Cataloged 'test.txt.bak' (owner: system) in slot 16
+[2025-11-18 12:19:09]   -> Cataloged 'sree.txt' (owner: system) in slot 17
+[2025-11-18 12:19:09]   -> Cataloged 'vishal.txt.bak' (owner: system) in slot 18
+[2025-11-18 12:19:09]   -> Cataloged 'temp.txt.bak' (owner: system) in slot 19
+[2025-11-18 12:19:09]   -> Cataloged 'nga.txt' (owner: system) in slot 20
+[2025-11-18 12:19:09]   -> Cataloged 'vishal.txt' (owner: system) in slot 21
+[2025-11-18 12:19:09]   -> Cataloged 'sree.txt.bak' (owner: system) in slot 22
+[2025-11-18 12:19:09] Got REQ_UPDATE_METADATA for 'file.txt' from SS 6
+[2025-11-18 12:19:09]   -> Metadata updated for 'file.txt'
+[2025-11-18 12:19:09] Got REQ_UPDATE_METADATA for 'test.txt' from SS 6
+[2025-11-18 12:19:09]   -> Metadata updated for 'test.txt'
+[2025-11-18 12:19:09] Got REQ_UPDATE_METADATA for 'nga.txt.bak' from SS 6
+[2025-11-18 12:19:09]   -> Metadata updated for 'nga.txt.bak'
+[2025-11-18 12:19:09] Got REQ_UPDATE_METADATA for 'file.txt.bak' from SS 6
+[2025-11-18 12:19:09]   -> Metadata updated for 'file.txt.bak'
+[2025-11-18 12:19:09] Got REQ_UPDATE_METADATA for 'temp.txt' from SS 6
+[2025-11-18 12:19:09]   -> Metadata updated for 'temp.txt'
+[2025-11-18 12:19:09] Got REQ_UPDATE_METADATA for 'test.txt.bak' from SS 6
+[2025-11-18 12:19:09]   -> Metadata updated for 'test.txt.bak'
+[2025-11-18 12:19:09] Got REQ_UPDATE_METADATA for 'sree.txt' from SS 6
+[2025-11-18 12:19:09]   -> Metadata updated for 'sree.txt'
+[2025-11-18 12:19:09] Got REQ_UPDATE_METADATA for 'vishal.txt.bak' from SS 6
+[2025-11-18 12:19:09]   -> Metadata updated for 'vishal.txt.bak'
+[2025-11-18 12:19:09] Got REQ_UPDATE_METADATA for 'temp.txt.bak' from SS 6
+[2025-11-18 12:19:09]   -> Metadata updated for 'temp.txt.bak'
+[2025-11-18 12:19:09] Got REQ_UPDATE_METADATA for 'nga.txt' from SS 6
+[2025-11-18 12:19:09]   -> Metadata updated for 'nga.txt'
+[2025-11-18 12:19:09] Got REQ_UPDATE_METADATA for 'vishal.txt' from SS 6
+[2025-11-18 12:19:09]   -> Metadata updated for 'vishal.txt'
+[2025-11-18 12:19:09] Got REQ_UPDATE_METADATA for 'sree.txt.bak' from SS 6
+[2025-11-18 12:19:09]   -> Metadata updated for 'sree.txt.bak'
+[2025-11-18 12:19:09] Storage Server (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-18 12:19:09] De-listing its files from the catalog...
+[2025-11-18 12:19:09]   -> De-listed 'file.txt'
+[2025-11-18 12:19:09]   -> De-listed 'test.txt'
+[2025-11-18 12:19:09]   -> De-listed 'nga.txt.bak'
+[2025-11-18 12:19:09]   -> De-listed 'file.txt.bak'
+[2025-11-18 12:19:09]   -> De-listed 'temp.txt'
+[2025-11-18 12:19:09]   -> De-listed 'test.txt.bak'
+[2025-11-18 12:19:09]   -> De-listed 'sree.txt'
+[2025-11-18 12:19:09]   -> De-listed 'vishal.txt.bak'
+[2025-11-18 12:19:09]   -> De-listed 'temp.txt.bak'
+[2025-11-18 12:19:09]   -> De-listed 'nga.txt'
+[2025-11-18 12:19:09]   -> De-listed 'vishal.txt'
+[2025-11-18 12:19:09]   -> De-listed 'sree.txt.bak'
+[2025-11-18 12:19:20] New connection from 127.0.0.1 on socket 6
+[2025-11-18 12:19:20] Socket 6 (127.0.0.1): CLIENT registered as 'vishal'
+[2025-11-18 12:19:24] Got 8 for 'nga.txt' from client 'vishal'
+[2025-11-18 12:19:24]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 12:19:31] Got 13 for 'nga.txt' from client 'vishal'
+[2025-11-18 12:19:31]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 12:19:36] Client 'vishal' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-18 12:25:10] New connection from 127.0.0.1 on socket 6
+[2025-11-18 12:25:10] Socket 6 (127.0.0.1): CLIENT registered as 'vishal'
+[2025-11-18 12:25:12] Got REQ_VIEW (a=0, l=0) from client 'vishal'
+[2025-11-18 12:25:41] Got REQ_INFO for 'nga.txt' from client 'vishal'
+[2025-11-18 12:25:45] Got REQ_CREATE for 'j.txt' from client 'vishal' (Sock 6)
+[2025-11-18 12:25:45]   -> Relaying REQ_SS_CREATE to SS on socket 5
+[2025-11-18 12:25:46]   -> SS confirmed creation. Updating catalog.
+[2025-11-18 12:25:46] Got REQ_UPDATE_METADATA for 'j.txt' from SS 5
+[2025-11-18 12:25:46]   -> Metadata updated for 'j.txt'
+[2025-11-18 12:25:47] Client 'vishal' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-18 12:25:49] New connection from 127.0.0.1 on socket 6
+[2025-11-18 12:25:49] Socket 6 (127.0.0.1): CLIENT registered as 'sre'
+[2025-11-18 12:25:56] Got REQ_INFO for 'j.txt' from client 'sre'
+[2025-11-18 12:34:26] Got REQ_VIEW (a=0, l=0) from client 'sre'
+[2025-11-18 12:34:30] Got REQ_VIEW (a=1, l=0) from client 'sre'
+[2025-11-18 12:34:34] Got REQ_VIEW (a=0, l=1) from client 'sre'
+[2025-11-18 12:34:38] Got REQ_VIEW (a=1, l=1) from client 'sre'
+[2025-11-18 12:34:46] Got 28 for 'j.txt' from client 'sre'
+[2025-11-18 12:34:46]   -> Access Denied for user 'sre'.
+[2025-11-18 12:34:51] Client 'sre' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-18 12:34:53] New connection from 127.0.0.1 on socket 6
+[2025-11-18 12:34:53] Socket 6 (127.0.0.1): CLIENT registered as 'sree'
+[2025-11-18 12:34:56] Got 28 for 'nga.txt' from client 'sree'
+[2025-11-18 12:34:56]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 12:35:04] Got REQ_VIEW (a=0, l=0) from client 'sree'
+[2025-11-18 12:35:06] Got REQ_VIEW (a=1, l=0) from client 'sree'
+[2025-11-18 12:35:12] Got 28 for 'j.txt' from client 'sree'
+[2025-11-18 12:35:12]   -> Access Denied for user 'sree'.
+[2025-11-18 12:35:15] Got REQ_LIST from client 'sree' (Sock 6)
+[2025-11-18 12:35:56] Got REQ_INFO for 'nga.txt' from client 'sree'
+[2025-11-18 12:36:01] Got REQ_VIEW (a=1, l=1) from client 'sree'
+[2025-11-18 13:33:17] --- Name Server Started ---
+[2025-11-18 13:33:17] Initializing state...
+[2025-11-18 13:33:17] Name Server listening on port 8080...
+[2025-11-18 13:33:22] --- Name Server Started ---
+[2025-11-18 13:33:22] Initializing state...
+[2025-11-18 13:33:22] Name Server listening on port 8080...
+[2025-11-18 13:33:26] New connection from 127.0.0.1 on socket 5
+[2025-11-18 13:33:26] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 13 files.
+[2025-11-18 13:33:26] Receiving file list from SS 5...
+[2025-11-18 13:33:26]   -> Cataloged 'file.txt' (owner: system) in slot 0
+[2025-11-18 13:33:26]   -> Cataloged 'test.txt' (owner: system) in slot 1
+[2025-11-18 13:33:26]   -> Cataloged 'nga.txt.bak' (owner: system) in slot 2
+[2025-11-18 13:33:26]   -> Cataloged 'j.txt' (owner: system) in slot 3
+[2025-11-18 13:33:26]   -> Cataloged 'file.txt.bak' (owner: system) in slot 4
+[2025-11-18 13:33:26]   -> Cataloged 'temp.txt' (owner: system) in slot 5
+[2025-11-18 13:33:26]   -> Cataloged 'test.txt.bak' (owner: system) in slot 6
+[2025-11-18 13:33:26]   -> Cataloged 'sree.txt' (owner: system) in slot 7
+[2025-11-18 13:33:26]   -> Cataloged 'vishal.txt.bak' (owner: system) in slot 8
+[2025-11-18 13:33:26]   -> Cataloged 'temp.txt.bak' (owner: system) in slot 9
+[2025-11-18 13:33:26]   -> Cataloged 'nga.txt' (owner: system) in slot 10
+[2025-11-18 13:33:26]   -> Cataloged 'vishal.txt' (owner: system) in slot 11
+[2025-11-18 13:33:26]   -> Cataloged 'sree.txt.bak' (owner: system) in slot 12
+[2025-11-18 13:33:26] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-18 13:33:26]   -> Metadata updated for 'file.txt'
+[2025-11-18 13:33:26] Got REQ_UPDATE_METADATA for 'test.txt' from SS 5
+[2025-11-18 13:33:26]   -> Metadata updated for 'test.txt'
+[2025-11-18 13:33:26] Got REQ_UPDATE_METADATA for 'nga.txt.bak' from SS 5
+[2025-11-18 13:33:26]   -> Metadata updated for 'nga.txt.bak'
+[2025-11-18 13:33:26] Got REQ_UPDATE_METADATA for 'j.txt' from SS 5
+[2025-11-18 13:33:26]   -> Metadata updated for 'j.txt'
+[2025-11-18 13:33:26] Got REQ_UPDATE_METADATA for 'file.txt.bak' from SS 5
+[2025-11-18 13:33:26]   -> Metadata updated for 'file.txt.bak'
+[2025-11-18 13:33:26] Got REQ_UPDATE_METADATA for 'temp.txt' from SS 5
+[2025-11-18 13:33:26]   -> Metadata updated for 'temp.txt'
+[2025-11-18 13:33:26] Got REQ_UPDATE_METADATA for 'test.txt.bak' from SS 5
+[2025-11-18 13:33:26]   -> Metadata updated for 'test.txt.bak'
+[2025-11-18 13:33:26] Got REQ_UPDATE_METADATA for 'sree.txt' from SS 5
+[2025-11-18 13:33:26]   -> Metadata updated for 'sree.txt'
+[2025-11-18 13:33:26] Got REQ_UPDATE_METADATA for 'vishal.txt.bak' from SS 5
+[2025-11-18 13:33:26]   -> Metadata updated for 'vishal.txt.bak'
+[2025-11-18 13:33:26] Got REQ_UPDATE_METADATA for 'temp.txt.bak' from SS 5
+[2025-11-18 13:33:26]   -> Metadata updated for 'temp.txt.bak'
+[2025-11-18 13:33:26] Got REQ_UPDATE_METADATA for 'nga.txt' from SS 5
+[2025-11-18 13:33:26]   -> Metadata updated for 'nga.txt'
+[2025-11-18 13:33:26] Got REQ_UPDATE_METADATA for 'vishal.txt' from SS 5
+[2025-11-18 13:33:26]   -> Metadata updated for 'vishal.txt'
+[2025-11-18 13:33:26] Got REQ_UPDATE_METADATA for 'sree.txt.bak' from SS 5
+[2025-11-18 13:33:26]   -> Metadata updated for 'sree.txt.bak'
+[2025-11-18 13:33:33] New connection from 127.0.0.1 on socket 6
+[2025-11-18 13:33:33] Socket 6 (127.0.0.1): CLIENT registered as 'vishal'
+[2025-11-18 13:33:37] Got REQ_VIEW (a=0, l=0) from client 'vishal'
+[2025-11-18 13:33:39] Got REQ_VIEW (a=1, l=0) from client 'vishal'
+[2025-11-18 13:33:52] Got REQ_VIEW (a=0, l=0) from client 'vishal'
+[2025-11-18 13:34:02] Got REQ_INFO for 'vishal.txt' from client 'vishal'
+[2025-11-18 13:34:10] Got REQ_VIEW (a=1, l=0) from client 'vishal'
+[2025-11-18 13:54:28] Got REQ_VIEW (a=0, l=0) from client 'vishal'
+[2025-11-18 13:54:34] Client 'vishal' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-18 13:54:38] New connection from 127.0.0.1 on socket 6
+[2025-11-18 13:54:38] Socket 6 (127.0.0.1): CLIENT registered as 'sreevijay'
+[2025-11-18 13:54:40] Got REQ_VIEW (a=0, l=0) from client 'sreevijay'
+[2025-11-18 13:54:45] Got REQ_VIEW (a=1, l=0) from client 'sreevijay'
+[2025-11-18 13:54:48] Got REQ_VIEW (a=0, l=1) from client 'sreevijay'
+[2025-11-18 13:54:51] Got REQ_VIEW (a=1, l=1) from client 'sreevijay'
+[2025-11-18 13:55:11] Client 'sreevijay' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-18 14:16:34] Storage Server (Socket 5, IP: 127.0.0.1) disconnected.
+[2025-11-18 14:16:34] De-listing its files from the catalog...
+[2025-11-18 14:16:34]   -> De-listed 'file.txt'
+[2025-11-18 14:16:34]   -> De-listed 'test.txt'
+[2025-11-18 14:16:34]   -> De-listed 'nga.txt.bak'
+[2025-11-18 14:16:34]   -> De-listed 'j.txt'
+[2025-11-18 14:16:34]   -> De-listed 'file.txt.bak'
+[2025-11-18 14:16:34]   -> De-listed 'temp.txt'
+[2025-11-18 14:16:34]   -> De-listed 'test.txt.bak'
+[2025-11-18 14:16:34]   -> De-listed 'sree.txt'
+[2025-11-18 14:16:34]   -> De-listed 'vishal.txt.bak'
+[2025-11-18 14:16:34]   -> De-listed 'temp.txt.bak'
+[2025-11-18 14:16:34]   -> De-listed 'nga.txt'
+[2025-11-18 14:16:34]   -> De-listed 'vishal.txt'
+[2025-11-18 14:16:34]   -> De-listed 'sree.txt.bak'
+[2025-11-18 14:18:48] --- Name Server Started ---
+[2025-11-18 14:18:48] Initializing state...
+[2025-11-18 14:18:48] No metadata file found, starting fresh
+[2025-11-18 14:18:48] Name Server listening on port 8080...
+[2025-11-18 14:18:50] New connection from 127.0.0.1 on socket 5
+[2025-11-18 14:18:50] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 13 files.
+[2025-11-18 14:18:50] Receiving file list from SS 5...
+[2025-11-18 14:18:50]   -> Cataloged 'file.txt' (owner: system, new file) in slot 0
+[2025-11-18 14:18:50]   -> Cataloged 'test.txt' (owner: system, new file) in slot 1
+[2025-11-18 14:18:50]   -> Cataloged 'nga.txt.bak' (owner: system, new file) in slot 2
+[2025-11-18 14:18:50]   -> Cataloged 'j.txt' (owner: system, new file) in slot 3
+[2025-11-18 14:18:50]   -> Cataloged 'file.txt.bak' (owner: system, new file) in slot 4
+[2025-11-18 14:18:50]   -> Cataloged 'temp.txt' (owner: system, new file) in slot 5
+[2025-11-18 14:18:50]   -> Cataloged 'test.txt.bak' (owner: system, new file) in slot 6
+[2025-11-18 14:18:50]   -> Cataloged 'sree.txt' (owner: system, new file) in slot 7
+[2025-11-18 14:18:50]   -> Cataloged 'vishal.txt.bak' (owner: system, new file) in slot 8
+[2025-11-18 14:18:50]   -> Cataloged 'temp.txt.bak' (owner: system, new file) in slot 9
+[2025-11-18 14:18:50]   -> Cataloged 'nga.txt' (owner: system, new file) in slot 10
+[2025-11-18 14:18:50]   -> Cataloged 'vishal.txt' (owner: system, new file) in slot 11
+[2025-11-18 14:18:50]   -> Cataloged 'sree.txt.bak' (owner: system, new file) in slot 12
+[2025-11-18 14:18:50] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-18 14:18:50]   -> Metadata updated for 'file.txt'
+[2025-11-18 14:18:50] Got REQ_UPDATE_METADATA for 'test.txt' from SS 5
+[2025-11-18 14:18:50]   -> Metadata updated for 'test.txt'
+[2025-11-18 14:18:50] Got REQ_UPDATE_METADATA for 'nga.txt.bak' from SS 5
+[2025-11-18 14:18:50]   -> Metadata updated for 'nga.txt.bak'
+[2025-11-18 14:18:50] Got REQ_UPDATE_METADATA for 'j.txt' from SS 5
+[2025-11-18 14:18:50]   -> Metadata updated for 'j.txt'
+[2025-11-18 14:18:50] Got REQ_UPDATE_METADATA for 'file.txt.bak' from SS 5
+[2025-11-18 14:18:50]   -> Metadata updated for 'file.txt.bak'
+[2025-11-18 14:18:50] Got REQ_UPDATE_METADATA for 'temp.txt' from SS 5
+[2025-11-18 14:18:50]   -> Metadata updated for 'temp.txt'
+[2025-11-18 14:18:50] Got REQ_UPDATE_METADATA for 'test.txt.bak' from SS 5
+[2025-11-18 14:18:50]   -> Metadata updated for 'test.txt.bak'
+[2025-11-18 14:18:50] Got REQ_UPDATE_METADATA for 'sree.txt' from SS 5
+[2025-11-18 14:18:50]   -> Metadata updated for 'sree.txt'
+[2025-11-18 14:18:50] Got REQ_UPDATE_METADATA for 'vishal.txt.bak' from SS 5
+[2025-11-18 14:18:50]   -> Metadata updated for 'vishal.txt.bak'
+[2025-11-18 14:18:50] Got REQ_UPDATE_METADATA for 'temp.txt.bak' from SS 5
+[2025-11-18 14:18:50]   -> Metadata updated for 'temp.txt.bak'
+[2025-11-18 14:18:50] Got REQ_UPDATE_METADATA for 'nga.txt' from SS 5
+[2025-11-18 14:18:50]   -> Metadata updated for 'nga.txt'
+[2025-11-18 14:18:50] Got REQ_UPDATE_METADATA for 'vishal.txt' from SS 5
+[2025-11-18 14:18:50]   -> Metadata updated for 'vishal.txt'
+[2025-11-18 14:18:50] Got REQ_UPDATE_METADATA for 'sree.txt.bak' from SS 5
+[2025-11-18 14:18:50]   -> Metadata updated for 'sree.txt.bak'
+[2025-11-18 14:19:09] New connection from 127.0.0.1 on socket 6
+[2025-11-18 14:19:09] Socket 6 (127.0.0.1): CLIENT registered as 'sree'
+[2025-11-18 14:19:10] Got REQ_VIEW (a=0, l=0) from client 'sree'
+[2025-11-18 14:19:18] Got REQ_VIEW (a=1, l=0) from client 'sree'
+[2025-11-18 14:19:25] Got REQ_DELETE for 'vishal.txt' from client 'sree'
+[2025-11-18 14:19:25]   -> Access Denied. User 'sree' is not owner 'system'.
+[2025-11-18 14:19:35] Got REQ_CREATE for 'leon.txt' from client 'sree' (Sock 6)
+[2025-11-18 14:19:35]   -> Relaying REQ_SS_CREATE to SS on socket 5
+[2025-11-18 14:19:35]   -> SS confirmed creation. Updating catalog.
+[2025-11-18 14:19:35] Metadata saved (14 files)
+[2025-11-18 14:19:35] Got REQ_UPDATE_METADATA for 'leon.txt' from SS 5
+[2025-11-18 14:19:35]   -> Metadata updated for 'leon.txt'
+[2025-11-18 14:19:40] Got REQ_CREATE for 'nigger.txt' from client 'sree' (Sock 6)
+[2025-11-18 14:19:40]   -> Relaying REQ_SS_CREATE to SS on socket 5
+[2025-11-18 14:19:40]   -> SS confirmed creation. Updating catalog.
+[2025-11-18 14:19:40] Metadata saved (15 files)
+[2025-11-18 14:19:40] Got REQ_UPDATE_METADATA for 'nigger.txt' from SS 5
+[2025-11-18 14:19:40]   -> Metadata updated for 'nigger.txt'
+[2025-11-18 14:19:44] Client 'sree' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-18 14:19:47] New connection from 127.0.0.1 on socket 6
+[2025-11-18 14:19:47] Socket 6 (127.0.0.1): CLIENT registered as 'sree'
+[2025-11-18 14:19:48] Got REQ_VIEW (a=0, l=0) from client 'sree'
+[2025-11-18 14:19:50] Got REQ_LIST from client 'sree' (Sock 6)
+[2025-11-18 14:19:53] Got REQ_VIEW (a=1, l=0) from client 'sree'
+[2025-11-18 14:19:56] Got REQ_VIEW (a=0, l=1) from client 'sree'
+[2025-11-18 14:20:00] Client 'sree' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-18 14:20:02] Storage Server (Socket 5, IP: 127.0.0.1) disconnected.
+[2025-11-18 14:20:02] De-listing its files from the catalog...
+[2025-11-18 14:20:02]   -> De-listed 'file.txt'
+[2025-11-18 14:20:02]   -> De-listed 'test.txt'
+[2025-11-18 14:20:02]   -> De-listed 'nga.txt.bak'
+[2025-11-18 14:20:02]   -> De-listed 'j.txt'
+[2025-11-18 14:20:02]   -> De-listed 'file.txt.bak'
+[2025-11-18 14:20:02]   -> De-listed 'temp.txt'
+[2025-11-18 14:20:02]   -> De-listed 'test.txt.bak'
+[2025-11-18 14:20:02]   -> De-listed 'sree.txt'
+[2025-11-18 14:20:02]   -> De-listed 'vishal.txt.bak'
+[2025-11-18 14:20:02]   -> De-listed 'temp.txt.bak'
+[2025-11-18 14:20:02]   -> De-listed 'nga.txt'
+[2025-11-18 14:20:02]   -> De-listed 'vishal.txt'
+[2025-11-18 14:20:02]   -> De-listed 'sree.txt.bak'
+[2025-11-18 14:20:02]   -> De-listed 'leon.txt'
+[2025-11-18 14:20:02]   -> De-listed 'nigger.txt'
+[2025-11-18 14:20:09] --- Name Server Started ---
+[2025-11-18 14:20:09] Initializing state...
+[2025-11-18 14:20:09] Loading metadata for 15 files...
+[2025-11-18 14:20:09]   -> Loaded metadata for 'file.txt' (owner: system, 0 access entries)
+[2025-11-18 14:20:09]   -> Loaded metadata for 'test.txt' (owner: system, 0 access entries)
+[2025-11-18 14:20:09]   -> Loaded metadata for 'nga.txt.bak' (owner: system, 0 access entries)
+[2025-11-18 14:20:09]   -> Loaded metadata for 'j.txt' (owner: system, 0 access entries)
+[2025-11-18 14:20:09]   -> Loaded metadata for 'file.txt.bak' (owner: system, 0 access entries)
+[2025-11-18 14:20:09]   -> Loaded metadata for 'temp.txt' (owner: system, 0 access entries)
+[2025-11-18 14:20:09]   -> Loaded metadata for 'test.txt.bak' (owner: system, 0 access entries)
+[2025-11-18 14:20:09]   -> Loaded metadata for 'sree.txt' (owner: system, 0 access entries)
+[2025-11-18 14:20:09]   -> Loaded metadata for 'vishal.txt.bak' (owner: system, 0 access entries)
+[2025-11-18 14:20:09]   -> Loaded metadata for 'temp.txt.bak' (owner: system, 0 access entries)
+[2025-11-18 14:20:09]   -> Loaded metadata for 'nga.txt' (owner: system, 0 access entries)
+[2025-11-18 14:20:09]   -> Loaded metadata for 'vishal.txt' (owner: system, 0 access entries)
+[2025-11-18 14:20:09]   -> Loaded metadata for 'sree.txt.bak' (owner: system, 0 access entries)
+[2025-11-18 14:20:09]   -> Loaded metadata for 'leon.txt' (owner: sree, 0 access entries)
+[2025-11-18 14:20:09]   -> Loaded metadata for 'nigger.txt' (owner: sree, 0 access entries)
+[2025-11-18 14:20:09] Metadata loading complete
+[2025-11-18 14:20:09] Name Server listening on port 8080...
+[2025-11-18 14:20:12] New connection from 127.0.0.1 on socket 5
+[2025-11-18 14:20:12] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 15 files.
+[2025-11-18 14:20:12] Receiving file list from SS 5...
+[2025-11-18 14:20:12]   -> Cataloged 'file.txt' (owner: system, new file) in slot 0
+[2025-11-18 14:20:12]   -> Cataloged 'test.txt' (owner: system, new file) in slot 1
+[2025-11-18 14:20:12]   -> Cataloged 'nga.txt.bak' (owner: system, new file) in slot 2
+[2025-11-18 14:20:12]   -> Cataloged 'j.txt' (owner: system, new file) in slot 3
+[2025-11-18 14:20:12]   -> Cataloged 'nigger.txt' (owner: system, new file) in slot 4
+[2025-11-18 14:20:12]   -> Cataloged 'file.txt.bak' (owner: system, new file) in slot 5
+[2025-11-18 14:20:12]   -> Cataloged 'temp.txt' (owner: system, new file) in slot 6
+[2025-11-18 14:20:12]   -> Cataloged 'test.txt.bak' (owner: system, new file) in slot 7
+[2025-11-18 14:20:12]   -> Cataloged 'sree.txt' (owner: system, new file) in slot 8
+[2025-11-18 14:20:12]   -> Cataloged 'vishal.txt.bak' (owner: system, new file) in slot 9
+[2025-11-18 14:20:12]   -> Cataloged 'temp.txt.bak' (owner: system, new file) in slot 10
+[2025-11-18 14:20:12]   -> Cataloged 'nga.txt' (owner: system, new file) in slot 11
+[2025-11-18 14:20:12]   -> Cataloged 'vishal.txt' (owner: system, new file) in slot 12
+[2025-11-18 14:20:12]   -> Cataloged 'sree.txt.bak' (owner: system, new file) in slot 13
+[2025-11-18 14:20:12]   -> Cataloged 'leon.txt' (owner: system, new file) in slot 14
+[2025-11-18 14:20:12] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-18 14:20:12]   -> Metadata updated for 'file.txt'
+[2025-11-18 14:20:12] Got REQ_UPDATE_METADATA for 'test.txt' from SS 5
+[2025-11-18 14:20:12]   -> Metadata updated for 'test.txt'
+[2025-11-18 14:20:12] Got REQ_UPDATE_METADATA for 'nga.txt.bak' from SS 5
+[2025-11-18 14:20:12]   -> Metadata updated for 'nga.txt.bak'
+[2025-11-18 14:20:12] Got REQ_UPDATE_METADATA for 'j.txt' from SS 5
+[2025-11-18 14:20:12]   -> Metadata updated for 'j.txt'
+[2025-11-18 14:20:12] Got REQ_UPDATE_METADATA for 'nigger.txt' from SS 5
+[2025-11-18 14:20:12]   -> Metadata updated for 'nigger.txt'
+[2025-11-18 14:20:12] Got REQ_UPDATE_METADATA for 'file.txt.bak' from SS 5
+[2025-11-18 14:20:12]   -> Metadata updated for 'file.txt.bak'
+[2025-11-18 14:20:12] Got REQ_UPDATE_METADATA for 'temp.txt' from SS 5
+[2025-11-18 14:20:12]   -> Metadata updated for 'temp.txt'
+[2025-11-18 14:20:12] Got REQ_UPDATE_METADATA for 'test.txt.bak' from SS 5
+[2025-11-18 14:20:12]   -> Metadata updated for 'test.txt.bak'
+[2025-11-18 14:20:12] Got REQ_UPDATE_METADATA for 'sree.txt' from SS 5
+[2025-11-18 14:20:12]   -> Metadata updated for 'sree.txt'
+[2025-11-18 14:20:12] Got REQ_UPDATE_METADATA for 'vishal.txt.bak' from SS 5
+[2025-11-18 14:20:12]   -> Metadata updated for 'vishal.txt.bak'
+[2025-11-18 14:20:12] Got REQ_UPDATE_METADATA for 'temp.txt.bak' from SS 5
+[2025-11-18 14:20:12]   -> Metadata updated for 'temp.txt.bak'
+[2025-11-18 14:20:12] Got REQ_UPDATE_METADATA for 'nga.txt' from SS 5
+[2025-11-18 14:20:12]   -> Metadata updated for 'nga.txt'
+[2025-11-18 14:20:12] Got REQ_UPDATE_METADATA for 'vishal.txt' from SS 5
+[2025-11-18 14:20:12]   -> Metadata updated for 'vishal.txt'
+[2025-11-18 14:20:12] Got REQ_UPDATE_METADATA for 'sree.txt.bak' from SS 5
+[2025-11-18 14:20:12]   -> Metadata updated for 'sree.txt.bak'
+[2025-11-18 14:20:12] Got REQ_UPDATE_METADATA for 'leon.txt' from SS 5
+[2025-11-18 14:20:12]   -> Metadata updated for 'leon.txt'
+[2025-11-18 14:20:17] New connection from 127.0.0.1 on socket 6
+[2025-11-18 14:20:17] Socket 6 (127.0.0.1): CLIENT registered as 'sree'
+[2025-11-18 14:20:18] Got REQ_LIST from client 'sree' (Sock 6)
+[2025-11-18 14:20:19] Got REQ_VIEW (a=0, l=0) from client 'sree'
+[2025-11-18 14:20:28] Got REQ_VIEW (a=1, l=0) from client 'sree'
+[2025-11-18 14:20:31] Got REQ_VIEW (a=1, l=1) from client 'sree'
+[2025-11-18 14:23:45] --- Name Server Started ---
+[2025-11-18 14:23:45] Initializing state...
+[2025-11-18 14:23:45] Loading metadata for 15 files...
+[2025-11-18 14:23:45]   -> Loaded metadata for 'file.txt' (owner: system, 0 access entries)
+[2025-11-18 14:23:45]   -> Loaded metadata for 'test.txt' (owner: system, 0 access entries)
+[2025-11-18 14:23:45]   -> Loaded metadata for 'nga.txt.bak' (owner: system, 0 access entries)
+[2025-11-18 14:23:45]   -> Loaded metadata for 'j.txt' (owner: system, 0 access entries)
+[2025-11-18 14:23:45]   -> Loaded metadata for 'file.txt.bak' (owner: system, 0 access entries)
+[2025-11-18 14:23:45]   -> Loaded metadata for 'temp.txt' (owner: system, 0 access entries)
+[2025-11-18 14:23:45]   -> Loaded metadata for 'test.txt.bak' (owner: system, 0 access entries)
+[2025-11-18 14:23:45]   -> Loaded metadata for 'sree.txt' (owner: system, 0 access entries)
+[2025-11-18 14:23:45]   -> Loaded metadata for 'vishal.txt.bak' (owner: system, 0 access entries)
+[2025-11-18 14:23:45]   -> Loaded metadata for 'temp.txt.bak' (owner: system, 0 access entries)
+[2025-11-18 14:23:45]   -> Loaded metadata for 'nga.txt' (owner: system, 0 access entries)
+[2025-11-18 14:23:45]   -> Loaded metadata for 'vishal.txt' (owner: system, 0 access entries)
+[2025-11-18 14:23:45]   -> Loaded metadata for 'sree.txt.bak' (owner: system, 0 access entries)
+[2025-11-18 14:23:45]   -> Loaded metadata for 'leon.txt' (owner: sree, 0 access entries)
+[2025-11-18 14:23:45]   -> Loaded metadata for 'nigger.txt' (owner: sree, 0 access entries)
+[2025-11-18 14:23:45] Metadata loading complete
+[2025-11-18 14:23:45] Name Server listening on port 8080...
+[2025-11-18 14:23:47] New connection from 127.0.0.1 on socket 5
+[2025-11-18 14:23:47] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 15 files.
+[2025-11-18 14:23:47] Receiving file list from SS 5...
+[2025-11-18 14:23:47]   -> Cataloged 'file.txt' (owner: system, restored metadata) in slot 0
+[2025-11-18 14:23:47]   -> Cataloged 'test.txt' (owner: system, restored metadata) in slot 1
+[2025-11-18 14:23:47]   -> Cataloged 'nga.txt.bak' (owner: system, restored metadata) in slot 2
+[2025-11-18 14:23:47]   -> Cataloged 'j.txt' (owner: system, restored metadata) in slot 3
+[2025-11-18 14:23:47]   -> Cataloged 'nigger.txt' (owner: sree, restored metadata) in slot 14
+[2025-11-18 14:23:47]   -> Cataloged 'file.txt.bak' (owner: system, restored metadata) in slot 4
+[2025-11-18 14:23:47]   -> Cataloged 'temp.txt' (owner: system, restored metadata) in slot 5
+[2025-11-18 14:23:47]   -> Cataloged 'test.txt.bak' (owner: system, restored metadata) in slot 6
+[2025-11-18 14:23:47]   -> Cataloged 'sree.txt' (owner: system, restored metadata) in slot 7
+[2025-11-18 14:23:47]   -> Cataloged 'vishal.txt.bak' (owner: system, restored metadata) in slot 8
+[2025-11-18 14:23:47]   -> Cataloged 'temp.txt.bak' (owner: system, restored metadata) in slot 9
+[2025-11-18 14:23:47]   -> Cataloged 'nga.txt' (owner: system, restored metadata) in slot 10
+[2025-11-18 14:23:47]   -> Cataloged 'vishal.txt' (owner: system, restored metadata) in slot 11
+[2025-11-18 14:23:47]   -> Cataloged 'sree.txt.bak' (owner: system, restored metadata) in slot 12
+[2025-11-18 14:23:47]   -> Cataloged 'leon.txt' (owner: sree, restored metadata) in slot 13
+[2025-11-18 14:23:47] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-18 14:23:47]   -> Metadata updated for 'file.txt'
+[2025-11-18 14:23:47] Got REQ_UPDATE_METADATA for 'test.txt' from SS 5
+[2025-11-18 14:23:47]   -> Metadata updated for 'test.txt'
+[2025-11-18 14:23:47] Got REQ_UPDATE_METADATA for 'nga.txt.bak' from SS 5
+[2025-11-18 14:23:47]   -> Metadata updated for 'nga.txt.bak'
+[2025-11-18 14:23:47] Got REQ_UPDATE_METADATA for 'j.txt' from SS 5
+[2025-11-18 14:23:47]   -> Metadata updated for 'j.txt'
+[2025-11-18 14:23:47] Got REQ_UPDATE_METADATA for 'nigger.txt' from SS 5
+[2025-11-18 14:23:47]   -> Metadata updated for 'nigger.txt'
+[2025-11-18 14:23:47] Got REQ_UPDATE_METADATA for 'file.txt.bak' from SS 5
+[2025-11-18 14:23:47]   -> Metadata updated for 'file.txt.bak'
+[2025-11-18 14:23:47] Got REQ_UPDATE_METADATA for 'temp.txt' from SS 5
+[2025-11-18 14:23:47]   -> Metadata updated for 'temp.txt'
+[2025-11-18 14:23:47] Got REQ_UPDATE_METADATA for 'test.txt.bak' from SS 5
+[2025-11-18 14:23:47]   -> Metadata updated for 'test.txt.bak'
+[2025-11-18 14:23:47] Got REQ_UPDATE_METADATA for 'sree.txt' from SS 5
+[2025-11-18 14:23:47]   -> Metadata updated for 'sree.txt'
+[2025-11-18 14:23:47] Got REQ_UPDATE_METADATA for 'vishal.txt.bak' from SS 5
+[2025-11-18 14:23:47]   -> Metadata updated for 'vishal.txt.bak'
+[2025-11-18 14:23:47] Got REQ_UPDATE_METADATA for 'temp.txt.bak' from SS 5
+[2025-11-18 14:23:47]   -> Metadata updated for 'temp.txt.bak'
+[2025-11-18 14:23:47] Got REQ_UPDATE_METADATA for 'nga.txt' from SS 5
+[2025-11-18 14:23:47]   -> Metadata updated for 'nga.txt'
+[2025-11-18 14:23:47] Got REQ_UPDATE_METADATA for 'vishal.txt' from SS 5
+[2025-11-18 14:23:47]   -> Metadata updated for 'vishal.txt'
+[2025-11-18 14:23:47] Got REQ_UPDATE_METADATA for 'sree.txt.bak' from SS 5
+[2025-11-18 14:23:47]   -> Metadata updated for 'sree.txt.bak'
+[2025-11-18 14:23:47] Got REQ_UPDATE_METADATA for 'leon.txt' from SS 5
+[2025-11-18 14:23:47]   -> Metadata updated for 'leon.txt'
+[2025-11-18 14:23:56] New connection from 127.0.0.1 on socket 6
+[2025-11-18 14:23:56] Socket 6 (127.0.0.1): CLIENT registered as 'sree'
+[2025-11-18 14:23:58] Got REQ_VIEW (a=0, l=0) from client 'sree'
+[2025-11-18 14:24:08] Got REQ_LIST from client 'sree' (Sock 6)
+[2025-11-18 14:24:19] Got REQ_CREATE for 'hope.txt' from client 'sree' (Sock 6)
+[2025-11-18 14:24:19]   -> Relaying REQ_SS_CREATE to SS on socket 5
+[2025-11-18 14:24:19]   -> SS confirmed creation. Updating catalog.
+[2025-11-18 14:24:19] Metadata saved (16 files)
+[2025-11-18 14:24:19] Got REQ_UPDATE_METADATA for 'hope.txt' from SS 5
+[2025-11-18 14:24:19]   -> Metadata updated for 'hope.txt'
+[2025-11-18 14:24:21] Client 'sree' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-18 14:24:23] Storage Server (Socket 5, IP: 127.0.0.1) disconnected.
+[2025-11-18 14:24:23] De-listing its files from the catalog...
+[2025-11-18 14:24:23]   -> De-listed 'file.txt'
+[2025-11-18 14:24:23]   -> De-listed 'test.txt'
+[2025-11-18 14:24:23]   -> De-listed 'nga.txt.bak'
+[2025-11-18 14:24:23]   -> De-listed 'j.txt'
+[2025-11-18 14:24:23]   -> De-listed 'file.txt.bak'
+[2025-11-18 14:24:23]   -> De-listed 'temp.txt'
+[2025-11-18 14:24:23]   -> De-listed 'test.txt.bak'
+[2025-11-18 14:24:23]   -> De-listed 'sree.txt'
+[2025-11-18 14:24:23]   -> De-listed 'vishal.txt.bak'
+[2025-11-18 14:24:23]   -> De-listed 'temp.txt.bak'
+[2025-11-18 14:24:23]   -> De-listed 'nga.txt'
+[2025-11-18 14:24:23]   -> De-listed 'vishal.txt'
+[2025-11-18 14:24:23]   -> De-listed 'sree.txt.bak'
+[2025-11-18 14:24:23]   -> De-listed 'leon.txt'
+[2025-11-18 14:24:23]   -> De-listed 'nigger.txt'
+[2025-11-18 14:24:23]   -> De-listed 'hope.txt'
+[2025-11-18 14:24:28] --- Name Server Started ---
+[2025-11-18 14:24:28] Initializing state...
+[2025-11-18 14:24:28] Loading metadata for 16 files...
+[2025-11-18 14:24:28]   -> Loaded metadata for 'file.txt' (owner: system, 0 access entries)
+[2025-11-18 14:24:28]   -> Loaded metadata for 'test.txt' (owner: system, 0 access entries)
+[2025-11-18 14:24:28]   -> Loaded metadata for 'nga.txt.bak' (owner: system, 0 access entries)
+[2025-11-18 14:24:28]   -> Loaded metadata for 'j.txt' (owner: system, 0 access entries)
+[2025-11-18 14:24:28]   -> Loaded metadata for 'file.txt.bak' (owner: system, 0 access entries)
+[2025-11-18 14:24:28]   -> Loaded metadata for 'temp.txt' (owner: system, 0 access entries)
+[2025-11-18 14:24:28]   -> Loaded metadata for 'test.txt.bak' (owner: system, 0 access entries)
+[2025-11-18 14:24:28]   -> Loaded metadata for 'sree.txt' (owner: system, 0 access entries)
+[2025-11-18 14:24:28]   -> Loaded metadata for 'vishal.txt.bak' (owner: system, 0 access entries)
+[2025-11-18 14:24:28]   -> Loaded metadata for 'temp.txt.bak' (owner: system, 0 access entries)
+[2025-11-18 14:24:28]   -> Loaded metadata for 'nga.txt' (owner: system, 0 access entries)
+[2025-11-18 14:24:28]   -> Loaded metadata for 'vishal.txt' (owner: system, 0 access entries)
+[2025-11-18 14:24:28]   -> Loaded metadata for 'sree.txt.bak' (owner: system, 0 access entries)
+[2025-11-18 14:24:28]   -> Loaded metadata for 'leon.txt' (owner: sree, 0 access entries)
+[2025-11-18 14:24:28]   -> Loaded metadata for 'nigger.txt' (owner: sree, 0 access entries)
+[2025-11-18 14:24:28]   -> Loaded metadata for 'hope.txt' (owner: sree, 0 access entries)
+[2025-11-18 14:24:28] Metadata loading complete
+[2025-11-18 14:24:28] Name Server listening on port 8080...
+[2025-11-18 14:24:31] New connection from 127.0.0.1 on socket 5
+[2025-11-18 14:24:31] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 16 files.
+[2025-11-18 14:24:31] Receiving file list from SS 5...
+[2025-11-18 14:24:31]   -> Cataloged 'file.txt' (owner: system, restored metadata) in slot 0
+[2025-11-18 14:24:31]   -> Cataloged 'test.txt' (owner: system, restored metadata) in slot 1
+[2025-11-18 14:24:31]   -> Cataloged 'nga.txt.bak' (owner: system, restored metadata) in slot 2
+[2025-11-18 14:24:31]   -> Cataloged 'j.txt' (owner: system, restored metadata) in slot 3
+[2025-11-18 14:24:31]   -> Cataloged 'nigger.txt' (owner: sree, restored metadata) in slot 14
+[2025-11-18 14:24:31]   -> Cataloged 'file.txt.bak' (owner: system, restored metadata) in slot 4
+[2025-11-18 14:24:31]   -> Cataloged 'temp.txt' (owner: system, restored metadata) in slot 5
+[2025-11-18 14:24:31]   -> Cataloged 'test.txt.bak' (owner: system, restored metadata) in slot 6
+[2025-11-18 14:24:31]   -> Cataloged 'sree.txt' (owner: system, restored metadata) in slot 7
+[2025-11-18 14:24:31]   -> Cataloged 'vishal.txt.bak' (owner: system, restored metadata) in slot 8
+[2025-11-18 14:24:31]   -> Cataloged 'temp.txt.bak' (owner: system, restored metadata) in slot 9
+[2025-11-18 14:24:31]   -> Cataloged 'nga.txt' (owner: system, restored metadata) in slot 10
+[2025-11-18 14:24:31]   -> Cataloged 'vishal.txt' (owner: system, restored metadata) in slot 11
+[2025-11-18 14:24:31]   -> Cataloged 'sree.txt.bak' (owner: system, restored metadata) in slot 12
+[2025-11-18 14:24:31]   -> Cataloged 'leon.txt' (owner: sree, restored metadata) in slot 13
+[2025-11-18 14:24:31]   -> Cataloged 'hope.txt' (owner: sree, restored metadata) in slot 15
+[2025-11-18 14:24:31] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-18 14:24:31]   -> Metadata updated for 'file.txt'
+[2025-11-18 14:24:31] Got REQ_UPDATE_METADATA for 'test.txt' from SS 5
+[2025-11-18 14:24:31]   -> Metadata updated for 'test.txt'
+[2025-11-18 14:24:31] Got REQ_UPDATE_METADATA for 'nga.txt.bak' from SS 5
+[2025-11-18 14:24:31]   -> Metadata updated for 'nga.txt.bak'
+[2025-11-18 14:24:31] Got REQ_UPDATE_METADATA for 'j.txt' from SS 5
+[2025-11-18 14:24:31]   -> Metadata updated for 'j.txt'
+[2025-11-18 14:24:31] Got REQ_UPDATE_METADATA for 'nigger.txt' from SS 5
+[2025-11-18 14:24:31]   -> Metadata updated for 'nigger.txt'
+[2025-11-18 14:24:31] Got REQ_UPDATE_METADATA for 'file.txt.bak' from SS 5
+[2025-11-18 14:24:31]   -> Metadata updated for 'file.txt.bak'
+[2025-11-18 14:24:31] Got REQ_UPDATE_METADATA for 'temp.txt' from SS 5
+[2025-11-18 14:24:31]   -> Metadata updated for 'temp.txt'
+[2025-11-18 14:24:31] Got REQ_UPDATE_METADATA for 'test.txt.bak' from SS 5
+[2025-11-18 14:24:31]   -> Metadata updated for 'test.txt.bak'
+[2025-11-18 14:24:31] Got REQ_UPDATE_METADATA for 'sree.txt' from SS 5
+[2025-11-18 14:24:31]   -> Metadata updated for 'sree.txt'
+[2025-11-18 14:24:31] Got REQ_UPDATE_METADATA for 'vishal.txt.bak' from SS 5
+[2025-11-18 14:24:31]   -> Metadata updated for 'vishal.txt.bak'
+[2025-11-18 14:24:31] Got REQ_UPDATE_METADATA for 'temp.txt.bak' from SS 5
+[2025-11-18 14:24:31]   -> Metadata updated for 'temp.txt.bak'
+[2025-11-18 14:24:31] Got REQ_UPDATE_METADATA for 'nga.txt' from SS 5
+[2025-11-18 14:24:31]   -> Metadata updated for 'nga.txt'
+[2025-11-18 14:24:31] Got REQ_UPDATE_METADATA for 'vishal.txt' from SS 5
+[2025-11-18 14:24:31]   -> Metadata updated for 'vishal.txt'
+[2025-11-18 14:24:31] Got REQ_UPDATE_METADATA for 'sree.txt.bak' from SS 5
+[2025-11-18 14:24:31]   -> Metadata updated for 'sree.txt.bak'
+[2025-11-18 14:24:31] Got REQ_UPDATE_METADATA for 'leon.txt' from SS 5
+[2025-11-18 14:24:31]   -> Metadata updated for 'leon.txt'
+[2025-11-18 14:24:31] Got REQ_UPDATE_METADATA for 'hope.txt' from SS 5
+[2025-11-18 14:24:31]   -> Metadata updated for 'hope.txt'
+[2025-11-18 14:24:35] New connection from 127.0.0.1 on socket 6
+[2025-11-18 14:24:35] Socket 6 (127.0.0.1): CLIENT registered as 'sree'
+[2025-11-18 14:24:38] Got REQ_VIEW (a=0, l=0) from client 'sree'
+[2025-11-18 14:24:51] Got 13 for 'hope.txt' from client 'sree'
+[2025-11-18 14:24:51]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 14:24:59] Got REQ_UPDATE_METADATA for 'hope.txt' from SS 5
+[2025-11-18 14:24:59]   -> Metadata updated for 'hope.txt'
+[2025-11-18 14:25:04] Got 8 for 'hope.txt' from client 'sree'
+[2025-11-18 14:25:04]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 14:25:06] Client 'sree' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-18 14:25:08] Storage Server (Socket 5, IP: 127.0.0.1) disconnected.
+[2025-11-18 14:25:08] De-listing its files from the catalog...
+[2025-11-18 14:25:08]   -> De-listed 'file.txt'
+[2025-11-18 14:25:08]   -> De-listed 'test.txt'
+[2025-11-18 14:25:08]   -> De-listed 'nga.txt.bak'
+[2025-11-18 14:25:08]   -> De-listed 'j.txt'
+[2025-11-18 14:25:08]   -> De-listed 'file.txt.bak'
+[2025-11-18 14:25:08]   -> De-listed 'temp.txt'
+[2025-11-18 14:25:08]   -> De-listed 'test.txt.bak'
+[2025-11-18 14:25:08]   -> De-listed 'sree.txt'
+[2025-11-18 14:25:08]   -> De-listed 'vishal.txt.bak'
+[2025-11-18 14:25:08]   -> De-listed 'temp.txt.bak'
+[2025-11-18 14:25:08]   -> De-listed 'nga.txt'
+[2025-11-18 14:25:08]   -> De-listed 'vishal.txt'
+[2025-11-18 14:25:08]   -> De-listed 'sree.txt.bak'
+[2025-11-18 14:25:08]   -> De-listed 'leon.txt'
+[2025-11-18 14:25:08]   -> De-listed 'nigger.txt'
+[2025-11-18 14:25:08]   -> De-listed 'hope.txt'
+[2025-11-18 14:25:17] --- Name Server Started ---
+[2025-11-18 14:25:17] Initializing state...
+[2025-11-18 14:25:17] Loading metadata for 16 files...
+[2025-11-18 14:25:17]   -> Loaded metadata for 'file.txt' (owner: system, 0 access entries)
+[2025-11-18 14:25:17]   -> Loaded metadata for 'test.txt' (owner: system, 0 access entries)
+[2025-11-18 14:25:17]   -> Loaded metadata for 'nga.txt.bak' (owner: system, 0 access entries)
+[2025-11-18 14:25:17]   -> Loaded metadata for 'j.txt' (owner: system, 0 access entries)
+[2025-11-18 14:25:17]   -> Loaded metadata for 'file.txt.bak' (owner: system, 0 access entries)
+[2025-11-18 14:25:17]   -> Loaded metadata for 'temp.txt' (owner: system, 0 access entries)
+[2025-11-18 14:25:17]   -> Loaded metadata for 'test.txt.bak' (owner: system, 0 access entries)
+[2025-11-18 14:25:17]   -> Loaded metadata for 'sree.txt' (owner: system, 0 access entries)
+[2025-11-18 14:25:17]   -> Loaded metadata for 'vishal.txt.bak' (owner: system, 0 access entries)
+[2025-11-18 14:25:17]   -> Loaded metadata for 'temp.txt.bak' (owner: system, 0 access entries)
+[2025-11-18 14:25:17]   -> Loaded metadata for 'nga.txt' (owner: system, 0 access entries)
+[2025-11-18 14:25:17]   -> Loaded metadata for 'vishal.txt' (owner: system, 0 access entries)
+[2025-11-18 14:25:17]   -> Loaded metadata for 'sree.txt.bak' (owner: system, 0 access entries)
+[2025-11-18 14:25:17]   -> Loaded metadata for 'leon.txt' (owner: sree, 0 access entries)
+[2025-11-18 14:25:17]   -> Loaded metadata for 'nigger.txt' (owner: sree, 0 access entries)
+[2025-11-18 14:25:17]   -> Loaded metadata for 'hope.txt' (owner: sree, 0 access entries)
+[2025-11-18 14:25:17] Metadata loading complete
+[2025-11-18 14:25:17] Name Server listening on port 8080...
+[2025-11-18 14:25:20] New connection from 127.0.0.1 on socket 5
+[2025-11-18 14:25:20] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 17 files.
+[2025-11-18 14:25:20] Receiving file list from SS 5...
+[2025-11-18 14:25:20]   -> Cataloged 'file.txt' (owner: system, restored metadata) in slot 0
+[2025-11-18 14:25:20]   -> Cataloged 'test.txt' (owner: system, restored metadata) in slot 1
+[2025-11-18 14:25:20]   -> Cataloged 'nga.txt.bak' (owner: system, restored metadata) in slot 2
+[2025-11-18 14:25:20]   -> Cataloged 'j.txt' (owner: system, restored metadata) in slot 3
+[2025-11-18 14:25:20]   -> Cataloged 'nigger.txt' (owner: sree, restored metadata) in slot 14
+[2025-11-18 14:25:20]   -> Cataloged 'file.txt.bak' (owner: system, restored metadata) in slot 4
+[2025-11-18 14:25:20]   -> Cataloged 'temp.txt' (owner: system, restored metadata) in slot 5
+[2025-11-18 14:25:20]   -> Cataloged 'test.txt.bak' (owner: system, restored metadata) in slot 6
+[2025-11-18 14:25:20]   -> Cataloged 'sree.txt' (owner: system, restored metadata) in slot 7
+[2025-11-18 14:25:20]   -> Cataloged 'vishal.txt.bak' (owner: system, restored metadata) in slot 8
+[2025-11-18 14:25:20]   -> Cataloged 'temp.txt.bak' (owner: system, restored metadata) in slot 9
+[2025-11-18 14:25:20]   -> Cataloged 'nga.txt' (owner: system, restored metadata) in slot 10
+[2025-11-18 14:25:20]   -> Cataloged 'hope.txt.bak' (owner: system, new file) in slot 16
+[2025-11-18 14:25:20]   -> Cataloged 'vishal.txt' (owner: system, restored metadata) in slot 11
+[2025-11-18 14:25:20]   -> Cataloged 'sree.txt.bak' (owner: system, restored metadata) in slot 12
+[2025-11-18 14:25:20]   -> Cataloged 'leon.txt' (owner: sree, restored metadata) in slot 13
+[2025-11-18 14:25:20]   -> Cataloged 'hope.txt' (owner: sree, restored metadata) in slot 15
+[2025-11-18 14:25:20] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-18 14:25:20]   -> Metadata updated for 'file.txt'
+[2025-11-18 14:25:20] Got REQ_UPDATE_METADATA for 'test.txt' from SS 5
+[2025-11-18 14:25:20]   -> Metadata updated for 'test.txt'
+[2025-11-18 14:25:20] Got REQ_UPDATE_METADATA for 'nga.txt.bak' from SS 5
+[2025-11-18 14:25:20]   -> Metadata updated for 'nga.txt.bak'
+[2025-11-18 14:25:20] Got REQ_UPDATE_METADATA for 'j.txt' from SS 5
+[2025-11-18 14:25:20]   -> Metadata updated for 'j.txt'
+[2025-11-18 14:25:20] Got REQ_UPDATE_METADATA for 'nigger.txt' from SS 5
+[2025-11-18 14:25:20]   -> Metadata updated for 'nigger.txt'
+[2025-11-18 14:25:20] Got REQ_UPDATE_METADATA for 'file.txt.bak' from SS 5
+[2025-11-18 14:25:20]   -> Metadata updated for 'file.txt.bak'
+[2025-11-18 14:25:20] Got REQ_UPDATE_METADATA for 'temp.txt' from SS 5
+[2025-11-18 14:25:20]   -> Metadata updated for 'temp.txt'
+[2025-11-18 14:25:20] Got REQ_UPDATE_METADATA for 'test.txt.bak' from SS 5
+[2025-11-18 14:25:20]   -> Metadata updated for 'test.txt.bak'
+[2025-11-18 14:25:20] Got REQ_UPDATE_METADATA for 'sree.txt' from SS 5
+[2025-11-18 14:25:20]   -> Metadata updated for 'sree.txt'
+[2025-11-18 14:25:20] Got REQ_UPDATE_METADATA for 'vishal.txt.bak' from SS 5
+[2025-11-18 14:25:20]   -> Metadata updated for 'vishal.txt.bak'
+[2025-11-18 14:25:20] Got REQ_UPDATE_METADATA for 'temp.txt.bak' from SS 5
+[2025-11-18 14:25:20]   -> Metadata updated for 'temp.txt.bak'
+[2025-11-18 14:25:20] Got REQ_UPDATE_METADATA for 'nga.txt' from SS 5
+[2025-11-18 14:25:20]   -> Metadata updated for 'nga.txt'
+[2025-11-18 14:25:20] Got REQ_UPDATE_METADATA for 'hope.txt.bak' from SS 5
+[2025-11-18 14:25:20]   -> Metadata updated for 'hope.txt.bak'
+[2025-11-18 14:25:20] Got REQ_UPDATE_METADATA for 'vishal.txt' from SS 5
+[2025-11-18 14:25:20]   -> Metadata updated for 'vishal.txt'
+[2025-11-18 14:25:20] Got REQ_UPDATE_METADATA for 'sree.txt.bak' from SS 5
+[2025-11-18 14:25:20]   -> Metadata updated for 'sree.txt.bak'
+[2025-11-18 14:25:20] Got REQ_UPDATE_METADATA for 'leon.txt' from SS 5
+[2025-11-18 14:25:20]   -> Metadata updated for 'leon.txt'
+[2025-11-18 14:25:20] Got REQ_UPDATE_METADATA for 'hope.txt' from SS 5
+[2025-11-18 14:25:20]   -> Metadata updated for 'hope.txt'
+[2025-11-18 14:25:28] New connection from 127.0.0.1 on socket 6
+[2025-11-18 14:25:28] Socket 6 (127.0.0.1): CLIENT registered as 'sree'
+[2025-11-18 14:25:29] Got REQ_VIEW (a=0, l=0) from client 'sree'
+[2025-11-18 14:25:32] Got 8 for 'hope.txt' from client 'sree'
+[2025-11-18 14:25:32]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 14:25:35] Client 'sree' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-18 14:56:56] Storage Server (Socket 5, IP: 127.0.0.1) disconnected.
+[2025-11-18 14:56:56] De-listing its files from the catalog...
+[2025-11-18 14:56:56]   -> De-listed 'file.txt'
+[2025-11-18 14:56:56]   -> De-listed 'test.txt'
+[2025-11-18 14:56:56]   -> De-listed 'nga.txt.bak'
+[2025-11-18 14:56:56]   -> De-listed 'j.txt'
+[2025-11-18 14:56:56]   -> De-listed 'file.txt.bak'
+[2025-11-18 14:56:56]   -> De-listed 'temp.txt'
+[2025-11-18 14:56:56]   -> De-listed 'test.txt.bak'
+[2025-11-18 14:56:56]   -> De-listed 'sree.txt'
+[2025-11-18 14:56:56]   -> De-listed 'vishal.txt.bak'
+[2025-11-18 14:56:56]   -> De-listed 'temp.txt.bak'
+[2025-11-18 14:56:56]   -> De-listed 'nga.txt'
+[2025-11-18 14:56:56]   -> De-listed 'vishal.txt'
+[2025-11-18 14:56:56]   -> De-listed 'sree.txt.bak'
+[2025-11-18 14:56:57]   -> De-listed 'leon.txt'
+[2025-11-18 14:56:57]   -> De-listed 'nigger.txt'
+[2025-11-18 14:56:57]   -> De-listed 'hope.txt'
+[2025-11-18 14:56:57]   -> De-listed 'hope.txt.bak'
+[2025-11-18 14:57:08] --- Name Server Started ---
+[2025-11-18 14:57:08] Initializing state...
+[2025-11-18 14:57:08] Name Server listening on port 8080...
+[2025-11-18 14:57:11] New connection from 127.0.0.1 on socket 5
+[2025-11-18 14:57:11] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 17 files.
+[2025-11-18 14:57:11] Receiving file list from SS 5...
+[2025-11-18 14:57:11]   -> Cataloged 'file.txt' (owner: system, 0 access entries) in slot 0
+[2025-11-18 14:57:11]   -> Cataloged 'test.txt' (owner: system, 0 access entries) in slot 1
+[2025-11-18 14:57:11]   -> Cataloged 'nga.txt.bak' (owner: system, 0 access entries) in slot 2
+[2025-11-18 14:57:11]   -> Cataloged 'j.txt' (owner: system, 0 access entries) in slot 3
+[2025-11-18 14:57:11]   -> Cataloged 'nigger.txt' (owner: system, 0 access entries) in slot 4
+[2025-11-18 14:57:11]   -> Cataloged 'file.txt.bak' (owner: system, 0 access entries) in slot 5
+[2025-11-18 14:57:11]   -> Cataloged 'temp.txt' (owner: system, 0 access entries) in slot 6
+[2025-11-18 14:57:11]   -> Cataloged 'test.txt.bak' (owner: system, 0 access entries) in slot 7
+[2025-11-18 14:57:11]   -> Cataloged 'sree.txt' (owner: system, 0 access entries) in slot 8
+[2025-11-18 14:57:11]   -> Cataloged 'vishal.txt.bak' (owner: system, 0 access entries) in slot 9
+[2025-11-18 14:57:11]   -> Cataloged 'temp.txt.bak' (owner: system, 0 access entries) in slot 10
+[2025-11-18 14:57:11]   -> Cataloged 'nga.txt' (owner: system, 0 access entries) in slot 11
+[2025-11-18 14:57:11]   -> Cataloged 'hope.txt.bak' (owner: system, 0 access entries) in slot 12
+[2025-11-18 14:57:11]   -> Cataloged 'vishal.txt' (owner: system, 0 access entries) in slot 13
+[2025-11-18 14:57:11]   -> Cataloged 'sree.txt.bak' (owner: system, 0 access entries) in slot 14
+[2025-11-18 14:57:11]   -> Cataloged 'leon.txt' (owner: system, 0 access entries) in slot 15
+[2025-11-18 14:57:11]   -> Cataloged 'hope.txt' (owner: system, 0 access entries) in slot 16
+[2025-11-18 14:57:11] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-18 14:57:11]   -> Metadata updated for 'file.txt'
+[2025-11-18 14:57:11] Got REQ_UPDATE_METADATA for 'test.txt' from SS 5
+[2025-11-18 14:57:11]   -> Metadata updated for 'test.txt'
+[2025-11-18 14:57:11] Got REQ_UPDATE_METADATA for 'nga.txt.bak' from SS 5
+[2025-11-18 14:57:11]   -> Metadata updated for 'nga.txt.bak'
+[2025-11-18 14:57:11] Got REQ_UPDATE_METADATA for 'j.txt' from SS 5
+[2025-11-18 14:57:11]   -> Metadata updated for 'j.txt'
+[2025-11-18 14:57:11] Got REQ_UPDATE_METADATA for 'nigger.txt' from SS 5
+[2025-11-18 14:57:11]   -> Metadata updated for 'nigger.txt'
+[2025-11-18 14:57:11] Got REQ_UPDATE_METADATA for 'file.txt.bak' from SS 5
+[2025-11-18 14:57:11]   -> Metadata updated for 'file.txt.bak'
+[2025-11-18 14:57:11] Got REQ_UPDATE_METADATA for 'temp.txt' from SS 5
+[2025-11-18 14:57:11]   -> Metadata updated for 'temp.txt'
+[2025-11-18 14:57:11] Got REQ_UPDATE_METADATA for 'test.txt.bak' from SS 5
+[2025-11-18 14:57:11]   -> Metadata updated for 'test.txt.bak'
+[2025-11-18 14:57:11] Got REQ_UPDATE_METADATA for 'sree.txt' from SS 5
+[2025-11-18 14:57:11]   -> Metadata updated for 'sree.txt'
+[2025-11-18 14:57:11] Got REQ_UPDATE_METADATA for 'vishal.txt.bak' from SS 5
+[2025-11-18 14:57:11]   -> Metadata updated for 'vishal.txt.bak'
+[2025-11-18 14:57:11] Got REQ_UPDATE_METADATA for 'temp.txt.bak' from SS 5
+[2025-11-18 14:57:11]   -> Metadata updated for 'temp.txt.bak'
+[2025-11-18 14:57:11] Got REQ_UPDATE_METADATA for 'nga.txt' from SS 5
+[2025-11-18 14:57:11]   -> Metadata updated for 'nga.txt'
+[2025-11-18 14:57:11] Got REQ_UPDATE_METADATA for 'hope.txt.bak' from SS 5
+[2025-11-18 14:57:11]   -> Metadata updated for 'hope.txt.bak'
+[2025-11-18 14:57:11] Got REQ_UPDATE_METADATA for 'vishal.txt' from SS 5
+[2025-11-18 14:57:11]   -> Metadata updated for 'vishal.txt'
+[2025-11-18 14:57:11] Got REQ_UPDATE_METADATA for 'sree.txt.bak' from SS 5
+[2025-11-18 14:57:11]   -> Metadata updated for 'sree.txt.bak'
+[2025-11-18 14:57:11] Got REQ_UPDATE_METADATA for 'leon.txt' from SS 5
+[2025-11-18 14:57:11]   -> Metadata updated for 'leon.txt'
+[2025-11-18 14:57:11] Got REQ_UPDATE_METADATA for 'hope.txt' from SS 5
+[2025-11-18 14:57:11]   -> Metadata updated for 'hope.txt'
+[2025-11-18 14:57:16] New connection from 127.0.0.1 on socket 6
+[2025-11-18 14:57:16] Socket 6 (127.0.0.1): CLIENT registered as 'sree'
+[2025-11-18 14:57:20] Got REQ_VIEW (a=0, l=0) from client 'sree'
+[2025-11-18 14:57:28] Got REQ_CREATE for 'k.txt' from client 'sree' (Sock 6)
+[2025-11-18 14:57:28]   -> Relaying REQ_SS_CREATE to SS on socket 5
+[2025-11-18 14:57:28]   -> SS confirmed creation. Updating catalog.
+[2025-11-18 14:57:28] Got REQ_UPDATE_METADATA for 'k.txt' from SS 5
+[2025-11-18 14:57:28]   -> Metadata updated for 'k.txt'
+[2025-11-18 14:57:33] Got 13 for 'k.txt' from client 'sree'
+[2025-11-18 14:57:33]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 14:57:37] Got REQ_UPDATE_METADATA for 'k.txt' from SS 5
+[2025-11-18 14:57:37]   -> Metadata updated for 'k.txt'
+[2025-11-18 14:57:38] Client 'sree' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-18 14:57:44] New connection from 127.0.0.1 on socket 6
+[2025-11-18 14:57:44] Socket 6 (127.0.0.1): CLIENT registered as 'sree'
+[2025-11-18 14:57:45] Got REQ_VIEW (a=0, l=0) from client 'sree'
+[2025-11-18 14:57:46] Client 'sree' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-18 14:57:49] Storage Server (Socket 5, IP: 127.0.0.1) disconnected.
+[2025-11-18 14:57:49] De-listing its files from the catalog...
+[2025-11-18 14:57:49]   -> De-listed 'file.txt'
+[2025-11-18 14:57:49]   -> De-listed 'test.txt'
+[2025-11-18 14:57:49]   -> De-listed 'nga.txt.bak'
+[2025-11-18 14:57:49]   -> De-listed 'j.txt'
+[2025-11-18 14:57:49]   -> De-listed 'nigger.txt'
+[2025-11-18 14:57:49]   -> De-listed 'file.txt.bak'
+[2025-11-18 14:57:49]   -> De-listed 'temp.txt'
+[2025-11-18 14:57:49]   -> De-listed 'test.txt.bak'
+[2025-11-18 14:57:49]   -> De-listed 'sree.txt'
+[2025-11-18 14:57:49]   -> De-listed 'vishal.txt.bak'
+[2025-11-18 14:57:49]   -> De-listed 'temp.txt.bak'
+[2025-11-18 14:57:49]   -> De-listed 'nga.txt'
+[2025-11-18 14:57:49]   -> De-listed 'hope.txt.bak'
+[2025-11-18 14:57:49]   -> De-listed 'vishal.txt'
+[2025-11-18 14:57:49]   -> De-listed 'sree.txt.bak'
+[2025-11-18 14:57:49]   -> De-listed 'leon.txt'
+[2025-11-18 14:57:49]   -> De-listed 'hope.txt'
+[2025-11-18 14:57:49]   -> De-listed 'k.txt'
+[2025-11-18 14:57:52] --- Name Server Started ---
+[2025-11-18 14:57:52] Initializing state...
+[2025-11-18 14:57:52] Name Server listening on port 8080...
+[2025-11-18 14:57:55] New connection from 127.0.0.1 on socket 5
+[2025-11-18 14:57:55] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 20 files.
+[2025-11-18 14:57:55] Receiving file list from SS 5...
+[2025-11-18 14:57:55]   -> Cataloged 'file.txt' (owner: system, 0 access entries) in slot 0
+[2025-11-18 14:57:55]   -> Cataloged 'test.txt' (owner: system, 0 access entries) in slot 1
+[2025-11-18 14:57:55]   -> Cataloged 'nga.txt.bak' (owner: system, 0 access entries) in slot 2
+[2025-11-18 14:57:55]   -> Cataloged 'j.txt' (owner: system, 0 access entries) in slot 3
+[2025-11-18 14:57:55]   -> Cataloged '.metadata' (owner: system, 0 access entries) in slot 4
+[2025-11-18 14:57:55]   -> Cataloged 'nigger.txt' (owner: system, 0 access entries) in slot 5
+[2025-11-18 14:57:55]   -> Cataloged 'file.txt.bak' (owner: system, 0 access entries) in slot 6
+[2025-11-18 14:57:55]   -> Cataloged 'temp.txt' (owner: system, 0 access entries) in slot 7
+[2025-11-18 14:57:55]   -> Cataloged 'test.txt.bak' (owner: system, 0 access entries) in slot 8
+[2025-11-18 14:57:55]   -> Cataloged 'sree.txt' (owner: system, 0 access entries) in slot 9
+[2025-11-18 14:57:55]   -> Cataloged 'vishal.txt.bak' (owner: system, 0 access entries) in slot 10
+[2025-11-18 14:57:55]   -> Cataloged 'temp.txt.bak' (owner: system, 0 access entries) in slot 11
+[2025-11-18 14:57:55]   -> Cataloged 'k.txt.bak' (owner: system, 0 access entries) in slot 12
+[2025-11-18 14:57:55]   -> Cataloged 'nga.txt' (owner: system, 0 access entries) in slot 13
+[2025-11-18 14:57:55]   -> Cataloged 'hope.txt.bak' (owner: system, 0 access entries) in slot 14
+[2025-11-18 14:57:55]   -> Cataloged 'vishal.txt' (owner: system, 0 access entries) in slot 15
+[2025-11-18 14:57:55]   -> Cataloged 'sree.txt.bak' (owner: system, 0 access entries) in slot 16
+[2025-11-18 14:57:55]   -> Cataloged 'k.txt' (owner: sree, 0 access entries) in slot 17
+[2025-11-18 14:57:55]   -> Cataloged 'leon.txt' (owner: system, 0 access entries) in slot 18
+[2025-11-18 14:57:55]   -> Cataloged 'hope.txt' (owner: system, 0 access entries) in slot 19
+[2025-11-18 14:57:55] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-18 14:57:55]   -> Metadata updated for 'file.txt'
+[2025-11-18 14:57:55] Got REQ_UPDATE_METADATA for 'test.txt' from SS 5
+[2025-11-18 14:57:55]   -> Metadata updated for 'test.txt'
+[2025-11-18 14:57:55] Got REQ_UPDATE_METADATA for 'nga.txt.bak' from SS 5
+[2025-11-18 14:57:55]   -> Metadata updated for 'nga.txt.bak'
+[2025-11-18 14:57:55] Got REQ_UPDATE_METADATA for 'j.txt' from SS 5
+[2025-11-18 14:57:55]   -> Metadata updated for 'j.txt'
+[2025-11-18 14:57:55] Got REQ_UPDATE_METADATA for '.metadata' from SS 5
+[2025-11-18 14:57:55]   -> Metadata updated for '.metadata'
+[2025-11-18 14:57:55] Got REQ_UPDATE_METADATA for 'nigger.txt' from SS 5
+[2025-11-18 14:57:55]   -> Metadata updated for 'nigger.txt'
+[2025-11-18 14:57:55] Got REQ_UPDATE_METADATA for 'file.txt.bak' from SS 5
+[2025-11-18 14:57:55]   -> Metadata updated for 'file.txt.bak'
+[2025-11-18 14:57:55] Got REQ_UPDATE_METADATA for 'temp.txt' from SS 5
+[2025-11-18 14:57:55]   -> Metadata updated for 'temp.txt'
+[2025-11-18 14:57:55] Got REQ_UPDATE_METADATA for 'test.txt.bak' from SS 5
+[2025-11-18 14:57:55]   -> Metadata updated for 'test.txt.bak'
+[2025-11-18 14:57:55] Got REQ_UPDATE_METADATA for 'sree.txt' from SS 5
+[2025-11-18 14:57:55]   -> Metadata updated for 'sree.txt'
+[2025-11-18 14:57:55] Got REQ_UPDATE_METADATA for 'vishal.txt.bak' from SS 5
+[2025-11-18 14:57:55]   -> Metadata updated for 'vishal.txt.bak'
+[2025-11-18 14:57:55] Got REQ_UPDATE_METADATA for 'temp.txt.bak' from SS 5
+[2025-11-18 14:57:55]   -> Metadata updated for 'temp.txt.bak'
+[2025-11-18 14:57:55] Got REQ_UPDATE_METADATA for 'k.txt.bak' from SS 5
+[2025-11-18 14:57:55]   -> Metadata updated for 'k.txt.bak'
+[2025-11-18 14:57:55] Got REQ_UPDATE_METADATA for 'nga.txt' from SS 5
+[2025-11-18 14:57:55]   -> Metadata updated for 'nga.txt'
+[2025-11-18 14:57:55] Got REQ_UPDATE_METADATA for 'hope.txt.bak' from SS 5
+[2025-11-18 14:57:55]   -> Metadata updated for 'hope.txt.bak'
+[2025-11-18 14:57:55] Got REQ_UPDATE_METADATA for 'vishal.txt' from SS 5
+[2025-11-18 14:57:55]   -> Metadata updated for 'vishal.txt'
+[2025-11-18 14:57:55] Got REQ_UPDATE_METADATA for 'sree.txt.bak' from SS 5
+[2025-11-18 14:57:55]   -> Metadata updated for 'sree.txt.bak'
+[2025-11-18 14:57:55] Got REQ_UPDATE_METADATA for 'k.txt' from SS 5
+[2025-11-18 14:57:55]   -> Metadata updated for 'k.txt'
+[2025-11-18 14:57:55] Got REQ_UPDATE_METADATA for 'leon.txt' from SS 5
+[2025-11-18 14:57:55]   -> Metadata updated for 'leon.txt'
+[2025-11-18 14:57:55] Got REQ_UPDATE_METADATA for 'hope.txt' from SS 5
+[2025-11-18 14:57:55]   -> Metadata updated for 'hope.txt'
+[2025-11-18 14:58:02] New connection from 127.0.0.1 on socket 6
+[2025-11-18 14:58:02] Socket 6 (127.0.0.1): CLIENT registered as 'sree'
+[2025-11-18 14:58:03] Got REQ_VIEW (a=0, l=0) from client 'sree'
+[2025-11-18 14:58:06] Got 8 for 'k.txt' from client 'sree'
+[2025-11-18 14:58:06]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-18 14:58:09] Client 'sree' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-18 14:58:23] Storage Server (Socket 5, IP: 127.0.0.1) disconnected.
+[2025-11-18 14:58:23] De-listing its files from the catalog...
+[2025-11-18 14:58:23]   -> De-listed 'file.txt'
+[2025-11-18 14:58:23]   -> De-listed 'test.txt'
+[2025-11-18 14:58:23]   -> De-listed 'nga.txt.bak'
+[2025-11-18 14:58:23]   -> De-listed 'j.txt'
+[2025-11-18 14:58:23]   -> De-listed '.metadata'
+[2025-11-18 14:58:23]   -> De-listed 'nigger.txt'
+[2025-11-18 14:58:23]   -> De-listed 'file.txt.bak'
+[2025-11-18 14:58:23]   -> De-listed 'temp.txt'
+[2025-11-18 14:58:23]   -> De-listed 'test.txt.bak'
+[2025-11-18 14:58:23]   -> De-listed 'sree.txt'
+[2025-11-18 14:58:23]   -> De-listed 'vishal.txt.bak'
+[2025-11-18 14:58:23]   -> De-listed 'temp.txt.bak'
+[2025-11-18 14:58:23]   -> De-listed 'k.txt.bak'
+[2025-11-18 14:58:23]   -> De-listed 'nga.txt'
+[2025-11-18 14:58:23]   -> De-listed 'hope.txt.bak'
+[2025-11-18 14:58:23]   -> De-listed 'vishal.txt'
+[2025-11-18 14:58:23]   -> De-listed 'sree.txt.bak'
+[2025-11-18 14:58:23]   -> De-listed 'k.txt'
+[2025-11-18 14:58:23]   -> De-listed 'leon.txt'
+[2025-11-18 14:58:23]   -> De-listed 'hope.txt'

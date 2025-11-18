@@ -69,6 +69,166 @@ int find_lock(char* f, int s) { for (int i = 0; i < MAX_LOCKS; i++) if (global_l
 int create_lock(char* f, int s, int sock) { if (find_lock(f, s) != -1) return 0; for (int i = 0; i < MAX_LOCKS; i++) if (!global_locks[i].active) { global_locks[i].active = 1; strncpy(global_locks[i].filename, f, MAX_FILENAME); global_locks[i].sentence_num = s; global_locks[i].sock_fd = sock; log_event("  -> Lock CREATED for '%s' (sent %d) by socket %d", f, s, sock); return 1; } return -1; }
 void release_lock(char* f, int s) { int i = find_lock(f, s); if (i != -1) { global_locks[i].active = 0; log_event("  -> Lock RELEASED for '%s' (sent %d)", f, s); } }
 
+// --- 5. Metadata Persistence ---
+#define METADATA_FILE "./ss_storage/.metadata"
+
+typedef struct {
+    char filename[MAX_FILENAME];
+    char owner[MAX_USERNAME];
+    int access_count;
+    AccessEntry access_list[MAX_PERMISSIONS_PER_FILE];
+} FileMetadata_SS;
+
+void save_file_metadata(char* filename, char* owner, int access_count, AccessEntry* access_list) {
+    FILE* f = fopen(METADATA_FILE, "r");
+    FileMetadata_SS metadata[MAX_FILES_PER_SS];
+    int meta_count = 0;
+    
+    if (f != NULL) {
+        if (fscanf(f, "%d\n", &meta_count) == 1) {
+            for (int i = 0; i < meta_count && i < MAX_FILES_PER_SS; i++) {
+                fgets(metadata[i].filename, MAX_FILENAME, f);
+                metadata[i].filename[strcspn(metadata[i].filename, "\n")] = 0;
+                fgets(metadata[i].owner, MAX_USERNAME, f);
+                metadata[i].owner[strcspn(metadata[i].owner, "\n")] = 0;
+                fscanf(f, "%d\n", &metadata[i].access_count);
+                for (int j = 0; j < metadata[i].access_count; j++) {
+                    fscanf(f, "%s %d\n", metadata[i].access_list[j].username, (int*)&metadata[i].access_list[j].permission);
+                }
+            }
+        }
+        fclose(f);
+    }
+    
+    int found = 0;
+    for (int i = 0; i < meta_count; i++) {
+        if (strcmp(metadata[i].filename, filename) == 0) {
+            strncpy(metadata[i].owner, owner, MAX_USERNAME);
+            metadata[i].access_count = access_count;
+            for (int j = 0; j < access_count; j++) {
+                metadata[i].access_list[j] = access_list[j];
+            }
+            found = 1;
+            break;
+        }
+    }
+    
+    if (!found && meta_count < MAX_FILES_PER_SS) {
+        strncpy(metadata[meta_count].filename, filename, MAX_USERNAME);
+        strncpy(metadata[meta_count].owner, owner, MAX_USERNAME);
+        metadata[meta_count].access_count = access_count;
+        for (int j = 0; j < access_count; j++) {
+            metadata[meta_count].access_list[j] = access_list[j];
+        }
+        meta_count++;
+    }
+    
+    f = fopen(METADATA_FILE, "w");
+    if (f == NULL) { log_event("ERROR: Failed to save metadata"); return; }
+    fprintf(f, "%d\n", meta_count);
+    for (int i = 0; i < meta_count; i++) {
+        fprintf(f, "%s\n%s\n%d\n", metadata[i].filename, metadata[i].owner, metadata[i].access_count);
+        for (int j = 0; j < metadata[i].access_count; j++) {
+            fprintf(f, "%s %d\n", metadata[i].access_list[j].username, metadata[i].access_list[j].permission);
+        }
+    }
+    fclose(f);
+    log_event("  -> Metadata saved for '%s'", filename);
+}
+
+void load_file_metadata(char* filename, char* owner_out, int* access_count_out, AccessEntry* access_list_out) {
+    FILE* f = fopen(METADATA_FILE, "r");
+    if (f == NULL) {
+        strcpy(owner_out, "system");
+        *access_count_out = 0;
+        return;
+    }
+    
+    int meta_count;
+    if (fscanf(f, "%d\n", &meta_count) != 1) {
+        fclose(f);
+        strcpy(owner_out, "system");
+        *access_count_out = 0;
+        return;
+    }
+    
+    for (int i = 0; i < meta_count; i++) {
+        char fname[MAX_FILENAME], owner[MAX_USERNAME];
+        int access_count;
+        
+        fgets(fname, MAX_FILENAME, f);
+        fname[strcspn(fname, "\n")] = 0;
+        fgets(owner, MAX_USERNAME, f);
+        owner[strcspn(owner, "\n")] = 0;
+        fscanf(f, "%d\n", &access_count);
+        
+        if (strcmp(fname, filename) == 0) {
+            strncpy(owner_out, owner, MAX_USERNAME);
+            *access_count_out = access_count;
+            for (int j = 0; j < access_count; j++) {
+                fscanf(f, "%s %d\n", access_list_out[j].username, (int*)&access_list_out[j].permission);
+            }
+            fclose(f);
+            return;
+        } else {
+            for (int j = 0; j < access_count; j++) {
+                char dummy_user[MAX_USERNAME];
+                int dummy_perm;
+                fscanf(f, "%s %d\n", dummy_user, &dummy_perm);
+            }
+        }
+    }
+    
+    fclose(f);
+    strcpy(owner_out, "system");
+    *access_count_out = 0;
+}
+
+void delete_file_metadata(char* filename) {
+    FILE* f = fopen(METADATA_FILE, "r");
+    if (f == NULL) return;
+    
+    FileMetadata_SS metadata[MAX_FILES_PER_SS];
+    int meta_count = 0;
+    
+    if (fscanf(f, "%d\n", &meta_count) == 1) {
+        for (int i = 0; i < meta_count && i < MAX_FILES_PER_SS; i++) {
+            fgets(metadata[i].filename, MAX_FILENAME, f);
+            metadata[i].filename[strcspn(metadata[i].filename, "\n")] = 0;
+            fgets(metadata[i].owner, MAX_USERNAME, f);
+            metadata[i].owner[strcspn(metadata[i].owner, "\n")] = 0;
+            fscanf(f, "%d\n", &metadata[i].access_count);
+            for (int j = 0; j < metadata[i].access_count; j++) {
+                fscanf(f, "%s %d\n", metadata[i].access_list[j].username, (int*)&metadata[i].access_list[j].permission);
+            }
+        }
+    }
+    fclose(f);
+    
+    f = fopen(METADATA_FILE, "w");
+    if (f == NULL) return;
+    
+    int new_count = 0;
+    for (int i = 0; i < meta_count; i++) {
+        if (strcmp(metadata[i].filename, filename) != 0) {
+            new_count++;
+        }
+    }
+    
+    fprintf(f, "%d\n", new_count);
+    for (int i = 0; i < meta_count; i++) {
+        if (strcmp(metadata[i].filename, filename) != 0) {
+            fprintf(f, "%s\n%s\n%d\n", metadata[i].filename, metadata[i].owner, metadata[i].access_count);
+            for (int j = 0; j < metadata[i].access_count; j++) {
+                fprintf(f, "%s %d\n", metadata[i].access_list[j].username, metadata[i].access_list[j].permission);
+            }
+        }
+    }
+    fclose(f);
+}
+
+// --- 6. Sentence/Word Linked List Helpers ---
+
 // --- 5. NEW Linked List Helper Functions ---
 WordNode* create_word_node(const char* word_str) {
     WordNode* node = (WordNode*)malloc(sizeof(WordNode));
@@ -426,8 +586,14 @@ int main() {
     Msg_SS_Register reg_msg; strncpy(reg_msg.ss_ip, MY_IP_FOR_CLIENTS, MAX_IP_LEN); reg_msg.client_port = MY_PORT_FOR_CLIENTS; reg_msg.file_count = file_count;
     if (send(nm_sock, &header, sizeof(Header), 0) < 0) error_exit("send header");
     if (send(nm_sock, &reg_msg, sizeof(reg_msg), 0) < 0) error_exit("send payload");
-    log_event("Sending file list...");
-    for (int i = 0; i < file_count; i++) { Msg_File_Item item; strncpy(item.filename, my_files[i], MAX_FILENAME); if (send(nm_sock, &item, sizeof(item), 0) < 0) error_exit("send file item"); }
+    log_event("Sending file list with metadata...");
+    for (int i = 0; i < file_count; i++) { 
+        Msg_File_Item item; 
+        strncpy(item.filename, my_files[i], MAX_FILENAME);
+        load_file_metadata(my_files[i], item.owner, &item.access_count, item.access_list);
+        log_event("  -> Sending '%s' (owner: %s, access_count: %d)", item.filename, item.owner, item.access_count);
+        if (send(nm_sock, &item, sizeof(item), 0) < 0) error_exit("send file item"); 
+    }
     if (recv(nm_sock, &header, sizeof(Header), 0) < 0 || header.type != RES_OK) error_exit("Registration failed");
     log_event("Registration successful!");
     log_event("Sending metadata for %d existing files...", file_count);
@@ -454,10 +620,12 @@ int main() {
                     if (recv(nm_sock, &header, sizeof(Header), 0) <= 0) { log_event("Name Server disconnected!"); error_exit("Name Server disconnected"); }
                     switch (header.type) {
                         case REQ_SS_CREATE: {
-                            Msg_Filename_Request req; recv(nm_sock, &req, sizeof(req), 0);
-                            log_event("Got REQ_SS_CREATE for '%s' from NM", req.filename);
+                            Msg_SS_Create_Request req; recv(nm_sock, &req, sizeof(req), 0);
+                            log_event("Got REQ_SS_CREATE for '%s' (owner: %s) from NM", req.filename, req.owner);
                             char file_path[256];
                             handle_create_file(req.filename, file_path);
+                            AccessEntry empty_list[MAX_PERMISSIONS_PER_FILE];
+                            save_file_metadata(req.filename, req.owner, 0, empty_list);
                             send_simple_header(nm_sock, RES_OK);
                             calculate_and_send_metadata(nm_sock, req.filename, file_path);
                             break;
@@ -468,6 +636,7 @@ int main() {
                             char file_path[256]; sprintf(file_path, "%s/%s", MY_STORAGE_PATH, req.filename);
                             if (remove(file_path) == 0) { log_event("  -> File deleted."); } else { log_event("  -> Error deleting file: %s", strerror(errno)); }
                             char backup_path[256]; sprintf(backup_path, "%s/%s.bak", MY_STORAGE_PATH, req.filename); remove(backup_path);
+                            delete_file_metadata(req.filename);
                             send_simple_header(nm_sock, RES_OK);
                             break;
                         }
@@ -482,6 +651,44 @@ int main() {
                             log_event("  -> Swapped backup file.");
                             send_simple_header(nm_sock, RES_OK);
                             calculate_and_send_metadata(nm_sock, req.filename, original_path);
+                            break;
+                        }
+                        case REQ_SS_ADD_ACCESS: {
+                            Msg_Access_Request req; recv(nm_sock, &req, sizeof(req), 0);
+                            log_event("Got REQ_SS_ADD_ACCESS for '%s' (user: %s, perm: %d)", req.filename, req.username, req.perm);
+                            char owner[MAX_USERNAME];
+                            int access_count;
+                            AccessEntry access_list[MAX_PERMISSIONS_PER_FILE];
+                            load_file_metadata(req.filename, owner, &access_count, access_list);
+                            if (access_count < MAX_PERMISSIONS_PER_FILE) {
+                                strncpy(access_list[access_count].username, req.username, MAX_USERNAME);
+                                access_list[access_count].permission = req.perm;
+                                access_count++;
+                                save_file_metadata(req.filename, owner, access_count, access_list);
+                            }
+                            break;
+                        }
+                        case REQ_SS_REM_ACCESS: {
+                            Msg_Access_Request req; recv(nm_sock, &req, sizeof(req), 0);
+                            log_event("Got REQ_SS_REM_ACCESS for '%s' (user: %s)", req.filename, req.username);
+                            char owner[MAX_USERNAME];
+                            int access_count;
+                            AccessEntry access_list[MAX_PERMISSIONS_PER_FILE];
+                            load_file_metadata(req.filename, owner, &access_count, access_list);
+                            int found_idx = -1;
+                            for (int i = 0; i < access_count; i++) {
+                                if (strcmp(access_list[i].username, req.username) == 0) {
+                                    found_idx = i;
+                                    break;
+                                }
+                            }
+                            if (found_idx != -1) {
+                                for (int i = found_idx; i < access_count - 1; i++) {
+                                    access_list[i] = access_list[i + 1];
+                                }
+                                access_count--;
+                                save_file_metadata(req.filename, owner, access_count, access_list);
+                            }
                             break;
                         }
                         default:
@@ -533,6 +740,17 @@ int main() {
                                         close(sock_fd); FD_CLR(sock_fd, &master_set);
                                         break;
                                     }
+                                    // Validate sentence index
+                                    SentenceNode* temp = doc->doc_head;
+                                    int sent_count = 0;
+                                    while (temp != NULL) { sent_count++; temp = temp->next; }
+                                    if (req.sentence_num < 0 || req.sentence_num >= sent_count) {
+                                        log_event("  -> ERROR: Sentence index %d out of bounds (0-%d).", req.sentence_num, sent_count - 1);
+                                        send_simple_header(sock_fd, RES_ERROR_INVALID_SENTENCE);
+                                        release_active_doc(doc);
+                                        close(sock_fd); FD_CLR(sock_fd, &master_set);
+                                        break;
+                                    }
                                     create_lock(req.filename, req.sentence_num, sock_fd);
                                     doc->num_users_editing++;
                                     WriteSession* session = &write_sessions[sock_fd];
@@ -550,11 +768,32 @@ int main() {
                                 ActiveDoc* doc = &active_documents[session->doc_index];
                                 Msg_Write_Update req; recv(sock_fd, &req, sizeof(req), 0);
                                 
-                                char* content_copy = strdup(req.content); // Need to copy, strtok modifies
-                                handle_write_update_list(doc->doc_head, session->sentence_num, req.word_index, content_copy);
-                                free(content_copy); // Free the copy
+                                // Validate word index
+                                SentenceNode* target = doc->doc_head;
+                                for (int i = 0; i < session->sentence_num && target != NULL; i++) target = target->next;
+                                int valid = 1;
+                                if (target != NULL) {
+                                    int word_count = 0;
+                                    WordNode* w = target->word_head;
+                                    while (w != NULL) { word_count++; w = w->next; }
+                                    if (req.word_index < 0 || req.word_index > word_count) {
+                                        log_event("  -> ERROR: Word index %d out of bounds (0-%d) for socket %d", req.word_index, word_count, sock_fd);
+                                        valid = 0;
+                                    }
+                                }
                                 
-                                log_event("  -> Applied update (word %d) to in-memory list for socket %d", req.word_index, sock_fd);
+                                Header response_header;
+                                if (valid) {
+                                    char* content_copy = strdup(req.content); // Need to copy, strtok modifies
+                                    handle_write_update_list(doc->doc_head, session->sentence_num, req.word_index, content_copy);
+                                    free(content_copy); // Free the copy
+                                    log_event("  -> Applied update (word %d) to in-memory list for socket %d", req.word_index, sock_fd);
+                                    response_header.type = RES_OK;
+                                } else {
+                                    response_header.type = RES_ERROR_INVALID_WORD;
+                                }
+                                response_header.payload_size = 0;
+                                send(sock_fd, &response_header, sizeof(response_header), 0);
                                 break;
                             }
                             case REQ_ETIRW: {

@@ -35,6 +35,7 @@ typedef enum {
     // Phase 3
     REQ_WRITE, REQ_CLIENT_WRITE, RES_OK_LOCKED,
     RES_ERROR_LOCKED, REQ_WRITE_UPDATE, REQ_ETIRW,
+    RES_ERROR_INVALID_SENTENCE, RES_ERROR_INVALID_WORD,
     // Phase 4
     REQ_LIST, RES_LIST_HDR, RES_LIST_ITEM,
     REQ_DELETE, REQ_SS_DELETE, REQ_UNDO, REQ_SS_UNDO,
@@ -44,6 +45,7 @@ typedef enum {
     REQ_UPDATE_METADATA, REQ_VIEW, RES_VIEW_HDR,
     RES_VIEW_ITEM_SHORT, RES_VIEW_ITEM_LONG, REQ_INFO,
     RES_INFO, REQ_ADD_ACCESS, REQ_REM_ACCESS,
+    REQ_SS_ADD_ACCESS, REQ_SS_REM_ACCESS,  // NM -> SS for access control updates
 
     // --- NEW: Exec ---
     REQ_EXEC,           // Client -> NM
@@ -56,17 +58,23 @@ typedef enum {
 typedef struct { MessageType type; int payload_size; } Header;
 
 // --- 5. MESSAGE PAYLOADS (Structs) ---
+typedef struct { char username[MAX_USERNAME]; PermissionLevel permission; } AccessEntry;
 typedef struct { char username[MAX_USERNAME]; } Msg_Client_Register;
 typedef struct { char ss_ip[MAX_IP_LEN]; int client_port; int file_count; } Msg_SS_Register;
-typedef struct { char filename[MAX_FILENAME]; } Msg_File_Item;
+typedef struct { 
+    char filename[MAX_FILENAME]; 
+    char owner[MAX_USERNAME]; 
+    int access_count;
+    AccessEntry access_list[MAX_PERMISSIONS_PER_FILE];
+} Msg_File_Item;
 typedef struct { char filename[MAX_FILENAME]; } Msg_Filename_Request;
+typedef struct { char filename[MAX_FILENAME]; char owner[MAX_USERNAME]; } Msg_SS_Create_Request;
 typedef struct { char ss_ip[MAX_IP_LEN]; int ss_port; } Msg_Read_Response;
 typedef struct { char filename[MAX_FILENAME]; int sentence_num; } Msg_Client_Write;
 typedef struct { int word_index; char content[MAX_WORD_CONTENT]; } Msg_Write_Update;
 typedef struct { int user_count; } Msg_List_Hdr;
 typedef struct { char username[MAX_USERNAME]; } Msg_List_Item;
 typedef struct { char filename[MAX_FILENAME]; long file_size; int word_count; int char_count; time_t last_modified; } Msg_Update_Metadata;
-typedef struct { char username[MAX_USERNAME]; PermissionLevel permission; } AccessEntry;
 typedef struct { int flag_a; int flag_l; } Msg_View_Request;
 typedef struct { int file_count; } Msg_View_Hdr;
 typedef struct { char filename[MAX_FILENAME]; } Msg_View_Item_Short;

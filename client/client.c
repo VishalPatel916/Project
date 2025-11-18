@@ -114,9 +114,18 @@ void handle_write_to_ss(char* filename, int sentence_num, char* ss_ip, int ss_po
                 Msg_Write_Update update_req; update_req.word_index = word_index; strncpy(update_req.content, content, MAX_WORD_CONTENT);
                 if (send(ss_sock, &header, sizeof(header), 0) < 0) break;
                 if (send(ss_sock, &update_req, sizeof(update_req), 0) < 0) break;
+                
+                // Receive response for this update
+                if (recv(ss_sock, &header, sizeof(header), 0) < 0) break;
+                if (header.type == RES_ERROR_INVALID_WORD) {
+                    printf("Error: Word index out of range.\n");
+                } else if (header.type != RES_OK) {
+                    printf("Error: Update failed (response %d).\n", header.type);
+                }
             }
         }
     } else if (header.type == RES_ERROR_LOCKED) { printf("Error: Sentence is locked by another user.\n"); }
+    else if (header.type == RES_ERROR_INVALID_SENTENCE) { printf("Error: Sentence index out of range.\n"); }
     else { printf("Error: Failed to acquire lock (unknown response %d).\n", header.type); }
     close(ss_sock);
 }
