@@ -355,6 +355,114 @@ int main() {
             }
         }
         
+        // --- NEW: Access Request Commands ---
+        else if (strcmp(command, "reqaccess") == 0) {
+            char* flag = strtok(NULL, " \n");
+            char* filename = strtok(NULL, " \n");
+            if (flag == NULL || filename == NULL) { 
+                printf("Usage: reqaccess -R|-W <filename>\n"); 
+            } else {
+                Msg_Request_Access req;
+                strncpy(req.filename, filename, MAX_FILENAME);
+                strncpy(req.requesting_user, username, MAX_USERNAME);  // Use logged-in user
+                if (strcmp(flag, "-W") == 0) req.requested_perm = READ_WRITE;
+                else req.requested_perm = READ_ONLY;
+                
+                header.type = REQ_REQUEST_ACCESS; 
+                header.payload_size = sizeof(req);
+                send(sock, &header, sizeof(header), 0); 
+                send(sock, &req, sizeof(req), 0);
+                
+                recv(sock, &header, sizeof(header), 0);
+                if (header.type == RES_OK) 
+                    printf("Access request sent to the owner of '%s'.\n", filename);
+                else if (header.type == RES_ERROR_NOT_FOUND) 
+                    printf("Error: File '%s' not found.\n", filename);
+                else 
+                    printf("Error: Could not send access request.\n");
+            }
+        }
+        else if (strcmp(command, "checkrequests") == 0) {
+            header.type = REQ_CHECK_REQUESTS; 
+            header.payload_size = 0;
+            send(sock, &header, sizeof(header), 0);
+            
+            recv(sock, &header, sizeof(header), 0);
+            if (header.type == RES_REQUEST_LIST) {
+                Msg_Request_List_Hdr hdr;
+                recv(sock, &hdr, sizeof(hdr), 0);
+                
+                if (hdr.request_count == 0) {
+                    printf("No pending access requests.\n");
+                } else {
+                    // Receive all requests first
+                    Msg_Request_Item* items = malloc(sizeof(Msg_Request_Item) * hdr.request_count);
+                    for (int i = 0; i < hdr.request_count; i++) {
+                        recv(sock, &items[i], sizeof(Msg_Request_Item), 0);
+                    }
+                    
+                    printf("\n=== Pending Access Requests (%d total) ===\n", hdr.request_count);
+                    
+                    // Now process each request
+                    for (int i = 0; i < hdr.request_count; i++) {
+                        char time_str[100];
+                        strftime(time_str, sizeof(time_str), "%Y-%m-%d %H:%M:%S", 
+                                localtime(&items[i].timestamp));
+                        
+                        printf("\n[%d] Request ID: %d\n", i+1, items[i].request_id);
+                        printf("    File: %s\n", items[i].filename);
+                        printf("    User: %s\n", items[i].requesting_user);
+                        printf("    Permission: %s\n", 
+                              items[i].requested_perm == READ_WRITE ? "READ_WRITE" : "READ_ONLY");
+                        printf("    Requested: %s\n", time_str);
+                        
+                        printf("    Approve this request? (yes/no): ");
+                        fflush(stdout);
+                        
+                        char response[10];
+                        if (fgets(response, sizeof(response), stdin) == NULL) break;
+                        
+                        // Remove newline
+                        response[strcspn(response, "\n")] = 0;
+                        
+                        Header resp_header;
+                        Msg_Request_Response resp;
+                        resp.request_id = items[i].request_id;
+                        
+                        if (strcmp(response, "yes") == 0) {
+                            resp_header.type = REQ_APPROVE_REQUEST;
+                            resp_header.payload_size = sizeof(resp);
+                            send(sock, &resp_header, sizeof(resp_header), 0);
+                            send(sock, &resp, sizeof(resp), 0);
+                            
+                            recv(sock, &resp_header, sizeof(resp_header), 0);
+                            if (resp_header.type == RES_OK) {
+                                printf("    ✓ Access granted to %s\n", items[i].requesting_user);
+                            } else {
+                                printf("    ✗ Failed to grant access\n");
+                            }
+                        } else {
+                            resp_header.type = REQ_DENY_REQUEST;
+                            resp_header.payload_size = sizeof(resp);
+                            send(sock, &resp_header, sizeof(resp_header), 0);
+                            send(sock, &resp, sizeof(resp), 0);
+                            
+                            recv(sock, &resp_header, sizeof(resp_header), 0);
+                            if (resp_header.type == RES_OK) {
+                                printf("    ✓ Request denied/removed\n");
+                            } else {
+                                printf("    ✗ Failed to remove request\n");
+                            }
+                        }
+                    }
+                    printf("\n=== End of requests ===\n");
+                    free(items);
+                }
+            } else {
+                printf("Error: Could not retrieve requests.\n");
+            }
+        }
+        
         // --- NEW FOR EXEC ---
         else if (strcmp(command, "exec") == 0) {
             char* filename = strtok(NULL, " \n");

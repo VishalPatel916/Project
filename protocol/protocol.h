@@ -69,7 +69,14 @@ typedef enum {
     REQ_SS_REVERT,       // NM -> SS
     REQ_LISTCHECKPOINTS, // Client -> NM
     REQ_SS_LISTCHECKPOINTS, // NM -> SS
-    RES_CHECKPOINT_LIST  // SS -> NM -> Client
+    RES_CHECKPOINT_LIST,  // SS -> NM -> Client
+
+    // --- NEW: Access Request Operations ---
+    REQ_REQUEST_ACCESS,  // Client -> NM (request access to a file)
+    REQ_CHECK_REQUESTS,  // Client -> NM (owner checks pending requests)
+    RES_REQUEST_LIST,    // NM -> Client (list of pending requests)
+    REQ_APPROVE_REQUEST, // Client -> NM (approve a request)
+    REQ_DENY_REQUEST     // Client -> NM (deny/remove a request)
 
 } MessageType;
 
@@ -115,6 +122,25 @@ typedef struct { char filename[MAX_FILENAME]; char tag[MAX_CHECKPOINT_TAG]; } Ms
 typedef struct { char filename[MAX_FILENAME]; } Msg_ListCheckpoints_Request;
 typedef struct { int checkpoint_count; } Msg_Checkpoint_List_Hdr;
 typedef struct { char tag[MAX_CHECKPOINT_TAG]; time_t timestamp; } Msg_Checkpoint_Item;
+
+// --- NEW: Access Request Payloads ---
+typedef struct { 
+    char filename[MAX_FILENAME]; 
+    char requesting_user[MAX_USERNAME]; 
+    PermissionLevel requested_perm; 
+} Msg_Request_Access;
+
+typedef struct { int request_count; } Msg_Request_List_Hdr;
+
+typedef struct {
+    int request_id;  // unique ID for each request
+    char filename[MAX_FILENAME];
+    char requesting_user[MAX_USERNAME];
+    PermissionLevel requested_perm;
+    time_t timestamp;
+} Msg_Request_Item;
+
+typedef struct { int request_id; } Msg_Request_Response;
 
 
 // --- 6. HELPER FUNCTION ---

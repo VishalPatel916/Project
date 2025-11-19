@@ -29,6 +29,20 @@ ClientInfo client_state[MAX_CONNECTIONS];
 SSInfo ss_state[MAX_CONNECTIONS];
 FileMetadata file_catalog[MAX_FILES_IN_SYSTEM];
 
+// --- Access Request System ---
+#define MAX_ACCESS_REQUESTS 1000
+typedef struct {
+    int active;
+    int request_id;
+    char filename[MAX_FILENAME];
+    char requesting_user[MAX_USERNAME];
+    PermissionLevel requested_perm;
+    time_t timestamp;
+} AccessRequest;
+
+AccessRequest access_requests[MAX_ACCESS_REQUESTS];
+int next_request_id = 1;
+
 // --- 3. EFFICIENT SEARCH STRUCTURES ---
 #define HASH_SIZE 1024 // Hash table size (power of 2)
 #define CACHE_SIZE 5   // LRU cache for recent lookups
@@ -974,6 +988,211 @@ int main() {
                                 break;
                             }
                             // --- END CHECKPOINT OPERATIONS ---
+
+                            // --- ACCESS REQUEST OPERATIONS ---
+                            case REQ_REQUEST_ACCESS: {
+                                Msg_Request_Access req; recv(sock_fd, &req, sizeof(req), 0);
+                                log_event("Got REQ_REQUEST_ACCESS for '%s' by user '%s' from client '%s'", 
+                                         req.filename, req.requesting_user, client_state[sock_fd].username);
+                                
+                                // Check if file exists
+                                int slot = find_file_slot(req.filename);
+                                if (slot == -1) {
+                                    log_event("  -> Error: File '%s' not found", req.filename);
+                                    send_simple_header(sock_fd, RES_ERROR_NOT_FOUND);
+                                    break;
+                                }
+                                
+                                // Find an empty request slot
+                                int req_slot = -1;
+                                for (int i = 0; i < MAX_ACCESS_REQUESTS; i++) {
+                                    if (!access_requests[i].active) {
+                                        req_slot = i;
+                                        break;
+                                    }
+                                }
+                                
+                                if (req_slot == -1) {
+                                    log_event("  -> Error: Request queue is full");
+                                    send_simple_header(sock_fd, RES_ERROR);
+                                    break;
+                                }
+                                
+                                // Store the request
+                                access_requests[req_slot].active = 1;
+                                access_requests[req_slot].request_id = next_request_id++;
+                                strncpy(access_requests[req_slot].filename, req.filename, MAX_FILENAME);
+                                strncpy(access_requests[req_slot].requesting_user, req.requesting_user, MAX_USERNAME);
+                                access_requests[req_slot].requested_perm = req.requested_perm;
+                                access_requests[req_slot].timestamp = time(NULL);
+                                
+                                log_event("  -> Request stored with ID %d", access_requests[req_slot].request_id);
+                                send_ok_response(sock_fd);
+                                break;
+                            }
+                            
+                            case REQ_CHECK_REQUESTS: {
+                                log_event("Got REQ_CHECK_REQUESTS from client '%s'", client_state[sock_fd].username);
+                                
+                                // Count requests for files owned by this user
+                                int count = 0;
+                                for (int i = 0; i < MAX_ACCESS_REQUESTS; i++) {
+                                    if (!access_requests[i].active) continue;
+                                    
+                                    int slot = find_file_slot(access_requests[i].filename);
+                                    if (slot != -1 && strcmp(file_catalog[slot].owner, client_state[sock_fd].username) == 0) {
+                                        count++;
+                                    }
+                                }
+                                
+                                log_event("  -> Found %d pending request(s)", count);
+                                
+                                // Send header
+                                Header res_hdr; 
+                                res_hdr.type = RES_REQUEST_LIST; 
+                                res_hdr.payload_size = sizeof(Msg_Request_List_Hdr);
+                                send(sock_fd, &res_hdr, sizeof(res_hdr), 0);
+                                
+                                Msg_Request_List_Hdr hdr;
+                                hdr.request_count = count;
+                                send(sock_fd, &hdr, sizeof(hdr), 0);
+                                
+                                // Send each request
+                                for (int i = 0; i < MAX_ACCESS_REQUESTS; i++) {
+                                    if (!access_requests[i].active) continue;
+                                    
+                                    int slot = find_file_slot(access_requests[i].filename);
+                                    if (slot != -1 && strcmp(file_catalog[slot].owner, client_state[sock_fd].username) == 0) {
+                                        Msg_Request_Item item;
+                                        item.request_id = access_requests[i].request_id;
+                                        strncpy(item.filename, access_requests[i].filename, MAX_FILENAME);
+                                        strncpy(item.requesting_user, access_requests[i].requesting_user, MAX_USERNAME);
+                                        item.requested_perm = access_requests[i].requested_perm;
+                                        item.timestamp = access_requests[i].timestamp;
+                                        
+                                        send(sock_fd, &item, sizeof(item), 0);
+                                    }
+                                }
+                                break;
+                            }
+                            
+                            case REQ_APPROVE_REQUEST: {
+                                Msg_Request_Response resp; recv(sock_fd, &resp, sizeof(resp), 0);
+                                log_event("Got REQ_APPROVE_REQUEST for request ID %d from client '%s'", 
+                                         resp.request_id, client_state[sock_fd].username);
+                                
+                                // Find the request
+                                int req_slot = -1;
+                                for (int i = 0; i < MAX_ACCESS_REQUESTS; i++) {
+                                    if (access_requests[i].active && access_requests[i].request_id == resp.request_id) {
+                                        req_slot = i;
+                                        break;
+                                    }
+                                }
+                                
+                                if (req_slot == -1) {
+                                    log_event("  -> Error: Request not found");
+                                    send_simple_header(sock_fd, RES_ERROR);
+                                    break;
+                                }
+                                
+                                // Verify ownership
+                                int slot = find_file_slot(access_requests[req_slot].filename);
+                                if (slot == -1 || strcmp(file_catalog[slot].owner, client_state[sock_fd].username) != 0) {
+                                    log_event("  -> Error: User is not the owner");
+                                    send_simple_header(sock_fd, RES_ERROR_ACCESS_DENIED);
+                                    break;
+                                }
+                                
+                                // Grant access (same logic as REQ_ADD_ACCESS)
+                                FileMetadata* meta = &file_catalog[slot];
+                                
+                                // Check if user already has access
+                                int existing_idx = -1;
+                                for (int i = 0; i < meta->access_count; i++) {
+                                    if (strcmp(meta->access_list[i].username, access_requests[req_slot].requesting_user) == 0) {
+                                        existing_idx = i;
+                                        break;
+                                    }
+                                }
+                                
+                                if (existing_idx != -1) {
+                                    // Update existing permission
+                                    meta->access_list[existing_idx].permission = access_requests[req_slot].requested_perm;
+                                    log_event("  -> Updated existing permission for user '%s'", access_requests[req_slot].requesting_user);
+                                } else {
+                                    // Add new entry
+                                    if (meta->access_count >= MAX_PERMISSIONS_PER_FILE) {
+                                        log_event("  -> Error: Access list is full");
+                                        send_simple_header(sock_fd, RES_ERROR);
+                                        break;
+                                    }
+                                    
+                                    AccessEntry* new_entry = &meta->access_list[meta->access_count];
+                                    strncpy(new_entry->username, access_requests[req_slot].requesting_user, MAX_USERNAME);
+                                    new_entry->permission = access_requests[req_slot].requested_perm;
+                                    meta->access_count++;
+                                    log_event("  -> Added access for user '%s'", access_requests[req_slot].requesting_user);
+                                }
+                                
+                                // Relay to SS for persistence
+                                int ss_sock = meta->ss_sock_fd;
+                                if (ss_state[ss_sock].active) {
+                                    Msg_Access_Request ss_req;
+                                    strncpy(ss_req.filename, access_requests[req_slot].filename, MAX_FILENAME);
+                                    strncpy(ss_req.username, access_requests[req_slot].requesting_user, MAX_USERNAME);
+                                    ss_req.perm = access_requests[req_slot].requested_perm;
+                                    
+                                    Header ss_header; 
+                                    ss_header.type = REQ_SS_ADD_ACCESS; 
+                                    ss_header.payload_size = sizeof(Msg_Access_Request);
+                                    send(ss_sock, &ss_header, sizeof(ss_header), 0);
+                                    send(ss_sock, &ss_req, sizeof(ss_req), 0);
+                                }
+                                
+                                // Remove the request from queue
+                                access_requests[req_slot].active = 0;
+                                
+                                send_ok_response(sock_fd);
+                                break;
+                            }
+                            
+                            case REQ_DENY_REQUEST: {
+                                Msg_Request_Response resp; recv(sock_fd, &resp, sizeof(resp), 0);
+                                log_event("Got REQ_DENY_REQUEST for request ID %d from client '%s'", 
+                                         resp.request_id, client_state[sock_fd].username);
+                                
+                                // Find the request
+                                int req_slot = -1;
+                                for (int i = 0; i < MAX_ACCESS_REQUESTS; i++) {
+                                    if (access_requests[i].active && access_requests[i].request_id == resp.request_id) {
+                                        req_slot = i;
+                                        break;
+                                    }
+                                }
+                                
+                                if (req_slot == -1) {
+                                    log_event("  -> Error: Request not found");
+                                    send_simple_header(sock_fd, RES_ERROR);
+                                    break;
+                                }
+                                
+                                // Verify ownership
+                                int slot = find_file_slot(access_requests[req_slot].filename);
+                                if (slot == -1 || strcmp(file_catalog[slot].owner, client_state[sock_fd].username) != 0) {
+                                    log_event("  -> Error: User is not the owner");
+                                    send_simple_header(sock_fd, RES_ERROR_ACCESS_DENIED);
+                                    break;
+                                }
+                                
+                                // Simply remove the request
+                                access_requests[req_slot].active = 0;
+                                log_event("  -> Request denied and removed");
+                                
+                                send_ok_response(sock_fd);
+                                break;
+                            }
+                            // --- END ACCESS REQUEST OPERATIONS ---
 
                             default:
                                 log_event("Socket %d: Unknown message type %d", sock_fd, header.type);
