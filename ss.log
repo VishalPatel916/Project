@@ -2881,3 +2881,913 @@
 [2025-11-19 12:40:24]   -> Folder already exists: ./ss_storage/my_files
 [2025-11-19 12:40:29] Got REQ_SS_CREATEFOLDER for 'k' from NM
 [2025-11-19 12:40:29]   -> Folder created at: ./ss_storage/k
+[2025-11-19 16:06:59] --- Storage Server Started ---
+[2025-11-19 16:06:59] Scanning storage directory: ./ss_storage
+[2025-11-19 16:06:59] Found 28 files.
+[2025-11-19 16:06:59] Storage Server connected to Name Server on port 8080
+[2025-11-19 16:06:59] Sending file list with metadata...
+[2025-11-19 16:06:59]   -> Sending 'anay.txt' (owner: system, access_count: 0)
+[2025-11-19 16:06:59]   -> Sending 'file.txt' (owner: system, access_count: 0)
+[2025-11-19 16:06:59]   -> Sending 'test.txt' (owner: system, access_count: 0)
+[2025-11-19 16:06:59]   -> Sending 'nga.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:06:59]   -> Sending 'j.txt' (owner: system, access_count: 0)
+[2025-11-19 16:06:59]   -> Sending 'nigger.txt' (owner: system, access_count: 0)
+[2025-11-19 16:06:59]   -> Sending 'file.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:06:59]   -> Sending 'files/script.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:06:59]   -> Sending 'files/script.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:06:59]   -> Sending 'temp.txt' (owner: system, access_count: 0)
+[2025-11-19 16:06:59]   -> Sending 'test.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:06:59]   -> Sending 'sree.txt' (owner: system, access_count: 0)
+[2025-11-19 16:06:59]   -> Sending 'vishal.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:06:59]   -> Sending 'temp.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:06:59]   -> Sending 'g.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:06:59]   -> Sending 'k.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:06:59]   -> Sending 'nga.txt' (owner: system, access_count: 0)
+[2025-11-19 16:06:59]   -> Sending 'amish.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:06:59]   -> Sending 'hope.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:06:59]   -> Sending 'vishal.txt' (owner: system, access_count: 0)
+[2025-11-19 16:06:59]   -> Sending 'my_files/re.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:06:59]   -> Sending 'my_files/re.txt' (owner: sree, access_count: 2)
+[2025-11-19 16:06:59]   -> Sending 'my_files/sub/arushi.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:06:59]   -> Sending 'sree.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:06:59]   -> Sending 'k.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:06:59]   -> Sending 'leon.txt' (owner: system, access_count: 0)
+[2025-11-19 16:06:59]   -> Sending 'anay.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:06:59]   -> Sending 'hope.txt' (owner: system, access_count: 0)
+[2025-11-19 16:06:59] Registration successful!
+[2025-11-19 16:06:59] Sending metadata for 28 existing files...
+[2025-11-19 16:06:59]   -> Calculated stats for 'anay.txt': size=15, words=3, chars=15
+[2025-11-19 16:06:59]   -> Calculated stats for 'file.txt': size=30, words=6, chars=30
+[2025-11-19 16:06:59]   -> Calculated stats for 'test.txt': size=22, words=5, chars=22
+[2025-11-19 16:06:59]   -> Calculated stats for 'nga.txt.bak': size=12, words=2, chars=12
+[2025-11-19 16:06:59]   -> Calculated stats for 'j.txt': size=0, words=0, chars=0
+[2025-11-19 16:06:59]   -> Calculated stats for 'nigger.txt': size=0, words=0, chars=0
+[2025-11-19 16:06:59]   -> Calculated stats for 'file.txt.bak': size=36, words=8, chars=36
+[2025-11-19 16:06:59]   -> Calculated stats for 'files/script.txt.bak': size=10, words=4, chars=10
+[2025-11-19 16:06:59]   -> Calculated stats for 'files/script.txt': size=10, words=4, chars=10
+[2025-11-19 16:06:59]   -> Calculated stats for 'temp.txt': size=15, words=3, chars=15
+[2025-11-19 16:06:59]   -> Calculated stats for 'test.txt.bak': size=10, words=2, chars=10
+[2025-11-19 16:06:59]   -> Calculated stats for 'sree.txt': size=4, words=1, chars=4
+[2025-11-19 16:06:59]   -> Calculated stats for 'vishal.txt.bak': size=4, words=1, chars=4
+[2025-11-19 16:06:59]   -> Calculated stats for 'temp.txt.bak': size=15, words=3, chars=15
+[2025-11-19 16:06:59]   -> Calculated stats for 'g.txt': size=0, words=0, chars=0
+[2025-11-19 16:06:59]   -> Calculated stats for 'k.txt.bak': size=0, words=0, chars=0
+[2025-11-19 16:06:59]   -> Calculated stats for 'nga.txt': size=23, words=4, chars=23
+[2025-11-19 16:06:59]   -> Calculated stats for 'amish.txt': size=0, words=0, chars=0
+[2025-11-19 16:06:59]   -> Calculated stats for 'hope.txt.bak': size=0, words=0, chars=0
+[2025-11-19 16:06:59]   -> Calculated stats for 'vishal.txt': size=4, words=1, chars=4
+[2025-11-19 16:06:59]   -> Calculated stats for 'my_files/re.txt.bak': size=0, words=0, chars=0
+[2025-11-19 16:06:59]   -> Calculated stats for 'my_files/re.txt': size=0, words=0, chars=0
+[2025-11-19 16:06:59]   -> Calculated stats for 'my_files/sub/arushi.txt': size=0, words=0, chars=0
+[2025-11-19 16:06:59]   -> Calculated stats for 'sree.txt.bak': size=10, words=2, chars=10
+[2025-11-19 16:06:59]   -> Calculated stats for 'k.txt': size=2, words=1, chars=2
+[2025-11-19 16:06:59]   -> Calculated stats for 'leon.txt': size=0, words=0, chars=0
+[2025-11-19 16:06:59]   -> Calculated stats for 'anay.txt.bak': size=24, words=4, chars=24
+[2025-11-19 16:06:59]   -> Calculated stats for 'hope.txt': size=4, words=1, chars=4
+[2025-11-19 16:06:59] Storage Server now listening for clients on port 8082...
+[2025-11-19 16:07:59] Got REQ_SS_CREATE for 'tag.txt' (owner: sree) from NM
+[2025-11-19 16:07:59]   -> Creating file at: ./ss_storage/tag.txt
+[2025-11-19 16:07:59]   -> Metadata saved for 'tag.txt'
+[2025-11-19 16:07:59]   -> Calculated stats for 'tag.txt': size=0, words=0, chars=0
+[2025-11-19 16:08:18] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:08:18] Got REQ_CLIENT_WRITE for 'tag.txt' (sent 0) from socket 6
+[2025-11-19 16:08:18]   -> Loading file 'tag.txt' into active doc slot 0.
+[2025-11-19 16:08:18]   -> Lock CREATED for 'tag.txt' (sentence ptr 0x588a2d98baf0) by socket 6
+[2025-11-19 16:08:18]   -> Lock granted. Session started. Original word count: 0, Users editing: 1
+[2025-11-19 16:08:30]   -> Recorded edit operation #1 (word 0) for socket 6
+[2025-11-19 16:08:43]   -> Recorded edit operation #2 (word 1) for socket 6
+[2025-11-19 16:08:45] Got REQ_ETIRW from socket 6. Committing 2 edit operations for 'tag.txt'.
+[2025-11-19 16:08:45]   -> Original word count: 0, Current: 0, Offset: 0
+[2025-11-19 16:08:45]   -> Replaying edit #0: index 0 -> 0 (offset 0) at sentence 0
+[2025-11-19 16:08:45]   -> Replaying edit #1: index 1 -> 1 (offset 0) at sentence 0
+[2025-11-19 16:08:45]   -> Lock RELEASED for 'tag.txt' (sentence ptr 0x588a2d98baf0)
+[2025-11-19 16:08:45]   -> User stopped editing 'tag.txt'. Active users: 0
+[2025-11-19 16:08:45]   -> No users left. Freeing document 'tag.txt' from memory.
+[2025-11-19 16:08:45]   -> Calculated stats for 'tag.txt': size=20, words=4, chars=20
+[2025-11-19 16:08:45]   -> Commit successful for socket 6
+[2025-11-19 16:08:49] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:08:49] Got REQ_CLIENT_READ for 'tag.txt' from socket 6
+[2025-11-19 16:08:49]   -> Sending file 'tag.txt' to socket 6
+[2025-11-19 16:08:49]   -> Finished sending file to socket 6
+[2025-11-19 16:09:43] Got REQ_SS_CHECKPOINT for 'tag.txt' with tag '1' from NM
+[2025-11-19 16:09:43]   -> Checkpoint '1' created for 'tag.txt'
+[2025-11-19 16:10:05] Got REQ_SS_LISTCHECKPOINTS for 'tag.txt' from NM
+[2025-11-19 16:10:05]   -> Sent 1 checkpoint(s) for 'tag.txt'
+[2025-11-19 16:10:57] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:10:57] Got REQ_CLIENT_WRITE for 'tag.txt' (sent 0) from socket 6
+[2025-11-19 16:10:57]   -> Loading file 'tag.txt' into active doc slot 0.
+[2025-11-19 16:10:57]   -> Lock CREATED for 'tag.txt' (sentence ptr 0x588a2d98bb10) by socket 6
+[2025-11-19 16:10:57]   -> Lock granted. Session started. Original word count: 4, Users editing: 1
+[2025-11-19 16:11:05]   -> Recorded edit operation #1 (word 5) for socket 6
+[2025-11-19 16:11:24] Got REQ_ETIRW from socket 6. Committing 1 edit operations for 'tag.txt'.
+[2025-11-19 16:11:24]   -> Original word count: 4, Current: 4, Offset: 0
+[2025-11-19 16:11:24]   -> Replaying edit #0: index 5 -> 4 (offset 0) at sentence 0
+[2025-11-19 16:11:24]   -> Lock RELEASED for 'tag.txt' (sentence ptr 0x588a2d98bb10)
+[2025-11-19 16:11:24]   -> User stopped editing 'tag.txt'. Active users: 0
+[2025-11-19 16:11:24]   -> No users left. Freeing document 'tag.txt' from memory.
+[2025-11-19 16:11:24]   -> Calculated stats for 'tag.txt': size=23, words=5, chars=23
+[2025-11-19 16:11:24]   -> Commit successful for socket 6
+[2025-11-19 16:11:30] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:11:30] Got REQ_CLIENT_READ for 'tag.txt' from socket 6
+[2025-11-19 16:11:30]   -> Sending file 'tag.txt' to socket 6
+[2025-11-19 16:11:30]   -> Finished sending file to socket 6
+[2025-11-19 16:11:44] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:11:44] Got REQ_CLIENT_WRITE for 'tag.txt' (sent 0) from socket 6
+[2025-11-19 16:11:44]   -> Loading file 'tag.txt' into active doc slot 0.
+[2025-11-19 16:11:44]   -> Lock CREATED for 'tag.txt' (sentence ptr 0x588a2d98bb30) by socket 6
+[2025-11-19 16:11:44]   -> Lock granted. Session started. Original word count: 5, Users editing: 1
+[2025-11-19 16:11:50]   -> Recorded edit operation #1 (word 100) for socket 6
+[2025-11-19 16:11:54] Got REQ_ETIRW from socket 6. Committing 1 edit operations for 'tag.txt'.
+[2025-11-19 16:11:54]   -> Original word count: 5, Current: 5, Offset: 0
+[2025-11-19 16:11:54]   -> Replaying edit #0: index 100 -> 5 (offset 0) at sentence 0
+[2025-11-19 16:11:54]   -> Lock RELEASED for 'tag.txt' (sentence ptr 0x588a2d98bb30)
+[2025-11-19 16:11:54]   -> User stopped editing 'tag.txt'. Active users: 0
+[2025-11-19 16:11:54]   -> No users left. Freeing document 'tag.txt' from memory.
+[2025-11-19 16:11:54]   -> Calculated stats for 'tag.txt': size=26, words=6, chars=26
+[2025-11-19 16:11:54]   -> Commit successful for socket 6
+[2025-11-19 16:11:58] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:11:58] Got REQ_CLIENT_READ for 'tag.txt' from socket 6
+[2025-11-19 16:11:58]   -> Sending file 'tag.txt' to socket 6
+[2025-11-19 16:11:58]   -> Finished sending file to socket 6
+[2025-11-19 16:13:39] Got REQ_SS_VIEWCHECKPOINT for 'tag.txt' tag '1' from NM
+[2025-11-19 16:13:39]   -> Sent checkpoint content (20 bytes)
+[2025-11-19 16:13:52] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:13:52] Got REQ_CLIENT_READ for 'tag.txt' from socket 6
+[2025-11-19 16:13:52]   -> Sending file 'tag.txt' to socket 6
+[2025-11-19 16:13:52]   -> Finished sending file to socket 6
+[2025-11-19 16:14:00] Got REQ_SS_REVERT for 'tag.txt' to tag '1' from NM
+[2025-11-19 16:14:00]   -> File 'tag.txt' reverted to checkpoint '1'
+[2025-11-19 16:14:03] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:14:03] Got REQ_CLIENT_READ for 'tag.txt' from socket 6
+[2025-11-19 16:14:03]   -> Sending file 'tag.txt' to socket 6
+[2025-11-19 16:14:03]   -> Finished sending file to socket 6
+[2025-11-19 16:14:20] Got REQ_SS_LISTCHECKPOINTS for 'tag.txt' from NM
+[2025-11-19 16:14:20]   -> Sent 1 checkpoint(s) for 'tag.txt'
+[2025-11-19 16:14:26] Got REQ_SS_UNDO for 'tag.txt' from NM
+[2025-11-19 16:14:26]   -> Swapped backup file.
+[2025-11-19 16:14:26]   -> Calculated stats for 'tag.txt': size=20, words=4, chars=20
+[2025-11-19 16:14:30] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:14:30] Got REQ_CLIENT_READ for 'tag.txt' from socket 6
+[2025-11-19 16:14:30]   -> Sending file 'tag.txt' to socket 6
+[2025-11-19 16:14:30]   -> Finished sending file to socket 6
+[2025-11-19 16:22:09] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:22:09] Got REQ_CLIENT_READ for 'tag.txt' from socket 6
+[2025-11-19 16:22:09]   -> Sending file 'tag.txt' to socket 6
+[2025-11-19 16:22:09]   -> Finished sending file to socket 6
+[2025-11-19 16:22:17] Got REQ_SS_LISTCHECKPOINTS for 'tag.txt' from NM
+[2025-11-19 16:22:17]   -> Sent 1 checkpoint(s) for 'tag.txt'
+[2025-11-19 16:22:29] Got REQ_SS_CHECKPOINT for 'tag.txt' with tag '2' from NM
+[2025-11-19 16:22:29]   -> Checkpoint '2' created for 'tag.txt'
+[2025-11-19 16:22:49] Got REQ_SS_LISTCHECKPOINTS for 'tag.txt' from NM
+[2025-11-19 16:22:49]   -> Sent 2 checkpoint(s) for 'tag.txt'
+[2025-11-19 16:29:57] --- Storage Server Started ---
+[2025-11-19 16:29:57] Scanning storage directory: ./ss_storage
+[2025-11-19 16:29:57] Found 32 files.
+[2025-11-19 16:29:57] Storage Server connected to Name Server on port 8080
+[2025-11-19 16:29:57] Sending file list with metadata...
+[2025-11-19 16:29:57]   -> Sending 'anay.txt' (owner: system, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'file.txt' (owner: system, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'test.txt' (owner: system, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'nga.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'j.txt' (owner: system, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'nigger.txt' (owner: system, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'file.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'files/script.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'files/script.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'tag.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'temp.txt' (owner: system, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'test.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'sree.txt' (owner: system, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'vishal.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'temp.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'tag.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'g.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'k.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'nga.txt' (owner: system, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'amish.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending '.checkpoints/tag.txt/1' (owner: system, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending '.checkpoints/tag.txt/2' (owner: system, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'hope.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'vishal.txt' (owner: system, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'my_files/re.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'my_files/re.txt' (owner: sree, access_count: 2)
+[2025-11-19 16:29:57]   -> Sending 'my_files/sub/arushi.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'sree.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'k.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'leon.txt' (owner: system, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'anay.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:29:57]   -> Sending 'hope.txt' (owner: system, access_count: 0)
+[2025-11-19 16:29:57] Registration successful!
+[2025-11-19 16:29:57] Sending metadata for 32 existing files...
+[2025-11-19 16:29:57]   -> Calculated stats for 'anay.txt': size=15, words=3, chars=15
+[2025-11-19 16:29:57]   -> Calculated stats for 'file.txt': size=30, words=6, chars=30
+[2025-11-19 16:29:57]   -> Calculated stats for 'test.txt': size=22, words=5, chars=22
+[2025-11-19 16:29:57]   -> Calculated stats for 'nga.txt.bak': size=12, words=2, chars=12
+[2025-11-19 16:29:57]   -> Calculated stats for 'j.txt': size=0, words=0, chars=0
+[2025-11-19 16:29:57]   -> Calculated stats for 'nigger.txt': size=0, words=0, chars=0
+[2025-11-19 16:29:57]   -> Calculated stats for 'file.txt.bak': size=36, words=8, chars=36
+[2025-11-19 16:29:57]   -> Calculated stats for 'files/script.txt.bak': size=10, words=4, chars=10
+[2025-11-19 16:29:57]   -> Calculated stats for 'files/script.txt': size=10, words=4, chars=10
+[2025-11-19 16:29:57]   -> Calculated stats for 'tag.txt.bak': size=20, words=4, chars=20
+[2025-11-19 16:29:57]   -> Calculated stats for 'temp.txt': size=15, words=3, chars=15
+[2025-11-19 16:29:57]   -> Calculated stats for 'test.txt.bak': size=10, words=2, chars=10
+[2025-11-19 16:29:57]   -> Calculated stats for 'sree.txt': size=4, words=1, chars=4
+[2025-11-19 16:29:57]   -> Calculated stats for 'vishal.txt.bak': size=4, words=1, chars=4
+[2025-11-19 16:29:57]   -> Calculated stats for 'temp.txt.bak': size=15, words=3, chars=15
+[2025-11-19 16:29:57]   -> Calculated stats for 'tag.txt': size=20, words=4, chars=20
+[2025-11-19 16:29:57]   -> Calculated stats for 'g.txt': size=0, words=0, chars=0
+[2025-11-19 16:29:57]   -> Calculated stats for 'k.txt.bak': size=0, words=0, chars=0
+[2025-11-19 16:29:57]   -> Calculated stats for 'nga.txt': size=23, words=4, chars=23
+[2025-11-19 16:29:57]   -> Calculated stats for 'amish.txt': size=0, words=0, chars=0
+[2025-11-19 16:29:57]   -> Calculated stats for '.checkpoints/tag.txt/1': size=20, words=4, chars=20
+[2025-11-19 16:29:57]   -> Calculated stats for '.checkpoints/tag.txt/2': size=20, words=4, chars=20
+[2025-11-19 16:29:57]   -> Calculated stats for 'hope.txt.bak': size=0, words=0, chars=0
+[2025-11-19 16:29:57]   -> Calculated stats for 'vishal.txt': size=4, words=1, chars=4
+[2025-11-19 16:29:57]   -> Calculated stats for 'my_files/re.txt.bak': size=0, words=0, chars=0
+[2025-11-19 16:29:57]   -> Calculated stats for 'my_files/re.txt': size=0, words=0, chars=0
+[2025-11-19 16:29:57]   -> Calculated stats for 'my_files/sub/arushi.txt': size=0, words=0, chars=0
+[2025-11-19 16:29:57]   -> Calculated stats for 'sree.txt.bak': size=10, words=2, chars=10
+[2025-11-19 16:29:57]   -> Calculated stats for 'k.txt': size=2, words=1, chars=2
+[2025-11-19 16:29:57]   -> Calculated stats for 'leon.txt': size=0, words=0, chars=0
+[2025-11-19 16:29:57]   -> Calculated stats for 'anay.txt.bak': size=24, words=4, chars=24
+[2025-11-19 16:29:57]   -> Calculated stats for 'hope.txt': size=4, words=1, chars=4
+[2025-11-19 16:29:57] Storage Server now listening for clients on port 8082...
+[2025-11-19 16:30:31] Got REQ_SS_LISTCHECKPOINTS for 'amish.txt' from NM
+[2025-11-19 16:30:31]   -> Sent 0 checkpoint(s) for 'amish.txt'
+[2025-11-19 16:30:40] Got REQ_SS_LISTCHECKPOINTS for 'tag.txt' from NM
+[2025-11-19 16:30:40]   -> Sent 2 checkpoint(s) for 'tag.txt'
+[2025-11-19 16:31:04] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:31:04] Got REQ_CLIENT_READ for 'amish.txt' from socket 6
+[2025-11-19 16:31:04]   -> Sending file 'amish.txt' to socket 6
+[2025-11-19 16:31:04]   -> Finished sending file to socket 6
+[2025-11-19 16:31:11] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:31:11] Got REQ_CLIENT_WRITE for 'amish.txt' (sent 0) from socket 6
+[2025-11-19 16:31:11]   -> Loading file 'amish.txt' into active doc slot 0.
+[2025-11-19 16:31:11]   -> Lock CREATED for 'amish.txt' (sentence ptr 0x5968adde0af0) by socket 6
+[2025-11-19 16:31:11]   -> Lock granted. Session started. Original word count: 0, Users editing: 1
+[2025-11-19 16:31:14]   -> Recorded edit operation #1 (word 0) for socket 6
+[2025-11-19 16:31:16]   -> Recorded edit operation #2 (word -1) for socket 6
+[2025-11-19 16:31:23]   -> Recorded edit operation #3 (word 2) for socket 6
+[2025-11-19 16:31:26] Got REQ_ETIRW from socket 6. Committing 3 edit operations for 'amish.txt'.
+[2025-11-19 16:31:26]   -> Original word count: 0, Current: 0, Offset: 0
+[2025-11-19 16:31:26]   -> Replaying edit #0: index 0 -> 0 (offset 0) at sentence 0
+[2025-11-19 16:31:26]   -> Replaying edit #1: index -1 -> 0 (offset 0) at sentence 0
+[2025-11-19 16:31:26]   -> Replaying edit #2: index 2 -> 2 (offset 0) at sentence 0
+[2025-11-19 16:31:26]   -> Lock RELEASED for 'amish.txt' (sentence ptr 0x5968adde0af0)
+[2025-11-19 16:31:26]   -> User stopped editing 'amish.txt'. Active users: 0
+[2025-11-19 16:31:26]   -> No users left. Freeing document 'amish.txt' from memory.
+[2025-11-19 16:31:26]   -> Calculated stats for 'amish.txt': size=9, words=3, chars=9
+[2025-11-19 16:31:26]   -> Commit successful for socket 6
+[2025-11-19 16:31:33] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:31:33] Got REQ_CLIENT_READ for 'amish.txt' from socket 6
+[2025-11-19 16:31:33]   -> Sending file 'amish.txt' to socket 6
+[2025-11-19 16:31:33]   -> Finished sending file to socket 6
+[2025-11-19 16:31:52] Got REQ_SS_CHECKPOINT for 'amish.txt' with tag '1' from NM
+[2025-11-19 16:31:52]   -> Checkpoint '1' created for 'amish.txt'
+[2025-11-19 16:31:57] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:31:57] Got REQ_CLIENT_WRITE for 'amish.txt' (sent 1) from socket 6
+[2025-11-19 16:31:57]   -> Loading file 'amish.txt' into active doc slot 0.
+[2025-11-19 16:31:57]   -> ERROR: Sentence index 1 out of bounds.
+[2025-11-19 16:31:57]   -> User stopped editing 'amish.txt'. Active users: -1
+[2025-11-19 16:31:57]   -> No users left. Freeing document 'amish.txt' from memory.
+[2025-11-19 16:32:07] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:32:07] Got REQ_CLIENT_WRITE for 'amish.txt' (sent 0) from socket 6
+[2025-11-19 16:32:07]   -> Loading file 'amish.txt' into active doc slot 0.
+[2025-11-19 16:32:07]   -> Lock CREATED for 'amish.txt' (sentence ptr 0x5968adde0b70) by socket 6
+[2025-11-19 16:32:07]   -> Lock granted. Session started. Original word count: 3, Users editing: 1
+[2025-11-19 16:32:12]   -> Recorded edit operation #1 (word 6) for socket 6
+[2025-11-19 16:32:17]   -> Recorded edit operation #2 (word 7) for socket 6
+[2025-11-19 16:32:20] Got REQ_ETIRW from socket 6. Committing 2 edit operations for 'amish.txt'.
+[2025-11-19 16:32:20]   -> Original word count: 3, Current: 3, Offset: 0
+[2025-11-19 16:32:20]   -> Replaying edit #0: index 6 -> 3 (offset 0) at sentence 0
+[2025-11-19 16:32:20]   -> Replaying edit #1: index 7 -> 4 (offset 0) at sentence 0
+[2025-11-19 16:32:20]   -> Lock RELEASED for 'amish.txt' (sentence ptr 0x5968adde0b70)
+[2025-11-19 16:32:20]   -> User stopped editing 'amish.txt'. Active users: 0
+[2025-11-19 16:32:20]   -> No users left. Freeing document 'amish.txt' from memory.
+[2025-11-19 16:32:20]   -> Calculated stats for 'amish.txt': size=21, words=5, chars=21
+[2025-11-19 16:32:20]   -> Commit successful for socket 6
+[2025-11-19 16:32:23] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:32:23] Got REQ_CLIENT_READ for 'amish.txt' from socket 6
+[2025-11-19 16:32:23]   -> Sending file 'amish.txt' to socket 6
+[2025-11-19 16:32:23]   -> Finished sending file to socket 6
+[2025-11-19 16:32:35] Got REQ_SS_REVERT for 'amish.txt' to tag '1' from NM
+[2025-11-19 16:32:35]   -> Saved current state to __UNDO__ checkpoint
+[2025-11-19 16:32:35]   -> File 'amish.txt' reverted to checkpoint '1'
+[2025-11-19 16:32:39] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:32:39] Got REQ_CLIENT_READ for 'amish.txt' from socket 6
+[2025-11-19 16:32:39]   -> Sending file 'amish.txt' to socket 6
+[2025-11-19 16:32:39]   -> Finished sending file to socket 6
+[2025-11-19 16:32:43] Got REQ_SS_UNDO for 'amish.txt' from NM
+[2025-11-19 16:32:43]   -> Found __UNDO__ checkpoint, restoring pre-revert state
+[2025-11-19 16:32:43]   -> Restored from __UNDO__ checkpoint
+[2025-11-19 16:32:43]   -> Calculated stats for 'amish.txt': size=21, words=5, chars=21
+[2025-11-19 16:32:47] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:32:47] Got REQ_CLIENT_READ for 'amish.txt' from socket 6
+[2025-11-19 16:32:47]   -> Sending file 'amish.txt' to socket 6
+[2025-11-19 16:32:47]   -> Finished sending file to socket 6
+[2025-11-19 16:32:53] Got REQ_SS_UNDO for 'amish.txt' from NM
+[2025-11-19 16:32:53]   -> Swapped backup file.
+[2025-11-19 16:32:53]   -> Calculated stats for 'amish.txt': size=21, words=5, chars=21
+[2025-11-19 16:32:57] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:32:57] Got REQ_CLIENT_READ for 'amish.txt' from socket 6
+[2025-11-19 16:32:57]   -> Sending file 'amish.txt' to socket 6
+[2025-11-19 16:32:57]   -> Finished sending file to socket 6
+[2025-11-19 16:33:13] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:33:13] Got REQ_CLIENT_WRITE for 'amish.txt' (sent 0) from socket 6
+[2025-11-19 16:33:13]   -> Loading file 'amish.txt' into active doc slot 0.
+[2025-11-19 16:33:13]   -> Lock CREATED for 'amish.txt' (sentence ptr 0x5968adde0ad0) by socket 6
+[2025-11-19 16:33:13]   -> Lock granted. Session started. Original word count: 5, Users editing: 1
+[2025-11-19 16:33:17]   -> Recorded edit operation #1 (word 1) for socket 6
+[2025-11-19 16:33:19] Got REQ_ETIRW from socket 6. Committing 1 edit operations for 'amish.txt'.
+[2025-11-19 16:33:19]   -> Original word count: 5, Current: 5, Offset: 0
+[2025-11-19 16:33:19]   -> Replaying edit #0: index 1 -> 1 (offset 0) at sentence 0
+[2025-11-19 16:33:19]   -> Lock RELEASED for 'amish.txt' (sentence ptr 0x5968adde0ad0)
+[2025-11-19 16:33:19]   -> User stopped editing 'amish.txt'. Active users: 0
+[2025-11-19 16:33:19]   -> No users left. Freeing document 'amish.txt' from memory.
+[2025-11-19 16:33:19]   -> Calculated stats for 'amish.txt': size=24, words=6, chars=24
+[2025-11-19 16:33:19]   -> Commit successful for socket 6
+[2025-11-19 16:33:22] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:33:22] Got REQ_CLIENT_READ for 'amish.txt' from socket 6
+[2025-11-19 16:33:22]   -> Sending file 'amish.txt' to socket 6
+[2025-11-19 16:33:22]   -> Finished sending file to socket 6
+[2025-11-19 16:33:30] Got REQ_SS_UNDO for 'amish.txt' from NM
+[2025-11-19 16:33:30]   -> Swapped backup file.
+[2025-11-19 16:33:30]   -> Calculated stats for 'amish.txt': size=21, words=5, chars=21
+[2025-11-19 16:33:33] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:33:33] Got REQ_CLIENT_READ for 'amish.txt' from socket 6
+[2025-11-19 16:33:33]   -> Sending file 'amish.txt' to socket 6
+[2025-11-19 16:33:33]   -> Finished sending file to socket 6
+[2025-11-19 16:33:42] Got REQ_SS_UNDO for 'amish.txt' from NM
+[2025-11-19 16:33:42]   -> Swapped backup file.
+[2025-11-19 16:33:42]   -> Calculated stats for 'amish.txt': size=24, words=6, chars=24
+[2025-11-19 16:33:44] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:33:44] Got REQ_CLIENT_READ for 'amish.txt' from socket 6
+[2025-11-19 16:33:44]   -> Sending file 'amish.txt' to socket 6
+[2025-11-19 16:33:44]   -> Finished sending file to socket 6
+[2025-11-19 16:36:01] --- Storage Server Started ---
+[2025-11-19 16:36:01] Scanning storage directory: ./ss_storage
+[2025-11-19 16:36:01] Found 34 files.
+[2025-11-19 16:36:01] Storage Server connected to Name Server on port 8080
+[2025-11-19 16:36:01] Sending file list with metadata...
+[2025-11-19 16:36:01]   -> Sending 'anay.txt' (owner: system, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'file.txt' (owner: system, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'test.txt' (owner: system, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'nga.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'j.txt' (owner: system, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'nigger.txt' (owner: system, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'file.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'files/script.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'files/script.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'tag.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'temp.txt' (owner: system, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'test.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'sree.txt' (owner: system, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'vishal.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'temp.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'tag.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'g.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'k.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'nga.txt' (owner: system, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'amish.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending '.checkpoints/tag.txt/1' (owner: system, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending '.checkpoints/tag.txt/2' (owner: system, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending '.checkpoints/amish.txt/1' (owner: system, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'hope.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'vishal.txt' (owner: system, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'my_files/re.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'my_files/re.txt' (owner: sree, access_count: 2)
+[2025-11-19 16:36:01]   -> Sending 'my_files/sub/arushi.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'sree.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'k.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'amish.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'leon.txt' (owner: system, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'anay.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:36:01]   -> Sending 'hope.txt' (owner: system, access_count: 0)
+[2025-11-19 16:36:02] Registration successful!
+[2025-11-19 16:36:02] Sending metadata for 34 existing files...
+[2025-11-19 16:36:02]   -> Calculated stats for 'anay.txt': size=15, words=3, chars=15
+[2025-11-19 16:36:02]   -> Calculated stats for 'file.txt': size=30, words=6, chars=30
+[2025-11-19 16:36:02]   -> Calculated stats for 'test.txt': size=22, words=5, chars=22
+[2025-11-19 16:36:02]   -> Calculated stats for 'nga.txt.bak': size=12, words=2, chars=12
+[2025-11-19 16:36:02]   -> Calculated stats for 'j.txt': size=0, words=0, chars=0
+[2025-11-19 16:36:02]   -> Calculated stats for 'nigger.txt': size=0, words=0, chars=0
+[2025-11-19 16:36:02]   -> Calculated stats for 'file.txt.bak': size=36, words=8, chars=36
+[2025-11-19 16:36:02]   -> Calculated stats for 'files/script.txt.bak': size=10, words=4, chars=10
+[2025-11-19 16:36:02]   -> Calculated stats for 'files/script.txt': size=10, words=4, chars=10
+[2025-11-19 16:36:02]   -> Calculated stats for 'tag.txt.bak': size=20, words=4, chars=20
+[2025-11-19 16:36:02]   -> Calculated stats for 'temp.txt': size=15, words=3, chars=15
+[2025-11-19 16:36:02]   -> Calculated stats for 'test.txt.bak': size=10, words=2, chars=10
+[2025-11-19 16:36:02]   -> Calculated stats for 'sree.txt': size=4, words=1, chars=4
+[2025-11-19 16:36:02]   -> Calculated stats for 'vishal.txt.bak': size=4, words=1, chars=4
+[2025-11-19 16:36:02]   -> Calculated stats for 'temp.txt.bak': size=15, words=3, chars=15
+[2025-11-19 16:36:02]   -> Calculated stats for 'tag.txt': size=20, words=4, chars=20
+[2025-11-19 16:36:02]   -> Calculated stats for 'g.txt': size=0, words=0, chars=0
+[2025-11-19 16:36:02]   -> Calculated stats for 'k.txt.bak': size=0, words=0, chars=0
+[2025-11-19 16:36:02]   -> Calculated stats for 'nga.txt': size=23, words=4, chars=23
+[2025-11-19 16:36:02]   -> Calculated stats for 'amish.txt': size=24, words=6, chars=24
+[2025-11-19 16:36:02]   -> Calculated stats for '.checkpoints/tag.txt/1': size=20, words=4, chars=20
+[2025-11-19 16:36:02]   -> Calculated stats for '.checkpoints/tag.txt/2': size=20, words=4, chars=20
+[2025-11-19 16:36:02]   -> Calculated stats for '.checkpoints/amish.txt/1': size=9, words=3, chars=9
+[2025-11-19 16:36:02]   -> Calculated stats for 'hope.txt.bak': size=0, words=0, chars=0
+[2025-11-19 16:36:02]   -> Calculated stats for 'vishal.txt': size=4, words=1, chars=4
+[2025-11-19 16:36:02]   -> Calculated stats for 'my_files/re.txt.bak': size=0, words=0, chars=0
+[2025-11-19 16:36:02]   -> Calculated stats for 'my_files/re.txt': size=0, words=0, chars=0
+[2025-11-19 16:36:02]   -> Calculated stats for 'my_files/sub/arushi.txt': size=0, words=0, chars=0
+[2025-11-19 16:36:02]   -> Calculated stats for 'sree.txt.bak': size=10, words=2, chars=10
+[2025-11-19 16:36:02]   -> Calculated stats for 'k.txt': size=2, words=1, chars=2
+[2025-11-19 16:36:02]   -> Calculated stats for 'amish.txt.bak': size=21, words=5, chars=21
+[2025-11-19 16:36:02]   -> Calculated stats for 'leon.txt': size=0, words=0, chars=0
+[2025-11-19 16:36:02]   -> Calculated stats for 'anay.txt.bak': size=24, words=4, chars=24
+[2025-11-19 16:36:02]   -> Calculated stats for 'hope.txt': size=4, words=1, chars=4
+[2025-11-19 16:36:02] Storage Server now listening for clients on port 8082...
+[2025-11-19 16:36:11] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:36:11] Got REQ_CLIENT_READ for 'amish.txt' from socket 6
+[2025-11-19 16:36:11]   -> Sending file 'amish.txt' to socket 6
+[2025-11-19 16:36:11]   -> Finished sending file to socket 6
+[2025-11-19 16:36:26] Got REQ_SS_LISTCHECKPOINTS for 'amish.txt' from NM
+[2025-11-19 16:36:26]   -> Sent 1 checkpoint(s) for 'amish.txt'
+[2025-11-19 16:36:36] Got REQ_SS_VIEWCHECKPOINT for 'amish.txt' tag '1' from NM
+[2025-11-19 16:36:36]   -> Sent checkpoint content (9 bytes)
+[2025-11-19 16:36:44] Got REQ_SS_REVERT for 'amish.txt' to tag '1' from NM
+[2025-11-19 16:36:44]   -> Saved current state to __UNDO__ checkpoint
+[2025-11-19 16:36:44]   -> File 'amish.txt' reverted to checkpoint '1'
+[2025-11-19 16:36:48] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:36:48] Got REQ_CLIENT_READ for 'amish.txt' from socket 6
+[2025-11-19 16:36:48]   -> Sending file 'amish.txt' to socket 6
+[2025-11-19 16:36:48]   -> Finished sending file to socket 6
+[2025-11-19 16:36:54] Got REQ_SS_UNDO for 'amish.txt' from NM
+[2025-11-19 16:36:54]   -> Found __UNDO__ checkpoint, restoring pre-revert state
+[2025-11-19 16:36:54]   -> Restored from __UNDO__ checkpoint
+[2025-11-19 16:36:54]   -> Calculated stats for 'amish.txt': size=24, words=6, chars=24
+[2025-11-19 16:36:58] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:36:58] Got REQ_CLIENT_READ for 'amish.txt' from socket 6
+[2025-11-19 16:36:58]   -> Sending file 'amish.txt' to socket 6
+[2025-11-19 16:36:58]   -> Finished sending file to socket 6
+[2025-11-19 16:37:05] Got REQ_SS_UNDO for 'amish.txt' from NM
+[2025-11-19 16:37:05]   -> Found __REDO__ checkpoint, toggling back to reverted state
+[2025-11-19 16:37:05]   -> Restored from __REDO__ checkpoint
+[2025-11-19 16:37:05]   -> Calculated stats for 'amish.txt': size=9, words=3, chars=9
+[2025-11-19 16:37:09] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:37:09] Got REQ_CLIENT_READ for 'amish.txt' from socket 6
+[2025-11-19 16:37:09]   -> Sending file 'amish.txt' to socket 6
+[2025-11-19 16:37:09]   -> Finished sending file to socket 6
+[2025-11-19 16:43:21] Name Server disconnected!
+[2025-11-19 16:43:55] --- Storage Server Started ---
+[2025-11-19 16:43:55] Scanning storage directory: ./ss_storage
+[2025-11-19 16:43:55] Found 35 files.
+[2025-11-19 16:43:55] Storage Server connected to Name Server on port 8080
+[2025-11-19 16:43:55] Sending file list with metadata...
+[2025-11-19 16:43:55]   -> Sending 'anay.txt' (owner: system, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'file.txt' (owner: system, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'test.txt' (owner: system, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'nga.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'j.txt' (owner: system, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'nigger.txt' (owner: system, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'file.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'files/script.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'files/script.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'tag.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'temp.txt' (owner: system, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'test.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'sree.txt' (owner: system, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'vishal.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'temp.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'tag.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'g.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'k.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'nga.txt' (owner: system, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'amish.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending '.checkpoints/tag.txt/1' (owner: system, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending '.checkpoints/tag.txt/2' (owner: system, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending '.checkpoints/amish.txt/__UNDO__' (owner: system, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending '.checkpoints/amish.txt/1' (owner: system, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'hope.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'vishal.txt' (owner: system, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'my_files/re.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'my_files/re.txt' (owner: sree, access_count: 2)
+[2025-11-19 16:43:55]   -> Sending 'my_files/sub/arushi.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'sree.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'k.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'amish.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'leon.txt' (owner: system, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'anay.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:43:55]   -> Sending 'hope.txt' (owner: system, access_count: 0)
+[2025-11-19 16:43:55] Registration successful!
+[2025-11-19 16:43:55] Sending metadata for 35 existing files...
+[2025-11-19 16:43:55]   -> Calculated stats for 'anay.txt': size=15, words=3, chars=15
+[2025-11-19 16:43:55]   -> Calculated stats for 'file.txt': size=30, words=6, chars=30
+[2025-11-19 16:43:55]   -> Calculated stats for 'test.txt': size=22, words=5, chars=22
+[2025-11-19 16:43:55]   -> Calculated stats for 'nga.txt.bak': size=12, words=2, chars=12
+[2025-11-19 16:43:55]   -> Calculated stats for 'j.txt': size=0, words=0, chars=0
+[2025-11-19 16:43:55]   -> Calculated stats for 'nigger.txt': size=0, words=0, chars=0
+[2025-11-19 16:43:55]   -> Calculated stats for 'file.txt.bak': size=36, words=8, chars=36
+[2025-11-19 16:43:55]   -> Calculated stats for 'files/script.txt.bak': size=10, words=4, chars=10
+[2025-11-19 16:43:55]   -> Calculated stats for 'files/script.txt': size=10, words=4, chars=10
+[2025-11-19 16:43:55]   -> Calculated stats for 'tag.txt.bak': size=20, words=4, chars=20
+[2025-11-19 16:43:55]   -> Calculated stats for 'temp.txt': size=15, words=3, chars=15
+[2025-11-19 16:43:55]   -> Calculated stats for 'test.txt.bak': size=10, words=2, chars=10
+[2025-11-19 16:43:55]   -> Calculated stats for 'sree.txt': size=4, words=1, chars=4
+[2025-11-19 16:43:55]   -> Calculated stats for 'vishal.txt.bak': size=4, words=1, chars=4
+[2025-11-19 16:43:55]   -> Calculated stats for 'temp.txt.bak': size=15, words=3, chars=15
+[2025-11-19 16:43:55]   -> Calculated stats for 'tag.txt': size=20, words=4, chars=20
+[2025-11-19 16:43:55]   -> Calculated stats for 'g.txt': size=0, words=0, chars=0
+[2025-11-19 16:43:55]   -> Calculated stats for 'k.txt.bak': size=0, words=0, chars=0
+[2025-11-19 16:43:55]   -> Calculated stats for 'nga.txt': size=23, words=4, chars=23
+[2025-11-19 16:43:55]   -> Calculated stats for 'amish.txt': size=9, words=3, chars=9
+[2025-11-19 16:43:55]   -> Calculated stats for '.checkpoints/tag.txt/1': size=20, words=4, chars=20
+[2025-11-19 16:43:55]   -> Calculated stats for '.checkpoints/tag.txt/2': size=20, words=4, chars=20
+[2025-11-19 16:43:55]   -> Calculated stats for '.checkpoints/amish.txt/__UNDO__': size=24, words=6, chars=24
+[2025-11-19 16:43:55]   -> Calculated stats for '.checkpoints/amish.txt/1': size=9, words=3, chars=9
+[2025-11-19 16:43:55]   -> Calculated stats for 'hope.txt.bak': size=0, words=0, chars=0
+[2025-11-19 16:43:55]   -> Calculated stats for 'vishal.txt': size=4, words=1, chars=4
+[2025-11-19 16:43:55]   -> Calculated stats for 'my_files/re.txt.bak': size=0, words=0, chars=0
+[2025-11-19 16:43:55]   -> Calculated stats for 'my_files/re.txt': size=0, words=0, chars=0
+[2025-11-19 16:43:55]   -> Calculated stats for 'my_files/sub/arushi.txt': size=0, words=0, chars=0
+[2025-11-19 16:43:55]   -> Calculated stats for 'sree.txt.bak': size=10, words=2, chars=10
+[2025-11-19 16:43:55]   -> Calculated stats for 'k.txt': size=2, words=1, chars=2
+[2025-11-19 16:43:55]   -> Calculated stats for 'amish.txt.bak': size=9, words=3, chars=9
+[2025-11-19 16:43:55]   -> Calculated stats for 'leon.txt': size=0, words=0, chars=0
+[2025-11-19 16:43:55]   -> Calculated stats for 'anay.txt.bak': size=24, words=4, chars=24
+[2025-11-19 16:43:55]   -> Calculated stats for 'hope.txt': size=4, words=1, chars=4
+[2025-11-19 16:43:55] Storage Server now listening for clients on port 8082...
+[2025-11-19 16:44:09] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:44:09] Got REQ_CLIENT_READ for 'amish.txt' from socket 6
+[2025-11-19 16:44:09]   -> Sending file 'amish.txt' to socket 6
+[2025-11-19 16:44:09]   -> Finished sending file to socket 6
+[2025-11-19 16:44:22] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:44:22] Got REQ_CLIENT_WRITE for 'amish.txt' (sent 0) from socket 6
+[2025-11-19 16:44:22]   -> Loading file 'amish.txt' into active doc slot 0.
+[2025-11-19 16:44:22]   -> Lock CREATED for 'amish.txt' (sentence ptr 0x5dec1a5ebaf0) by socket 6
+[2025-11-19 16:44:22]   -> Lock granted. Session started. Original word count: 3, Users editing: 1
+[2025-11-19 16:44:25]   -> ERROR: Word index -1 out of bounds (valid range: 0-3)
+[2025-11-19 16:44:31]   -> Recorded edit operation #1 (word 0) for socket 6
+[2025-11-19 16:44:36]   -> ERROR: Word index 9 out of bounds (valid range: 0-3)
+[2025-11-19 16:44:39] Got REQ_ETIRW from socket 6. Committing 1 edit operations for 'amish.txt'.
+[2025-11-19 16:44:39]   -> Original word count: 3, Current: 3, Offset: 0
+[2025-11-19 16:44:39]   -> Replaying edit #0: index 0 -> 0 (offset 0) at sentence 0
+[2025-11-19 16:44:39]   -> Lock RELEASED for 'amish.txt' (sentence ptr 0x5dec1a5ebaf0)
+[2025-11-19 16:44:39]   -> User stopped editing 'amish.txt'. Active users: 0
+[2025-11-19 16:44:39]   -> No users left. Freeing document 'amish.txt' from memory.
+[2025-11-19 16:44:39]   -> Calculated stats for 'amish.txt': size=12, words=4, chars=12
+[2025-11-19 16:44:39]   -> Commit successful for socket 6
+[2025-11-19 16:44:42] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:44:42] Got REQ_CLIENT_READ for 'amish.txt' from socket 6
+[2025-11-19 16:44:42]   -> Sending file 'amish.txt' to socket 6
+[2025-11-19 16:44:42]   -> Finished sending file to socket 6
+[2025-11-19 16:45:06] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:45:06] Got REQ_CLIENT_WRITE for 'amish.txt' (sent 0) from socket 6
+[2025-11-19 16:45:06]   -> Loading file 'amish.txt' into active doc slot 0.
+[2025-11-19 16:45:06]   -> Lock CREATED for 'amish.txt' (sentence ptr 0x5dec1a5ebbd0) by socket 6
+[2025-11-19 16:45:06]   -> Lock granted. Session started. Original word count: 4, Users editing: 1
+[2025-11-19 16:45:08]   -> Recorded edit operation #1 (word 4) for socket 6
+[2025-11-19 16:45:10]   -> ERROR: Word index 6 out of bounds (valid range: 0-4)
+[2025-11-19 16:45:12] Client on socket 6 (127.0.0.1) disconnected
+[2025-11-19 16:45:12]   -> Client was in a write session!
+[2025-11-19 16:45:12]   -> Lock RELEASED for 'amish.txt' (sentence ptr 0x5dec1a5ebbd0)
+[2025-11-19 16:45:12]   -> User stopped editing 'amish.txt'. Active users: 0
+[2025-11-19 16:45:12]   -> No users left. Freeing document 'amish.txt' from memory.
+[2025-11-19 16:48:20] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:48:20] Got REQ_CLIENT_READ for 'amish.txt' from socket 6
+[2025-11-19 16:48:20]   -> Sending file 'amish.txt' to socket 6
+[2025-11-19 16:48:20]   -> Finished sending file to socket 6
+[2025-11-19 16:48:28] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:48:28] Got REQ_CLIENT_WRITE for 'amish.txt' (sent 0) from socket 6
+[2025-11-19 16:48:28]   -> Loading file 'amish.txt' into active doc slot 0.
+[2025-11-19 16:48:28]   -> Lock CREATED for 'amish.txt' (sentence ptr 0x5dec1a5ebbf0) by socket 6
+[2025-11-19 16:48:28]   -> Lock granted. Session started. Original word count: 4, Users editing: 1
+[2025-11-19 16:48:31]   -> Recorded edit operation #1 (word 2) for socket 6
+[2025-11-19 16:49:22]   -> Recorded edit operation #2 (word 4) for socket 6
+[2025-11-19 16:50:23] Got REQ_ETIRW from socket 6. Committing 2 edit operations for 'amish.txt'.
+[2025-11-19 16:50:23]   -> Original word count: 4, Current: 4, Offset: 0
+[2025-11-19 16:50:23]   -> Replaying edit #0: index 2 -> 2 (offset 0) at sentence 0
+[2025-11-19 16:50:23]   -> ERROR: Adjusted index 4 out of bounds (valid range: 0-3) for edit #1
+[2025-11-19 16:50:23]   -> Lock RELEASED for 'amish.txt' (sentence ptr 0x5dec1a5ebbf0)
+[2025-11-19 16:50:23]   -> User stopped editing 'amish.txt'. Active users: -1
+[2025-11-19 16:50:23]   -> No users left. Freeing document 'amish.txt' from memory.
+[2025-11-19 16:51:57] --- Storage Server Started ---
+[2025-11-19 16:51:57] Scanning storage directory: ./ss_storage
+[2025-11-19 16:51:57] Found 35 files.
+[2025-11-19 16:51:57] Storage Server connected to Name Server on port 8080
+[2025-11-19 16:51:57] Sending file list with metadata...
+[2025-11-19 16:51:57]   -> Sending 'anay.txt' (owner: system, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'file.txt' (owner: system, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'test.txt' (owner: system, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'nga.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'j.txt' (owner: system, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'nigger.txt' (owner: system, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'file.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'files/script.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'files/script.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'tag.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'temp.txt' (owner: system, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'test.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'sree.txt' (owner: system, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'vishal.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'temp.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'tag.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'g.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'k.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'nga.txt' (owner: system, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'amish.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending '.checkpoints/tag.txt/1' (owner: system, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending '.checkpoints/tag.txt/2' (owner: system, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending '.checkpoints/amish.txt/__UNDO__' (owner: system, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending '.checkpoints/amish.txt/1' (owner: system, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'hope.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'vishal.txt' (owner: system, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'my_files/re.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'my_files/re.txt' (owner: sree, access_count: 2)
+[2025-11-19 16:51:57]   -> Sending 'my_files/sub/arushi.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'sree.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'k.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'amish.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'leon.txt' (owner: system, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'anay.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:51:57]   -> Sending 'hope.txt' (owner: system, access_count: 0)
+[2025-11-19 16:51:57] Registration successful!
+[2025-11-19 16:51:57] Sending metadata for 35 existing files...
+[2025-11-19 16:51:57]   -> Calculated stats for 'anay.txt': size=15, words=3, chars=15
+[2025-11-19 16:51:57]   -> Calculated stats for 'file.txt': size=30, words=6, chars=30
+[2025-11-19 16:51:57]   -> Calculated stats for 'test.txt': size=22, words=5, chars=22
+[2025-11-19 16:51:57]   -> Calculated stats for 'nga.txt.bak': size=12, words=2, chars=12
+[2025-11-19 16:51:57]   -> Calculated stats for 'j.txt': size=0, words=0, chars=0
+[2025-11-19 16:51:57]   -> Calculated stats for 'nigger.txt': size=0, words=0, chars=0
+[2025-11-19 16:51:57]   -> Calculated stats for 'file.txt.bak': size=36, words=8, chars=36
+[2025-11-19 16:51:57]   -> Calculated stats for 'files/script.txt.bak': size=10, words=4, chars=10
+[2025-11-19 16:51:57]   -> Calculated stats for 'files/script.txt': size=10, words=4, chars=10
+[2025-11-19 16:51:57]   -> Calculated stats for 'tag.txt.bak': size=20, words=4, chars=20
+[2025-11-19 16:51:57]   -> Calculated stats for 'temp.txt': size=15, words=3, chars=15
+[2025-11-19 16:51:57]   -> Calculated stats for 'test.txt.bak': size=10, words=2, chars=10
+[2025-11-19 16:51:57]   -> Calculated stats for 'sree.txt': size=4, words=1, chars=4
+[2025-11-19 16:51:57]   -> Calculated stats for 'vishal.txt.bak': size=4, words=1, chars=4
+[2025-11-19 16:51:57]   -> Calculated stats for 'temp.txt.bak': size=15, words=3, chars=15
+[2025-11-19 16:51:57]   -> Calculated stats for 'tag.txt': size=20, words=4, chars=20
+[2025-11-19 16:51:57]   -> Calculated stats for 'g.txt': size=0, words=0, chars=0
+[2025-11-19 16:51:57]   -> Calculated stats for 'k.txt.bak': size=0, words=0, chars=0
+[2025-11-19 16:51:57]   -> Calculated stats for 'nga.txt': size=23, words=4, chars=23
+[2025-11-19 16:51:57]   -> Calculated stats for 'amish.txt': size=12, words=4, chars=12
+[2025-11-19 16:51:57]   -> Calculated stats for '.checkpoints/tag.txt/1': size=20, words=4, chars=20
+[2025-11-19 16:51:57]   -> Calculated stats for '.checkpoints/tag.txt/2': size=20, words=4, chars=20
+[2025-11-19 16:51:57]   -> Calculated stats for '.checkpoints/amish.txt/__UNDO__': size=24, words=6, chars=24
+[2025-11-19 16:51:57]   -> Calculated stats for '.checkpoints/amish.txt/1': size=9, words=3, chars=9
+[2025-11-19 16:51:57]   -> Calculated stats for 'hope.txt.bak': size=0, words=0, chars=0
+[2025-11-19 16:51:57]   -> Calculated stats for 'vishal.txt': size=4, words=1, chars=4
+[2025-11-19 16:51:57]   -> Calculated stats for 'my_files/re.txt.bak': size=0, words=0, chars=0
+[2025-11-19 16:51:57]   -> Calculated stats for 'my_files/re.txt': size=0, words=0, chars=0
+[2025-11-19 16:51:57]   -> Calculated stats for 'my_files/sub/arushi.txt': size=0, words=0, chars=0
+[2025-11-19 16:51:57]   -> Calculated stats for 'sree.txt.bak': size=10, words=2, chars=10
+[2025-11-19 16:51:57]   -> Calculated stats for 'k.txt': size=2, words=1, chars=2
+[2025-11-19 16:51:57]   -> Calculated stats for 'amish.txt.bak': size=9, words=3, chars=9
+[2025-11-19 16:51:57]   -> Calculated stats for 'leon.txt': size=0, words=0, chars=0
+[2025-11-19 16:51:57]   -> Calculated stats for 'anay.txt.bak': size=24, words=4, chars=24
+[2025-11-19 16:51:57]   -> Calculated stats for 'hope.txt': size=4, words=1, chars=4
+[2025-11-19 16:51:57] Storage Server now listening for clients on port 8082...
+[2025-11-19 16:52:17] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:52:17] Got REQ_CLIENT_READ for 'amish.txt' from socket 6
+[2025-11-19 16:52:17]   -> Sending file 'amish.txt' to socket 6
+[2025-11-19 16:52:17]   -> Finished sending file to socket 6
+[2025-11-19 16:52:35] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:52:35] Got REQ_CLIENT_WRITE for 'amish.txt' (sent 0) from socket 6
+[2025-11-19 16:52:35]   -> Loading file 'amish.txt' into active doc slot 0.
+[2025-11-19 16:52:35]   -> Lock CREATED for 'amish.txt' (sentence ptr 0x61b537627af0) by socket 6
+[2025-11-19 16:52:35]   -> Lock granted. Session started. Original word count: 4, Users editing: 1
+[2025-11-19 16:52:36]   -> Recorded edit operation #1 (word 2) for socket 6
+[2025-11-19 16:52:39] Got REQ_ETIRW from socket 6. Committing 1 edit operations for 'amish.txt'.
+[2025-11-19 16:52:39]   -> Original word count: 4, Current: 4, Offset: 0
+[2025-11-19 16:52:39]   -> Replaying edit #0: index 2 -> 2 (offset 0) at sentence 0
+[2025-11-19 16:52:39]   -> Lock RELEASED for 'amish.txt' (sentence ptr 0x61b537627af0)
+[2025-11-19 16:52:39]   -> User stopped editing 'amish.txt'. Active users: 0
+[2025-11-19 16:52:39]   -> No users left. Freeing document 'amish.txt' from memory.
+[2025-11-19 16:52:39]   -> Calculated stats for 'amish.txt': size=16, words=5, chars=16
+[2025-11-19 16:52:39]   -> Commit successful for socket 6
+[2025-11-19 16:52:50] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:52:50] Got REQ_CLIENT_READ for 'amish.txt' from socket 6
+[2025-11-19 16:52:50]   -> Sending file 'amish.txt' to socket 6
+[2025-11-19 16:52:50]   -> Finished sending file to socket 6
+[2025-11-19 16:52:57] Got REQ_SS_UNDO for 'amish.txt' from NM
+[2025-11-19 16:52:57]   -> Found __UNDO__ checkpoint, restoring pre-revert state
+[2025-11-19 16:52:57]   -> Restored from __UNDO__ checkpoint
+[2025-11-19 16:52:57]   -> Calculated stats for 'amish.txt': size=24, words=6, chars=24
+[2025-11-19 16:53:00] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:53:00] Got REQ_CLIENT_READ for 'amish.txt' from socket 6
+[2025-11-19 16:53:00]   -> Sending file 'amish.txt' to socket 6
+[2025-11-19 16:53:00]   -> Finished sending file to socket 6
+[2025-11-19 16:53:20] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:53:20] Got REQ_CLIENT_READ for 'amish.txt' from socket 6
+[2025-11-19 16:53:20]   -> Sending file 'amish.txt' to socket 6
+[2025-11-19 16:53:20]   -> Finished sending file to socket 6
+[2025-11-19 16:53:31] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:53:31] Got REQ_CLIENT_WRITE for 'amish.txt' (sent 0) from socket 6
+[2025-11-19 16:53:31]   -> Loading file 'amish.txt' into active doc slot 0.
+[2025-11-19 16:53:31]   -> Lock CREATED for 'amish.txt' (sentence ptr 0x61b537627b50) by socket 6
+[2025-11-19 16:53:31]   -> Lock granted. Session started. Original word count: 6, Users editing: 1
+[2025-11-19 16:53:42]   -> Recorded edit operation #1 (word 2) for socket 6
+[2025-11-19 16:54:14]   -> Recorded edit operation #2 (word 6) for socket 6
+[2025-11-19 16:54:18]   -> ERROR: Word index 90 out of bounds (valid range: 0-6)
+[2025-11-19 16:54:20] Got REQ_ETIRW from socket 6. Committing 2 edit operations for 'amish.txt'.
+[2025-11-19 16:54:20]   -> Original word count: 6, Current: 6, Offset: 0
+[2025-11-19 16:54:20]   -> Replaying edit #0: index 2 -> 2 (offset 0) at sentence 0
+[2025-11-19 16:54:20]   -> ERROR: Adjusted index 6 out of bounds (valid range: 0-3) for edit #1
+[2025-11-19 16:54:20]   -> Lock RELEASED for 'amish.txt' (sentence ptr 0x61b537627b50)
+[2025-11-19 16:54:20]   -> User stopped editing 'amish.txt'. Active users: -1
+[2025-11-19 16:54:20]   -> No users left. Freeing document 'amish.txt' from memory.
+[2025-11-19 16:58:14] --- Storage Server Started ---
+[2025-11-19 16:58:14] Scanning storage directory: ./ss_storage
+[2025-11-19 16:58:14] Found 35 files.
+[2025-11-19 16:58:14] Storage Server connected to Name Server on port 8080
+[2025-11-19 16:58:14] Sending file list with metadata...
+[2025-11-19 16:58:14]   -> Sending 'anay.txt' (owner: system, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'file.txt' (owner: system, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'test.txt' (owner: system, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'nga.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'j.txt' (owner: system, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'nigger.txt' (owner: system, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'file.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'files/script.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'files/script.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'tag.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'temp.txt' (owner: system, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'test.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'sree.txt' (owner: system, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'vishal.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'temp.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'tag.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'g.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'k.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'nga.txt' (owner: system, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'amish.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending '.checkpoints/tag.txt/1' (owner: system, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending '.checkpoints/tag.txt/2' (owner: system, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending '.checkpoints/amish.txt/1' (owner: system, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending '.checkpoints/amish.txt/__REDO__' (owner: system, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'hope.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'vishal.txt' (owner: system, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'my_files/re.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'my_files/re.txt' (owner: sree, access_count: 2)
+[2025-11-19 16:58:14]   -> Sending 'my_files/sub/arushi.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'sree.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'k.txt' (owner: sree, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'amish.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'leon.txt' (owner: system, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'anay.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 16:58:14]   -> Sending 'hope.txt' (owner: system, access_count: 0)
+[2025-11-19 16:58:14] Registration successful!
+[2025-11-19 16:58:14] Sending metadata for 35 existing files...
+[2025-11-19 16:58:14]   -> Calculated stats for 'anay.txt': size=15, words=3, chars=15
+[2025-11-19 16:58:14]   -> Calculated stats for 'file.txt': size=30, words=6, chars=30
+[2025-11-19 16:58:14]   -> Calculated stats for 'test.txt': size=22, words=5, chars=22
+[2025-11-19 16:58:14]   -> Calculated stats for 'nga.txt.bak': size=12, words=2, chars=12
+[2025-11-19 16:58:14]   -> Calculated stats for 'j.txt': size=0, words=0, chars=0
+[2025-11-19 16:58:14]   -> Calculated stats for 'nigger.txt': size=0, words=0, chars=0
+[2025-11-19 16:58:14]   -> Calculated stats for 'file.txt.bak': size=36, words=8, chars=36
+[2025-11-19 16:58:14]   -> Calculated stats for 'files/script.txt.bak': size=10, words=4, chars=10
+[2025-11-19 16:58:14]   -> Calculated stats for 'files/script.txt': size=10, words=4, chars=10
+[2025-11-19 16:58:14]   -> Calculated stats for 'tag.txt.bak': size=20, words=4, chars=20
+[2025-11-19 16:58:14]   -> Calculated stats for 'temp.txt': size=15, words=3, chars=15
+[2025-11-19 16:58:14]   -> Calculated stats for 'test.txt.bak': size=10, words=2, chars=10
+[2025-11-19 16:58:14]   -> Calculated stats for 'sree.txt': size=4, words=1, chars=4
+[2025-11-19 16:58:14]   -> Calculated stats for 'vishal.txt.bak': size=4, words=1, chars=4
+[2025-11-19 16:58:14]   -> Calculated stats for 'temp.txt.bak': size=15, words=3, chars=15
+[2025-11-19 16:58:14]   -> Calculated stats for 'tag.txt': size=20, words=4, chars=20
+[2025-11-19 16:58:14]   -> Calculated stats for 'g.txt': size=0, words=0, chars=0
+[2025-11-19 16:58:14]   -> Calculated stats for 'k.txt.bak': size=0, words=0, chars=0
+[2025-11-19 16:58:14]   -> Calculated stats for 'nga.txt': size=23, words=4, chars=23
+[2025-11-19 16:58:14]   -> Calculated stats for 'amish.txt': size=24, words=6, chars=24
+[2025-11-19 16:58:14]   -> Calculated stats for '.checkpoints/tag.txt/1': size=20, words=4, chars=20
+[2025-11-19 16:58:14]   -> Calculated stats for '.checkpoints/tag.txt/2': size=20, words=4, chars=20
+[2025-11-19 16:58:14]   -> Calculated stats for '.checkpoints/amish.txt/1': size=9, words=3, chars=9
+[2025-11-19 16:58:14]   -> Calculated stats for '.checkpoints/amish.txt/__REDO__': size=16, words=5, chars=16
+[2025-11-19 16:58:14]   -> Calculated stats for 'hope.txt.bak': size=0, words=0, chars=0
+[2025-11-19 16:58:14]   -> Calculated stats for 'vishal.txt': size=4, words=1, chars=4
+[2025-11-19 16:58:14]   -> Calculated stats for 'my_files/re.txt.bak': size=0, words=0, chars=0
+[2025-11-19 16:58:14]   -> Calculated stats for 'my_files/re.txt': size=0, words=0, chars=0
+[2025-11-19 16:58:14]   -> Calculated stats for 'my_files/sub/arushi.txt': size=0, words=0, chars=0
+[2025-11-19 16:58:14]   -> Calculated stats for 'sree.txt.bak': size=10, words=2, chars=10
+[2025-11-19 16:58:14]   -> Calculated stats for 'k.txt': size=2, words=1, chars=2
+[2025-11-19 16:58:14]   -> Calculated stats for 'amish.txt.bak': size=24, words=6, chars=24
+[2025-11-19 16:58:14]   -> Calculated stats for 'leon.txt': size=0, words=0, chars=0
+[2025-11-19 16:58:14]   -> Calculated stats for 'anay.txt.bak': size=24, words=4, chars=24
+[2025-11-19 16:58:14]   -> Calculated stats for 'hope.txt': size=4, words=1, chars=4
+[2025-11-19 16:58:14] Storage Server now listening for clients on port 8082...
+[2025-11-19 16:58:26] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:58:26] Got REQ_CLIENT_READ for 'amish.txt' from socket 6
+[2025-11-19 16:58:26]   -> Sending file 'amish.txt' to socket 6
+[2025-11-19 16:58:26]   -> Finished sending file to socket 6
+[2025-11-19 16:58:40] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:58:40] Got REQ_CLIENT_WRITE for 'amish.txt' (sent 1) from socket 6
+[2025-11-19 16:58:40]   -> Loading file 'amish.txt' into active doc slot 0.
+[2025-11-19 16:58:40]   -> ERROR: Sentence index 1 out of bounds.
+[2025-11-19 16:58:40]   -> User stopped editing 'amish.txt'. Active users: -1
+[2025-11-19 16:58:40]   -> No users left. Freeing document 'amish.txt' from memory.
+[2025-11-19 16:59:00] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:59:00] Got REQ_CLIENT_READ for 'amish.txt' from socket 6
+[2025-11-19 16:59:00]   -> Sending file 'amish.txt' to socket 6
+[2025-11-19 16:59:00]   -> Finished sending file to socket 6
+[2025-11-19 16:59:20] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:59:20] Got REQ_CLIENT_WRITE for 'amish.txt' (sent 2) from socket 6
+[2025-11-19 16:59:20]   -> Loading file 'amish.txt' into active doc slot 0.
+[2025-11-19 16:59:20]   -> ERROR: Sentence index 2 out of bounds.
+[2025-11-19 16:59:20]   -> User stopped editing 'amish.txt'. Active users: -1
+[2025-11-19 16:59:20]   -> No users left. Freeing document 'amish.txt' from memory.
+[2025-11-19 16:59:26] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 16:59:26] Got REQ_CLIENT_WRITE for 'amish.txt' (sent 0) from socket 6
+[2025-11-19 16:59:26]   -> Loading file 'amish.txt' into active doc slot 0.
+[2025-11-19 16:59:26]   -> Lock CREATED for 'amish.txt' (sentence ptr 0x63f363c6ab50) by socket 6
+[2025-11-19 16:59:26]   -> Lock granted. Session started. Original word count: 6, Users editing: 1
+[2025-11-19 16:59:30]   -> Recorded edit operation #1 (word 2) for socket 6
+[2025-11-19 16:59:46]   -> Recorded edit operation #2 (word 5) for socket 6
+[2025-11-19 16:59:48] Got REQ_ETIRW from socket 6. Committing 2 edit operations for 'amish.txt'.
+[2025-11-19 16:59:48]   -> Original word count: 6, Current: 6, Offset: 0
+[2025-11-19 16:59:48]   -> Replaying edit #0: index 2 -> 2 (offset 0) at sentence 0
+[2025-11-19 16:59:48]   -> ERROR: Adjusted index 5 out of bounds (valid range: 0-3) for edit #1
+[2025-11-19 16:59:48]   -> Lock RELEASED for 'amish.txt' (sentence ptr 0x63f363c6ab50)
+[2025-11-19 16:59:48]   -> User stopped editing 'amish.txt'. Active users: 0
+[2025-11-19 16:59:48]   -> No users left. Freeing document 'amish.txt' from memory.
+[2025-11-19 16:59:48]   -> Calculated stats for 'amish.txt': size=24, words=6, chars=24
+[2025-11-19 16:59:48]   -> Commit successful for socket 6
+[2025-11-19 17:10:58] --- Storage Server Started ---
+[2025-11-19 17:10:58] Scanning storage directory: ./ss_storage
+[2025-11-19 17:10:58] Found 35 files.
+[2025-11-19 17:10:58] Storage Server connected to Name Server on port 8080
+[2025-11-19 17:10:58] Sending file list with metadata...
+[2025-11-19 17:10:58]   -> Sending 'anay.txt' (owner: system, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'file.txt' (owner: system, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'test.txt' (owner: system, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'nga.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'j.txt' (owner: system, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'nigger.txt' (owner: system, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'file.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'files/script.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'files/script.txt' (owner: sree, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'tag.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'temp.txt' (owner: system, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'test.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'sree.txt' (owner: system, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'vishal.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'temp.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'tag.txt' (owner: sree, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'g.txt' (owner: sree, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'k.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'nga.txt' (owner: system, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'amish.txt' (owner: sree, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending '.checkpoints/tag.txt/1' (owner: system, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending '.checkpoints/tag.txt/2' (owner: system, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending '.checkpoints/amish.txt/1' (owner: system, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending '.checkpoints/amish.txt/__REDO__' (owner: system, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'hope.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'vishal.txt' (owner: system, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'my_files/re.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'my_files/re.txt' (owner: sree, access_count: 2)
+[2025-11-19 17:10:58]   -> Sending 'my_files/sub/arushi.txt' (owner: sree, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'sree.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'k.txt' (owner: sree, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'amish.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'leon.txt' (owner: system, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'anay.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 17:10:58]   -> Sending 'hope.txt' (owner: system, access_count: 0)
+[2025-11-19 17:10:58] Registration successful!
+[2025-11-19 17:10:58] Sending metadata for 35 existing files...
+[2025-11-19 17:10:58]   -> Calculated stats for 'anay.txt': size=15, words=3, chars=15
+[2025-11-19 17:10:58]   -> Calculated stats for 'file.txt': size=30, words=6, chars=30
+[2025-11-19 17:10:58]   -> Calculated stats for 'test.txt': size=22, words=5, chars=22
+[2025-11-19 17:10:58]   -> Calculated stats for 'nga.txt.bak': size=12, words=2, chars=12
+[2025-11-19 17:10:58]   -> Calculated stats for 'j.txt': size=0, words=0, chars=0
+[2025-11-19 17:10:58]   -> Calculated stats for 'nigger.txt': size=0, words=0, chars=0
+[2025-11-19 17:10:58]   -> Calculated stats for 'file.txt.bak': size=36, words=8, chars=36
+[2025-11-19 17:10:58]   -> Calculated stats for 'files/script.txt.bak': size=10, words=4, chars=10
+[2025-11-19 17:10:58]   -> Calculated stats for 'files/script.txt': size=10, words=4, chars=10
+[2025-11-19 17:10:58]   -> Calculated stats for 'tag.txt.bak': size=20, words=4, chars=20
+[2025-11-19 17:10:58]   -> Calculated stats for 'temp.txt': size=15, words=3, chars=15
+[2025-11-19 17:10:58]   -> Calculated stats for 'test.txt.bak': size=10, words=2, chars=10
+[2025-11-19 17:10:58]   -> Calculated stats for 'sree.txt': size=4, words=1, chars=4
+[2025-11-19 17:10:58]   -> Calculated stats for 'vishal.txt.bak': size=4, words=1, chars=4
+[2025-11-19 17:10:58]   -> Calculated stats for 'temp.txt.bak': size=15, words=3, chars=15
+[2025-11-19 17:10:58]   -> Calculated stats for 'tag.txt': size=20, words=4, chars=20
+[2025-11-19 17:10:58]   -> Calculated stats for 'g.txt': size=0, words=0, chars=0
+[2025-11-19 17:10:58]   -> Calculated stats for 'k.txt.bak': size=0, words=0, chars=0
+[2025-11-19 17:10:58]   -> Calculated stats for 'nga.txt': size=23, words=4, chars=23
+[2025-11-19 17:10:58]   -> Calculated stats for 'amish.txt': size=24, words=6, chars=24
+[2025-11-19 17:10:58]   -> Calculated stats for '.checkpoints/tag.txt/1': size=20, words=4, chars=20
+[2025-11-19 17:10:58]   -> Calculated stats for '.checkpoints/tag.txt/2': size=20, words=4, chars=20
+[2025-11-19 17:10:58]   -> Calculated stats for '.checkpoints/amish.txt/1': size=9, words=3, chars=9
+[2025-11-19 17:10:58]   -> Calculated stats for '.checkpoints/amish.txt/__REDO__': size=16, words=5, chars=16
+[2025-11-19 17:10:58]   -> Calculated stats for 'hope.txt.bak': size=0, words=0, chars=0
+[2025-11-19 17:10:58]   -> Calculated stats for 'vishal.txt': size=4, words=1, chars=4
+[2025-11-19 17:10:58]   -> Calculated stats for 'my_files/re.txt.bak': size=0, words=0, chars=0
+[2025-11-19 17:10:58]   -> Calculated stats for 'my_files/re.txt': size=0, words=0, chars=0
+[2025-11-19 17:10:58]   -> Calculated stats for 'my_files/sub/arushi.txt': size=0, words=0, chars=0
+[2025-11-19 17:10:58]   -> Calculated stats for 'sree.txt.bak': size=10, words=2, chars=10
+[2025-11-19 17:10:58]   -> Calculated stats for 'k.txt': size=2, words=1, chars=2
+[2025-11-19 17:10:58]   -> Calculated stats for 'amish.txt.bak': size=0, words=0, chars=0
+[2025-11-19 17:10:58]   -> Calculated stats for 'leon.txt': size=0, words=0, chars=0
+[2025-11-19 17:10:58]   -> Calculated stats for 'anay.txt.bak': size=24, words=4, chars=24
+[2025-11-19 17:10:58]   -> Calculated stats for 'hope.txt': size=4, words=1, chars=4
+[2025-11-19 17:10:58] Storage Server now listening for clients on port 8082...
+[2025-11-19 17:11:53] Got REQ_SS_LISTCHECKPOINTS for 'tag.txt' from NM
+[2025-11-19 17:11:53]   -> Sent 2 checkpoint(s) for 'tag.txt'
+[2025-11-19 17:12:02] Got REQ_SS_VIEWCHECKPOINT for 'tag.txt' tag '1' from NM
+[2025-11-19 17:12:02]   -> Sent checkpoint content (20 bytes)
+[2025-11-19 17:12:35] Got REQ_SS_VIEWCHECKPOINT for 'tag.txt' tag '2' from NM
+[2025-11-19 17:12:35]   -> Sent checkpoint content (20 bytes)
+[2025-11-19 17:12:44] Got REQ_SS_LISTCHECKPOINTS for 'amish.txt' from NM
+[2025-11-19 17:12:44]   -> Sent 1 checkpoint(s) for 'amish.txt'

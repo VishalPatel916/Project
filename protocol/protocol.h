@@ -58,7 +58,18 @@ typedef enum {
     REQ_MOVE,           // Client -> NM
     REQ_SS_MOVE,        // NM -> SS
     REQ_VIEWFOLDER,     // Client -> NM
-    REQ_SS_CHECKFOLDER  // NM -> SS (check if folder exists)
+    REQ_SS_CHECKFOLDER,  // NM -> SS (check if folder exists)
+
+    // --- NEW: Checkpoint Operations ---
+    REQ_CHECKPOINT,      // Client -> NM
+    REQ_SS_CHECKPOINT,   // NM -> SS
+    REQ_VIEWCHECKPOINT,  // Client -> NM
+    REQ_SS_VIEWCHECKPOINT, // NM -> SS
+    REQ_REVERT,          // Client -> NM
+    REQ_SS_REVERT,       // NM -> SS
+    REQ_LISTCHECKPOINTS, // Client -> NM
+    REQ_SS_LISTCHECKPOINTS, // NM -> SS
+    RES_CHECKPOINT_LIST  // SS -> NM -> Client
 
 } MessageType;
 
@@ -97,6 +108,13 @@ typedef struct {
 // --- NEW: Folder Payloads ---
 typedef struct { char foldername[MAX_FILENAME]; } Msg_Folder_Request;
 typedef struct { char filename[MAX_FILENAME]; char foldername[MAX_FILENAME]; } Msg_Move_Request;
+
+// --- NEW: Checkpoint Payloads ---
+#define MAX_CHECKPOINT_TAG 64
+typedef struct { char filename[MAX_FILENAME]; char tag[MAX_CHECKPOINT_TAG]; } Msg_Checkpoint_Request;
+typedef struct { char filename[MAX_FILENAME]; } Msg_ListCheckpoints_Request;
+typedef struct { int checkpoint_count; } Msg_Checkpoint_List_Hdr;
+typedef struct { char tag[MAX_CHECKPOINT_TAG]; time_t timestamp; } Msg_Checkpoint_Item;
 
 
 // --- 6. HELPER FUNCTION ---

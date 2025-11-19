@@ -813,6 +813,168 @@ int main() {
                             }
                             // --- END FOLDER OPERATIONS ---
 
+                            // --- CHECKPOINT OPERATIONS ---
+                            case REQ_CHECKPOINT: {
+                                Msg_Checkpoint_Request req; recv(sock_fd, &req, sizeof(req), 0);
+                                log_event("Got REQ_CHECKPOINT for '%s' tag '%s' from client '%s'", req.filename, req.tag, client_state[sock_fd].username);
+                                
+                                int slot = find_file_slot(req.filename);
+                                if (slot == -1) {
+                                    log_event("  -> Error: File '%s' not found", req.filename);
+                                    send_simple_header(sock_fd, RES_ERROR);
+                                    break;
+                                }
+                                
+                                // Check if user has write access (owner can always checkpoint)
+                                if (!has_write_access(&file_catalog[slot], client_state[sock_fd].username)) {
+                                    log_event("  -> Error: User '%s' has no write access to '%s'", client_state[sock_fd].username, req.filename);
+                                    send_simple_header(sock_fd, RES_ERROR);
+                                    break;
+                                }
+                                
+                                // Forward to storage server
+                                int ss_sock = file_catalog[slot].ss_sock_fd;
+                                send_simple_header(ss_sock, REQ_SS_CHECKPOINT);
+                                send(ss_sock, &req, sizeof(req), 0);
+                                
+                                // Relay response
+                                Header res;
+                                recv(ss_sock, &res, sizeof(res), 0);
+                                send(sock_fd, &res, sizeof(res), 0);
+                                
+                                if (res.type == RES_OK) {
+                                    log_event("  -> Checkpoint '%s' created successfully", req.tag);
+                                } else {
+                                    log_event("  -> Checkpoint creation failed");
+                                }
+                                break;
+                            }
+                            case REQ_VIEWCHECKPOINT: {
+                                Msg_Checkpoint_Request req; recv(sock_fd, &req, sizeof(req), 0);
+                                log_event("Got REQ_VIEWCHECKPOINT for '%s' tag '%s' from client '%s'", req.filename, req.tag, client_state[sock_fd].username);
+                                
+                                int slot = find_file_slot(req.filename);
+                                if (slot == -1) {
+                                    log_event("  -> Error: File '%s' not found", req.filename);
+                                    send_simple_header(sock_fd, RES_ERROR);
+                                    break;
+                                }
+                                
+                                // Check if user has read access
+                                if (!has_read_access(&file_catalog[slot], client_state[sock_fd].username)) {
+                                    log_event("  -> Error: User '%s' has no read access to '%s'", client_state[sock_fd].username, req.filename);
+                                    send_simple_header(sock_fd, RES_ERROR);
+                                    break;
+                                }
+                                
+                                // Forward to storage server
+                                int ss_sock = file_catalog[slot].ss_sock_fd;
+                                send_simple_header(ss_sock, REQ_SS_VIEWCHECKPOINT);
+                                send(ss_sock, &req, sizeof(req), 0);
+                                
+                                // Relay response (could be RES_ERROR or RES_SS_FILE_OK with content)
+                                Header res;
+                                recv(ss_sock, &res, sizeof(res), 0);
+                                send(sock_fd, &res, sizeof(res), 0);
+                                
+                                if (res.type == RES_SS_FILE_OK) {
+                                    // Relay file content
+                                    char buffer[4096];
+                                    int remaining = res.payload_size;
+                                    while (remaining > 0) {
+                                        int to_read = (remaining < sizeof(buffer)) ? remaining : sizeof(buffer);
+                                        int bytes = recv(ss_sock, buffer, to_read, 0);
+                                        if (bytes <= 0) break;
+                                        send(sock_fd, buffer, bytes, 0);
+                                        remaining -= bytes;
+                                    }
+                                    log_event("  -> Checkpoint content sent to client");
+                                } else {
+                                    log_event("  -> Checkpoint view failed");
+                                }
+                                break;
+                            }
+                            case REQ_REVERT: {
+                                Msg_Checkpoint_Request req; recv(sock_fd, &req, sizeof(req), 0);
+                                log_event("Got REQ_REVERT for '%s' to tag '%s' from client '%s'", req.filename, req.tag, client_state[sock_fd].username);
+                                
+                                int slot = find_file_slot(req.filename);
+                                if (slot == -1) {
+                                    log_event("  -> Error: File '%s' not found", req.filename);
+                                    send_simple_header(sock_fd, RES_ERROR);
+                                    break;
+                                }
+                                
+                                // Check if user has write access
+                                if (!has_write_access(&file_catalog[slot], client_state[sock_fd].username)) {
+                                    log_event("  -> Error: User '%s' has no write access to '%s'", client_state[sock_fd].username, req.filename);
+                                    send_simple_header(sock_fd, RES_ERROR);
+                                    break;
+                                }
+                                
+                                // Forward to storage server
+                                int ss_sock = file_catalog[slot].ss_sock_fd;
+                                send_simple_header(ss_sock, REQ_SS_REVERT);
+                                send(ss_sock, &req, sizeof(req), 0);
+                                
+                                // Relay response
+                                Header res;
+                                recv(ss_sock, &res, sizeof(res), 0);
+                                send(sock_fd, &res, sizeof(res), 0);
+                                
+                                if (res.type == RES_OK) {
+                                    log_event("  -> File reverted to checkpoint '%s'", req.tag);
+                                } else {
+                                    log_event("  -> Revert failed");
+                                }
+                                break;
+                            }
+                            case REQ_LISTCHECKPOINTS: {
+                                Msg_ListCheckpoints_Request req; recv(sock_fd, &req, sizeof(req), 0);
+                                log_event("Got REQ_LISTCHECKPOINTS for '%s' from client '%s'", req.filename, client_state[sock_fd].username);
+                                
+                                int slot = find_file_slot(req.filename);
+                                if (slot == -1) {
+                                    log_event("  -> Error: File '%s' not found", req.filename);
+                                    send_simple_header(sock_fd, RES_ERROR);
+                                    break;
+                                }
+                                
+                                // Check if user has read access
+                                if (!has_read_access(&file_catalog[slot], client_state[sock_fd].username)) {
+                                    log_event("  -> Error: User '%s' has no read access to '%s'", client_state[sock_fd].username, req.filename);
+                                    send_simple_header(sock_fd, RES_ERROR);
+                                    break;
+                                }
+                                
+                                // Forward to storage server
+                                int ss_sock = file_catalog[slot].ss_sock_fd;
+                                send_simple_header(ss_sock, REQ_SS_LISTCHECKPOINTS);
+                                send(ss_sock, &req, sizeof(req), 0);
+                                
+                                // Relay response
+                                Header res;
+                                recv(ss_sock, &res, sizeof(res), 0);
+                                send(sock_fd, &res, sizeof(res), 0);
+                                
+                                if (res.type == RES_CHECKPOINT_LIST) {
+                                    Msg_Checkpoint_List_Hdr hdr;
+                                    recv(ss_sock, &hdr, sizeof(hdr), 0);
+                                    send(sock_fd, &hdr, sizeof(hdr), 0);
+                                    
+                                    for (int i = 0; i < hdr.checkpoint_count; i++) {
+                                        Msg_Checkpoint_Item item;
+                                        recv(ss_sock, &item, sizeof(item), 0);
+                                        send(sock_fd, &item, sizeof(item), 0);
+                                    }
+                                    log_event("  -> Sent %d checkpoint(s) to client", hdr.checkpoint_count);
+                                } else {
+                                    log_event("  -> List checkpoints failed");
+                                }
+                                break;
+                            }
+                            // --- END CHECKPOINT OPERATIONS ---
+
                             default:
                                 log_event("Socket %d: Unknown message type %d", sock_fd, header.type);
                                 break;

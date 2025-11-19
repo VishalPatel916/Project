@@ -716,14 +716,138 @@ int main() {
                         case REQ_SS_UNDO: {
                             Msg_Filename_Request req; recv(nm_sock, &req, sizeof(req), 0);
                             log_event("Got REQ_SS_UNDO for '%s' from NM", req.filename);
-                            char original_path[256], backup_path[256], temp_swap_path[256];
-                            sprintf(original_path, "%s/%s", MY_STORAGE_PATH, req.filename);
-                            sprintf(backup_path, "%s/%s.bak", MY_STORAGE_PATH, req.filename);
-                            sprintf(temp_swap_path, "%s/%s.swap", MY_STORAGE_PATH, req.filename);
-                            rename(original_path, temp_swap_path); rename(backup_path, original_path); rename(temp_swap_path, backup_path);
-                            log_event("  -> Swapped backup file.");
-                            send_simple_header(nm_sock, RES_OK);
-                            calculate_and_send_metadata(nm_sock, req.filename, original_path);
+                            
+                            // Check if there's an __UNDO__ checkpoint from a recent revert
+                            char undo_checkpoint[1024], redo_checkpoint[1024];
+                            sprintf(undo_checkpoint, "%s/.checkpoints/%s/__UNDO__", MY_STORAGE_PATH, req.filename);
+                            sprintf(redo_checkpoint, "%s/.checkpoints/%s/__REDO__", MY_STORAGE_PATH, req.filename);
+                            
+                            struct stat st;
+                            if (stat(undo_checkpoint, &st) == 0) {
+                                // Undo a revert operation - restore from __UNDO__ and save current to __REDO__
+                                log_event("  -> Found __UNDO__ checkpoint, restoring pre-revert state");
+                                char file_path[512];
+                                sprintf(file_path, "%s/%s", MY_STORAGE_PATH, req.filename);
+                                
+                                // First save current state to __REDO__ for toggling back
+                                FILE *current = fopen(file_path, "r");
+                                FILE *redo = fopen(redo_checkpoint, "w");
+                                if (current && redo) {
+                                    char buffer[4096];
+                                    size_t bytes;
+                                    while ((bytes = fread(buffer, 1, sizeof(buffer), current)) > 0) {
+                                        fwrite(buffer, 1, bytes, redo);
+                                    }
+                                    fclose(current);
+                                    fclose(redo);
+                                }
+                                
+                                // Now restore from __UNDO__
+                                FILE *src = fopen(undo_checkpoint, "r");
+                                FILE *dst = fopen(file_path, "w");
+                                if (src && dst) {
+                                    char buffer[4096];
+                                    size_t bytes;
+                                    while ((bytes = fread(buffer, 1, sizeof(buffer), src)) > 0) {
+                                        fwrite(buffer, 1, bytes, dst);
+                                    }
+                                    fclose(src);
+                                    fclose(dst);
+                                    
+                                    // Update backup
+                                    char backup_path[520];
+                                    sprintf(backup_path, "%s.bak", file_path);
+                                    FILE *bak = fopen(undo_checkpoint, "r");
+                                    FILE *bak_dst = fopen(backup_path, "w");
+                                    if (bak && bak_dst) {
+                                        while ((bytes = fread(buffer, 1, sizeof(buffer), bak)) > 0) {
+                                            fwrite(buffer, 1, bytes, bak_dst);
+                                        }
+                                        fclose(bak);
+                                        fclose(bak_dst);
+                                    }
+                                    
+                                    // Delete __UNDO__, keep __REDO__ for next toggle
+                                    unlink(undo_checkpoint);
+                                    log_event("  -> Restored from __UNDO__ checkpoint");
+                                    send_simple_header(nm_sock, RES_OK);
+                                } else {
+                                    if (src) fclose(src);
+                                    if (dst) fclose(dst);
+                                    log_event("  -> Error restoring from __UNDO__: %s", strerror(errno));
+                                    send_simple_header(nm_sock, RES_ERROR);
+                                }
+                                char original_path[256];
+                                sprintf(original_path, "%s/%s", MY_STORAGE_PATH, req.filename);
+                                calculate_and_send_metadata(nm_sock, req.filename, original_path);
+                            } else if (stat(redo_checkpoint, &st) == 0) {
+                                // Redo - toggle back to reverted state
+                                log_event("  -> Found __REDO__ checkpoint, toggling back to reverted state");
+                                char file_path[512];
+                                sprintf(file_path, "%s/%s", MY_STORAGE_PATH, req.filename);
+                                
+                                // Save current to __UNDO__ for toggling back again
+                                FILE *current = fopen(file_path, "r");
+                                FILE *undo = fopen(undo_checkpoint, "w");
+                                if (current && undo) {
+                                    char buffer[4096];
+                                    size_t bytes;
+                                    while ((bytes = fread(buffer, 1, sizeof(buffer), current)) > 0) {
+                                        fwrite(buffer, 1, bytes, undo);
+                                    }
+                                    fclose(current);
+                                    fclose(undo);
+                                }
+                                
+                                // Restore from __REDO__
+                                FILE *src = fopen(redo_checkpoint, "r");
+                                FILE *dst = fopen(file_path, "w");
+                                if (src && dst) {
+                                    char buffer[4096];
+                                    size_t bytes;
+                                    while ((bytes = fread(buffer, 1, sizeof(buffer), src)) > 0) {
+                                        fwrite(buffer, 1, bytes, dst);
+                                    }
+                                    fclose(src);
+                                    fclose(dst);
+                                    
+                                    // Update backup
+                                    char backup_path[520];
+                                    sprintf(backup_path, "%s.bak", file_path);
+                                    FILE *bak = fopen(redo_checkpoint, "r");
+                                    FILE *bak_dst = fopen(backup_path, "w");
+                                    if (bak && bak_dst) {
+                                        while ((bytes = fread(buffer, 1, sizeof(buffer), bak)) > 0) {
+                                            fwrite(buffer, 1, bytes, bak_dst);
+                                        }
+                                        fclose(bak);
+                                        fclose(bak_dst);
+                                    }
+                                    
+                                    // Delete __REDO__, keep __UNDO__ for next toggle
+                                    unlink(redo_checkpoint);
+                                    log_event("  -> Restored from __REDO__ checkpoint");
+                                    send_simple_header(nm_sock, RES_OK);
+                                } else {
+                                    if (src) fclose(src);
+                                    if (dst) fclose(dst);
+                                    log_event("  -> Error restoring from __REDO__: %s", strerror(errno));
+                                    send_simple_header(nm_sock, RES_ERROR);
+                                }
+                                char original_path[256];
+                                sprintf(original_path, "%s/%s", MY_STORAGE_PATH, req.filename);
+                                calculate_and_send_metadata(nm_sock, req.filename, original_path);
+                            } else {
+                                // No __UNDO__ or __REDO__ checkpoint, perform regular undo (swap with backup)
+                                char original_path[256], backup_path[256], temp_swap_path[256];
+                                sprintf(original_path, "%s/%s", MY_STORAGE_PATH, req.filename);
+                                sprintf(backup_path, "%s/%s.bak", MY_STORAGE_PATH, req.filename);
+                                sprintf(temp_swap_path, "%s/%s.swap", MY_STORAGE_PATH, req.filename);
+                                rename(original_path, temp_swap_path); rename(backup_path, original_path); rename(temp_swap_path, backup_path);
+                                log_event("  -> Swapped backup file.");
+                                send_simple_header(nm_sock, RES_OK);
+                                calculate_and_send_metadata(nm_sock, req.filename, original_path);
+                            }
                             break;
                         }
                         case REQ_SS_ADD_ACCESS: {
@@ -874,6 +998,222 @@ int main() {
                             }
                             break;
                         }
+                        case REQ_SS_CHECKPOINT: {
+                            Msg_Checkpoint_Request req; recv(nm_sock, &req, sizeof(req), 0);
+                            log_event("Got REQ_SS_CHECKPOINT for '%s' with tag '%s' from NM", req.filename, req.tag);
+                            
+                            char file_path[512], checkpoint_dir[512], checkpoint_path[1024];
+                            sprintf(file_path, "%s/%s", MY_STORAGE_PATH, req.filename);
+                            sprintf(checkpoint_dir, "%s/.checkpoints/%s", MY_STORAGE_PATH, req.filename);
+                            sprintf(checkpoint_path, "%s/%s", checkpoint_dir, req.tag);
+                            
+                            // Check if file exists
+                            struct stat st;
+                            if (stat(file_path, &st) != 0) {
+                                log_event("  -> Error: File '%s' not found", req.filename);
+                                send_simple_header(nm_sock, RES_ERROR);
+                                break;
+                            }
+                            
+                            // Check if checkpoint with this tag already exists
+                            if (stat(checkpoint_path, &st) == 0) {
+                                log_event("  -> Error: Checkpoint tag '%s' already exists", req.tag);
+                                send_simple_header(nm_sock, RES_ERROR);
+                                break;
+                            }
+                            
+                            // Create checkpoint directory (recursively)
+                            char temp_dir[512];
+                            strncpy(temp_dir, checkpoint_dir, sizeof(temp_dir));
+                            temp_dir[sizeof(temp_dir) - 1] = '\0';
+                            for (char* p = temp_dir + strlen(MY_STORAGE_PATH) + 1; *p; p++) {
+                                if (*p == '/') {
+                                    *p = '\0';
+                                    mkdir(temp_dir, 0777);
+                                    *p = '/';
+                                }
+                            }
+                            mkdir(checkpoint_dir, 0777);
+                            
+                            // Copy file to checkpoint
+                            FILE *src = fopen(file_path, "r");
+                            FILE *dst = fopen(checkpoint_path, "w");
+                            if (src && dst) {
+                                char buffer[4096];
+                                size_t bytes;
+                                while ((bytes = fread(buffer, 1, sizeof(buffer), src)) > 0) {
+                                    fwrite(buffer, 1, bytes, dst);
+                                }
+                                fclose(src);
+                                fclose(dst);
+                                log_event("  -> Checkpoint '%s' created for '%s'", req.tag, req.filename);
+                                send_simple_header(nm_sock, RES_OK);
+                            } else {
+                                if (src) fclose(src);
+                                if (dst) fclose(dst);
+                                log_event("  -> Error creating checkpoint: %s", strerror(errno));
+                                send_simple_header(nm_sock, RES_ERROR);
+                            }
+                            break;
+                        }
+                        case REQ_SS_VIEWCHECKPOINT: {
+                            Msg_Checkpoint_Request req; recv(nm_sock, &req, sizeof(req), 0);
+                            log_event("Got REQ_SS_VIEWCHECKPOINT for '%s' tag '%s' from NM", req.filename, req.tag);
+                            
+                            char checkpoint_path[1024];
+                            sprintf(checkpoint_path, "%s/.checkpoints/%s/%s", MY_STORAGE_PATH, req.filename, req.tag);
+                            
+                            struct stat st;
+                            if (stat(checkpoint_path, &st) != 0) {
+                                log_event("  -> Error: Checkpoint '%s' not found for file '%s'", req.tag, req.filename);
+                                send_simple_header(nm_sock, RES_ERROR);
+                                break;
+                            }
+                            
+                            // Send file content
+                            FILE *f = fopen(checkpoint_path, "r");
+                            if (f) {
+                                fseek(f, 0, SEEK_END);
+                                long size = ftell(f);
+                                fseek(f, 0, SEEK_SET);
+                                
+                                Header res_hdr;
+                                res_hdr.type = RES_SS_FILE_OK;
+                                res_hdr.payload_size = size;
+                                send(nm_sock, &res_hdr, sizeof(res_hdr), 0);
+                                
+                                char buffer[4096];
+                                size_t bytes;
+                                while ((bytes = fread(buffer, 1, sizeof(buffer), f)) > 0) {
+                                    send(nm_sock, buffer, bytes, 0);
+                                }
+                                fclose(f);
+                                log_event("  -> Sent checkpoint content (%ld bytes)", size);
+                            } else {
+                                log_event("  -> Error opening checkpoint: %s", strerror(errno));
+                                send_simple_header(nm_sock, RES_ERROR);
+                            }
+                            break;
+                        }
+                        case REQ_SS_REVERT: {
+                            Msg_Checkpoint_Request req; recv(nm_sock, &req, sizeof(req), 0);
+                            log_event("Got REQ_SS_REVERT for '%s' to tag '%s' from NM", req.filename, req.tag);
+                            
+                            char file_path[512], checkpoint_path[1024], undo_path[1024];
+                            sprintf(file_path, "%s/%s", MY_STORAGE_PATH, req.filename);
+                            sprintf(checkpoint_path, "%s/.checkpoints/%s/%s", MY_STORAGE_PATH, req.filename, req.tag);
+                            sprintf(undo_path, "%s/.checkpoints/%s/__UNDO__", MY_STORAGE_PATH, req.filename);
+                            
+                            // Check if checkpoint exists
+                            struct stat st;
+                            if (stat(checkpoint_path, &st) != 0) {
+                                log_event("  -> Error: Checkpoint '%s' not found for file '%s'", req.tag, req.filename);
+                                send_simple_header(nm_sock, RES_ERROR);
+                                break;
+                            }
+                            
+                            // First, save current state to __UNDO__ checkpoint for undo functionality
+                            FILE *current_file = fopen(file_path, "r");
+                            FILE *undo_file = fopen(undo_path, "w");
+                            if (current_file && undo_file) {
+                                char buffer[4096];
+                                size_t bytes;
+                                while ((bytes = fread(buffer, 1, sizeof(buffer), current_file)) > 0) {
+                                    fwrite(buffer, 1, bytes, undo_file);
+                                }
+                                fclose(current_file);
+                                fclose(undo_file);
+                                log_event("  -> Saved current state to __UNDO__ checkpoint");
+                            } else {
+                                if (current_file) fclose(current_file);
+                                if (undo_file) fclose(undo_file);
+                            }
+                            
+                            // Now copy checkpoint back to main file
+                            FILE *src = fopen(checkpoint_path, "r");
+                            FILE *dst = fopen(file_path, "w");
+                            if (src && dst) {
+                                char buffer[4096];
+                                size_t bytes;
+                                while ((bytes = fread(buffer, 1, sizeof(buffer), src)) > 0) {
+                                    fwrite(buffer, 1, bytes, dst);
+                                }
+                                fclose(src);
+                                fclose(dst);
+                                
+                                // Also update backup
+                                char backup_path[520];
+                                sprintf(backup_path, "%s.bak", file_path);
+                                FILE *bak = fopen(checkpoint_path, "r");
+                                FILE *bak_dst = fopen(backup_path, "w");
+                                if (bak && bak_dst) {
+                                    while ((bytes = fread(buffer, 1, sizeof(buffer), bak)) > 0) {
+                                        fwrite(buffer, 1, bytes, bak_dst);
+                                    }
+                                    fclose(bak);
+                                    fclose(bak_dst);
+                                }
+                                
+                                log_event("  -> File '%s' reverted to checkpoint '%s'", req.filename, req.tag);
+                                send_simple_header(nm_sock, RES_OK);
+                            } else {
+                                if (src) fclose(src);
+                                if (dst) fclose(dst);
+                                log_event("  -> Error reverting file: %s", strerror(errno));
+                                send_simple_header(nm_sock, RES_ERROR);
+                            }
+                            break;
+                        }
+                        case REQ_SS_LISTCHECKPOINTS: {
+                            Msg_ListCheckpoints_Request req; recv(nm_sock, &req, sizeof(req), 0);
+                            log_event("Got REQ_SS_LISTCHECKPOINTS for '%s' from NM", req.filename);
+                            
+                            char checkpoint_dir[512];
+                            sprintf(checkpoint_dir, "%s/.checkpoints/%s", MY_STORAGE_PATH, req.filename);
+                            
+                            // Count checkpoints
+                            int count = 0;
+                            Msg_Checkpoint_Item items[MAX_FILES_PER_SS];
+                            
+                            DIR *d = opendir(checkpoint_dir);
+                            if (d) {
+                                struct dirent *dir;
+                                while ((dir = readdir(d)) != NULL && count < MAX_FILES_PER_SS) {
+                                    if (strcmp(dir->d_name, ".") == 0 || strcmp(dir->d_name, "..") == 0) continue;
+                                    if (strcmp(dir->d_name, "__UNDO__") == 0) continue; // Skip internal undo checkpoint
+                                    if (strcmp(dir->d_name, "__REDO__") == 0) continue; // Skip internal redo checkpoint
+                                    
+                                    char checkpoint_path[1024];
+                                    sprintf(checkpoint_path, "%s/%s", checkpoint_dir, dir->d_name);
+                                    
+                                    struct stat st;
+                                    if (stat(checkpoint_path, &st) == 0 && S_ISREG(st.st_mode)) {
+                                        strncpy(items[count].tag, dir->d_name, MAX_CHECKPOINT_TAG);
+                                        items[count].tag[MAX_CHECKPOINT_TAG - 1] = '\0';
+                                        items[count].timestamp = st.st_mtime;
+                                        count++;
+                                    }
+                                }
+                                closedir(d);
+                            }
+                            
+                            // Send response
+                            Header res_hdr;
+                            res_hdr.type = RES_CHECKPOINT_LIST;
+                            res_hdr.payload_size = sizeof(Msg_Checkpoint_List_Hdr);
+                            send(nm_sock, &res_hdr, sizeof(res_hdr), 0);
+                            
+                            Msg_Checkpoint_List_Hdr hdr;
+                            hdr.checkpoint_count = count;
+                            send(nm_sock, &hdr, sizeof(hdr), 0);
+                            
+                            for (int i = 0; i < count; i++) {
+                                send(nm_sock, &items[i], sizeof(Msg_Checkpoint_Item), 0);
+                            }
+                            
+                            log_event("  -> Sent %d checkpoint(s) for '%s'", count, req.filename);
+                            break;
+                        }
                         default:
                             log_event("Got unknown command %d from NM", header.type);
                     }
@@ -962,8 +1302,34 @@ int main() {
                                 WriteSession* session = &write_sessions[sock_fd];
                                 Msg_Write_Update req; recv(sock_fd, &req, sizeof(req), 0);
                                 
-                                // Just record the operation - don't validate against document state
-                                // since we're not applying changes yet. Validation will happen at commit time.
+                                // Validate word index against current sentence state
+                                SentenceNode* target = session->sentence_ptr;
+                                if (target == NULL) {
+                                    log_event("  -> ERROR: Locked sentence pointer is NULL");
+                                    Header response_header;
+                                    response_header.type = RES_ERROR;
+                                    response_header.payload_size = 0;
+                                    send(sock_fd, &response_header, sizeof(response_header), 0);
+                                    break;
+                                }
+                                
+                                // Count words in current sentence
+                                int current_word_count = 0;
+                                WordNode* w = target->word_head;
+                                while (w != NULL) { current_word_count++; w = w->next; }
+                                
+                                // Validate word index (0-based indexing, can insert at position 0 to current_word_count)
+                                if (req.word_index < 0 || req.word_index > current_word_count) {
+                                    log_event("  -> ERROR: Word index %d out of bounds (valid range: 0-%d)", 
+                                             req.word_index, current_word_count);
+                                    Header response_header;
+                                    response_header.type = RES_ERROR;
+                                    response_header.payload_size = 0;
+                                    send(sock_fd, &response_header, sizeof(response_header), 0);
+                                    break;
+                                }
+                                
+                                // Record the operation
                                 if (session->edit_count >= session->edit_capacity) {
                                     session->edit_capacity *= 2;
                                     session->edit_ops = (EditOperation*)realloc(session->edit_ops, 
@@ -1024,17 +1390,23 @@ int main() {
                                 }
                                 
                                 // Replay edit operations with adjusted indices
+                                int validation_failed = 0;
                                 for (int i = 0; i < session->edit_count; i++) {
                                     int original_idx = session->edit_ops[i].word_index;
                                     int adjusted_idx = original_idx + word_offset;
                                     
-                                    // Clamp to valid range
+                                    // Validate adjusted index against current sentence length
                                     WordNode* temp_w = target->word_head;
                                     int max_idx = 0;
                                     while (temp_w != NULL) { max_idx++; temp_w = temp_w->next; }
                                     
-                                    if (adjusted_idx < 0) adjusted_idx = 0;
-                                    if (adjusted_idx > max_idx) adjusted_idx = max_idx;
+                                    if (adjusted_idx < 0 || adjusted_idx > max_idx) {
+                                        log_event("  -> ERROR: Adjusted index %d out of bounds (valid range: 0-%d) for edit #%d", 
+                                                 adjusted_idx, max_idx, i);
+                                        send_simple_header(sock_fd, RES_ERROR);
+                                        validation_failed = 1;
+                                        break;
+                                    }
                                     
                                     log_event("  -> Replaying edit #%d: index %d -> %d (offset %d) at sentence %d", 
                                              i, original_idx, adjusted_idx, word_offset, sentence_idx);
@@ -1052,9 +1424,11 @@ int main() {
                                     }
                                 }
                                 
-                                // Commit changes to file
-                                rename(doc->original_path, doc->backup_path);
-                                flush_list_to_file(doc->doc_head, doc->original_path);
+                                if (!validation_failed) {
+                                    // Commit changes to file
+                                    rename(doc->original_path, doc->backup_path);
+                                    flush_list_to_file(doc->doc_head, doc->original_path);
+                                }
                                 
                                 // Clean up session
                                 release_lock(doc->filename, session->sentence_ptr);

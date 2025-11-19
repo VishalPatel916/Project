@@ -104,7 +104,8 @@ void handle_write_to_ss(char* filename, int sentence_num, char* ss_ip, int ss_po
                 send_simple_header(ss_sock, REQ_ETIRW);
                 recv(ss_sock, &header, sizeof(header), 0);
                 if(header.type == RES_OK) printf("Write successful!\n");
-                else printf("Error: Write failed to commit.\n");
+                else if(header.type == RES_ERROR) printf("Error: Write failed to commit. Check word indices are valid.\n");
+                else printf("Error: Write failed to commit (response %d).\n", header.type);
                 break; 
             } else {
                 char* content = strtok(NULL, "\n");
@@ -117,10 +118,14 @@ void handle_write_to_ss(char* filename, int sentence_num, char* ss_ip, int ss_po
                 
                 // Receive response for this update
                 if (recv(ss_sock, &header, sizeof(header), 0) < 0) break;
-                if (header.type == RES_ERROR_INVALID_WORD) {
+                if (header.type == RES_ERROR) {
+                    printf("Error: Word index %d is out of bounds. Please try again.\n", word_index);
+                } else if (header.type == RES_ERROR_INVALID_WORD) {
                     printf("Error: Word index out of range.\n");
                 } else if (header.type != RES_OK) {
                     printf("Error: Update failed (response %d).\n", header.type);
+                } else {
+                    printf("Update recorded.\n");
                 }
             }
         }
@@ -466,6 +471,124 @@ int main() {
             }
         }
         // --- END FOLDER COMMANDS ---
+        
+        // --- CHECKPOINT COMMANDS ---
+        else if (strcmp(command, "checkpoint") == 0) {
+            char* filename = strtok(NULL, " \n");
+            char* tag = strtok(NULL, " \n");
+            if (filename == NULL || tag == NULL) {
+                printf("Usage: checkpoint <filename> <checkpoint_tag>\n");
+            } else {
+                header.type = REQ_CHECKPOINT;
+                header.payload_size = sizeof(Msg_Checkpoint_Request);
+                send(sock, &header, sizeof(header), 0);
+                
+                Msg_Checkpoint_Request req;
+                strncpy(req.filename, filename, MAX_FILENAME);
+                strncpy(req.tag, tag, MAX_CHECKPOINT_TAG);
+                send(sock, &req, sizeof(req), 0);
+                
+                recv(sock, &header, sizeof(header), 0);
+                if (header.type == RES_OK) {
+                    printf("Checkpoint '%s' created successfully for file '%s'.\n", tag, filename);
+                } else {
+                    printf("Error: Failed to create checkpoint (file not found, tag already exists, or permission denied).\n");
+                }
+            }
+        }
+        else if (strcmp(command, "viewcheckpoint") == 0) {
+            char* filename = strtok(NULL, " \n");
+            char* tag = strtok(NULL, " \n");
+            if (filename == NULL || tag == NULL) {
+                printf("Usage: viewcheckpoint <filename> <checkpoint_tag>\n");
+            } else {
+                header.type = REQ_VIEWCHECKPOINT;
+                header.payload_size = sizeof(Msg_Checkpoint_Request);
+                send(sock, &header, sizeof(header), 0);
+                
+                Msg_Checkpoint_Request req;
+                strncpy(req.filename, filename, MAX_FILENAME);
+                strncpy(req.tag, tag, MAX_CHECKPOINT_TAG);
+                send(sock, &req, sizeof(req), 0);
+                
+                recv(sock, &header, sizeof(header), 0);
+                if (header.type == RES_SS_FILE_OK) {
+                    printf("\n=== Checkpoint '%s' content for '%s' ===\n", tag, filename);
+                    char buffer[4096];
+                    int remaining = header.payload_size;
+                    while (remaining > 0) {
+                        int to_read = (remaining < sizeof(buffer)) ? remaining : sizeof(buffer);
+                        int bytes = recv(sock, buffer, to_read, 0);
+                        if (bytes <= 0) break;
+                        fwrite(buffer, 1, bytes, stdout);
+                        remaining -= bytes;
+                    }
+                    printf("\n=== End of checkpoint ===\n");
+                } else {
+                    printf("Error: Checkpoint not found or permission denied.\n");
+                }
+            }
+        }
+        else if (strcmp(command, "revert") == 0) {
+            char* filename = strtok(NULL, " \n");
+            char* tag = strtok(NULL, " \n");
+            if (filename == NULL || tag == NULL) {
+                printf("Usage: revert <filename> <checkpoint_tag>\n");
+            } else {
+                header.type = REQ_REVERT;
+                header.payload_size = sizeof(Msg_Checkpoint_Request);
+                send(sock, &header, sizeof(header), 0);
+                
+                Msg_Checkpoint_Request req;
+                strncpy(req.filename, filename, MAX_FILENAME);
+                strncpy(req.tag, tag, MAX_CHECKPOINT_TAG);
+                send(sock, &req, sizeof(req), 0);
+                
+                recv(sock, &header, sizeof(header), 0);
+                if (header.type == RES_OK) {
+                    printf("File '%s' successfully reverted to checkpoint '%s'.\n", filename, tag);
+                } else {
+                    printf("Error: Failed to revert (checkpoint not found or permission denied).\n");
+                }
+            }
+        }
+        else if (strcmp(command, "listcheckpoints") == 0) {
+            char* filename = strtok(NULL, " \n");
+            if (filename == NULL) {
+                printf("Usage: listcheckpoints <filename>\n");
+            } else {
+                header.type = REQ_LISTCHECKPOINTS;
+                header.payload_size = sizeof(Msg_ListCheckpoints_Request);
+                send(sock, &header, sizeof(header), 0);
+                
+                Msg_ListCheckpoints_Request req;
+                strncpy(req.filename, filename, MAX_FILENAME);
+                send(sock, &req, sizeof(req), 0);
+                
+                recv(sock, &header, sizeof(header), 0);
+                if (header.type == RES_CHECKPOINT_LIST) {
+                    Msg_Checkpoint_List_Hdr hdr;
+                    recv(sock, &hdr, sizeof(hdr), 0);
+                    
+                    if (hdr.checkpoint_count == 0) {
+                        printf("No checkpoints found for file '%s'.\n", filename);
+                    } else {
+                        printf("Checkpoints for '%s' (%d total):\n", filename, hdr.checkpoint_count);
+                        for (int i = 0; i < hdr.checkpoint_count; i++) {
+                            Msg_Checkpoint_Item item;
+                            recv(sock, &item, sizeof(item), 0);
+                            
+                            char time_str[100];
+                            strftime(time_str, sizeof(time_str), "%Y-%m-%d %H:%M:%S", localtime(&item.timestamp));
+                            printf("  - Tag: %s  (Created: %s)\n", item.tag, time_str);
+                        }
+                    }
+                } else {
+                    printf("Error: File not found or permission denied.\n");
+                }
+            }
+        }
+        // --- END CHECKPOINT COMMANDS ---
         
         else if (strcmp(command, "quit") == 0 || strcmp(command, "exit") == 0) {
             break;
