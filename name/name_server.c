@@ -29,7 +29,29 @@ ClientInfo client_state[MAX_CONNECTIONS];
 SSInfo ss_state[MAX_CONNECTIONS];
 FileMetadata file_catalog[MAX_FILES_IN_SYSTEM];
 
-// --- 3. Logging Function ---
+// --- 3. EFFICIENT SEARCH STRUCTURES ---
+#define HASH_SIZE 1024 // Hash table size (power of 2)
+#define CACHE_SIZE 5   // LRU cache for recent lookups
+
+// Hash Map Node for O(1) lookup
+typedef struct HashNode {
+    char key[MAX_FILENAME];
+    int slot_index; // Index in file_catalog
+    struct HashNode* next; // Collision handling via chaining
+} HashNode;
+
+HashNode* hash_table[HASH_SIZE];
+
+// LRU Cache Entry
+typedef struct {
+    int valid;
+    char key[MAX_FILENAME];
+    int slot_index;
+} CacheEntry;
+
+CacheEntry lru_cache[CACHE_SIZE];
+
+// --- 4. Logging Function ---
 void log_event(const char* format, ...) {
     char time_buf[50]; time_t now = time(NULL); strftime(time_buf, sizeof(time_buf), "%Y-%m-%d %H:%M:%S", localtime(&now));
     va_list args;
@@ -38,8 +60,91 @@ void log_event(const char* format, ...) {
     fflush(nm_log_file);
 }
 
-// --- 4. Helper Functions ---
-int find_file_slot(char* filename) { for (int i = 0; i < MAX_FILES_IN_SYSTEM; i++) { if (file_catalog[i].active && strcmp(file_catalog[i].filename, filename) == 0) return i; } return -1; }
+// --- 5. HASH MAP & CACHE FUNCTIONS ---
+
+// Simple djb2 hash function
+unsigned long hash_func(char *str) {
+    unsigned long hash = 5381;
+    int c;
+    while ((c = *str++)) hash = ((hash << 5) + hash) + c;
+    return hash % HASH_SIZE;
+}
+
+void add_to_cache(char* filename, int slot_index) {
+    // Check if already in cache
+    for(int i=0; i<CACHE_SIZE; i++) {
+        if(lru_cache[i].valid && strcmp(lru_cache[i].key, filename) == 0) return;
+    }
+    // Shift right (evict last)
+    for(int i=CACHE_SIZE-1; i > 0; i--) {
+        lru_cache[i] = lru_cache[i-1];
+    }
+    // Insert at front
+    strcpy(lru_cache[0].key, filename);
+    lru_cache[0].slot_index = slot_index;
+    lru_cache[0].valid = 1;
+}
+
+void invalidate_cache(char* filename) {
+    for(int i=0; i<CACHE_SIZE; i++) {
+        if(lru_cache[i].valid && strcmp(lru_cache[i].key, filename) == 0) {
+            lru_cache[i].valid = 0;
+        }
+    }
+}
+
+void add_to_hashmap(char* filename, int slot_index) {
+    unsigned long idx = hash_func(filename);
+    HashNode* new_node = (HashNode*)malloc(sizeof(HashNode));
+    strcpy(new_node->key, filename);
+    new_node->slot_index = slot_index;
+    new_node->next = hash_table[idx]; // Insert at head
+    hash_table[idx] = new_node;
+}
+
+void remove_from_hashmap(char* filename) {
+    unsigned long idx = hash_func(filename);
+    HashNode* current = hash_table[idx];
+    HashNode* prev = NULL;
+    while(current != NULL) {
+        if(strcmp(current->key, filename) == 0) {
+            if(prev == NULL) hash_table[idx] = current->next;
+            else prev->next = current->next;
+            free(current);
+            return;
+        }
+        prev = current;
+        current = current->next;
+    }
+}
+
+// --- 6. Helper Functions ---
+// O(1) Find Function using Cache + Hash Map
+int find_file_slot(char* filename) {
+    // 1. Check Cache (Fastest)
+    for(int i=0; i<CACHE_SIZE; i++) {
+        if(lru_cache[i].valid && strcmp(lru_cache[i].key, filename) == 0) {
+            log_event("[CACHE HIT] '%s' found in cache at position %d", filename, i);
+            return lru_cache[i].slot_index;
+        }
+    }
+
+    // 2. Check Hash Map (Fast)
+    unsigned long idx = hash_func(filename);
+    HashNode* node = hash_table[idx];
+    while(node != NULL) {
+        if(strcmp(node->key, filename) == 0) {
+            // Found! Update cache and return
+            log_event("[HASH HIT] '%s' found in hash map, adding to cache", filename);
+            add_to_cache(filename, node->slot_index);
+            return node->slot_index;
+        }
+        node = node->next;
+    }
+
+    log_event("[MISS] '%s' not found in cache or hash map", filename);
+    return -1; // Not found
+}
 int find_empty_file_slot() { for (int i = 0; i < MAX_FILES_IN_SYSTEM; i++) { if (file_catalog[i].active == 0) return i; } return -1; }
 int find_available_ss() { for (int i = 0; i < MAX_CONNECTIONS; i++) { if (ss_state[i].active) return i; } return -1; }
 void send_ok_response(int sock) { Header header; header.type = RES_OK; header.payload_size = 0; if (send(sock, &header, sizeof(Header), 0) < 0) { log_event("Failed to send OK response to socket %d", sock); } }
@@ -53,6 +158,10 @@ void handle_disconnect(int sock_fd) {
         log_event("De-listing its files from the catalog...");
         for (int i = 0; i < MAX_FILES_IN_SYSTEM; i++) {
             if (file_catalog[i].active && file_catalog[i].ss_sock_fd == sock_fd) {
+                // REMOVE FROM HASHMAP & CACHE
+                remove_from_hashmap(file_catalog[i].filename);
+                invalidate_cache(file_catalog[i].filename);
+                
                 file_catalog[i].active = 0;
                 log_event("  -> De-listed '%s'", file_catalog[i].filename);
             }
@@ -154,6 +263,11 @@ int main() {
     log_event("Initializing state...");
     for (int i = 0; i < MAX_CONNECTIONS; i++) { client_state[i].active = 0; ss_state[i].active = 0; }
     for (int i = 0; i < MAX_FILES_IN_SYSTEM; i++) { file_catalog[i].active = 0; file_catalog[i].access_count = 0; }
+    
+    // Initialize Hash Map and LRU Cache
+    for(int i=0; i<HASH_SIZE; i++) hash_table[i] = NULL;
+    for(int i=0; i<CACHE_SIZE; i++) lru_cache[i].valid = 0;
+    log_event("Hash map and LRU cache initialized.");
 
     listener_sock = socket(AF_INET, SOCK_STREAM, 0); if (listener_sock < 0) error_exit("socket");
     int yes = 1; if (setsockopt(listener_sock, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int)) < 0) error_exit("setsockopt");
@@ -215,6 +329,8 @@ int main() {
                                         for (int j = 0; j < item.access_count; j++) {
                                             file_catalog[slot].access_list[j] = item.access_list[j];
                                         }
+                                        // ADD TO HASHMAP
+                                        add_to_hashmap(item.filename, slot);
                                         log_event("  -> Cataloged '%s' (owner: %s, %d access entries) in slot %d", 
                                             item.filename, item.owner, item.access_count, slot);
                                     }
@@ -243,6 +359,8 @@ int main() {
                                             file_catalog[slot].active = 1; strncpy(file_catalog[slot].filename, req.filename, MAX_FILENAME);
                                             file_catalog[slot].ss_sock_fd = ss_sock; strncpy(file_catalog[slot].owner, client_state[sock_fd].username, MAX_USERNAME);
                                             file_catalog[slot].access_count = 0;
+                                            // ADD TO HASHMAP
+                                            add_to_hashmap(req.filename, slot);
                                             send_ok_response(sock_fd);
                                         } else { log_event("  -> SS failed to create file."); send_simple_header(sock_fd, RES_ERROR); }
                                     }
@@ -301,6 +419,11 @@ int main() {
                                 Header ss_header; ss_header.type = REQ_SS_DELETE; ss_header.payload_size = sizeof(Msg_Filename_Request);
                                 send(ss_sock, &ss_header, sizeof(ss_header), 0); send(ss_sock, &req, sizeof(req), 0);
                                 recv(ss_sock, &header, sizeof(Header), 0);
+                                
+                                // REMOVE FROM HASHMAP & CACHE
+                                remove_from_hashmap(file_catalog[slot].filename);
+                                invalidate_cache(file_catalog[slot].filename);
+                                
                                 file_catalog[slot].active = 0;
                                 send_ok_response(sock_fd);
                                 break;
