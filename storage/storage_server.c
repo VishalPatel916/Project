@@ -33,7 +33,7 @@ typedef struct SentenceNode {
 } SentenceNode;
 
 // --- 2. UPDATED GLOBAL STATE STRUCTS ---
-typedef struct { int active; char filename[MAX_FILENAME]; int sentence_num; int sock_fd; } LockInfo;
+typedef struct { int active; char filename[MAX_FILENAME]; SentenceNode* sentence_ptr; int sock_fd; } LockInfo;
 LockInfo global_locks[MAX_LOCKS]; 
 
 typedef struct {
@@ -46,10 +46,20 @@ typedef struct {
 } ActiveDoc;
 ActiveDoc active_documents[MAX_FILES_IN_SYSTEM];
 
+// Track individual edit operations for merging
+typedef struct {
+    int word_index;
+    char content[256];
+} EditOperation;
+
 typedef struct {
     int active;
-    int doc_index;    
-    int sentence_num; 
+    int doc_index;
+    SentenceNode* sentence_ptr;  // Pointer to locked sentence (stable across splits)
+    int original_word_count;  // Word count when session started
+    EditOperation* edit_ops;  // Array of edit operations
+    int edit_count;           // Number of operations recorded
+    int edit_capacity;        // Capacity of edit_ops array
 } WriteSession;
 WriteSession write_sessions[MAX_CONNECTIONS]; 
 
@@ -63,11 +73,11 @@ void log_event(const char* format, ...) {
     fflush(ss_log_file);
 }
 
-// --- 4. Lock Helpers (Same as before) ---
+// --- 4. Lock Helpers (Updated to use pointers) ---
 void init_locks() { for (int i = 0; i < MAX_LOCKS; i++) global_locks[i].active = 0; }
-int find_lock(char* f, int s) { for (int i = 0; i < MAX_LOCKS; i++) if (global_locks[i].active && !strcmp(global_locks[i].filename, f) && global_locks[i].sentence_num == s) return i; return -1; }
-int create_lock(char* f, int s, int sock) { if (find_lock(f, s) != -1) return 0; for (int i = 0; i < MAX_LOCKS; i++) if (!global_locks[i].active) { global_locks[i].active = 1; strncpy(global_locks[i].filename, f, MAX_FILENAME); global_locks[i].sentence_num = s; global_locks[i].sock_fd = sock; log_event("  -> Lock CREATED for '%s' (sent %d) by socket %d", f, s, sock); return 1; } return -1; }
-void release_lock(char* f, int s) { int i = find_lock(f, s); if (i != -1) { global_locks[i].active = 0; log_event("  -> Lock RELEASED for '%s' (sent %d)", f, s); } }
+int find_lock(char* f, SentenceNode* s) { for (int i = 0; i < MAX_LOCKS; i++) if (global_locks[i].active && !strcmp(global_locks[i].filename, f) && global_locks[i].sentence_ptr == s) return i; return -1; }
+int create_lock(char* f, SentenceNode* s, int sock) { if (find_lock(f, s) != -1) return 0; for (int i = 0; i < MAX_LOCKS; i++) if (!global_locks[i].active) { global_locks[i].active = 1; strncpy(global_locks[i].filename, f, MAX_FILENAME); global_locks[i].sentence_ptr = s; global_locks[i].sock_fd = sock; log_event("  -> Lock CREATED for '%s' (sentence ptr %p) by socket %d", f, (void*)s, sock); return 1; } return -1; }
+void release_lock(char* f, SentenceNode* s) { int i = find_lock(f, s); if (i != -1) { global_locks[i].active = 0; log_event("  -> Lock RELEASED for '%s' (sentence ptr %p)", f, (void*)s); } }
 
 // --- 5. Metadata Persistence ---
 #define METADATA_FILE "./ss_storage/.metadata"
@@ -552,8 +562,14 @@ void handle_client_disconnect(int sock_fd, fd_set* master_set) {
         ActiveDoc* doc = &active_documents[session->doc_index];
         log_event("  -> Client was in a write session!");
         
-        release_lock(doc->filename, session->sentence_num);
-        release_active_doc(doc); 
+        release_lock(doc->filename, session->sentence_ptr);
+        release_active_doc(doc);
+        
+        // Clean up edit operations
+        if (session->edit_ops != NULL) {
+            free(session->edit_ops);
+            session->edit_ops = NULL;
+        }
         session->active = 0;
     }
     close(sock_fd);
@@ -728,36 +744,48 @@ int main() {
                                 Msg_Client_Write req; recv(sock_fd, &req, sizeof(req), 0);
                                 log_event("Got REQ_CLIENT_WRITE for '%s' (sent %d) from socket %d", req.filename, req.sentence_num, sock_fd);
                                 
-                                if (find_lock(req.filename, req.sentence_num) != -1) {
+                                ActiveDoc* doc = find_or_load_active_doc(req.filename);
+                                if(doc == NULL) {
+                                    log_event("  -> ERROR: Failed to load document for writing.");
+                                    send_simple_header(sock_fd, RES_ERROR);
+                                    close(sock_fd); FD_CLR(sock_fd, &master_set);
+                                    break;
+                                }
+                                // Get sentence pointer by index
+                                SentenceNode* target = doc->doc_head;
+                                for (int i = 0; i < req.sentence_num && target != NULL; i++) target = target->next;
+                                
+                                if (target == NULL) {
+                                    log_event("  -> ERROR: Sentence index %d out of bounds.", req.sentence_num);
+                                    send_simple_header(sock_fd, RES_ERROR_INVALID_SENTENCE);
+                                    release_active_doc(doc);
+                                    close(sock_fd); FD_CLR(sock_fd, &master_set);
+                                    break;
+                                }
+                                
+                                if (find_lock(req.filename, target) != -1) {
                                     log_event("  -> Lock conflict! Sending error.");
                                     send_simple_header(sock_fd, RES_ERROR_LOCKED);
                                     close(sock_fd); FD_CLR(sock_fd, &master_set);
                                 } else {
-                                    ActiveDoc* doc = find_or_load_active_doc(req.filename);
-                                    if(doc == NULL) {
-                                        log_event("  -> ERROR: Failed to load document for writing.");
-                                        send_simple_header(sock_fd, RES_ERROR);
-                                        close(sock_fd); FD_CLR(sock_fd, &master_set);
-                                        break;
-                                    }
-                                    // Validate sentence index
-                                    SentenceNode* temp = doc->doc_head;
-                                    int sent_count = 0;
-                                    while (temp != NULL) { sent_count++; temp = temp->next; }
-                                    if (req.sentence_num < 0 || req.sentence_num >= sent_count) {
-                                        log_event("  -> ERROR: Sentence index %d out of bounds (0-%d).", req.sentence_num, sent_count - 1);
-                                        send_simple_header(sock_fd, RES_ERROR_INVALID_SENTENCE);
-                                        release_active_doc(doc);
-                                        close(sock_fd); FD_CLR(sock_fd, &master_set);
-                                        break;
-                                    }
-                                    create_lock(req.filename, req.sentence_num, sock_fd);
+                                    // Record original word count at session start
+                                    int original_word_count = 0;
+                                    WordNode* w = target->word_head;
+                                    while (w != NULL) { original_word_count++; w = w->next; }
+                                    
+                                    create_lock(req.filename, target, sock_fd);
                                     doc->num_users_editing++;
                                     WriteSession* session = &write_sessions[sock_fd];
                                     session->active = 1;
                                     session->doc_index = doc - active_documents;
-                                    session->sentence_num = req.sentence_num;
-                                    log_event("  -> Lock granted. Session started. Users editing: %d", doc->num_users_editing);
+                                    session->sentence_ptr = target;
+                                    session->original_word_count = original_word_count;
+                                    session->edit_capacity = 100;
+                                    session->edit_ops = (EditOperation*)malloc(session->edit_capacity * sizeof(EditOperation));
+                                    session->edit_count = 0;
+                                    
+                                    log_event("  -> Lock granted. Session started. Original word count: %d, Users editing: %d", 
+                                             original_word_count, doc->num_users_editing);
                                     send_simple_header(sock_fd, RES_OK_LOCKED);
                                 }
                                 break;
@@ -765,33 +793,25 @@ int main() {
                             case REQ_WRITE_UPDATE: {
                                 if (!write_sessions[sock_fd].active) { log_event("Error: Got REQ_WRITE_UPDATE from socket %d with no active session.", sock_fd); break; }
                                 WriteSession* session = &write_sessions[sock_fd];
-                                ActiveDoc* doc = &active_documents[session->doc_index];
                                 Msg_Write_Update req; recv(sock_fd, &req, sizeof(req), 0);
                                 
-                                // Validate word index
-                                SentenceNode* target = doc->doc_head;
-                                for (int i = 0; i < session->sentence_num && target != NULL; i++) target = target->next;
-                                int valid = 1;
-                                if (target != NULL) {
-                                    int word_count = 0;
-                                    WordNode* w = target->word_head;
-                                    while (w != NULL) { word_count++; w = w->next; }
-                                    if (req.word_index < 0 || req.word_index > word_count) {
-                                        log_event("  -> ERROR: Word index %d out of bounds (0-%d) for socket %d", req.word_index, word_count, sock_fd);
-                                        valid = 0;
-                                    }
+                                // Just record the operation - don't validate against document state
+                                // since we're not applying changes yet. Validation will happen at commit time.
+                                if (session->edit_count >= session->edit_capacity) {
+                                    session->edit_capacity *= 2;
+                                    session->edit_ops = (EditOperation*)realloc(session->edit_ops, 
+                                                                               session->edit_capacity * sizeof(EditOperation));
                                 }
+                                session->edit_ops[session->edit_count].word_index = req.word_index;
+                                strncpy(session->edit_ops[session->edit_count].content, req.content, sizeof(session->edit_ops[0].content) - 1);
+                                session->edit_ops[session->edit_count].content[sizeof(session->edit_ops[0].content) - 1] = '\0';
+                                session->edit_count++;
+                                
+                                log_event("  -> Recorded edit operation #%d (word %d) for socket %d", 
+                                         session->edit_count, req.word_index, sock_fd);
                                 
                                 Header response_header;
-                                if (valid) {
-                                    char* content_copy = strdup(req.content); // Need to copy, strtok modifies
-                                    handle_write_update_list(doc->doc_head, session->sentence_num, req.word_index, content_copy);
-                                    free(content_copy); // Free the copy
-                                    log_event("  -> Applied update (word %d) to in-memory list for socket %d", req.word_index, sock_fd);
-                                    response_header.type = RES_OK;
-                                } else {
-                                    response_header.type = RES_ERROR_INVALID_WORD;
-                                }
+                                response_header.type = RES_OK;
                                 response_header.payload_size = 0;
                                 send(sock_fd, &response_header, sizeof(response_header), 0);
                                 break;
@@ -800,15 +820,85 @@ int main() {
                                 if (!write_sessions[sock_fd].active) { log_event("Error: Got REQ_ETIRW from socket %d with no active session.", sock_fd); break; }
                                 WriteSession* session = &write_sessions[sock_fd];
                                 ActiveDoc* doc = &active_documents[session->doc_index];
-                                log_event("Got REQ_ETIRW from socket %d. Committing changes for '%s'.", sock_fd, doc->filename);
+                                log_event("Got REQ_ETIRW from socket %d. Committing %d edit operations for '%s'.", 
+                                         sock_fd, session->edit_count, doc->filename);
                                 
+                                // The locked sentence pointer is STILL VALID in the current doc
+                                // Calculate its current word count and apply edits directly
+                                SentenceNode* target = session->sentence_ptr;
+                                
+                                if (target == NULL) {
+                                    log_event("  -> ERROR: Locked sentence pointer is NULL");
+                                    send_simple_header(sock_fd, RES_ERROR);
+                                    break;
+                                }
+                                
+                                // Calculate current word count and offset
+                                int current_word_count = 0;
+                                WordNode* w = target->word_head;
+                                while (w != NULL) { current_word_count++; w = w->next; }
+                                
+                                int word_offset = current_word_count - session->original_word_count;
+                                log_event("  -> Original word count: %d, Current: %d, Offset: %d", 
+                                         session->original_word_count, current_word_count, word_offset);
+                                
+                                // Find the sentence index for handle_write_update_list
+                                int sentence_idx = 0;
+                                SentenceNode* temp = doc->doc_head;
+                                while (temp != NULL && temp != target) {
+                                    sentence_idx++;
+                                    temp = temp->next;
+                                }
+                                
+                                if (temp == NULL) {
+                                    log_event("  -> ERROR: Could not find locked sentence in document");
+                                    send_simple_header(sock_fd, RES_ERROR);
+                                    break;
+                                }
+                                
+                                // Replay edit operations with adjusted indices
+                                for (int i = 0; i < session->edit_count; i++) {
+                                    int original_idx = session->edit_ops[i].word_index;
+                                    int adjusted_idx = original_idx + word_offset;
+                                    
+                                    // Clamp to valid range
+                                    WordNode* temp_w = target->word_head;
+                                    int max_idx = 0;
+                                    while (temp_w != NULL) { max_idx++; temp_w = temp_w->next; }
+                                    
+                                    if (adjusted_idx < 0) adjusted_idx = 0;
+                                    if (adjusted_idx > max_idx) adjusted_idx = max_idx;
+                                    
+                                    log_event("  -> Replaying edit #%d: index %d -> %d (offset %d) at sentence %d", 
+                                             i, original_idx, adjusted_idx, word_offset, sentence_idx);
+                                    
+                                    char* content_copy = strdup(session->edit_ops[i].content);
+                                    handle_write_update_list(doc->doc_head, sentence_idx, adjusted_idx, content_copy);
+                                    free(content_copy);
+                                    
+                                    // After applying edit that might create new sentences, recalculate index
+                                    sentence_idx = 0;
+                                    temp = doc->doc_head;
+                                    while (temp != NULL && temp != target) {
+                                        sentence_idx++;
+                                        temp = temp->next;
+                                    }
+                                }
+                                
+                                // Commit changes to file
                                 rename(doc->original_path, doc->backup_path);
                                 flush_list_to_file(doc->doc_head, doc->original_path);
-                                release_lock(doc->filename, session->sentence_num);
+                                
+                                // Clean up session
+                                release_lock(doc->filename, session->sentence_ptr);
+                                free(session->edit_ops);
+                                session->edit_ops = NULL;
                                 session->active = 0;
-                                release_active_doc(doc); 
+                                release_active_doc(doc);
+                                
                                 calculate_and_send_metadata(nm_sock, doc->filename, doc->original_path);
                                 send_simple_header(sock_fd, RES_OK);
+                                log_event("  -> Commit successful for socket %d", sock_fd);
                                 close(sock_fd);
                                 FD_CLR(sock_fd, &master_set);
                                 break;

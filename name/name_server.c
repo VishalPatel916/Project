@@ -377,21 +377,38 @@ int main() {
                             }
                             case REQ_ADD_ACCESS: {
                                 Msg_Access_Request req; recv(sock_fd, &req, sizeof(req), 0);
-                                log_event("Got REQ_ADD_ACCESS for '%s' (user: %s) from client '%s'", req.filename, req.username, client_state[sock_fd].username);
+                                log_event("Got REQ_ADD_ACCESS for '%s' (user: %s, perm: %d) from client '%s'", req.filename, req.username, req.perm, client_state[sock_fd].username);
                                 int slot = find_file_slot(req.filename);
                                 if (slot == -1) { send_simple_header(sock_fd, RES_ERROR_NOT_FOUND); break; }
                                 FileMetadata* meta = &file_catalog[slot];
                                 if (strcmp(meta->owner, client_state[sock_fd].username) != 0) {
                                     send_simple_header(sock_fd, RES_ERROR_ACCESS_DENIED); break;
                                 }
-                                if (meta->access_count >= MAX_PERMISSIONS_PER_FILE) {
-                                    send_simple_header(sock_fd, RES_ERROR); break;
+                                
+                                // Check if user already has an entry - update it instead of adding duplicate
+                                int existing_idx = -1;
+                                for (int i = 0; i < meta->access_count; i++) {
+                                    if (strcmp(meta->access_list[i].username, req.username) == 0) {
+                                        existing_idx = i;
+                                        break;
+                                    }
                                 }
-                                AccessEntry* new_entry = &meta->access_list[meta->access_count];
-                                strncpy(new_entry->username, req.username, MAX_USERNAME);
-                                new_entry->permission = req.perm;
-                                meta->access_count++;
-                                log_event("  -> Access granted.");
+                                
+                                if (existing_idx != -1) {
+                                    // Update existing entry
+                                    meta->access_list[existing_idx].permission = req.perm;
+                                    log_event("  -> Updated existing access for user '%s'.", req.username);
+                                } else {
+                                    // Add new entry
+                                    if (meta->access_count >= MAX_PERMISSIONS_PER_FILE) {
+                                        send_simple_header(sock_fd, RES_ERROR); break;
+                                    }
+                                    AccessEntry* new_entry = &meta->access_list[meta->access_count];
+                                    strncpy(new_entry->username, req.username, MAX_USERNAME);
+                                    new_entry->permission = req.perm;
+                                    meta->access_count++;
+                                    log_event("  -> Access granted to new user '%s'.", req.username);
+                                }
                                 
                                 // Relay to SS for persistence
                                 int ss_sock = meta->ss_sock_fd;
@@ -413,18 +430,24 @@ int main() {
                                 if (strcmp(meta->owner, client_state[sock_fd].username) != 0) {
                                     send_simple_header(sock_fd, RES_ERROR_ACCESS_DENIED); break;
                                 }
-                                int found_idx = -1;
-                                for(int i=0; i < meta->access_count; i++) {
+                                
+                                // Remove ALL entries for this user (in case of duplicates)
+                                int removed_count = 0;
+                                for(int i = 0; i < meta->access_count; ) {
                                     if(strcmp(meta->access_list[i].username, req.username) == 0) {
-                                        found_idx = i; break;
+                                        // Shift remaining entries left
+                                        for(int j = i; j < meta->access_count - 1; j++) {
+                                            meta->access_list[j] = meta->access_list[j+1];
+                                        }
+                                        meta->access_count--;
+                                        removed_count++;
+                                        // Don't increment i, check same position again
+                                    } else {
+                                        i++;
                                     }
                                 }
-                                if (found_idx != -1) {
-                                    for(int i = found_idx; i < meta->access_count - 1; i++) {
-                                        meta->access_list[i] = meta->access_list[i+1];
-                                    }
-                                    meta->access_count--;
-                                    log_event("  -> Access removed.");
+                                if (removed_count > 0) {
+                                    log_event("  -> Access removed (%d entries).", removed_count);
                                     
                                     // Relay to SS for persistence
                                     int ss_sock = meta->ss_sock_fd;
