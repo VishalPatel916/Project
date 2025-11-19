@@ -645,6 +645,174 @@ int main() {
                             }
                             // --- END EXEC ---
 
+                            // --- FOLDER OPERATIONS ---
+                            case REQ_CREATEFOLDER: {
+                                Msg_Folder_Request req; recv(sock_fd, &req, sizeof(req), 0);
+                                log_event("Got REQ_CREATEFOLDER for '%s' from client '%s'", req.foldername, client_state[sock_fd].username);
+                                
+                                // Find an available SS to store the folder
+                                int ss_sock = find_available_ss();
+                                if (ss_sock == -1) {
+                                    log_event("  -> Error: No Storage Servers available.");
+                                    send_simple_header(sock_fd, RES_ERROR);
+                                    break;
+                                }
+                                
+                                // Relay to SS
+                                log_event("  -> Relaying REQ_SS_CREATEFOLDER to SS on socket %d", ss_sock);
+                                Header ss_header; ss_header.type = REQ_SS_CREATEFOLDER; ss_header.payload_size = sizeof(Msg_Folder_Request);
+                                send(ss_sock, &ss_header, sizeof(ss_header), 0);
+                                send(ss_sock, &req, sizeof(req), 0);
+                                
+                                // Wait for SS response
+                                recv(ss_sock, &header, sizeof(Header), 0);
+                                if (header.type == RES_OK) {
+                                    log_event("  -> Folder '%s' created successfully.", req.foldername);
+                                    send_ok_response(sock_fd);
+                                } else {
+                                    log_event("  -> SS failed to create folder.");
+                                    send_simple_header(sock_fd, RES_ERROR);
+                                }
+                                break;
+                            }
+                            
+                            case REQ_MOVE: {
+                                Msg_Move_Request req; recv(sock_fd, &req, sizeof(req), 0);
+                                log_event("Got REQ_MOVE for '%s' to folder '%s' from client '%s'", req.filename, req.foldername, client_state[sock_fd].username);
+                                
+                                // Find the file
+                                int slot = find_file_slot(req.filename);
+                                if (slot == -1) {
+                                    log_event("  -> Error: File not found.");
+                                    send_simple_header(sock_fd, RES_ERROR_NOT_FOUND);
+                                    break;
+                                }
+                                
+                                FileMetadata* meta = &file_catalog[slot];
+                                
+                                // Check permissions (only owner can move)
+                                if (strcmp(meta->owner, client_state[sock_fd].username) != 0) {
+                                    log_event("  -> Access Denied. User '%s' is not owner.", client_state[sock_fd].username);
+                                    send_simple_header(sock_fd, RES_ERROR_ACCESS_DENIED);
+                                    break;
+                                }
+                                
+                                int ss_sock = meta->ss_sock_fd;
+                                if (!ss_state[ss_sock].active) {
+                                    send_simple_header(sock_fd, RES_ERROR);
+                                    break;
+                                }
+                                
+                                // Relay to SS
+                                log_event("  -> Relaying REQ_SS_MOVE to SS %d", ss_sock);
+                                Header ss_header; ss_header.type = REQ_SS_MOVE; ss_header.payload_size = sizeof(Msg_Move_Request);
+                                send(ss_sock, &ss_header, sizeof(ss_header), 0);
+                                send(ss_sock, &req, sizeof(req), 0);
+                                
+                                // Wait for SS response
+                                recv(ss_sock, &header, sizeof(Header), 0);
+                                if (header.type == RES_OK) {
+                                    // Extract just the filename (without old folder path)
+                                    char* base_filename = strrchr(req.filename, '/');
+                                    if (base_filename) {
+                                        base_filename++; // Skip the '/'
+                                    } else {
+                                        base_filename = req.filename; // No folder, use as-is
+                                    }
+                                    
+                                    // Update filename in catalog to include new folder path
+                                    char new_path[MAX_FILENAME * 2];
+                                    snprintf(new_path, sizeof(new_path), "%s/%s", req.foldername, base_filename);
+                                    
+                                    // Remove old hash/cache entry
+                                    remove_from_hashmap(file_catalog[slot].filename);
+                                    invalidate_cache(file_catalog[slot].filename);
+                                    
+                                    // Update filename
+                                    strncpy(file_catalog[slot].filename, new_path, MAX_FILENAME);
+                                    
+                                    // Add new hash/cache entry
+                                    add_to_hashmap(new_path, slot);
+                                    
+                                    log_event("  -> File moved successfully. New path: '%s'", new_path);
+                                    send_ok_response(sock_fd);
+                                } else {
+                                    log_event("  -> SS failed to move file.");
+                                    send_simple_header(sock_fd, RES_ERROR);
+                                }
+                                break;
+                            }
+                            
+                            case REQ_VIEWFOLDER: {
+                                Msg_Folder_Request req; recv(sock_fd, &req, sizeof(req), 0);
+                                log_event("Got REQ_VIEWFOLDER for '%s' from client '%s'", req.foldername, client_state[sock_fd].username);
+                                
+                                // First, check if folder exists on any storage server
+                                int folder_exists = 0;
+                                for (int i = 0; i < MAX_CONNECTIONS; i++) {
+                                    if (ss_state[i].active) {
+                                        // Ask this SS if folder exists
+                                        send_simple_header(i, REQ_SS_CHECKFOLDER);
+                                        send(i, &req, sizeof(req), 0);
+                                        
+                                        Header check_res;
+                                        recv(i, &check_res, sizeof(check_res), 0);
+                                        if (check_res.type == RES_OK) {
+                                            folder_exists = 1;
+                                            break;
+                                        }
+                                    }
+                                }
+                                
+                                if (!folder_exists) {
+                                    log_event("  -> Folder '%s' does not exist", req.foldername);
+                                    send_simple_header(sock_fd, RES_ERROR);
+                                    break;
+                                }
+                                
+                                // Count files in this folder
+                                int count = 0;
+                                char folder_prefix[MAX_FILENAME * 2];
+                                snprintf(folder_prefix, sizeof(folder_prefix), "%s/", req.foldername);
+                                
+                                for(int i = 0; i < MAX_FILES_IN_SYSTEM; i++) {
+                                    if (!file_catalog[i].active) continue;
+                                    
+                                    // Check if filename starts with folder_prefix
+                                    if (strncmp(file_catalog[i].filename, folder_prefix, strlen(folder_prefix)) == 0) {
+                                        // Check if user has read access
+                                        if (has_read_access(&file_catalog[i], client_state[sock_fd].username)) {
+                                            count++;
+                                        }
+                                    }
+                                }
+                                
+                                // Send count
+                                Header res_hdr; res_hdr.type = RES_VIEW_HDR; res_hdr.payload_size = sizeof(Msg_View_Hdr);
+                                Msg_View_Hdr view_hdr; view_hdr.file_count = count;
+                                send(sock_fd, &res_hdr, sizeof(res_hdr), 0);
+                                send(sock_fd, &view_hdr, sizeof(view_hdr), 0);
+                                
+                                // Send file items
+                                for(int i = 0; i < MAX_FILES_IN_SYSTEM; i++) {
+                                    if (!file_catalog[i].active) continue;
+                                    
+                                    if (strncmp(file_catalog[i].filename, folder_prefix, strlen(folder_prefix)) == 0) {
+                                        if (has_read_access(&file_catalog[i], client_state[sock_fd].username)) {
+                                            res_hdr.type = RES_VIEW_ITEM_SHORT;
+                                            res_hdr.payload_size = sizeof(Msg_View_Item_Short);
+                                            Msg_View_Item_Short item;
+                                            // Send just the filename without folder prefix
+                                            strncpy(item.filename, file_catalog[i].filename + strlen(folder_prefix), MAX_FILENAME);
+                                            send(sock_fd, &res_hdr, sizeof(res_hdr), 0);
+                                            send(sock_fd, &item, sizeof(item), 0);
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            // --- END FOLDER OPERATIONS ---
+
                             default:
                                 log_event("Socket %d: Unknown message type %d", sock_fd, header.type);
                                 break;

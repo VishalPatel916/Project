@@ -3247,3 +3247,986 @@ ls | wc -l
 [2025-11-19 11:29:56]   -> De-listed 'hope.txt'
 [2025-11-19 11:29:56]   -> De-listed 'amish.txt'
 [2025-11-19 11:29:56]   -> De-listed 'arushi.txt'
+[2025-11-19 11:45:22] --- Name Server Started ---
+[2025-11-19 11:45:22] Initializing state...
+[2025-11-19 11:45:22] Hash map and LRU cache initialized.
+[2025-11-19 11:45:22] Name Server listening on port 8080...
+[2025-11-19 11:45:33] New connection from 127.0.0.1 on socket 5
+[2025-11-19 11:45:33] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 29 files.
+[2025-11-19 11:45:33] Receiving file list from SS 5...
+[2025-11-19 11:45:33]   -> Cataloged 'anay.txt' (owner: system, 0 access entries) in slot 0
+[2025-11-19 11:45:33]   -> Cataloged 'file.txt' (owner: system, 0 access entries) in slot 1
+[2025-11-19 11:45:33]   -> Cataloged 'test.txt' (owner: system, 0 access entries) in slot 2
+[2025-11-19 11:45:33]   -> Cataloged 'nga.txt.bak' (owner: system, 0 access entries) in slot 3
+[2025-11-19 11:45:33]   -> Cataloged 'j.txt' (owner: system, 0 access entries) in slot 4
+[2025-11-19 11:45:33]   -> Cataloged '.metadata' (owner: system, 0 access entries) in slot 5
+[2025-11-19 11:45:33]   -> Cataloged 'nigger.txt' (owner: system, 0 access entries) in slot 6
+[2025-11-19 11:45:33]   -> Cataloged 'file.txt.bak' (owner: system, 0 access entries) in slot 7
+[2025-11-19 11:45:33]   -> Cataloged 'script.txt.bak' (owner: system, 0 access entries) in slot 8
+[2025-11-19 11:45:33]   -> Cataloged 'temp.txt' (owner: system, 0 access entries) in slot 9
+[2025-11-19 11:45:33]   -> Cataloged 'test.txt.bak' (owner: system, 0 access entries) in slot 10
+[2025-11-19 11:45:33]   -> Cataloged 're.txt.bak' (owner: system, 0 access entries) in slot 11
+[2025-11-19 11:45:33]   -> Cataloged 'sree.txt' (owner: system, 0 access entries) in slot 12
+[2025-11-19 11:45:33]   -> Cataloged 'vishal.txt.bak' (owner: system, 0 access entries) in slot 13
+[2025-11-19 11:45:33]   -> Cataloged 're.txt' (owner: sree, 2 access entries) in slot 14
+[2025-11-19 11:45:33]   -> Cataloged 'temp.txt.bak' (owner: system, 0 access entries) in slot 15
+[2025-11-19 11:45:33]   -> Cataloged 'script.txt' (owner: sree, 0 access entries) in slot 16
+[2025-11-19 11:45:33]   -> Cataloged 'g.txt' (owner: sree, 0 access entries) in slot 17
+[2025-11-19 11:45:33]   -> Cataloged 'k.txt.bak' (owner: system, 0 access entries) in slot 18
+[2025-11-19 11:45:33]   -> Cataloged 'nga.txt' (owner: system, 0 access entries) in slot 19
+[2025-11-19 11:45:33]   -> Cataloged 'amish.txt' (owner: sree, 0 access entries) in slot 20
+[2025-11-19 11:45:33]   -> Cataloged 'hope.txt.bak' (owner: system, 0 access entries) in slot 21
+[2025-11-19 11:45:33]   -> Cataloged 'vishal.txt' (owner: system, 0 access entries) in slot 22
+[2025-11-19 11:45:33]   -> Cataloged 'sree.txt.bak' (owner: system, 0 access entries) in slot 23
+[2025-11-19 11:45:33]   -> Cataloged 'k.txt' (owner: sree, 0 access entries) in slot 24
+[2025-11-19 11:45:33]   -> Cataloged 'arushi.txt' (owner: sree, 0 access entries) in slot 25
+[2025-11-19 11:45:33]   -> Cataloged 'leon.txt' (owner: system, 0 access entries) in slot 26
+[2025-11-19 11:45:33]   -> Cataloged 'anay.txt.bak' (owner: system, 0 access entries) in slot 27
+[2025-11-19 11:45:33]   -> Cataloged 'hope.txt' (owner: system, 0 access entries) in slot 28
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 'anay.txt' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 'anay.txt' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 'anay.txt'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 'file.txt' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 'file.txt'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 'test.txt' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 'test.txt' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 'test.txt'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 'nga.txt.bak' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 'nga.txt.bak' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 'nga.txt.bak'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 'j.txt' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 'j.txt' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 'j.txt'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for '.metadata' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] '.metadata' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for '.metadata'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 'nigger.txt' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 'nigger.txt' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 'nigger.txt'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 'file.txt.bak' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 'file.txt.bak' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 'file.txt.bak'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 'script.txt.bak' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 'script.txt.bak' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 'script.txt.bak'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 'temp.txt' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 'temp.txt' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 'temp.txt'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 'test.txt.bak' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 'test.txt.bak' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 'test.txt.bak'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 're.txt.bak' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 're.txt.bak' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 're.txt.bak'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 'sree.txt' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 'sree.txt' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 'sree.txt'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 'vishal.txt.bak' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 'vishal.txt.bak' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 'vishal.txt.bak'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 're.txt' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 're.txt' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 're.txt'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 'temp.txt.bak' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 'temp.txt.bak' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 'temp.txt.bak'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 'script.txt' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 'script.txt' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 'script.txt'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 'g.txt' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 'g.txt' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 'g.txt'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 'k.txt.bak' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 'k.txt.bak' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 'k.txt.bak'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 'nga.txt' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 'nga.txt' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 'nga.txt'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 'amish.txt' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 'amish.txt' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 'amish.txt'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 'hope.txt.bak' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 'hope.txt.bak' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 'hope.txt.bak'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 'vishal.txt' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 'vishal.txt' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 'vishal.txt'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 'sree.txt.bak' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 'sree.txt.bak' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 'sree.txt.bak'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 'k.txt' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 'k.txt' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 'k.txt'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 'arushi.txt' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 'arushi.txt' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 'arushi.txt'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 'leon.txt' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 'leon.txt' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 'leon.txt'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 'anay.txt.bak' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 'anay.txt.bak' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 'anay.txt.bak'
+[2025-11-19 11:45:34] Got REQ_UPDATE_METADATA for 'hope.txt' from SS 5
+[2025-11-19 11:45:34] [HASH HIT] 'hope.txt' found in hash map, adding to cache
+[2025-11-19 11:45:34]   -> Metadata updated for 'hope.txt'
+[2025-11-19 11:45:46] New connection from 127.0.0.1 on socket 6
+[2025-11-19 11:45:46] Socket 6 (127.0.0.1): CLIENT registered as 'sree'
+[2025-11-19 11:45:49] New connection from 127.0.0.1 on socket 7
+[2025-11-19 11:45:49] Socket 7 (127.0.0.1): CLIENT registered as 'vishal'
+[2025-11-19 11:45:54] Got REQ_VIEW (a=0, l=0) from client 'sree'
+[2025-11-19 11:46:26] Got REQ_CREATEFOLDER for 'my_files' from client 'sree'
+[2025-11-19 11:46:26]   -> Relaying REQ_SS_CREATEFOLDER to SS on socket 5
+[2025-11-19 11:46:26]   -> Folder 'my_files' created successfully.
+[2025-11-19 11:46:35] Got REQ_VIEWFOLDER for 'my_files' from client 'sree'
+[2025-11-19 11:46:50] Got REQ_MOVE for 're.txt' to folder 'my_files' from client 'sree'
+[2025-11-19 11:46:50] [HASH HIT] 're.txt' found in hash map, adding to cache
+[2025-11-19 11:46:50]   -> Relaying REQ_SS_MOVE to SS 5
+[2025-11-19 11:46:50]   -> File moved successfully. New path: 'my_files/re.txt'
+[2025-11-19 11:47:00] Got REQ_VIEWFOLDER for 'my_files' from client 'sree'
+[2025-11-19 11:47:09] Got REQ_VIEWFOLDER for 'my_files' from client 'vishal'
+[2025-11-19 11:55:13] Client 'vishal' (Socket 7, IP: 127.0.0.1) disconnected.
+[2025-11-19 11:55:18] Client 'sree' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-19 11:55:23] New connection from 127.0.0.1 on socket 6
+[2025-11-19 11:55:23] Socket 6 (127.0.0.1): CLIENT registered as 'sree'
+[2025-11-19 11:55:30] Got REQ_VIEWFOLDER for 'my_files' from client 'sree'
+[2025-11-19 12:05:03] Got REQ_VIEW (a=0, l=0) from client 'sree'
+[2025-11-19 12:05:21] Got 8 for 're.txt' from client 'sree'
+[2025-11-19 12:05:21] [MISS] 're.txt' not found in cache or hash map
+[2025-11-19 12:05:21]   -> Error: File not found.
+[2025-11-19 12:05:31] Got 8 for 'my_files/re.txt' from client 'sree'
+[2025-11-19 12:05:31] [HASH HIT] 'my_files/re.txt' found in hash map, adding to cache
+[2025-11-19 12:05:31]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-19 12:06:25] Got REQ_MOVE for 'script.txt' to folder 'my_files' from client 'sree'
+[2025-11-19 12:06:25] [HASH HIT] 'script.txt' found in hash map, adding to cache
+[2025-11-19 12:06:25]   -> Relaying REQ_SS_MOVE to SS 5
+[2025-11-19 12:06:25]   -> File moved successfully. New path: 'my_files/script.txt'
+[2025-11-19 12:06:29] Got REQ_VIEW (a=0, l=0) from client 'sree'
+[2025-11-19 12:07:26] Got REQ_VIEW (a=0, l=0) from client 'sree'
+[2025-11-19 12:07:35] Got REQ_VIEW (a=1, l=0) from client 'sree'
+[2025-11-19 12:07:46] Got REQ_VIEWFOLDER for 'my_files' from client 'sree'
+[2025-11-19 12:08:37] Got REQ_CREATEFOLDER for 'files' from client 'sree'
+[2025-11-19 12:08:37]   -> Relaying REQ_SS_CREATEFOLDER to SS on socket 5
+[2025-11-19 12:08:37]   -> Folder 'files' created successfully.
+[2025-11-19 12:08:48] Got REQ_VIEW (a=0, l=0) from client 'sree'
+[2025-11-19 12:09:04] Got REQ_MOVE for 're.txt' to folder 'files' from client 'sree'
+[2025-11-19 12:09:04] [MISS] 're.txt' not found in cache or hash map
+[2025-11-19 12:09:04]   -> Error: File not found.
+[2025-11-19 12:09:14] Got REQ_MOVE for 'my_files/re.txt' to folder 'files' from client 'sree'
+[2025-11-19 12:09:14] [CACHE HIT] 'my_files/re.txt' found in cache at position 1
+[2025-11-19 12:09:14]   -> Relaying REQ_SS_MOVE to SS 5
+[2025-11-19 12:09:14]   -> SS failed to move file.
+[2025-11-19 12:09:34] Got REQ_MOVE for 'my_files' to folder 'files' from client 'sree'
+[2025-11-19 12:09:34] [MISS] 'my_files' not found in cache or hash map
+[2025-11-19 12:09:34]   -> Error: File not found.
+[2025-11-19 12:09:53] Got REQ_MOVE for 'my_files/re.txt' to folder 'files' from client 'sree'
+[2025-11-19 12:09:53] [CACHE HIT] 'my_files/re.txt' found in cache at position 1
+[2025-11-19 12:09:53]   -> Relaying REQ_SS_MOVE to SS 5
+[2025-11-19 12:09:53]   -> SS failed to move file.
+[2025-11-19 12:10:04] Got REQ_VIEW (a=0, l=0) from client 'sree'
+[2025-11-19 12:10:19] Got REQ_MOVE for 'my_files/re.txt' to folder 'files' from client 'sree'
+[2025-11-19 12:10:19] [CACHE HIT] 'my_files/re.txt' found in cache at position 1
+[2025-11-19 12:10:19]   -> Relaying REQ_SS_MOVE to SS 5
+[2025-11-19 12:10:19]   -> SS failed to move file.
+[2025-11-19 12:13:09] --- Name Server Started ---
+[2025-11-19 12:13:09] Initializing state...
+[2025-11-19 12:13:09] Hash map and LRU cache initialized.
+[2025-11-19 12:13:09] Name Server listening on port 8080...
+[2025-11-19 12:13:13] New connection from 127.0.0.1 on socket 5
+[2025-11-19 12:13:13] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 27 files.
+[2025-11-19 12:13:13] Receiving file list from SS 5...
+[2025-11-19 12:13:13]   -> Cataloged 'anay.txt' (owner: system, 0 access entries) in slot 0
+[2025-11-19 12:13:13]   -> Cataloged 'file.txt' (owner: system, 0 access entries) in slot 1
+[2025-11-19 12:13:13]   -> Cataloged 'test.txt' (owner: system, 0 access entries) in slot 2
+[2025-11-19 12:13:13]   -> Cataloged 'nga.txt.bak' (owner: system, 0 access entries) in slot 3
+[2025-11-19 12:13:13]   -> Cataloged 'j.txt' (owner: system, 0 access entries) in slot 4
+[2025-11-19 12:13:13]   -> Cataloged '.metadata' (owner: system, 0 access entries) in slot 5
+[2025-11-19 12:13:13]   -> Cataloged 'nigger.txt' (owner: system, 0 access entries) in slot 6
+[2025-11-19 12:13:13]   -> Cataloged 'file.txt.bak' (owner: system, 0 access entries) in slot 7
+[2025-11-19 12:13:13]   -> Cataloged 'files' (owner: system, 0 access entries) in slot 8
+[2025-11-19 12:13:13]   -> Cataloged 'temp.txt' (owner: system, 0 access entries) in slot 9
+[2025-11-19 12:13:13]   -> Cataloged 'test.txt.bak' (owner: system, 0 access entries) in slot 10
+[2025-11-19 12:13:13]   -> Cataloged 'sree.txt' (owner: system, 0 access entries) in slot 11
+[2025-11-19 12:13:13]   -> Cataloged 'vishal.txt.bak' (owner: system, 0 access entries) in slot 12
+[2025-11-19 12:13:13]   -> Cataloged 'temp.txt.bak' (owner: system, 0 access entries) in slot 13
+[2025-11-19 12:13:13]   -> Cataloged 'g.txt' (owner: sree, 0 access entries) in slot 14
+[2025-11-19 12:13:13]   -> Cataloged 'k.txt.bak' (owner: system, 0 access entries) in slot 15
+[2025-11-19 12:13:13]   -> Cataloged 'nga.txt' (owner: system, 0 access entries) in slot 16
+[2025-11-19 12:13:13]   -> Cataloged 'amish.txt' (owner: sree, 0 access entries) in slot 17
+[2025-11-19 12:13:13]   -> Cataloged 'hope.txt.bak' (owner: system, 0 access entries) in slot 18
+[2025-11-19 12:13:13]   -> Cataloged 'vishal.txt' (owner: system, 0 access entries) in slot 19
+[2025-11-19 12:13:13]   -> Cataloged 'my_files' (owner: system, 0 access entries) in slot 20
+[2025-11-19 12:13:13]   -> Cataloged 'sree.txt.bak' (owner: system, 0 access entries) in slot 21
+[2025-11-19 12:13:13]   -> Cataloged 'k.txt' (owner: sree, 0 access entries) in slot 22
+[2025-11-19 12:13:13]   -> Cataloged 'arushi.txt' (owner: sree, 0 access entries) in slot 23
+[2025-11-19 12:13:13]   -> Cataloged 'leon.txt' (owner: system, 0 access entries) in slot 24
+[2025-11-19 12:13:13]   -> Cataloged 'anay.txt.bak' (owner: system, 0 access entries) in slot 25
+[2025-11-19 12:13:13]   -> Cataloged 'hope.txt' (owner: system, 0 access entries) in slot 26
+[2025-11-19 12:13:13] Got REQ_UPDATE_METADATA for 'anay.txt' from SS 5
+[2025-11-19 12:13:13] [HASH HIT] 'anay.txt' found in hash map, adding to cache
+[2025-11-19 12:13:13]   -> Metadata updated for 'anay.txt'
+[2025-11-19 12:13:13] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-19 12:13:13] [HASH HIT] 'file.txt' found in hash map, adding to cache
+[2025-11-19 12:13:13]   -> Metadata updated for 'file.txt'
+[2025-11-19 12:13:13] Got REQ_UPDATE_METADATA for 'test.txt' from SS 5
+[2025-11-19 12:13:13] [HASH HIT] 'test.txt' found in hash map, adding to cache
+[2025-11-19 12:13:13]   -> Metadata updated for 'test.txt'
+[2025-11-19 12:13:13] Got REQ_UPDATE_METADATA for 'nga.txt.bak' from SS 5
+[2025-11-19 12:13:13] [HASH HIT] 'nga.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:13:13]   -> Metadata updated for 'nga.txt.bak'
+[2025-11-19 12:13:13] Got REQ_UPDATE_METADATA for 'j.txt' from SS 5
+[2025-11-19 12:13:13] [HASH HIT] 'j.txt' found in hash map, adding to cache
+[2025-11-19 12:13:13]   -> Metadata updated for 'j.txt'
+[2025-11-19 12:13:13] Got REQ_UPDATE_METADATA for '.metadata' from SS 5
+[2025-11-19 12:13:13] [HASH HIT] '.metadata' found in hash map, adding to cache
+[2025-11-19 12:13:13]   -> Metadata updated for '.metadata'
+[2025-11-19 12:13:13] Got REQ_UPDATE_METADATA for 'nigger.txt' from SS 5
+[2025-11-19 12:13:13] [HASH HIT] 'nigger.txt' found in hash map, adding to cache
+[2025-11-19 12:13:13]   -> Metadata updated for 'nigger.txt'
+[2025-11-19 12:13:13] Got REQ_UPDATE_METADATA for 'file.txt.bak' from SS 5
+[2025-11-19 12:13:13] [HASH HIT] 'file.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:13:13]   -> Metadata updated for 'file.txt.bak'
+[2025-11-19 12:13:13] Got REQ_UPDATE_METADATA for 'files' from SS 5
+[2025-11-19 12:13:13] [HASH HIT] 'files' found in hash map, adding to cache
+[2025-11-19 12:13:13]   -> Metadata updated for 'files'
+[2025-11-19 12:13:13] Got REQ_UPDATE_METADATA for 'temp.txt' from SS 5
+[2025-11-19 12:13:13] [HASH HIT] 'temp.txt' found in hash map, adding to cache
+[2025-11-19 12:13:13]   -> Metadata updated for 'temp.txt'
+[2025-11-19 12:13:13] Got REQ_UPDATE_METADATA for 'test.txt.bak' from SS 5
+[2025-11-19 12:13:13] [HASH HIT] 'test.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:13:13]   -> Metadata updated for 'test.txt.bak'
+[2025-11-19 12:13:13] Got REQ_UPDATE_METADATA for 'sree.txt' from SS 5
+[2025-11-19 12:13:13] [HASH HIT] 'sree.txt' found in hash map, adding to cache
+[2025-11-19 12:13:13]   -> Metadata updated for 'sree.txt'
+[2025-11-19 12:13:13] Got REQ_UPDATE_METADATA for 'vishal.txt.bak' from SS 5
+[2025-11-19 12:13:13] [HASH HIT] 'vishal.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:13:13]   -> Metadata updated for 'vishal.txt.bak'
+[2025-11-19 12:13:13] Got REQ_UPDATE_METADATA for 'temp.txt.bak' from SS 5
+[2025-11-19 12:13:13] [HASH HIT] 'temp.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:13:13]   -> Metadata updated for 'temp.txt.bak'
+[2025-11-19 12:13:13] Got REQ_UPDATE_METADATA for 'g.txt' from SS 5
+[2025-11-19 12:13:13] [HASH HIT] 'g.txt' found in hash map, adding to cache
+[2025-11-19 12:13:13]   -> Metadata updated for 'g.txt'
+[2025-11-19 12:13:13] Got REQ_UPDATE_METADATA for 'k.txt.bak' from SS 5
+[2025-11-19 12:13:13] [HASH HIT] 'k.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:13:13]   -> Metadata updated for 'k.txt.bak'
+[2025-11-19 12:13:13] Got REQ_UPDATE_METADATA for 'nga.txt' from SS 5
+[2025-11-19 12:13:13] [HASH HIT] 'nga.txt' found in hash map, adding to cache
+[2025-11-19 12:13:13]   -> Metadata updated for 'nga.txt'
+[2025-11-19 12:13:13] Got REQ_UPDATE_METADATA for 'amish.txt' from SS 5
+[2025-11-19 12:13:13] [HASH HIT] 'amish.txt' found in hash map, adding to cache
+[2025-11-19 12:13:13]   -> Metadata updated for 'amish.txt'
+[2025-11-19 12:13:13] Got REQ_UPDATE_METADATA for 'hope.txt.bak' from SS 5
+[2025-11-19 12:13:13] [HASH HIT] 'hope.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:13:13]   -> Metadata updated for 'hope.txt.bak'
+[2025-11-19 12:13:13] Got REQ_UPDATE_METADATA for 'vishal.txt' from SS 5
+[2025-11-19 12:13:13] [HASH HIT] 'vishal.txt' found in hash map, adding to cache
+[2025-11-19 12:13:13]   -> Metadata updated for 'vishal.txt'
+[2025-11-19 12:13:13] Got REQ_UPDATE_METADATA for 'my_files' from SS 5
+[2025-11-19 12:13:13] [HASH HIT] 'my_files' found in hash map, adding to cache
+[2025-11-19 12:13:13]   -> Metadata updated for 'my_files'
+[2025-11-19 12:13:13] Got REQ_UPDATE_METADATA for 'sree.txt.bak' from SS 5
+[2025-11-19 12:13:13] [HASH HIT] 'sree.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:13:13]   -> Metadata updated for 'sree.txt.bak'
+[2025-11-19 12:13:13] Got REQ_UPDATE_METADATA for 'k.txt' from SS 5
+[2025-11-19 12:13:13] [HASH HIT] 'k.txt' found in hash map, adding to cache
+[2025-11-19 12:13:13]   -> Metadata updated for 'k.txt'
+[2025-11-19 12:13:13] Got REQ_UPDATE_METADATA for 'arushi.txt' from SS 5
+[2025-11-19 12:13:13] [HASH HIT] 'arushi.txt' found in hash map, adding to cache
+[2025-11-19 12:13:13]   -> Metadata updated for 'arushi.txt'
+[2025-11-19 12:13:13] Got REQ_UPDATE_METADATA for 'leon.txt' from SS 5
+[2025-11-19 12:13:13] [HASH HIT] 'leon.txt' found in hash map, adding to cache
+[2025-11-19 12:13:13]   -> Metadata updated for 'leon.txt'
+[2025-11-19 12:13:13] Got REQ_UPDATE_METADATA for 'anay.txt.bak' from SS 5
+[2025-11-19 12:13:13] [HASH HIT] 'anay.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:13:13]   -> Metadata updated for 'anay.txt.bak'
+[2025-11-19 12:13:13] Got REQ_UPDATE_METADATA for 'hope.txt' from SS 5
+[2025-11-19 12:13:13] [HASH HIT] 'hope.txt' found in hash map, adding to cache
+[2025-11-19 12:13:13]   -> Metadata updated for 'hope.txt'
+[2025-11-19 12:13:23] New connection from 127.0.0.1 on socket 6
+[2025-11-19 12:13:23] Socket 6 (127.0.0.1): CLIENT registered as 'sree'
+[2025-11-19 12:13:27] New connection from 127.0.0.1 on socket 7
+[2025-11-19 12:13:27] Socket 7 (127.0.0.1): CLIENT registered as 'vishal'
+[2025-11-19 12:14:03] Got REQ_VIEW (a=0, l=0) from client 'sree'
+[2025-11-19 12:14:21] Got 8 for 'h.txt' from client 'sree'
+[2025-11-19 12:14:21] [MISS] 'h.txt' not found in cache or hash map
+[2025-11-19 12:14:21]   -> Error: File not found.
+[2025-11-19 12:14:27] Got REQ_VIEW (a=0, l=0) from client 'vishal'
+[2025-11-19 12:15:11] Got REQ_CREATEFOLDER for 'my_files' from client 'sree'
+[2025-11-19 12:15:11]   -> Relaying REQ_SS_CREATEFOLDER to SS on socket 5
+[2025-11-19 12:15:11]   -> SS failed to create folder.
+[2025-11-19 12:15:31] Got REQ_VIEWFOLDER for 'my_files' from client 'sree'
+[2025-11-19 12:22:10] Storage Server (Socket 5, IP: 127.0.0.1) disconnected.
+[2025-11-19 12:22:10] De-listing its files from the catalog...
+[2025-11-19 12:22:10]   -> De-listed 'anay.txt'
+[2025-11-19 12:22:10]   -> De-listed 'file.txt'
+[2025-11-19 12:22:10]   -> De-listed 'test.txt'
+[2025-11-19 12:22:10]   -> De-listed 'nga.txt.bak'
+[2025-11-19 12:22:10]   -> De-listed 'j.txt'
+[2025-11-19 12:22:10]   -> De-listed '.metadata'
+[2025-11-19 12:22:10]   -> De-listed 'nigger.txt'
+[2025-11-19 12:22:10]   -> De-listed 'file.txt.bak'
+[2025-11-19 12:22:10]   -> De-listed 'files'
+[2025-11-19 12:22:10]   -> De-listed 'temp.txt'
+[2025-11-19 12:22:10]   -> De-listed 'test.txt.bak'
+[2025-11-19 12:22:10]   -> De-listed 'sree.txt'
+[2025-11-19 12:22:10]   -> De-listed 'vishal.txt.bak'
+[2025-11-19 12:22:10]   -> De-listed 'temp.txt.bak'
+[2025-11-19 12:22:10]   -> De-listed 'g.txt'
+[2025-11-19 12:22:10]   -> De-listed 'k.txt.bak'
+[2025-11-19 12:22:10]   -> De-listed 'nga.txt'
+[2025-11-19 12:22:10]   -> De-listed 'amish.txt'
+[2025-11-19 12:22:10]   -> De-listed 'hope.txt.bak'
+[2025-11-19 12:22:10]   -> De-listed 'vishal.txt'
+[2025-11-19 12:22:10]   -> De-listed 'my_files'
+[2025-11-19 12:22:10]   -> De-listed 'sree.txt.bak'
+[2025-11-19 12:22:10]   -> De-listed 'k.txt'
+[2025-11-19 12:22:10]   -> De-listed 'arushi.txt'
+[2025-11-19 12:22:10]   -> De-listed 'leon.txt'
+[2025-11-19 12:22:10]   -> De-listed 'anay.txt.bak'
+[2025-11-19 12:22:10]   -> De-listed 'hope.txt'
+[2025-11-19 12:22:24] --- Name Server Started ---
+[2025-11-19 12:22:24] Initializing state...
+[2025-11-19 12:22:24] Hash map and LRU cache initialized.
+[2025-11-19 12:22:24] Name Server listening on port 8080...
+[2025-11-19 12:22:26] New connection from 127.0.0.1 on socket 5
+[2025-11-19 12:22:26] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 28 files.
+[2025-11-19 12:22:26] Receiving file list from SS 5...
+[2025-11-19 12:22:26]   -> Cataloged 'anay.txt' (owner: system, 0 access entries) in slot 0
+[2025-11-19 12:22:26]   -> Cataloged 'file.txt' (owner: system, 0 access entries) in slot 1
+[2025-11-19 12:22:26]   -> Cataloged 'test.txt' (owner: system, 0 access entries) in slot 2
+[2025-11-19 12:22:26]   -> Cataloged 'nga.txt.bak' (owner: system, 0 access entries) in slot 3
+[2025-11-19 12:22:26]   -> Cataloged 'j.txt' (owner: system, 0 access entries) in slot 4
+[2025-11-19 12:22:26]   -> Cataloged 'nigger.txt' (owner: system, 0 access entries) in slot 5
+[2025-11-19 12:22:26]   -> Cataloged 'file.txt.bak' (owner: system, 0 access entries) in slot 6
+[2025-11-19 12:22:26]   -> Cataloged 'temp.txt' (owner: system, 0 access entries) in slot 7
+[2025-11-19 12:22:26]   -> Cataloged 'test.txt.bak' (owner: system, 0 access entries) in slot 8
+[2025-11-19 12:22:26]   -> Cataloged 'sree.txt' (owner: system, 0 access entries) in slot 9
+[2025-11-19 12:22:26]   -> Cataloged 'vishal.txt.bak' (owner: system, 0 access entries) in slot 10
+[2025-11-19 12:22:26]   -> Cataloged 'temp.txt.bak' (owner: system, 0 access entries) in slot 11
+[2025-11-19 12:22:26]   -> Cataloged 'g.txt' (owner: sree, 0 access entries) in slot 12
+[2025-11-19 12:22:26]   -> Cataloged 'k.txt.bak' (owner: system, 0 access entries) in slot 13
+[2025-11-19 12:22:26]   -> Cataloged 'nga.txt' (owner: system, 0 access entries) in slot 14
+[2025-11-19 12:22:26]   -> Cataloged 'amish.txt' (owner: sree, 0 access entries) in slot 15
+[2025-11-19 12:22:26]   -> Cataloged 'hope.txt.bak' (owner: system, 0 access entries) in slot 16
+[2025-11-19 12:22:26]   -> Cataloged 'vishal.txt' (owner: system, 0 access entries) in slot 17
+[2025-11-19 12:22:26]   -> Cataloged 'my_files/script.txt.bak' (owner: system, 0 access entries) in slot 18
+[2025-11-19 12:22:26]   -> Cataloged 'my_files/re.txt.bak' (owner: system, 0 access entries) in slot 19
+[2025-11-19 12:22:26]   -> Cataloged 'my_files/re.txt' (owner: sree, 2 access entries) in slot 20
+[2025-11-19 12:22:26]   -> Cataloged 'my_files/script.txt' (owner: sree, 0 access entries) in slot 21
+[2025-11-19 12:22:26]   -> Cataloged 'sree.txt.bak' (owner: system, 0 access entries) in slot 22
+[2025-11-19 12:22:26]   -> Cataloged 'k.txt' (owner: sree, 0 access entries) in slot 23
+[2025-11-19 12:22:26]   -> Cataloged 'arushi.txt' (owner: sree, 0 access entries) in slot 24
+[2025-11-19 12:22:26]   -> Cataloged 'leon.txt' (owner: system, 0 access entries) in slot 25
+[2025-11-19 12:22:26]   -> Cataloged 'anay.txt.bak' (owner: system, 0 access entries) in slot 26
+[2025-11-19 12:22:26]   -> Cataloged 'hope.txt' (owner: system, 0 access entries) in slot 27
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'anay.txt' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'anay.txt' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'anay.txt'
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'file.txt' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'file.txt'
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'test.txt' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'test.txt' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'test.txt'
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'nga.txt.bak' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'nga.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'nga.txt.bak'
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'j.txt' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'j.txt' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'j.txt'
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'nigger.txt' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'nigger.txt' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'nigger.txt'
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'file.txt.bak' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'file.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'file.txt.bak'
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'temp.txt' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'temp.txt' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'temp.txt'
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'test.txt.bak' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'test.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'test.txt.bak'
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'sree.txt' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'sree.txt' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'sree.txt'
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'vishal.txt.bak' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'vishal.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'vishal.txt.bak'
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'temp.txt.bak' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'temp.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'temp.txt.bak'
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'g.txt' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'g.txt' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'g.txt'
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'k.txt.bak' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'k.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'k.txt.bak'
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'nga.txt' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'nga.txt' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'nga.txt'
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'amish.txt' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'amish.txt' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'amish.txt'
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'hope.txt.bak' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'hope.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'hope.txt.bak'
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'vishal.txt' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'vishal.txt' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'vishal.txt'
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'my_files/script.txt.bak' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'my_files/script.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'my_files/script.txt.bak'
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'my_files/re.txt.bak' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'my_files/re.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'my_files/re.txt.bak'
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'my_files/re.txt' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'my_files/re.txt' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'my_files/re.txt'
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'my_files/script.txt' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'my_files/script.txt' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'my_files/script.txt'
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'sree.txt.bak' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'sree.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'sree.txt.bak'
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'k.txt' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'k.txt' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'k.txt'
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'arushi.txt' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'arushi.txt' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'arushi.txt'
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'leon.txt' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'leon.txt' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'leon.txt'
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'anay.txt.bak' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'anay.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'anay.txt.bak'
+[2025-11-19 12:22:27] Got REQ_UPDATE_METADATA for 'hope.txt' from SS 5
+[2025-11-19 12:22:27] [HASH HIT] 'hope.txt' found in hash map, adding to cache
+[2025-11-19 12:22:27]   -> Metadata updated for 'hope.txt'
+[2025-11-19 12:22:32] New connection from 127.0.0.1 on socket 6
+[2025-11-19 12:22:32] Socket 6 (127.0.0.1): CLIENT registered as 'sree'
+[2025-11-19 12:22:33] Got REQ_VIEW (a=0, l=0) from client 'sree'
+[2025-11-19 12:22:48] Got REQ_VIEWFOLDER for 'files' from client 'sree'
+[2025-11-19 12:23:16] Got REQ_MOVE for 'my_files/script.txt' to folder 'files' from client 'sree'
+[2025-11-19 12:23:16] [HASH HIT] 'my_files/script.txt' found in hash map, adding to cache
+[2025-11-19 12:23:16]   -> Relaying REQ_SS_MOVE to SS 5
+[2025-11-19 12:23:16]   -> File moved successfully. New path: 'files/script.txt'
+[2025-11-19 12:23:20] Got REQ_VIEW (a=0, l=0) from client 'sree'
+[2025-11-19 12:24:52] Got REQ_MOVE for 'files' to folder 'my_files' from client 'sree'
+[2025-11-19 12:24:52] [MISS] 'files' not found in cache or hash map
+[2025-11-19 12:24:52]   -> Error: File not found.
+[2025-11-19 12:27:31] --- Name Server Started ---
+[2025-11-19 12:27:31] Initializing state...
+[2025-11-19 12:27:31] Hash map and LRU cache initialized.
+[2025-11-19 12:27:31] Name Server listening on port 8080...
+[2025-11-19 12:27:35] New connection from 127.0.0.1 on socket 5
+[2025-11-19 12:27:35] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 28 files.
+[2025-11-19 12:27:35] Receiving file list from SS 5...
+[2025-11-19 12:27:35]   -> Cataloged 'anay.txt' (owner: system, 0 access entries) in slot 0
+[2025-11-19 12:27:35]   -> Cataloged 'file.txt' (owner: system, 0 access entries) in slot 1
+[2025-11-19 12:27:35]   -> Cataloged 'test.txt' (owner: system, 0 access entries) in slot 2
+[2025-11-19 12:27:35]   -> Cataloged 'nga.txt.bak' (owner: system, 0 access entries) in slot 3
+[2025-11-19 12:27:35]   -> Cataloged 'j.txt' (owner: system, 0 access entries) in slot 4
+[2025-11-19 12:27:35]   -> Cataloged 'nigger.txt' (owner: system, 0 access entries) in slot 5
+[2025-11-19 12:27:35]   -> Cataloged 'file.txt.bak' (owner: system, 0 access entries) in slot 6
+[2025-11-19 12:27:35]   -> Cataloged 'files/script.txt.bak' (owner: system, 0 access entries) in slot 7
+[2025-11-19 12:27:35]   -> Cataloged 'files/script.txt' (owner: sree, 0 access entries) in slot 8
+[2025-11-19 12:27:35]   -> Cataloged 'temp.txt' (owner: system, 0 access entries) in slot 9
+[2025-11-19 12:27:35]   -> Cataloged 'test.txt.bak' (owner: system, 0 access entries) in slot 10
+[2025-11-19 12:27:35]   -> Cataloged 'sree.txt' (owner: system, 0 access entries) in slot 11
+[2025-11-19 12:27:35]   -> Cataloged 'vishal.txt.bak' (owner: system, 0 access entries) in slot 12
+[2025-11-19 12:27:35]   -> Cataloged 'temp.txt.bak' (owner: system, 0 access entries) in slot 13
+[2025-11-19 12:27:35]   -> Cataloged 'g.txt' (owner: sree, 0 access entries) in slot 14
+[2025-11-19 12:27:35]   -> Cataloged 'k.txt.bak' (owner: system, 0 access entries) in slot 15
+[2025-11-19 12:27:35]   -> Cataloged 'nga.txt' (owner: system, 0 access entries) in slot 16
+[2025-11-19 12:27:35]   -> Cataloged 'amish.txt' (owner: sree, 0 access entries) in slot 17
+[2025-11-19 12:27:35]   -> Cataloged 'hope.txt.bak' (owner: system, 0 access entries) in slot 18
+[2025-11-19 12:27:35]   -> Cataloged 'vishal.txt' (owner: system, 0 access entries) in slot 19
+[2025-11-19 12:27:35]   -> Cataloged 'my_files/re.txt.bak' (owner: system, 0 access entries) in slot 20
+[2025-11-19 12:27:35]   -> Cataloged 'my_files/re.txt' (owner: sree, 2 access entries) in slot 21
+[2025-11-19 12:27:35]   -> Cataloged 'sree.txt.bak' (owner: system, 0 access entries) in slot 22
+[2025-11-19 12:27:35]   -> Cataloged 'k.txt' (owner: sree, 0 access entries) in slot 23
+[2025-11-19 12:27:35]   -> Cataloged 'arushi.txt' (owner: sree, 0 access entries) in slot 24
+[2025-11-19 12:27:35]   -> Cataloged 'leon.txt' (owner: system, 0 access entries) in slot 25
+[2025-11-19 12:27:35]   -> Cataloged 'anay.txt.bak' (owner: system, 0 access entries) in slot 26
+[2025-11-19 12:27:35]   -> Cataloged 'hope.txt' (owner: system, 0 access entries) in slot 27
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'anay.txt' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'anay.txt' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'anay.txt'
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'file.txt' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'file.txt'
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'test.txt' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'test.txt' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'test.txt'
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'nga.txt.bak' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'nga.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'nga.txt.bak'
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'j.txt' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'j.txt' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'j.txt'
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'nigger.txt' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'nigger.txt' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'nigger.txt'
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'file.txt.bak' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'file.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'file.txt.bak'
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'files/script.txt.bak' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'files/script.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'files/script.txt.bak'
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'files/script.txt' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'files/script.txt' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'files/script.txt'
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'temp.txt' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'temp.txt' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'temp.txt'
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'test.txt.bak' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'test.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'test.txt.bak'
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'sree.txt' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'sree.txt' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'sree.txt'
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'vishal.txt.bak' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'vishal.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'vishal.txt.bak'
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'temp.txt.bak' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'temp.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'temp.txt.bak'
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'g.txt' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'g.txt' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'g.txt'
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'k.txt.bak' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'k.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'k.txt.bak'
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'nga.txt' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'nga.txt' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'nga.txt'
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'amish.txt' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'amish.txt' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'amish.txt'
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'hope.txt.bak' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'hope.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'hope.txt.bak'
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'vishal.txt' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'vishal.txt' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'vishal.txt'
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'my_files/re.txt.bak' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'my_files/re.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'my_files/re.txt.bak'
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'my_files/re.txt' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'my_files/re.txt' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'my_files/re.txt'
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'sree.txt.bak' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'sree.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'sree.txt.bak'
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'k.txt' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'k.txt' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'k.txt'
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'arushi.txt' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'arushi.txt' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'arushi.txt'
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'leon.txt' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'leon.txt' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'leon.txt'
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'anay.txt.bak' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'anay.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'anay.txt.bak'
+[2025-11-19 12:27:35] Got REQ_UPDATE_METADATA for 'hope.txt' from SS 5
+[2025-11-19 12:27:35] [HASH HIT] 'hope.txt' found in hash map, adding to cache
+[2025-11-19 12:27:35]   -> Metadata updated for 'hope.txt'
+[2025-11-19 12:27:43] New connection from 127.0.0.1 on socket 6
+[2025-11-19 12:27:43] Socket 6 (127.0.0.1): CLIENT registered as 'sree'
+[2025-11-19 12:27:46] Got REQ_VIEW (a=0, l=0) from client 'sree'
+[2025-11-19 12:28:13] Got REQ_CREATEFOLDER for 'files/sub' from client 'sree'
+[2025-11-19 12:28:13]   -> Relaying REQ_SS_CREATEFOLDER to SS on socket 5
+[2025-11-19 12:28:13]   -> Folder 'files/sub' created successfully.
+[2025-11-19 12:28:16] Got REQ_VIEW (a=0, l=0) from client 'sree'
+[2025-11-19 12:28:32] Got REQ_VIEWFOLDER for 'sub' from client 'sree'
+[2025-11-19 12:28:46] Got REQ_VIEWFOLDER for 'files/sub' from client 'sree'
+[2025-11-19 12:28:52] Got REQ_VIEW (a=0, l=1) from client 'sree'
+[2025-11-19 12:28:59] Got REQ_VIEWFOLDER for 'f' from client 'sree'
+[2025-11-19 12:29:21] Got REQ_VIEWFOLDER for 'files' from client 'sree'
+[2025-11-19 12:33:42] Storage Server (Socket 5, IP: 127.0.0.1) disconnected.
+[2025-11-19 12:33:42] De-listing its files from the catalog...
+[2025-11-19 12:33:42]   -> De-listed 'anay.txt'
+[2025-11-19 12:33:42]   -> De-listed 'file.txt'
+[2025-11-19 12:33:42]   -> De-listed 'test.txt'
+[2025-11-19 12:33:42]   -> De-listed 'nga.txt.bak'
+[2025-11-19 12:33:42]   -> De-listed 'j.txt'
+[2025-11-19 12:33:42]   -> De-listed 'nigger.txt'
+[2025-11-19 12:33:42]   -> De-listed 'file.txt.bak'
+[2025-11-19 12:33:42]   -> De-listed 'files/script.txt.bak'
+[2025-11-19 12:33:42]   -> De-listed 'files/script.txt'
+[2025-11-19 12:33:42]   -> De-listed 'temp.txt'
+[2025-11-19 12:33:42]   -> De-listed 'test.txt.bak'
+[2025-11-19 12:33:42]   -> De-listed 'sree.txt'
+[2025-11-19 12:33:42]   -> De-listed 'vishal.txt.bak'
+[2025-11-19 12:33:42]   -> De-listed 'temp.txt.bak'
+[2025-11-19 12:33:42]   -> De-listed 'g.txt'
+[2025-11-19 12:33:42]   -> De-listed 'k.txt.bak'
+[2025-11-19 12:33:42]   -> De-listed 'nga.txt'
+[2025-11-19 12:33:42]   -> De-listed 'amish.txt'
+[2025-11-19 12:33:42]   -> De-listed 'hope.txt.bak'
+[2025-11-19 12:33:42]   -> De-listed 'vishal.txt'
+[2025-11-19 12:33:42]   -> De-listed 'my_files/re.txt.bak'
+[2025-11-19 12:33:42]   -> De-listed 'my_files/re.txt'
+[2025-11-19 12:33:42]   -> De-listed 'sree.txt.bak'
+[2025-11-19 12:33:42]   -> De-listed 'k.txt'
+[2025-11-19 12:33:42]   -> De-listed 'arushi.txt'
+[2025-11-19 12:33:42]   -> De-listed 'leon.txt'
+[2025-11-19 12:33:42]   -> De-listed 'anay.txt.bak'
+[2025-11-19 12:33:42]   -> De-listed 'hope.txt'
+[2025-11-19 12:33:47] --- Name Server Started ---
+[2025-11-19 12:33:47] Initializing state...
+[2025-11-19 12:33:47] Hash map and LRU cache initialized.
+[2025-11-19 12:33:47] Name Server listening on port 8080...
+[2025-11-19 12:33:50] New connection from 127.0.0.1 on socket 5
+[2025-11-19 12:33:50] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 28 files.
+[2025-11-19 12:33:50] Receiving file list from SS 5...
+[2025-11-19 12:33:50]   -> Cataloged 'anay.txt' (owner: system, 0 access entries) in slot 0
+[2025-11-19 12:33:50]   -> Cataloged 'file.txt' (owner: system, 0 access entries) in slot 1
+[2025-11-19 12:33:50]   -> Cataloged 'test.txt' (owner: system, 0 access entries) in slot 2
+[2025-11-19 12:33:50]   -> Cataloged 'nga.txt.bak' (owner: system, 0 access entries) in slot 3
+[2025-11-19 12:33:50]   -> Cataloged 'j.txt' (owner: system, 0 access entries) in slot 4
+[2025-11-19 12:33:50]   -> Cataloged 'nigger.txt' (owner: system, 0 access entries) in slot 5
+[2025-11-19 12:33:50]   -> Cataloged 'file.txt.bak' (owner: system, 0 access entries) in slot 6
+[2025-11-19 12:33:50]   -> Cataloged 'files/script.txt.bak' (owner: system, 0 access entries) in slot 7
+[2025-11-19 12:33:50]   -> Cataloged 'files/script.txt' (owner: sree, 0 access entries) in slot 8
+[2025-11-19 12:33:50]   -> Cataloged 'temp.txt' (owner: system, 0 access entries) in slot 9
+[2025-11-19 12:33:50]   -> Cataloged 'test.txt.bak' (owner: system, 0 access entries) in slot 10
+[2025-11-19 12:33:50]   -> Cataloged 'sree.txt' (owner: system, 0 access entries) in slot 11
+[2025-11-19 12:33:50]   -> Cataloged 'vishal.txt.bak' (owner: system, 0 access entries) in slot 12
+[2025-11-19 12:33:50]   -> Cataloged 'temp.txt.bak' (owner: system, 0 access entries) in slot 13
+[2025-11-19 12:33:50]   -> Cataloged 'g.txt' (owner: sree, 0 access entries) in slot 14
+[2025-11-19 12:33:50]   -> Cataloged 'k.txt.bak' (owner: system, 0 access entries) in slot 15
+[2025-11-19 12:33:50]   -> Cataloged 'nga.txt' (owner: system, 0 access entries) in slot 16
+[2025-11-19 12:33:50]   -> Cataloged 'amish.txt' (owner: sree, 0 access entries) in slot 17
+[2025-11-19 12:33:50]   -> Cataloged 'hope.txt.bak' (owner: system, 0 access entries) in slot 18
+[2025-11-19 12:33:50]   -> Cataloged 'vishal.txt' (owner: system, 0 access entries) in slot 19
+[2025-11-19 12:33:50]   -> Cataloged 'my_files/re.txt.bak' (owner: system, 0 access entries) in slot 20
+[2025-11-19 12:33:50]   -> Cataloged 'my_files/re.txt' (owner: sree, 2 access entries) in slot 21
+[2025-11-19 12:33:50]   -> Cataloged 'sree.txt.bak' (owner: system, 0 access entries) in slot 22
+[2025-11-19 12:33:50]   -> Cataloged 'k.txt' (owner: sree, 0 access entries) in slot 23
+[2025-11-19 12:33:50]   -> Cataloged 'arushi.txt' (owner: sree, 0 access entries) in slot 24
+[2025-11-19 12:33:50]   -> Cataloged 'leon.txt' (owner: system, 0 access entries) in slot 25
+[2025-11-19 12:33:50]   -> Cataloged 'anay.txt.bak' (owner: system, 0 access entries) in slot 26
+[2025-11-19 12:33:50]   -> Cataloged 'hope.txt' (owner: system, 0 access entries) in slot 27
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'anay.txt' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'anay.txt' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'anay.txt'
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'file.txt' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'file.txt'
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'test.txt' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'test.txt' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'test.txt'
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'nga.txt.bak' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'nga.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'nga.txt.bak'
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'j.txt' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'j.txt' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'j.txt'
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'nigger.txt' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'nigger.txt' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'nigger.txt'
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'file.txt.bak' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'file.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'file.txt.bak'
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'files/script.txt.bak' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'files/script.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'files/script.txt.bak'
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'files/script.txt' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'files/script.txt' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'files/script.txt'
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'temp.txt' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'temp.txt' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'temp.txt'
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'test.txt.bak' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'test.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'test.txt.bak'
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'sree.txt' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'sree.txt' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'sree.txt'
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'vishal.txt.bak' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'vishal.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'vishal.txt.bak'
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'temp.txt.bak' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'temp.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'temp.txt.bak'
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'g.txt' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'g.txt' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'g.txt'
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'k.txt.bak' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'k.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'k.txt.bak'
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'nga.txt' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'nga.txt' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'nga.txt'
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'amish.txt' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'amish.txt' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'amish.txt'
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'hope.txt.bak' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'hope.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'hope.txt.bak'
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'vishal.txt' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'vishal.txt' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'vishal.txt'
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'my_files/re.txt.bak' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'my_files/re.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'my_files/re.txt.bak'
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'my_files/re.txt' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'my_files/re.txt' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'my_files/re.txt'
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'sree.txt.bak' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'sree.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'sree.txt.bak'
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'k.txt' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'k.txt' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'k.txt'
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'arushi.txt' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'arushi.txt' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'arushi.txt'
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'leon.txt' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'leon.txt' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'leon.txt'
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'anay.txt.bak' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'anay.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'anay.txt.bak'
+[2025-11-19 12:33:50] Got REQ_UPDATE_METADATA for 'hope.txt' from SS 5
+[2025-11-19 12:33:50] [HASH HIT] 'hope.txt' found in hash map, adding to cache
+[2025-11-19 12:33:50]   -> Metadata updated for 'hope.txt'
+[2025-11-19 12:33:58] New connection from 127.0.0.1 on socket 6
+[2025-11-19 12:33:58] Socket 6 (127.0.0.1): CLIENT registered as 'sree'
+[2025-11-19 12:33:59] Got REQ_VIEW (a=0, l=0) from client 'sree'
+[2025-11-19 12:34:08] Got REQ_VIEWFOLDER for 'files' from client 'sree'
+[2025-11-19 12:34:12] Got REQ_VIEWFOLDER for 'f' from client 'sree'
+[2025-11-19 12:34:12]   -> Folder 'f' does not exist
+[2025-11-19 12:34:19] Got REQ_VIEWFOLDER for 'se' from client 'sree'
+[2025-11-19 12:34:19]   -> Folder 'se' does not exist
+[2025-11-19 12:34:47] Got REQ_VIEWFOLDER for 'my_files/re.txt' from client 'sree'
+[2025-11-19 12:34:47]   -> Folder 'my_files/re.txt' does not exist
+[2025-11-19 12:34:59] Got 8 for 'ny_files/re.txt' from client 'sree'
+[2025-11-19 12:34:59] [MISS] 'ny_files/re.txt' not found in cache or hash map
+[2025-11-19 12:34:59]   -> Error: File not found.
+[2025-11-19 12:35:12] Got 8 for 'my_files/re.txt' from client 'sree'
+[2025-11-19 12:35:12] [HASH HIT] 'my_files/re.txt' found in hash map, adding to cache
+[2025-11-19 12:35:12]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-19 12:35:27] Got REQ_CREATEFOLDER for 'my_files' from client 'sree'
+[2025-11-19 12:35:27]   -> Relaying REQ_SS_CREATEFOLDER to SS on socket 5
+[2025-11-19 12:35:27]   -> Folder 'my_files' created successfully.
+[2025-11-19 12:35:47] Got REQ_VIEWFOLDER for 'my_files' from client 'sree'
+[2025-11-19 12:37:15] Got REQ_CREATEFOLDER for 'my_files/sub' from client 'sree'
+[2025-11-19 12:37:15]   -> Relaying REQ_SS_CREATEFOLDER to SS on socket 5
+[2025-11-19 12:37:15]   -> Folder 'my_files/sub' created successfully.
+[2025-11-19 12:37:23] Got REQ_VIEWFOLDER for 'my_files' from client 'sree'
+[2025-11-19 12:37:35] Got REQ_VIEWFOLDER for 'my_files.sub' from client 'sree'
+[2025-11-19 12:37:35]   -> Folder 'my_files.sub' does not exist
+[2025-11-19 12:37:43] Got REQ_VIEWFOLDER for 'my_Files/sub' from client 'sree'
+[2025-11-19 12:37:43]   -> Folder 'my_Files/sub' does not exist
+[2025-11-19 12:37:52] Got REQ_VIEWFOLDER for 'my_files/sub' from client 'sree'
+[2025-11-19 12:38:56] New connection from 127.0.0.1 on socket 7
+[2025-11-19 12:38:56] Socket 7 (127.0.0.1): CLIENT registered as 'vishal'
+[2025-11-19 12:38:57] Got REQ_VIEW (a=0, l=0) from client 'vishal'
+[2025-11-19 12:39:05] Got 8 for 'my_files/re.txt' from client 'vishal'
+[2025-11-19 12:39:05] [CACHE HIT] 'my_files/re.txt' found in cache at position 0
+[2025-11-19 12:39:05]   -> File found on SS 5 (127.0.0.1:8082)
+[2025-11-19 12:39:23] Got REQ_VIEW (a=0, l=0) from client 'sree'
+[2025-11-19 12:39:34] Got REQ_MOVE for 'arushi.txt' to folder 'my_files/sub' from client 'sree'
+[2025-11-19 12:39:34] [CACHE HIT] 'arushi.txt' found in cache at position 4
+[2025-11-19 12:39:34]   -> Relaying REQ_SS_MOVE to SS 5
+[2025-11-19 12:39:34]   -> File moved successfully. New path: 'my_files/sub/arushi.txt'
+[2025-11-19 12:39:48] Client 'sree' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-19 12:39:49] Client 'vishal' (Socket 7, IP: 127.0.0.1) disconnected.
+[2025-11-19 12:39:50] Storage Server (Socket 5, IP: 127.0.0.1) disconnected.
+[2025-11-19 12:39:50] De-listing its files from the catalog...
+[2025-11-19 12:39:50]   -> De-listed 'anay.txt'
+[2025-11-19 12:39:50]   -> De-listed 'file.txt'
+[2025-11-19 12:39:50]   -> De-listed 'test.txt'
+[2025-11-19 12:39:50]   -> De-listed 'nga.txt.bak'
+[2025-11-19 12:39:50]   -> De-listed 'j.txt'
+[2025-11-19 12:39:50]   -> De-listed 'nigger.txt'
+[2025-11-19 12:39:50]   -> De-listed 'file.txt.bak'
+[2025-11-19 12:39:50]   -> De-listed 'files/script.txt.bak'
+[2025-11-19 12:39:50]   -> De-listed 'files/script.txt'
+[2025-11-19 12:39:50]   -> De-listed 'temp.txt'
+[2025-11-19 12:39:50]   -> De-listed 'test.txt.bak'
+[2025-11-19 12:39:50]   -> De-listed 'sree.txt'
+[2025-11-19 12:39:50]   -> De-listed 'vishal.txt.bak'
+[2025-11-19 12:39:50]   -> De-listed 'temp.txt.bak'
+[2025-11-19 12:39:50]   -> De-listed 'g.txt'
+[2025-11-19 12:39:50]   -> De-listed 'k.txt.bak'
+[2025-11-19 12:39:50]   -> De-listed 'nga.txt'
+[2025-11-19 12:39:50]   -> De-listed 'amish.txt'
+[2025-11-19 12:39:50]   -> De-listed 'hope.txt.bak'
+[2025-11-19 12:39:50]   -> De-listed 'vishal.txt'
+[2025-11-19 12:39:50]   -> De-listed 'my_files/re.txt.bak'
+[2025-11-19 12:39:50]   -> De-listed 'my_files/re.txt'
+[2025-11-19 12:39:50]   -> De-listed 'sree.txt.bak'
+[2025-11-19 12:39:50]   -> De-listed 'k.txt'
+[2025-11-19 12:39:50]   -> De-listed 'my_files/sub/arushi.txt'
+[2025-11-19 12:39:50]   -> De-listed 'leon.txt'
+[2025-11-19 12:39:50]   -> De-listed 'anay.txt.bak'
+[2025-11-19 12:39:50]   -> De-listed 'hope.txt'
+[2025-11-19 12:39:56] --- Name Server Started ---
+[2025-11-19 12:39:56] Initializing state...
+[2025-11-19 12:39:56] Hash map and LRU cache initialized.
+[2025-11-19 12:39:56] Name Server listening on port 8080...
+[2025-11-19 12:39:59] New connection from 127.0.0.1 on socket 5
+[2025-11-19 12:39:59] Socket 5 (127.0.0.1): SS registered at 127.0.0.1:8082. Expecting 28 files.
+[2025-11-19 12:39:59] Receiving file list from SS 5...
+[2025-11-19 12:39:59]   -> Cataloged 'anay.txt' (owner: system, 0 access entries) in slot 0
+[2025-11-19 12:39:59]   -> Cataloged 'file.txt' (owner: system, 0 access entries) in slot 1
+[2025-11-19 12:39:59]   -> Cataloged 'test.txt' (owner: system, 0 access entries) in slot 2
+[2025-11-19 12:39:59]   -> Cataloged 'nga.txt.bak' (owner: system, 0 access entries) in slot 3
+[2025-11-19 12:39:59]   -> Cataloged 'j.txt' (owner: system, 0 access entries) in slot 4
+[2025-11-19 12:39:59]   -> Cataloged 'nigger.txt' (owner: system, 0 access entries) in slot 5
+[2025-11-19 12:39:59]   -> Cataloged 'file.txt.bak' (owner: system, 0 access entries) in slot 6
+[2025-11-19 12:39:59]   -> Cataloged 'files/script.txt.bak' (owner: system, 0 access entries) in slot 7
+[2025-11-19 12:39:59]   -> Cataloged 'files/script.txt' (owner: sree, 0 access entries) in slot 8
+[2025-11-19 12:39:59]   -> Cataloged 'temp.txt' (owner: system, 0 access entries) in slot 9
+[2025-11-19 12:39:59]   -> Cataloged 'test.txt.bak' (owner: system, 0 access entries) in slot 10
+[2025-11-19 12:39:59]   -> Cataloged 'sree.txt' (owner: system, 0 access entries) in slot 11
+[2025-11-19 12:39:59]   -> Cataloged 'vishal.txt.bak' (owner: system, 0 access entries) in slot 12
+[2025-11-19 12:39:59]   -> Cataloged 'temp.txt.bak' (owner: system, 0 access entries) in slot 13
+[2025-11-19 12:39:59]   -> Cataloged 'g.txt' (owner: sree, 0 access entries) in slot 14
+[2025-11-19 12:39:59]   -> Cataloged 'k.txt.bak' (owner: system, 0 access entries) in slot 15
+[2025-11-19 12:39:59]   -> Cataloged 'nga.txt' (owner: system, 0 access entries) in slot 16
+[2025-11-19 12:39:59]   -> Cataloged 'amish.txt' (owner: sree, 0 access entries) in slot 17
+[2025-11-19 12:39:59]   -> Cataloged 'hope.txt.bak' (owner: system, 0 access entries) in slot 18
+[2025-11-19 12:39:59]   -> Cataloged 'vishal.txt' (owner: system, 0 access entries) in slot 19
+[2025-11-19 12:39:59]   -> Cataloged 'my_files/re.txt.bak' (owner: system, 0 access entries) in slot 20
+[2025-11-19 12:39:59]   -> Cataloged 'my_files/re.txt' (owner: sree, 2 access entries) in slot 21
+[2025-11-19 12:39:59]   -> Cataloged 'my_files/sub/arushi.txt' (owner: sree, 0 access entries) in slot 22
+[2025-11-19 12:39:59]   -> Cataloged 'sree.txt.bak' (owner: system, 0 access entries) in slot 23
+[2025-11-19 12:39:59]   -> Cataloged 'k.txt' (owner: sree, 0 access entries) in slot 24
+[2025-11-19 12:39:59]   -> Cataloged 'leon.txt' (owner: system, 0 access entries) in slot 25
+[2025-11-19 12:39:59]   -> Cataloged 'anay.txt.bak' (owner: system, 0 access entries) in slot 26
+[2025-11-19 12:39:59]   -> Cataloged 'hope.txt' (owner: system, 0 access entries) in slot 27
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'anay.txt' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'anay.txt' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'anay.txt'
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'file.txt' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'file.txt' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'file.txt'
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'test.txt' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'test.txt' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'test.txt'
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'nga.txt.bak' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'nga.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'nga.txt.bak'
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'j.txt' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'j.txt' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'j.txt'
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'nigger.txt' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'nigger.txt' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'nigger.txt'
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'file.txt.bak' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'file.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'file.txt.bak'
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'files/script.txt.bak' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'files/script.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'files/script.txt.bak'
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'files/script.txt' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'files/script.txt' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'files/script.txt'
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'temp.txt' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'temp.txt' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'temp.txt'
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'test.txt.bak' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'test.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'test.txt.bak'
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'sree.txt' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'sree.txt' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'sree.txt'
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'vishal.txt.bak' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'vishal.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'vishal.txt.bak'
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'temp.txt.bak' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'temp.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'temp.txt.bak'
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'g.txt' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'g.txt' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'g.txt'
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'k.txt.bak' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'k.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'k.txt.bak'
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'nga.txt' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'nga.txt' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'nga.txt'
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'amish.txt' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'amish.txt' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'amish.txt'
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'hope.txt.bak' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'hope.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'hope.txt.bak'
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'vishal.txt' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'vishal.txt' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'vishal.txt'
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'my_files/re.txt.bak' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'my_files/re.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'my_files/re.txt.bak'
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'my_files/re.txt' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'my_files/re.txt' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'my_files/re.txt'
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'my_files/sub/arushi.txt' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'my_files/sub/arushi.txt' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'my_files/sub/arushi.txt'
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'sree.txt.bak' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'sree.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'sree.txt.bak'
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'k.txt' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'k.txt' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'k.txt'
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'leon.txt' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'leon.txt' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'leon.txt'
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'anay.txt.bak' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'anay.txt.bak' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'anay.txt.bak'
+[2025-11-19 12:39:59] Got REQ_UPDATE_METADATA for 'hope.txt' from SS 5
+[2025-11-19 12:39:59] [HASH HIT] 'hope.txt' found in hash map, adding to cache
+[2025-11-19 12:39:59]   -> Metadata updated for 'hope.txt'
+[2025-11-19 12:40:05] New connection from 127.0.0.1 on socket 6
+[2025-11-19 12:40:05] Socket 6 (127.0.0.1): CLIENT registered as 'sre'
+[2025-11-19 12:40:07] Client 'sre' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-19 12:40:09] New connection from 127.0.0.1 on socket 6
+[2025-11-19 12:40:09] Socket 6 (127.0.0.1): CLIENT registered as 'sree'
+[2025-11-19 12:40:11] Got REQ_VIEW (a=0, l=0) from client 'sree'
+[2025-11-19 12:40:24] Got REQ_CREATEFOLDER for 'my_files' from client 'sree'
+[2025-11-19 12:40:24]   -> Relaying REQ_SS_CREATEFOLDER to SS on socket 5
+[2025-11-19 12:40:24]   -> SS failed to create folder.
+[2025-11-19 12:40:29] Got REQ_CREATEFOLDER for 'k' from client 'sree'
+[2025-11-19 12:40:29]   -> Relaying REQ_SS_CREATEFOLDER to SS on socket 5
+[2025-11-19 12:40:29]   -> Folder 'k' created successfully.
+[2025-11-19 12:40:32] Client 'sree' (Socket 6, IP: 127.0.0.1) disconnected.
+[2025-11-19 12:40:50] Storage Server (Socket 5, IP: 127.0.0.1) disconnected.
+[2025-11-19 12:40:50] De-listing its files from the catalog...
+[2025-11-19 12:40:50]   -> De-listed 'anay.txt'
+[2025-11-19 12:40:50]   -> De-listed 'file.txt'
+[2025-11-19 12:40:50]   -> De-listed 'test.txt'
+[2025-11-19 12:40:50]   -> De-listed 'nga.txt.bak'
+[2025-11-19 12:40:50]   -> De-listed 'j.txt'
+[2025-11-19 12:40:50]   -> De-listed 'nigger.txt'
+[2025-11-19 12:40:50]   -> De-listed 'file.txt.bak'
+[2025-11-19 12:40:50]   -> De-listed 'files/script.txt.bak'
+[2025-11-19 12:40:50]   -> De-listed 'files/script.txt'
+[2025-11-19 12:40:50]   -> De-listed 'temp.txt'
+[2025-11-19 12:40:50]   -> De-listed 'test.txt.bak'
+[2025-11-19 12:40:50]   -> De-listed 'sree.txt'
+[2025-11-19 12:40:50]   -> De-listed 'vishal.txt.bak'
+[2025-11-19 12:40:50]   -> De-listed 'temp.txt.bak'
+[2025-11-19 12:40:50]   -> De-listed 'g.txt'
+[2025-11-19 12:40:50]   -> De-listed 'k.txt.bak'
+[2025-11-19 12:40:50]   -> De-listed 'nga.txt'
+[2025-11-19 12:40:50]   -> De-listed 'amish.txt'
+[2025-11-19 12:40:50]   -> De-listed 'hope.txt.bak'
+[2025-11-19 12:40:50]   -> De-listed 'vishal.txt'
+[2025-11-19 12:40:50]   -> De-listed 'my_files/re.txt.bak'
+[2025-11-19 12:40:50]   -> De-listed 'my_files/re.txt'
+[2025-11-19 12:40:50]   -> De-listed 'my_files/sub/arushi.txt'
+[2025-11-19 12:40:50]   -> De-listed 'sree.txt.bak'
+[2025-11-19 12:40:50]   -> De-listed 'k.txt'
+[2025-11-19 12:40:50]   -> De-listed 'leon.txt'
+[2025-11-19 12:40:50]   -> De-listed 'anay.txt.bak'
+[2025-11-19 12:40:50]   -> De-listed 'hope.txt'

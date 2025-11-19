@@ -2431,3 +2431,453 @@
 [2025-11-19 11:28:57] Got REQ_CLIENT_READ for 'amish.txt' from socket 6
 [2025-11-19 11:28:57]   -> Sending file 'amish.txt' to socket 6
 [2025-11-19 11:28:57]   -> Finished sending file to socket 6
+[2025-11-19 11:45:33] --- Storage Server Started ---
+[2025-11-19 11:45:33] Scanning storage directory: ./ss_storage
+[2025-11-19 11:45:33] Found 29 files.
+[2025-11-19 11:45:33] Storage Server connected to Name Server on port 8080
+[2025-11-19 11:45:33] Sending file list with metadata...
+[2025-11-19 11:45:33]   -> Sending 'anay.txt' (owner: system, access_count: 0)
+[2025-11-19 11:45:33]   -> Sending 'file.txt' (owner: system, access_count: 0)
+[2025-11-19 11:45:33]   -> Sending 'test.txt' (owner: system, access_count: 0)
+[2025-11-19 11:45:33]   -> Sending 'nga.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 11:45:33]   -> Sending 'j.txt' (owner: system, access_count: 0)
+[2025-11-19 11:45:33]   -> Sending '.metadata' (owner: system, access_count: 0)
+[2025-11-19 11:45:33]   -> Sending 'nigger.txt' (owner: system, access_count: 0)
+[2025-11-19 11:45:33]   -> Sending 'file.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 11:45:33]   -> Sending 'script.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 11:45:33]   -> Sending 'temp.txt' (owner: system, access_count: 0)
+[2025-11-19 11:45:33]   -> Sending 'test.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 11:45:33]   -> Sending 're.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 11:45:33]   -> Sending 'sree.txt' (owner: system, access_count: 0)
+[2025-11-19 11:45:33]   -> Sending 'vishal.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 11:45:33]   -> Sending 're.txt' (owner: sree, access_count: 2)
+[2025-11-19 11:45:33]   -> Sending 'temp.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 11:45:33]   -> Sending 'script.txt' (owner: sree, access_count: 0)
+[2025-11-19 11:45:33]   -> Sending 'g.txt' (owner: sree, access_count: 0)
+[2025-11-19 11:45:33]   -> Sending 'k.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 11:45:33]   -> Sending 'nga.txt' (owner: system, access_count: 0)
+[2025-11-19 11:45:33]   -> Sending 'amish.txt' (owner: sree, access_count: 0)
+[2025-11-19 11:45:33]   -> Sending 'hope.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 11:45:33]   -> Sending 'vishal.txt' (owner: system, access_count: 0)
+[2025-11-19 11:45:33]   -> Sending 'sree.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 11:45:33]   -> Sending 'k.txt' (owner: sree, access_count: 0)
+[2025-11-19 11:45:33]   -> Sending 'arushi.txt' (owner: sree, access_count: 0)
+[2025-11-19 11:45:33]   -> Sending 'leon.txt' (owner: system, access_count: 0)
+[2025-11-19 11:45:33]   -> Sending 'anay.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 11:45:33]   -> Sending 'hope.txt' (owner: system, access_count: 0)
+[2025-11-19 11:45:33] Registration successful!
+[2025-11-19 11:45:33] Sending metadata for 29 existing files...
+[2025-11-19 11:45:33]   -> Calculated stats for 'anay.txt': size=15, words=3, chars=15
+[2025-11-19 11:45:33]   -> Calculated stats for 'file.txt': size=30, words=6, chars=30
+[2025-11-19 11:45:33]   -> Calculated stats for 'test.txt': size=22, words=5, chars=22
+[2025-11-19 11:45:33]   -> Calculated stats for 'nga.txt.bak': size=12, words=2, chars=12
+[2025-11-19 11:45:33]   -> Calculated stats for 'j.txt': size=0, words=0, chars=0
+[2025-11-19 11:45:33]   -> Calculated stats for '.metadata': size=113, words=23, chars=113
+[2025-11-19 11:45:33]   -> Calculated stats for 'nigger.txt': size=0, words=0, chars=0
+[2025-11-19 11:45:33]   -> Calculated stats for 'file.txt.bak': size=36, words=8, chars=36
+[2025-11-19 11:45:33]   -> Calculated stats for 'script.txt.bak': size=10, words=4, chars=10
+[2025-11-19 11:45:33]   -> Calculated stats for 'temp.txt': size=15, words=3, chars=15
+[2025-11-19 11:45:33]   -> Calculated stats for 'test.txt.bak': size=10, words=2, chars=10
+[2025-11-19 11:45:33]   -> Calculated stats for 're.txt.bak': size=0, words=0, chars=0
+[2025-11-19 11:45:33]   -> Calculated stats for 'sree.txt': size=4, words=1, chars=4
+[2025-11-19 11:45:33]   -> Calculated stats for 'vishal.txt.bak': size=4, words=1, chars=4
+[2025-11-19 11:45:33]   -> Calculated stats for 're.txt': size=0, words=0, chars=0
+[2025-11-19 11:45:33]   -> Calculated stats for 'temp.txt.bak': size=15, words=3, chars=15
+[2025-11-19 11:45:33]   -> Calculated stats for 'script.txt': size=10, words=4, chars=10
+[2025-11-19 11:45:33]   -> Calculated stats for 'g.txt': size=0, words=0, chars=0
+[2025-11-19 11:45:33]   -> Calculated stats for 'k.txt.bak': size=0, words=0, chars=0
+[2025-11-19 11:45:33]   -> Calculated stats for 'nga.txt': size=23, words=4, chars=23
+[2025-11-19 11:45:33]   -> Calculated stats for 'amish.txt': size=0, words=0, chars=0
+[2025-11-19 11:45:33]   -> Calculated stats for 'hope.txt.bak': size=0, words=0, chars=0
+[2025-11-19 11:45:33]   -> Calculated stats for 'vishal.txt': size=4, words=1, chars=4
+[2025-11-19 11:45:33]   -> Calculated stats for 'sree.txt.bak': size=10, words=2, chars=10
+[2025-11-19 11:45:33]   -> Calculated stats for 'k.txt': size=2, words=1, chars=2
+[2025-11-19 11:45:33]   -> Calculated stats for 'arushi.txt': size=0, words=0, chars=0
+[2025-11-19 11:45:33]   -> Calculated stats for 'leon.txt': size=0, words=0, chars=0
+[2025-11-19 11:45:33]   -> Calculated stats for 'anay.txt.bak': size=24, words=4, chars=24
+[2025-11-19 11:45:33]   -> Calculated stats for 'hope.txt': size=4, words=1, chars=4
+[2025-11-19 11:45:33] Storage Server now listening for clients on port 8082...
+[2025-11-19 11:46:26] Got REQ_SS_CREATEFOLDER for 'my_files' from NM
+[2025-11-19 11:46:26]   -> Folder created at: ./ss_storage/my_files
+[2025-11-19 11:46:50] Got REQ_SS_MOVE for 're.txt' to folder 'my_files' from NM
+[2025-11-19 11:46:50]   -> File moved from './ss_storage/re.txt' to './ss_storage/my_files/re.txt'
+[2025-11-19 11:46:50]   -> Metadata saved for 'my_files/re.txt'
+[2025-11-19 12:05:31] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 12:05:31] Got REQ_CLIENT_READ for 'my_files/re.txt' from socket 6
+[2025-11-19 12:05:31]   -> Sending file 'my_files/re.txt' to socket 6
+[2025-11-19 12:05:31]   -> Finished sending file to socket 6
+[2025-11-19 12:06:25] Got REQ_SS_MOVE for 'script.txt' to folder 'my_files' from NM
+[2025-11-19 12:06:25]   -> File moved from './ss_storage/script.txt' to './ss_storage/my_files/script.txt'
+[2025-11-19 12:06:25]   -> Metadata saved for 'my_files/script.txt'
+[2025-11-19 12:08:37] Got REQ_SS_CREATEFOLDER for 'files' from NM
+[2025-11-19 12:08:37]   -> Folder created at: ./ss_storage/files
+[2025-11-19 12:09:14] Got REQ_SS_MOVE for 'my_files/re.txt' to folder 'files' from NM
+[2025-11-19 12:09:14]   -> Error moving file: No such file or directory
+[2025-11-19 12:09:53] Got REQ_SS_MOVE for 'my_files/re.txt' to folder 'files' from NM
+[2025-11-19 12:09:53]   -> Error moving file: No such file or directory
+[2025-11-19 12:10:19] Got REQ_SS_MOVE for 'my_files/re.txt' to folder 'files' from NM
+[2025-11-19 12:10:19]   -> Error moving file: No such file or directory
+[2025-11-19 12:12:39] Name Server disconnected!
+[2025-11-19 12:13:13] --- Storage Server Started ---
+[2025-11-19 12:13:13] Scanning storage directory: ./ss_storage
+[2025-11-19 12:13:13] Found 27 files.
+[2025-11-19 12:13:13] Storage Server connected to Name Server on port 8080
+[2025-11-19 12:13:13] Sending file list with metadata...
+[2025-11-19 12:13:13]   -> Sending 'anay.txt' (owner: system, access_count: 0)
+[2025-11-19 12:13:13]   -> Sending 'file.txt' (owner: system, access_count: 0)
+[2025-11-19 12:13:13]   -> Sending 'test.txt' (owner: system, access_count: 0)
+[2025-11-19 12:13:13]   -> Sending 'nga.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:13:13]   -> Sending 'j.txt' (owner: system, access_count: 0)
+[2025-11-19 12:13:13]   -> Sending '.metadata' (owner: system, access_count: 0)
+[2025-11-19 12:13:13]   -> Sending 'nigger.txt' (owner: system, access_count: 0)
+[2025-11-19 12:13:13]   -> Sending 'file.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:13:13]   -> Sending 'files' (owner: system, access_count: 0)
+[2025-11-19 12:13:13]   -> Sending 'temp.txt' (owner: system, access_count: 0)
+[2025-11-19 12:13:13]   -> Sending 'test.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:13:13]   -> Sending 'sree.txt' (owner: system, access_count: 0)
+[2025-11-19 12:13:13]   -> Sending 'vishal.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:13:13]   -> Sending 'temp.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:13:13]   -> Sending 'g.txt' (owner: sree, access_count: 0)
+[2025-11-19 12:13:13]   -> Sending 'k.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:13:13]   -> Sending 'nga.txt' (owner: system, access_count: 0)
+[2025-11-19 12:13:13]   -> Sending 'amish.txt' (owner: sree, access_count: 0)
+[2025-11-19 12:13:13]   -> Sending 'hope.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:13:13]   -> Sending 'vishal.txt' (owner: system, access_count: 0)
+[2025-11-19 12:13:13]   -> Sending 'my_files' (owner: system, access_count: 0)
+[2025-11-19 12:13:13]   -> Sending 'sree.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:13:13]   -> Sending 'k.txt' (owner: sree, access_count: 0)
+[2025-11-19 12:13:13]   -> Sending 'arushi.txt' (owner: sree, access_count: 0)
+[2025-11-19 12:13:13]   -> Sending 'leon.txt' (owner: system, access_count: 0)
+[2025-11-19 12:13:13]   -> Sending 'anay.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:13:13]   -> Sending 'hope.txt' (owner: system, access_count: 0)
+[2025-11-19 12:13:13] Registration successful!
+[2025-11-19 12:13:13] Sending metadata for 27 existing files...
+[2025-11-19 12:13:13]   -> Calculated stats for 'anay.txt': size=15, words=3, chars=15
+[2025-11-19 12:13:13]   -> Calculated stats for 'file.txt': size=30, words=6, chars=30
+[2025-11-19 12:13:13]   -> Calculated stats for 'test.txt': size=22, words=5, chars=22
+[2025-11-19 12:13:13]   -> Calculated stats for 'nga.txt.bak': size=12, words=2, chars=12
+[2025-11-19 12:13:13]   -> Calculated stats for 'j.txt': size=0, words=0, chars=0
+[2025-11-19 12:13:13]   -> Calculated stats for '.metadata': size=131, words=23, chars=131
+[2025-11-19 12:13:13]   -> Calculated stats for 'nigger.txt': size=0, words=0, chars=0
+[2025-11-19 12:13:13]   -> Calculated stats for 'file.txt.bak': size=36, words=8, chars=36
+[2025-11-19 12:13:13]   -> Calculated stats for 'files': size=9223372036854775807, words=0, chars=0
+[2025-11-19 12:13:13]   -> Calculated stats for 'temp.txt': size=15, words=3, chars=15
+[2025-11-19 12:13:13]   -> Calculated stats for 'test.txt.bak': size=10, words=2, chars=10
+[2025-11-19 12:13:13]   -> Calculated stats for 'sree.txt': size=4, words=1, chars=4
+[2025-11-19 12:13:13]   -> Calculated stats for 'vishal.txt.bak': size=4, words=1, chars=4
+[2025-11-19 12:13:13]   -> Calculated stats for 'temp.txt.bak': size=15, words=3, chars=15
+[2025-11-19 12:13:13]   -> Calculated stats for 'g.txt': size=0, words=0, chars=0
+[2025-11-19 12:13:13]   -> Calculated stats for 'k.txt.bak': size=0, words=0, chars=0
+[2025-11-19 12:13:13]   -> Calculated stats for 'nga.txt': size=23, words=4, chars=23
+[2025-11-19 12:13:13]   -> Calculated stats for 'amish.txt': size=0, words=0, chars=0
+[2025-11-19 12:13:13]   -> Calculated stats for 'hope.txt.bak': size=0, words=0, chars=0
+[2025-11-19 12:13:13]   -> Calculated stats for 'vishal.txt': size=4, words=1, chars=4
+[2025-11-19 12:13:13]   -> Calculated stats for 'my_files': size=9223372036854775807, words=0, chars=0
+[2025-11-19 12:13:13]   -> Calculated stats for 'sree.txt.bak': size=10, words=2, chars=10
+[2025-11-19 12:13:13]   -> Calculated stats for 'k.txt': size=2, words=1, chars=2
+[2025-11-19 12:13:13]   -> Calculated stats for 'arushi.txt': size=0, words=0, chars=0
+[2025-11-19 12:13:13]   -> Calculated stats for 'leon.txt': size=0, words=0, chars=0
+[2025-11-19 12:13:13]   -> Calculated stats for 'anay.txt.bak': size=24, words=4, chars=24
+[2025-11-19 12:13:13]   -> Calculated stats for 'hope.txt': size=4, words=1, chars=4
+[2025-11-19 12:13:13] Storage Server now listening for clients on port 8082...
+[2025-11-19 12:15:11] Got REQ_SS_CREATEFOLDER for 'my_files' from NM
+[2025-11-19 12:15:11]   -> Error creating folder: File exists
+[2025-11-19 12:22:26] --- Storage Server Started ---
+[2025-11-19 12:22:26] Scanning storage directory: ./ss_storage
+[2025-11-19 12:22:26] Found 28 files.
+[2025-11-19 12:22:26] Storage Server connected to Name Server on port 8080
+[2025-11-19 12:22:26] Sending file list with metadata...
+[2025-11-19 12:22:26]   -> Sending 'anay.txt' (owner: system, access_count: 0)
+[2025-11-19 12:22:26]   -> Sending 'file.txt' (owner: system, access_count: 0)
+[2025-11-19 12:22:26]   -> Sending 'test.txt' (owner: system, access_count: 0)
+[2025-11-19 12:22:26]   -> Sending 'nga.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:22:26]   -> Sending 'j.txt' (owner: system, access_count: 0)
+[2025-11-19 12:22:26]   -> Sending 'nigger.txt' (owner: system, access_count: 0)
+[2025-11-19 12:22:26]   -> Sending 'file.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:22:26]   -> Sending 'temp.txt' (owner: system, access_count: 0)
+[2025-11-19 12:22:26]   -> Sending 'test.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:22:26]   -> Sending 'sree.txt' (owner: system, access_count: 0)
+[2025-11-19 12:22:26]   -> Sending 'vishal.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:22:26]   -> Sending 'temp.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:22:26]   -> Sending 'g.txt' (owner: sree, access_count: 0)
+[2025-11-19 12:22:26]   -> Sending 'k.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:22:26]   -> Sending 'nga.txt' (owner: system, access_count: 0)
+[2025-11-19 12:22:26]   -> Sending 'amish.txt' (owner: sree, access_count: 0)
+[2025-11-19 12:22:26]   -> Sending 'hope.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:22:26]   -> Sending 'vishal.txt' (owner: system, access_count: 0)
+[2025-11-19 12:22:26]   -> Sending 'my_files/script.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:22:26]   -> Sending 'my_files/re.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:22:26]   -> Sending 'my_files/re.txt' (owner: sree, access_count: 2)
+[2025-11-19 12:22:26]   -> Sending 'my_files/script.txt' (owner: sree, access_count: 0)
+[2025-11-19 12:22:26]   -> Sending 'sree.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:22:26]   -> Sending 'k.txt' (owner: sree, access_count: 0)
+[2025-11-19 12:22:26]   -> Sending 'arushi.txt' (owner: sree, access_count: 0)
+[2025-11-19 12:22:26]   -> Sending 'leon.txt' (owner: system, access_count: 0)
+[2025-11-19 12:22:26]   -> Sending 'anay.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:22:26]   -> Sending 'hope.txt' (owner: system, access_count: 0)
+[2025-11-19 12:22:26] Registration successful!
+[2025-11-19 12:22:26] Sending metadata for 28 existing files...
+[2025-11-19 12:22:26]   -> Calculated stats for 'anay.txt': size=15, words=3, chars=15
+[2025-11-19 12:22:27]   -> Calculated stats for 'file.txt': size=30, words=6, chars=30
+[2025-11-19 12:22:27]   -> Calculated stats for 'test.txt': size=22, words=5, chars=22
+[2025-11-19 12:22:27]   -> Calculated stats for 'nga.txt.bak': size=12, words=2, chars=12
+[2025-11-19 12:22:27]   -> Calculated stats for 'j.txt': size=0, words=0, chars=0
+[2025-11-19 12:22:27]   -> Calculated stats for 'nigger.txt': size=0, words=0, chars=0
+[2025-11-19 12:22:27]   -> Calculated stats for 'file.txt.bak': size=36, words=8, chars=36
+[2025-11-19 12:22:27]   -> Calculated stats for 'temp.txt': size=15, words=3, chars=15
+[2025-11-19 12:22:27]   -> Calculated stats for 'test.txt.bak': size=10, words=2, chars=10
+[2025-11-19 12:22:27]   -> Calculated stats for 'sree.txt': size=4, words=1, chars=4
+[2025-11-19 12:22:27]   -> Calculated stats for 'vishal.txt.bak': size=4, words=1, chars=4
+[2025-11-19 12:22:27]   -> Calculated stats for 'temp.txt.bak': size=15, words=3, chars=15
+[2025-11-19 12:22:27]   -> Calculated stats for 'g.txt': size=0, words=0, chars=0
+[2025-11-19 12:22:27]   -> Calculated stats for 'k.txt.bak': size=0, words=0, chars=0
+[2025-11-19 12:22:27]   -> Calculated stats for 'nga.txt': size=23, words=4, chars=23
+[2025-11-19 12:22:27]   -> Calculated stats for 'amish.txt': size=0, words=0, chars=0
+[2025-11-19 12:22:27]   -> Calculated stats for 'hope.txt.bak': size=0, words=0, chars=0
+[2025-11-19 12:22:27]   -> Calculated stats for 'vishal.txt': size=4, words=1, chars=4
+[2025-11-19 12:22:27]   -> Calculated stats for 'my_files/script.txt.bak': size=10, words=4, chars=10
+[2025-11-19 12:22:27]   -> Calculated stats for 'my_files/re.txt.bak': size=0, words=0, chars=0
+[2025-11-19 12:22:27]   -> Calculated stats for 'my_files/re.txt': size=0, words=0, chars=0
+[2025-11-19 12:22:27]   -> Calculated stats for 'my_files/script.txt': size=10, words=4, chars=10
+[2025-11-19 12:22:27]   -> Calculated stats for 'sree.txt.bak': size=10, words=2, chars=10
+[2025-11-19 12:22:27]   -> Calculated stats for 'k.txt': size=2, words=1, chars=2
+[2025-11-19 12:22:27]   -> Calculated stats for 'arushi.txt': size=0, words=0, chars=0
+[2025-11-19 12:22:27]   -> Calculated stats for 'leon.txt': size=0, words=0, chars=0
+[2025-11-19 12:22:27]   -> Calculated stats for 'anay.txt.bak': size=24, words=4, chars=24
+[2025-11-19 12:22:27]   -> Calculated stats for 'hope.txt': size=4, words=1, chars=4
+[2025-11-19 12:22:27] Storage Server now listening for clients on port 8082...
+[2025-11-19 12:23:16] Got REQ_SS_MOVE for 'my_files/script.txt' to folder 'files' from NM
+[2025-11-19 12:23:16]   -> File moved from './ss_storage/my_files/script.txt' to './ss_storage/files/script.txt'
+[2025-11-19 12:23:16]   -> Metadata saved for 'files/script.txt'
+[2025-11-19 12:27:25] Name Server disconnected!
+[2025-11-19 12:27:35] --- Storage Server Started ---
+[2025-11-19 12:27:35] Scanning storage directory: ./ss_storage
+[2025-11-19 12:27:35] Found 28 files.
+[2025-11-19 12:27:35] Storage Server connected to Name Server on port 8080
+[2025-11-19 12:27:35] Sending file list with metadata...
+[2025-11-19 12:27:35]   -> Sending 'anay.txt' (owner: system, access_count: 0)
+[2025-11-19 12:27:35]   -> Sending 'file.txt' (owner: system, access_count: 0)
+[2025-11-19 12:27:35]   -> Sending 'test.txt' (owner: system, access_count: 0)
+[2025-11-19 12:27:35]   -> Sending 'nga.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:27:35]   -> Sending 'j.txt' (owner: system, access_count: 0)
+[2025-11-19 12:27:35]   -> Sending 'nigger.txt' (owner: system, access_count: 0)
+[2025-11-19 12:27:35]   -> Sending 'file.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:27:35]   -> Sending 'files/script.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:27:35]   -> Sending 'files/script.txt' (owner: sree, access_count: 0)
+[2025-11-19 12:27:35]   -> Sending 'temp.txt' (owner: system, access_count: 0)
+[2025-11-19 12:27:35]   -> Sending 'test.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:27:35]   -> Sending 'sree.txt' (owner: system, access_count: 0)
+[2025-11-19 12:27:35]   -> Sending 'vishal.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:27:35]   -> Sending 'temp.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:27:35]   -> Sending 'g.txt' (owner: sree, access_count: 0)
+[2025-11-19 12:27:35]   -> Sending 'k.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:27:35]   -> Sending 'nga.txt' (owner: system, access_count: 0)
+[2025-11-19 12:27:35]   -> Sending 'amish.txt' (owner: sree, access_count: 0)
+[2025-11-19 12:27:35]   -> Sending 'hope.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:27:35]   -> Sending 'vishal.txt' (owner: system, access_count: 0)
+[2025-11-19 12:27:35]   -> Sending 'my_files/re.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:27:35]   -> Sending 'my_files/re.txt' (owner: sree, access_count: 2)
+[2025-11-19 12:27:35]   -> Sending 'sree.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:27:35]   -> Sending 'k.txt' (owner: sree, access_count: 0)
+[2025-11-19 12:27:35]   -> Sending 'arushi.txt' (owner: sree, access_count: 0)
+[2025-11-19 12:27:35]   -> Sending 'leon.txt' (owner: system, access_count: 0)
+[2025-11-19 12:27:35]   -> Sending 'anay.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:27:35]   -> Sending 'hope.txt' (owner: system, access_count: 0)
+[2025-11-19 12:27:35] Registration successful!
+[2025-11-19 12:27:35] Sending metadata for 28 existing files...
+[2025-11-19 12:27:35]   -> Calculated stats for 'anay.txt': size=15, words=3, chars=15
+[2025-11-19 12:27:35]   -> Calculated stats for 'file.txt': size=30, words=6, chars=30
+[2025-11-19 12:27:35]   -> Calculated stats for 'test.txt': size=22, words=5, chars=22
+[2025-11-19 12:27:35]   -> Calculated stats for 'nga.txt.bak': size=12, words=2, chars=12
+[2025-11-19 12:27:35]   -> Calculated stats for 'j.txt': size=0, words=0, chars=0
+[2025-11-19 12:27:35]   -> Calculated stats for 'nigger.txt': size=0, words=0, chars=0
+[2025-11-19 12:27:35]   -> Calculated stats for 'file.txt.bak': size=36, words=8, chars=36
+[2025-11-19 12:27:35]   -> Calculated stats for 'files/script.txt.bak': size=10, words=4, chars=10
+[2025-11-19 12:27:35]   -> Calculated stats for 'files/script.txt': size=10, words=4, chars=10
+[2025-11-19 12:27:35]   -> Calculated stats for 'temp.txt': size=15, words=3, chars=15
+[2025-11-19 12:27:35]   -> Calculated stats for 'test.txt.bak': size=10, words=2, chars=10
+[2025-11-19 12:27:35]   -> Calculated stats for 'sree.txt': size=4, words=1, chars=4
+[2025-11-19 12:27:35]   -> Calculated stats for 'vishal.txt.bak': size=4, words=1, chars=4
+[2025-11-19 12:27:35]   -> Calculated stats for 'temp.txt.bak': size=15, words=3, chars=15
+[2025-11-19 12:27:35]   -> Calculated stats for 'g.txt': size=0, words=0, chars=0
+[2025-11-19 12:27:35]   -> Calculated stats for 'k.txt.bak': size=0, words=0, chars=0
+[2025-11-19 12:27:35]   -> Calculated stats for 'nga.txt': size=23, words=4, chars=23
+[2025-11-19 12:27:35]   -> Calculated stats for 'amish.txt': size=0, words=0, chars=0
+[2025-11-19 12:27:35]   -> Calculated stats for 'hope.txt.bak': size=0, words=0, chars=0
+[2025-11-19 12:27:35]   -> Calculated stats for 'vishal.txt': size=4, words=1, chars=4
+[2025-11-19 12:27:35]   -> Calculated stats for 'my_files/re.txt.bak': size=0, words=0, chars=0
+[2025-11-19 12:27:35]   -> Calculated stats for 'my_files/re.txt': size=0, words=0, chars=0
+[2025-11-19 12:27:35]   -> Calculated stats for 'sree.txt.bak': size=10, words=2, chars=10
+[2025-11-19 12:27:35]   -> Calculated stats for 'k.txt': size=2, words=1, chars=2
+[2025-11-19 12:27:35]   -> Calculated stats for 'arushi.txt': size=0, words=0, chars=0
+[2025-11-19 12:27:35]   -> Calculated stats for 'leon.txt': size=0, words=0, chars=0
+[2025-11-19 12:27:35]   -> Calculated stats for 'anay.txt.bak': size=24, words=4, chars=24
+[2025-11-19 12:27:35]   -> Calculated stats for 'hope.txt': size=4, words=1, chars=4
+[2025-11-19 12:27:35] Storage Server now listening for clients on port 8082...
+[2025-11-19 12:28:13] Got REQ_SS_CREATEFOLDER for 'files/sub' from NM
+[2025-11-19 12:28:13]   -> Folder created at: ./ss_storage/files/sub
+[2025-11-19 12:33:50] --- Storage Server Started ---
+[2025-11-19 12:33:50] Scanning storage directory: ./ss_storage
+[2025-11-19 12:33:50] Found 28 files.
+[2025-11-19 12:33:50] Storage Server connected to Name Server on port 8080
+[2025-11-19 12:33:50] Sending file list with metadata...
+[2025-11-19 12:33:50]   -> Sending 'anay.txt' (owner: system, access_count: 0)
+[2025-11-19 12:33:50]   -> Sending 'file.txt' (owner: system, access_count: 0)
+[2025-11-19 12:33:50]   -> Sending 'test.txt' (owner: system, access_count: 0)
+[2025-11-19 12:33:50]   -> Sending 'nga.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:33:50]   -> Sending 'j.txt' (owner: system, access_count: 0)
+[2025-11-19 12:33:50]   -> Sending 'nigger.txt' (owner: system, access_count: 0)
+[2025-11-19 12:33:50]   -> Sending 'file.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:33:50]   -> Sending 'files/script.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:33:50]   -> Sending 'files/script.txt' (owner: sree, access_count: 0)
+[2025-11-19 12:33:50]   -> Sending 'temp.txt' (owner: system, access_count: 0)
+[2025-11-19 12:33:50]   -> Sending 'test.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:33:50]   -> Sending 'sree.txt' (owner: system, access_count: 0)
+[2025-11-19 12:33:50]   -> Sending 'vishal.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:33:50]   -> Sending 'temp.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:33:50]   -> Sending 'g.txt' (owner: sree, access_count: 0)
+[2025-11-19 12:33:50]   -> Sending 'k.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:33:50]   -> Sending 'nga.txt' (owner: system, access_count: 0)
+[2025-11-19 12:33:50]   -> Sending 'amish.txt' (owner: sree, access_count: 0)
+[2025-11-19 12:33:50]   -> Sending 'hope.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:33:50]   -> Sending 'vishal.txt' (owner: system, access_count: 0)
+[2025-11-19 12:33:50]   -> Sending 'my_files/re.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:33:50]   -> Sending 'my_files/re.txt' (owner: sree, access_count: 2)
+[2025-11-19 12:33:50]   -> Sending 'sree.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:33:50]   -> Sending 'k.txt' (owner: sree, access_count: 0)
+[2025-11-19 12:33:50]   -> Sending 'arushi.txt' (owner: sree, access_count: 0)
+[2025-11-19 12:33:50]   -> Sending 'leon.txt' (owner: system, access_count: 0)
+[2025-11-19 12:33:50]   -> Sending 'anay.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:33:50]   -> Sending 'hope.txt' (owner: system, access_count: 0)
+[2025-11-19 12:33:50] Registration successful!
+[2025-11-19 12:33:50] Sending metadata for 28 existing files...
+[2025-11-19 12:33:50]   -> Calculated stats for 'anay.txt': size=15, words=3, chars=15
+[2025-11-19 12:33:50]   -> Calculated stats for 'file.txt': size=30, words=6, chars=30
+[2025-11-19 12:33:50]   -> Calculated stats for 'test.txt': size=22, words=5, chars=22
+[2025-11-19 12:33:50]   -> Calculated stats for 'nga.txt.bak': size=12, words=2, chars=12
+[2025-11-19 12:33:50]   -> Calculated stats for 'j.txt': size=0, words=0, chars=0
+[2025-11-19 12:33:50]   -> Calculated stats for 'nigger.txt': size=0, words=0, chars=0
+[2025-11-19 12:33:50]   -> Calculated stats for 'file.txt.bak': size=36, words=8, chars=36
+[2025-11-19 12:33:50]   -> Calculated stats for 'files/script.txt.bak': size=10, words=4, chars=10
+[2025-11-19 12:33:50]   -> Calculated stats for 'files/script.txt': size=10, words=4, chars=10
+[2025-11-19 12:33:50]   -> Calculated stats for 'temp.txt': size=15, words=3, chars=15
+[2025-11-19 12:33:50]   -> Calculated stats for 'test.txt.bak': size=10, words=2, chars=10
+[2025-11-19 12:33:50]   -> Calculated stats for 'sree.txt': size=4, words=1, chars=4
+[2025-11-19 12:33:50]   -> Calculated stats for 'vishal.txt.bak': size=4, words=1, chars=4
+[2025-11-19 12:33:50]   -> Calculated stats for 'temp.txt.bak': size=15, words=3, chars=15
+[2025-11-19 12:33:50]   -> Calculated stats for 'g.txt': size=0, words=0, chars=0
+[2025-11-19 12:33:50]   -> Calculated stats for 'k.txt.bak': size=0, words=0, chars=0
+[2025-11-19 12:33:50]   -> Calculated stats for 'nga.txt': size=23, words=4, chars=23
+[2025-11-19 12:33:50]   -> Calculated stats for 'amish.txt': size=0, words=0, chars=0
+[2025-11-19 12:33:50]   -> Calculated stats for 'hope.txt.bak': size=0, words=0, chars=0
+[2025-11-19 12:33:50]   -> Calculated stats for 'vishal.txt': size=4, words=1, chars=4
+[2025-11-19 12:33:50]   -> Calculated stats for 'my_files/re.txt.bak': size=0, words=0, chars=0
+[2025-11-19 12:33:50]   -> Calculated stats for 'my_files/re.txt': size=0, words=0, chars=0
+[2025-11-19 12:33:50]   -> Calculated stats for 'sree.txt.bak': size=10, words=2, chars=10
+[2025-11-19 12:33:50]   -> Calculated stats for 'k.txt': size=2, words=1, chars=2
+[2025-11-19 12:33:50]   -> Calculated stats for 'arushi.txt': size=0, words=0, chars=0
+[2025-11-19 12:33:50]   -> Calculated stats for 'leon.txt': size=0, words=0, chars=0
+[2025-11-19 12:33:50]   -> Calculated stats for 'anay.txt.bak': size=24, words=4, chars=24
+[2025-11-19 12:33:50]   -> Calculated stats for 'hope.txt': size=4, words=1, chars=4
+[2025-11-19 12:33:50] Storage Server now listening for clients on port 8082...
+[2025-11-19 12:34:08] Got REQ_SS_CHECKFOLDER for 'files' from NM
+[2025-11-19 12:34:08]   -> Folder exists: ./ss_storage/files
+[2025-11-19 12:34:12] Got REQ_SS_CHECKFOLDER for 'f' from NM
+[2025-11-19 12:34:12]   -> Folder not found: ./ss_storage/f
+[2025-11-19 12:34:19] Got REQ_SS_CHECKFOLDER for 'se' from NM
+[2025-11-19 12:34:19]   -> Folder not found: ./ss_storage/se
+[2025-11-19 12:34:47] Got REQ_SS_CHECKFOLDER for 'my_files/re.txt' from NM
+[2025-11-19 12:34:47]   -> Folder not found: ./ss_storage/my_files/re.txt
+[2025-11-19 12:35:12] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 12:35:12] Got REQ_CLIENT_READ for 'my_files/re.txt' from socket 6
+[2025-11-19 12:35:12]   -> Sending file 'my_files/re.txt' to socket 6
+[2025-11-19 12:35:12]   -> Finished sending file to socket 6
+[2025-11-19 12:35:27] Got REQ_SS_CREATEFOLDER for 'my_files' from NM
+[2025-11-19 12:35:27]   -> Folder created at: ./ss_storage/my_files
+[2025-11-19 12:35:47] Got REQ_SS_CHECKFOLDER for 'my_files' from NM
+[2025-11-19 12:35:47]   -> Folder exists: ./ss_storage/my_files
+[2025-11-19 12:37:15] Got REQ_SS_CREATEFOLDER for 'my_files/sub' from NM
+[2025-11-19 12:37:15]   -> Folder created at: ./ss_storage/my_files/sub
+[2025-11-19 12:37:23] Got REQ_SS_CHECKFOLDER for 'my_files' from NM
+[2025-11-19 12:37:23]   -> Folder exists: ./ss_storage/my_files
+[2025-11-19 12:37:35] Got REQ_SS_CHECKFOLDER for 'my_files.sub' from NM
+[2025-11-19 12:37:35]   -> Folder not found: ./ss_storage/my_files.sub
+[2025-11-19 12:37:43] Got REQ_SS_CHECKFOLDER for 'my_Files/sub' from NM
+[2025-11-19 12:37:43]   -> Folder not found: ./ss_storage/my_Files/sub
+[2025-11-19 12:37:52] Got REQ_SS_CHECKFOLDER for 'my_files/sub' from NM
+[2025-11-19 12:37:52]   -> Folder exists: ./ss_storage/my_files/sub
+[2025-11-19 12:39:05] New client connection from 127.0.0.1 on socket 6
+[2025-11-19 12:39:05] Got REQ_CLIENT_READ for 'my_files/re.txt' from socket 6
+[2025-11-19 12:39:05]   -> Sending file 'my_files/re.txt' to socket 6
+[2025-11-19 12:39:05]   -> Finished sending file to socket 6
+[2025-11-19 12:39:34] Got REQ_SS_MOVE for 'arushi.txt' to folder 'my_files/sub' from NM
+[2025-11-19 12:39:34]   -> File moved from './ss_storage/arushi.txt' to './ss_storage/my_files/sub/arushi.txt'
+[2025-11-19 12:39:34]   -> Metadata saved for 'my_files/sub/arushi.txt'
+[2025-11-19 12:39:59] --- Storage Server Started ---
+[2025-11-19 12:39:59] Scanning storage directory: ./ss_storage
+[2025-11-19 12:39:59] Found 28 files.
+[2025-11-19 12:39:59] Storage Server connected to Name Server on port 8080
+[2025-11-19 12:39:59] Sending file list with metadata...
+[2025-11-19 12:39:59]   -> Sending 'anay.txt' (owner: system, access_count: 0)
+[2025-11-19 12:39:59]   -> Sending 'file.txt' (owner: system, access_count: 0)
+[2025-11-19 12:39:59]   -> Sending 'test.txt' (owner: system, access_count: 0)
+[2025-11-19 12:39:59]   -> Sending 'nga.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:39:59]   -> Sending 'j.txt' (owner: system, access_count: 0)
+[2025-11-19 12:39:59]   -> Sending 'nigger.txt' (owner: system, access_count: 0)
+[2025-11-19 12:39:59]   -> Sending 'file.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:39:59]   -> Sending 'files/script.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:39:59]   -> Sending 'files/script.txt' (owner: sree, access_count: 0)
+[2025-11-19 12:39:59]   -> Sending 'temp.txt' (owner: system, access_count: 0)
+[2025-11-19 12:39:59]   -> Sending 'test.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:39:59]   -> Sending 'sree.txt' (owner: system, access_count: 0)
+[2025-11-19 12:39:59]   -> Sending 'vishal.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:39:59]   -> Sending 'temp.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:39:59]   -> Sending 'g.txt' (owner: sree, access_count: 0)
+[2025-11-19 12:39:59]   -> Sending 'k.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:39:59]   -> Sending 'nga.txt' (owner: system, access_count: 0)
+[2025-11-19 12:39:59]   -> Sending 'amish.txt' (owner: sree, access_count: 0)
+[2025-11-19 12:39:59]   -> Sending 'hope.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:39:59]   -> Sending 'vishal.txt' (owner: system, access_count: 0)
+[2025-11-19 12:39:59]   -> Sending 'my_files/re.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:39:59]   -> Sending 'my_files/re.txt' (owner: sree, access_count: 2)
+[2025-11-19 12:39:59]   -> Sending 'my_files/sub/arushi.txt' (owner: sree, access_count: 0)
+[2025-11-19 12:39:59]   -> Sending 'sree.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:39:59]   -> Sending 'k.txt' (owner: sree, access_count: 0)
+[2025-11-19 12:39:59]   -> Sending 'leon.txt' (owner: system, access_count: 0)
+[2025-11-19 12:39:59]   -> Sending 'anay.txt.bak' (owner: system, access_count: 0)
+[2025-11-19 12:39:59]   -> Sending 'hope.txt' (owner: system, access_count: 0)
+[2025-11-19 12:39:59] Registration successful!
+[2025-11-19 12:39:59] Sending metadata for 28 existing files...
+[2025-11-19 12:39:59]   -> Calculated stats for 'anay.txt': size=15, words=3, chars=15
+[2025-11-19 12:39:59]   -> Calculated stats for 'file.txt': size=30, words=6, chars=30
+[2025-11-19 12:39:59]   -> Calculated stats for 'test.txt': size=22, words=5, chars=22
+[2025-11-19 12:39:59]   -> Calculated stats for 'nga.txt.bak': size=12, words=2, chars=12
+[2025-11-19 12:39:59]   -> Calculated stats for 'j.txt': size=0, words=0, chars=0
+[2025-11-19 12:39:59]   -> Calculated stats for 'nigger.txt': size=0, words=0, chars=0
+[2025-11-19 12:39:59]   -> Calculated stats for 'file.txt.bak': size=36, words=8, chars=36
+[2025-11-19 12:39:59]   -> Calculated stats for 'files/script.txt.bak': size=10, words=4, chars=10
+[2025-11-19 12:39:59]   -> Calculated stats for 'files/script.txt': size=10, words=4, chars=10
+[2025-11-19 12:39:59]   -> Calculated stats for 'temp.txt': size=15, words=3, chars=15
+[2025-11-19 12:39:59]   -> Calculated stats for 'test.txt.bak': size=10, words=2, chars=10
+[2025-11-19 12:39:59]   -> Calculated stats for 'sree.txt': size=4, words=1, chars=4
+[2025-11-19 12:39:59]   -> Calculated stats for 'vishal.txt.bak': size=4, words=1, chars=4
+[2025-11-19 12:39:59]   -> Calculated stats for 'temp.txt.bak': size=15, words=3, chars=15
+[2025-11-19 12:39:59]   -> Calculated stats for 'g.txt': size=0, words=0, chars=0
+[2025-11-19 12:39:59]   -> Calculated stats for 'k.txt.bak': size=0, words=0, chars=0
+[2025-11-19 12:39:59]   -> Calculated stats for 'nga.txt': size=23, words=4, chars=23
+[2025-11-19 12:39:59]   -> Calculated stats for 'amish.txt': size=0, words=0, chars=0
+[2025-11-19 12:39:59]   -> Calculated stats for 'hope.txt.bak': size=0, words=0, chars=0
+[2025-11-19 12:39:59]   -> Calculated stats for 'vishal.txt': size=4, words=1, chars=4
+[2025-11-19 12:39:59]   -> Calculated stats for 'my_files/re.txt.bak': size=0, words=0, chars=0
+[2025-11-19 12:39:59]   -> Calculated stats for 'my_files/re.txt': size=0, words=0, chars=0
+[2025-11-19 12:39:59]   -> Calculated stats for 'my_files/sub/arushi.txt': size=0, words=0, chars=0
+[2025-11-19 12:39:59]   -> Calculated stats for 'sree.txt.bak': size=10, words=2, chars=10
+[2025-11-19 12:39:59]   -> Calculated stats for 'k.txt': size=2, words=1, chars=2
+[2025-11-19 12:39:59]   -> Calculated stats for 'leon.txt': size=0, words=0, chars=0
+[2025-11-19 12:39:59]   -> Calculated stats for 'anay.txt.bak': size=24, words=4, chars=24
+[2025-11-19 12:39:59]   -> Calculated stats for 'hope.txt': size=4, words=1, chars=4
+[2025-11-19 12:39:59] Storage Server now listening for clients on port 8082...
+[2025-11-19 12:40:24] Got REQ_SS_CREATEFOLDER for 'my_files' from NM
+[2025-11-19 12:40:24]   -> Folder already exists: ./ss_storage/my_files
+[2025-11-19 12:40:29] Got REQ_SS_CREATEFOLDER for 'k' from NM
+[2025-11-19 12:40:29]   -> Folder created at: ./ss_storage/k

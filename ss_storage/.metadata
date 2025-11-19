@@ -2,20 +2,20 @@
 k.txt
 sree
 0
-re.txt
-sree
-2
-vishal 1
-vishal 2
-script.txt
-sree
-0
 g.txt
 sree
 0
 amish.txt
 sree
 0
-arushi.txt
+my_files/re.txt
+sree
+2
+vishal 1
+vishal 2
+files/script.txt
+sree
+0
+my_files/sub/arushi.txt
 sree
 0

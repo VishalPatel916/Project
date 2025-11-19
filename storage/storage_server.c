@@ -576,6 +576,64 @@ void handle_client_disconnect(int sock_fd, fd_set* master_set) {
     FD_CLR(sock_fd, master_set);
 }
 
+// --- Recursive directory scanner ---
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-truncation"
+void scan_directory_recursive(const char* base_path, const char* relative_path, 
+                               char files[][MAX_FILENAME], int* count, int max_count) {
+    char full_path[1024];
+    if (relative_path && strlen(relative_path) > 0) {
+        snprintf(full_path, sizeof(full_path), "%s/%s", base_path, relative_path);
+    } else {
+        strncpy(full_path, base_path, sizeof(full_path));
+        full_path[sizeof(full_path) - 1] = '\0';
+    }
+    
+    DIR *d = opendir(full_path);
+    if (!d) return;
+    
+    struct dirent *dir;
+    while ((dir = readdir(d)) != NULL && *count < max_count) {
+        if (strcmp(dir->d_name, ".") == 0 || strcmp(dir->d_name, "..") == 0) continue;
+        if (strcmp(dir->d_name, ".metadata") == 0) continue;
+        
+        // Check path length before concatenating
+        if (strlen(full_path) + strlen(dir->d_name) + 2 > 1024) continue;
+        
+        char item_path[1024];
+        snprintf(item_path, sizeof(item_path), "%s/%s", full_path, dir->d_name);
+        
+        struct stat statbuf;
+        if (stat(item_path, &statbuf) == 0) {
+            if (S_ISDIR(statbuf.st_mode)) {
+                // Directory - recurse into it
+                char new_relative[512];
+                if (relative_path && strlen(relative_path) > 0) {
+                    if (strlen(relative_path) + strlen(dir->d_name) + 2 > 512) continue;
+                    snprintf(new_relative, sizeof(new_relative), "%s/%s", relative_path, dir->d_name);
+                } else {
+                    strncpy(new_relative, dir->d_name, sizeof(new_relative));
+                    new_relative[sizeof(new_relative) - 1] = '\0';
+                }
+                scan_directory_recursive(base_path, new_relative, files, count, max_count);
+            } else if (S_ISREG(statbuf.st_mode)) {
+                // Regular file - check length before adding
+                if (relative_path && strlen(relative_path) > 0) {
+                    if (strlen(relative_path) + strlen(dir->d_name) + 2 > MAX_FILENAME) continue;
+                    snprintf(files[*count], MAX_FILENAME, "%s/%s", relative_path, dir->d_name);
+                } else {
+                    if (strlen(dir->d_name) >= MAX_FILENAME) continue;
+                    strncpy(files[*count], dir->d_name, MAX_FILENAME);
+                    files[*count][MAX_FILENAME - 1] = '\0';
+                }
+                (*count)++;
+            }
+        }
+    }
+    closedir(d);
+}
+#pragma GCC diagnostic pop
+
 
 // --- 8. Main Function ---
 int main() {
@@ -590,8 +648,7 @@ int main() {
     
     char my_files[MAX_FILES_PER_SS][MAX_FILENAME]; int file_count = 0; mkdir(MY_STORAGE_PATH, 0777);
     log_event("Scanning storage directory: %s", MY_STORAGE_PATH);
-    DIR *d = opendir(MY_STORAGE_PATH);
-    if (d) { struct dirent *dir; while ((dir = readdir(d)) != NULL && file_count < MAX_FILES_PER_SS) { if (strcmp(dir->d_name, ".") == 0 || strcmp(dir->d_name, "..") == 0) continue; strncpy(my_files[file_count], dir->d_name, MAX_FILENAME); file_count++; } closedir(d); }
+    scan_directory_recursive(MY_STORAGE_PATH, "", my_files, &file_count, MAX_FILES_PER_SS);
     log_event("Found %d files.", file_count);
     nm_sock = socket(AF_INET, SOCK_STREAM, 0); if (nm_sock < 0) error_exit("socket");
     memset(&nm_addr, 0, sizeof(nm_addr)); nm_addr.sin_family = AF_INET; nm_addr.sin_port = htons(NM_PORT);
@@ -704,6 +761,116 @@ int main() {
                                 }
                                 access_count--;
                                 save_file_metadata(req.filename, owner, access_count, access_list);
+                            }
+                            break;
+                        }
+                        case REQ_SS_CREATEFOLDER: {
+                            Msg_Folder_Request req; recv(nm_sock, &req, sizeof(req), 0);
+                            log_event("Got REQ_SS_CREATEFOLDER for '%s' from NM", req.foldername);
+                            char folder_path[512];
+                            sprintf(folder_path, "%s/%s", MY_STORAGE_PATH, req.foldername);
+                            
+                            // First check if folder already exists
+                            struct stat st;
+                            if (stat(folder_path, &st) == 0 && S_ISDIR(st.st_mode)) {
+                                log_event("  -> Folder already exists: %s", folder_path);
+                                send_simple_header(nm_sock, RES_ERROR);
+                                break;
+                            }
+                            
+                            // Create parent directories recursively (mkdir -p style)
+                            char temp_path[512];
+                            strncpy(temp_path, folder_path, sizeof(temp_path));
+                            temp_path[sizeof(temp_path) - 1] = '\0';
+                            
+                            int success = 1;
+                            for (char* p = temp_path + strlen(MY_STORAGE_PATH) + 1; *p; p++) {
+                                if (*p == '/') {
+                                    *p = '\0';
+                                    if (mkdir(temp_path, 0777) != 0 && errno != EEXIST) {
+                                        success = 0;
+                                        break;
+                                    }
+                                    *p = '/';
+                                }
+                            }
+                            
+                            // Create final directory
+                            if (success && mkdir(folder_path, 0777) != 0) {
+                                success = 0;
+                            }
+                            
+                            if (success) {
+                                log_event("  -> Folder created at: %s", folder_path);
+                                send_simple_header(nm_sock, RES_OK);
+                            } else {
+                                log_event("  -> Error creating folder: %s", strerror(errno));
+                                send_simple_header(nm_sock, RES_ERROR);
+                            }
+                            break;
+                        }
+                        case REQ_SS_CHECKFOLDER: {
+                            Msg_Folder_Request req; recv(nm_sock, &req, sizeof(req), 0);
+                            log_event("Got REQ_SS_CHECKFOLDER for '%s' from NM", req.foldername);
+                            char folder_path[512];
+                            sprintf(folder_path, "%s/%s", MY_STORAGE_PATH, req.foldername);
+                            
+                            struct stat st;
+                            if (stat(folder_path, &st) == 0 && S_ISDIR(st.st_mode)) {
+                                log_event("  -> Folder exists: %s", folder_path);
+                                send_simple_header(nm_sock, RES_OK);
+                            } else {
+                                log_event("  -> Folder not found: %s", folder_path);
+                                send_simple_header(nm_sock, RES_ERROR);
+                            }
+                            break;
+                        }
+                        case REQ_SS_MOVE: {
+                            Msg_Move_Request req; recv(nm_sock, &req, sizeof(req), 0);
+                            log_event("Got REQ_SS_MOVE for '%s' to folder '%s' from NM", req.filename, req.foldername);
+                            
+                            // Extract just the base filename (in case it has a folder path)
+                            char* base_filename = strrchr(req.filename, '/');
+                            if (base_filename) {
+                                base_filename++; // Skip the '/'
+                            } else {
+                                base_filename = req.filename; // No folder, use as-is
+                            }
+                            
+                            char old_path[512], new_path[512], folder_path[512];
+                            sprintf(old_path, "%s/%s", MY_STORAGE_PATH, req.filename);
+                            sprintf(folder_path, "%s/%s", MY_STORAGE_PATH, req.foldername);
+                            sprintf(new_path, "%s/%s/%s", MY_STORAGE_PATH, req.foldername, base_filename);
+                            
+                            // Ensure folder exists
+                            mkdir(folder_path, 0777);
+                            
+                            // Move file
+                            if (rename(old_path, new_path) == 0) {
+                                log_event("  -> File moved from '%s' to '%s'", old_path, new_path);
+                                
+                                // Also move backup file if it exists
+                                char old_backup[520], new_backup[520];
+                                sprintf(old_backup, "%s.bak", old_path);
+                                sprintf(new_backup, "%s.bak", new_path);
+                                rename(old_backup, new_backup);
+                                
+                                // Update metadata file path
+                                char old_meta_name[MAX_FILENAME], new_meta_name[MAX_FILENAME * 2];
+                                strncpy(old_meta_name, req.filename, MAX_FILENAME);
+                                snprintf(new_meta_name, sizeof(new_meta_name), "%s/%s", req.foldername, base_filename);
+                                
+                                char owner[MAX_USERNAME];
+                                int access_count;
+                                AccessEntry access_list[MAX_PERMISSIONS_PER_FILE];
+                                load_file_metadata(old_meta_name, owner, &access_count, access_list);
+                                delete_file_metadata(old_meta_name);
+                                save_file_metadata(new_meta_name, owner, access_count, access_list);
+                                
+                                send_simple_header(nm_sock, RES_OK);
+                            } else {
+                                log_event("  -> Error moving file: %s", strerror(errno));
+                                send_simple_header(nm_sock, RES_ERROR);
                             }
                             break;
                         }

@@ -383,6 +383,90 @@ int main() {
         }
         // --- END EXEC ---
         
+        // --- FOLDER COMMANDS ---
+        else if (strcmp(command, "createfolder") == 0) {
+            char* foldername = strtok(NULL, " \n");
+            if (foldername == NULL) {
+                printf("Usage: createfolder <foldername>\n");
+            } else {
+                header.type = REQ_CREATEFOLDER;
+                header.payload_size = sizeof(Msg_Folder_Request);
+                send(sock, &header, sizeof(header), 0);
+                
+                Msg_Folder_Request req;
+                strncpy(req.foldername, foldername, MAX_FILENAME);
+                send(sock, &req, sizeof(req), 0);
+                
+                recv(sock, &header, sizeof(header), 0);
+                if (header.type == RES_OK) {
+                    printf("Folder '%s' created successfully.\n", foldername);
+                } else {
+                    printf("Error: Failed to create folder.\n");
+                }
+            }
+        }
+        else if (strcmp(command, "move") == 0) {
+            char* filename = strtok(NULL, " \n");
+            char* foldername = strtok(NULL, " \n");
+            if (filename == NULL || foldername == NULL) {
+                printf("Usage: move <filename> <foldername>\n");
+            } else {
+                header.type = REQ_MOVE;
+                header.payload_size = sizeof(Msg_Move_Request);
+                send(sock, &header, sizeof(header), 0);
+                
+                Msg_Move_Request req;
+                strncpy(req.filename, filename, MAX_FILENAME);
+                strncpy(req.foldername, foldername, MAX_FILENAME);
+                send(sock, &req, sizeof(req), 0);
+                
+                recv(sock, &header, sizeof(header), 0);
+                if (header.type == RES_OK) {
+                    printf("File '%s' moved to folder '%s' successfully.\n", filename, foldername);
+                } else if (header.type == RES_ERROR_NOT_FOUND) {
+                    printf("Error: File not found.\n");
+                } else if (header.type == RES_ERROR_ACCESS_DENIED) {
+                    printf("Error: Access denied. Only owner can move files.\n");
+                } else {
+                    printf("Error: Failed to move file.\n");
+                }
+            }
+        }
+        else if (strcmp(command, "viewfolder") == 0) {
+            char* foldername = strtok(NULL, " \n");
+            if (foldername == NULL) {
+                printf("Usage: viewfolder <foldername>\n");
+            } else {
+                header.type = REQ_VIEWFOLDER;
+                header.payload_size = sizeof(Msg_Folder_Request);
+                send(sock, &header, sizeof(header), 0);
+                
+                Msg_Folder_Request req;
+                strncpy(req.foldername, foldername, MAX_FILENAME);
+                send(sock, &req, sizeof(req), 0);
+                
+                // Receive header
+                recv(sock, &header, sizeof(header), 0);
+                if (header.type == RES_VIEW_HDR) {
+                    Msg_View_Hdr view_hdr;
+                    recv(sock, &view_hdr, sizeof(view_hdr), 0);
+                    
+                    printf("Files in folder '%s' (%d files):\n", foldername, view_hdr.file_count);
+                    for (int i = 0; i < view_hdr.file_count; i++) {
+                        recv(sock, &header, sizeof(header), 0);
+                        if (header.type == RES_VIEW_ITEM_SHORT) {
+                            Msg_View_Item_Short item;
+                            recv(sock, &item, sizeof(item), 0);
+                            printf("  - %s\n", item.filename);
+                        }
+                    }
+                } else {
+                    printf("Error: Failed to view folder.\n");
+                }
+            }
+        }
+        // --- END FOLDER COMMANDS ---
+        
         else if (strcmp(command, "quit") == 0 || strcmp(command, "exit") == 0) {
             break;
         }

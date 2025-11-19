@@ -50,7 +50,15 @@ typedef enum {
     // --- NEW: Exec ---
     REQ_EXEC,           // Client -> NM
     RES_EXEC_OUTPUT,    // NM -> Client (sends one line of output)
-    RES_EXEC_DONE       // NM -> Client (signals end of output)
+    RES_EXEC_DONE,      // NM -> Client (signals end of output)
+
+    // --- NEW: Folder Operations ---
+    REQ_CREATEFOLDER,   // Client -> NM
+    REQ_SS_CREATEFOLDER, // NM -> SS
+    REQ_MOVE,           // Client -> NM
+    REQ_SS_MOVE,        // NM -> SS
+    REQ_VIEWFOLDER,     // Client -> NM
+    REQ_SS_CHECKFOLDER  // NM -> SS (check if folder exists)
 
 } MessageType;
 
@@ -85,6 +93,10 @@ typedef struct { char filename[MAX_FILENAME]; char username[MAX_USERNAME]; Permi
 typedef struct {
     char line[FILE_BUFFER_SIZE]; // Holds one line of shell output
 } Msg_Exec_Output;
+
+// --- NEW: Folder Payloads ---
+typedef struct { char foldername[MAX_FILENAME]; } Msg_Folder_Request;
+typedef struct { char filename[MAX_FILENAME]; char foldername[MAX_FILENAME]; } Msg_Move_Request;
 
 
 // --- 6. HELPER FUNCTION ---
