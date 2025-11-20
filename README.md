@@ -9,3 +9,4 @@ Assumptions:
         REQACCESS -R|-W <filename>
     Syntax for giving access
         CHECKREQUESTS
+5) write end . registers as end. while reading the file

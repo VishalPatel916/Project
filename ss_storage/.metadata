@@ -1,11 +1,12 @@
-7
+17
 k.txt
 sree
 1
 arushi 2
 g.txt
 sree
-0
+1
+vishal 2
 amish.txt
 sree
 2
@@ -26,3 +27,35 @@ tag.txt
 sree
 1
 vishal 2
+del.txt
+sree
+0
+t1.txt
+test1
+0
+t2.txt
+test2
+0
+t3.txt
+test3
+0
+t4.txt
+test4
+0
+t5.txt
+test5
+0
+t6.txt
+test6
+0
+mytest.txt
+user1
+0
+test_folder/t1.txt
+u1
+0
+final.txt
+sree
+2
+vishal 2
+navneet 2

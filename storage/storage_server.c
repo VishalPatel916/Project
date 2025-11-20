@@ -60,6 +60,7 @@ typedef struct {
     EditOperation* edit_ops;  // Array of edit operations
     int edit_count;           // Number of operations recorded
     int edit_capacity;        // Capacity of edit_ops array
+    int virtual_word_count;   // Sum of words sent in write updates before ETIRW
 } WriteSession;
 WriteSession write_sessions[MAX_CONNECTIONS]; 
 
@@ -267,6 +268,18 @@ void free_document(SentenceNode* sent_head) {
     }
 }
 
+// Free only a single sentence node and its words (do not touch next)
+void free_sentence_node(SentenceNode* sent) {
+    if (!sent) return;
+    WordNode* current_word = sent->word_head;
+    while (current_word != NULL) {
+        WordNode* next_word = current_word->next;
+        free(current_word->word); free(current_word);
+        current_word = next_word;
+    }
+    free(sent);
+}
+
 // *** THIS FUNCTION IS REWRITTEN TO BE SAFER ***
 SentenceNode* parse_file_to_list(const char* file_path) {
     FILE* f = fopen(file_path, "r");
@@ -451,6 +464,197 @@ void handle_write_update_list(SentenceNode* doc_head, int sent_num, int word_idx
         content_word = strtok_r(NULL, " \t\r", &content_context);
     }
     free(content_copy);
+}
+
+// Count words in a content string (tokens separated by whitespace)
+// Don't count standalone delimiters as words
+static int count_words_in_string(const char* s) {
+    if (!s) return 0;
+    char* copy = strdup(s);
+    char* ctx = NULL;
+    char* tok = strtok_r(copy, " \t\r\n", &ctx);
+    int cnt = 0;
+    while (tok) {
+        // Only count if it's not a standalone delimiter
+        if (!(strlen(tok) == 1 && strchr(".!?\n", tok[0]))) {
+            cnt++;
+        }
+        tok = strtok_r(NULL, " \t\r\n", &ctx);
+    }
+    free(copy);
+    return cnt;
+}
+
+// Apply all edit operations from a session atomically to the target sentence.
+// This builds a word-array for the sentence, applies all inserts, then
+// splits into sentences only after all edits have been applied.
+// Key: Each edit's word_index is relative to the sentence state when client sent it,
+// so we must adjust for previous insertions.
+static int apply_session_edits_to_sentence(ActiveDoc* doc, SentenceNode* target, WriteSession* session) {
+    if (!doc || !target || !session) return -1;
+
+    // Save the original sentence delimiter - we'll need it if no new delimiters are added
+    char original_delimiter = target->delimiter;
+
+    // 1. Build initial word list for the target sentence
+    int orig_count = 0;
+    WordNode* w = target->word_head;
+    while (w) { orig_count++; w = w->next; }
+
+    // Build dynamic array of strings
+    int arr_capacity = orig_count + 256 + session->edit_count * 10;
+    char** words = (char**)malloc(sizeof(char*) * (arr_capacity + 1));
+    int idx = 0;
+    w = target->word_head;
+    while (w) { words[idx++] = strdup(w->word); w = w->next; }
+
+    // 2. Apply each edit op in sequence, tracking cumulative insertions
+    // Each edit's word_index refers to the position in the current array state
+    for (int i = 0; i < session->edit_count; i++) {
+        int insert_at = session->edit_ops[i].word_index;
+        
+        // Validate insertion point
+        if (insert_at < 0 || insert_at > idx) {
+            log_event("  -> ERROR: Edit %d has invalid word_index %d (array size %d)", i, insert_at, idx);
+            for (int j = 0; j < idx; j++) free(words[j]);
+            free(words);
+            return -1;
+        }
+        
+        // Tokenize content into words (split on whitespace, preserve delimiters IN words)
+        char* copy = strdup(session->edit_ops[i].content);
+        char* ctx = NULL;
+        char* tok = strtok_r(copy, " \t\r\n", &ctx);
+        
+        while (tok) {
+            // Ensure capacity
+            if (idx + 1 > arr_capacity) {
+                arr_capacity *= 2;
+                words = (char**)realloc(words, sizeof(char*) * (arr_capacity + 1));
+            }
+            
+            // Shift tail right to make room at insert_at
+            for (int s = idx; s > insert_at; s--) {
+                words[s] = words[s-1];
+            }
+            
+            // Insert new word token
+            words[insert_at] = strdup(tok);
+            insert_at++;  // next token from same edit goes right after
+            idx++;        // array grew
+            
+            tok = strtok_r(NULL, " \t\r\n", &ctx);
+        }
+        free(copy);
+    }
+
+    // 3. Now build new sentence nodes by splitting at delimiters
+    // Delimiters can appear inside word strings (e.g., "hello." or "world!")
+    // Key: We accumulate words into current sentence until we hit a delimiter
+    // Each sentence starts with original_delimiter, overridden if a delimiter is found in content
+    // Multiple consecutive delimiters (e.g., "cd...") create multiple empty sentences
+    SentenceNode* first_new = NULL;
+    SentenceNode* last_new = NULL;
+    int cur = 0;
+    
+    while (cur < idx) {
+        // Use original_delimiter as default for all sentences
+        SentenceNode* snode = create_sentence_node(original_delimiter);
+        snode->word_head = NULL;
+        WordNode* last_word = NULL;
+        
+        while (cur < idx) {
+            char* word_str = words[cur];
+            
+            // Check if this word contains a delimiter
+            char* delim_pos = strpbrk(word_str, ".!?\n");
+            
+            if (delim_pos) {
+                // Word contains delimiter - this ends the current sentence
+                char delim_char = *delim_pos;
+                
+                // Part before delimiter becomes a word (if non-empty)
+                int before_len = delim_pos - word_str;
+                if (before_len > 0) {
+                    char before_delim[MAX_WORD_CONTENT];
+                    strncpy(before_delim, word_str, before_len);
+                    before_delim[before_len] = '\0';
+                    
+                    WordNode* wn = create_word_node(before_delim);
+                    if (!snode->word_head) snode->word_head = wn;
+                    else last_word->next = wn;
+                    last_word = wn;
+                }
+                
+                // Override with the delimiter found in this word
+                snode->delimiter = delim_char;
+                
+                // Check if there are MORE delimiters after this one (e.g., "cd..." has 3 dots)
+                // We need to create empty sentences for each additional delimiter
+                char* remaining = delim_pos + 1; // Start after first delimiter
+                while (*remaining != '\0') {
+                    if (strchr(".!?\n", *remaining)) {
+                        // Another delimiter found - finish current sentence and create empty one
+                        if (!first_new) first_new = snode;
+                        else last_new->next = snode;
+                        last_new = snode;
+                        
+                        // Create empty sentence with this delimiter
+                        snode = create_sentence_node(*remaining);
+                        snode->word_head = NULL;
+                        last_word = NULL;
+                        remaining++;
+                    } else {
+                        // Not a delimiter - this shouldn't happen with "cd..." but handle it
+                        break;
+                    }
+                }
+                
+                cur++;
+                break; // Move to next word (next sentence will be created in outer loop)
+                
+            } else {
+                // Regular word, no delimiter - add to current sentence
+                WordNode* wn = create_word_node(word_str);
+                if (!snode->word_head) snode->word_head = wn;
+                else last_word->next = wn;
+                last_word = wn;
+                cur++;
+            }
+        }
+        
+        // Attach sentence to list
+        if (!first_new) first_new = snode;
+        else last_new->next = snode;
+        last_new = snode;
+    }
+
+    // 4. Replace target sentence in doc with new sentences
+    SentenceNode* prev = NULL;
+    SentenceNode* t = doc->doc_head;
+    while (t && t != target) { prev = t; t = t->next; }
+    
+    if (!t) {
+        log_event("  -> ERROR: Target sentence not found in document");
+        for (int i = 0; i < idx; i++) free(words[i]);
+        free(words);
+        return -1;
+    }
+
+    // Link: prev -> first_new -> ... -> last_new -> target->next
+    if (prev) prev->next = first_new;
+    else doc->doc_head = first_new;
+    
+    if (last_new) last_new->next = target->next;
+
+    // Free only the original target sentence (not its next chain)
+    free_sentence_node(target);
+
+    // Free word array
+    for (int i = 0; i < idx; i++) free(words[i]);
+    free(words);
+    
+    return 0;
 }
 
 
@@ -643,7 +847,7 @@ int main() {
     struct sockaddr_in nm_addr, client_listen_addr, client_addr;
     socklen_t client_len; fd_set master_set, read_set; int fdmax;
     init_locks(); 
-    for(int i = 0; i < MAX_CONNECTIONS; i++) write_sessions[i].active = 0;
+    for(int i = 0; i < MAX_CONNECTIONS; i++) { write_sessions[i].active = 0; write_sessions[i].virtual_word_count = 0; }
     for(int i = 0; i < MAX_FILES_IN_SYSTEM; i++) active_documents[i].active = 0; 
     
     char my_files[MAX_FILES_PER_SS][MAX_FILENAME]; int file_count = 0; mkdir(MY_STORAGE_PATH, 0777);
@@ -1265,7 +1469,7 @@ int main() {
                                 if (target == NULL) {
                                     log_event("  -> ERROR: Sentence index %d out of bounds.", req.sentence_num);
                                     send_simple_header(sock_fd, RES_ERROR_INVALID_SENTENCE);
-                                    release_active_doc(doc);
+                                    // Don't call release_active_doc() - we never incremented num_users_editing
                                     close(sock_fd); FD_CLR(sock_fd, &master_set);
                                     break;
                                 }
@@ -1273,6 +1477,7 @@ int main() {
                                 if (find_lock(req.filename, target) != -1) {
                                     log_event("  -> Lock conflict! Sending error.");
                                     send_simple_header(sock_fd, RES_ERROR_LOCKED);
+                                    // Don't call release_active_doc() - we never incremented num_users_editing
                                     close(sock_fd); FD_CLR(sock_fd, &master_set);
                                 } else {
                                     // Record original word count at session start
@@ -1290,6 +1495,7 @@ int main() {
                                     session->edit_capacity = 100;
                                     session->edit_ops = (EditOperation*)malloc(session->edit_capacity * sizeof(EditOperation));
                                     session->edit_count = 0;
+                                    session->virtual_word_count = 0;
                                     
                                     log_event("  -> Lock granted. Session started. Original word count: %d, Users editing: %d", 
                                              original_word_count, doc->num_users_editing);
@@ -1338,6 +1544,9 @@ int main() {
                                 session->edit_ops[session->edit_count].word_index = req.word_index;
                                 strncpy(session->edit_ops[session->edit_count].content, req.content, sizeof(session->edit_ops[0].content) - 1);
                                 session->edit_ops[session->edit_count].content[sizeof(session->edit_ops[0].content) - 1] = '\0';
+                                // Track virtual word count (sum of tokens sent before ETIRW)
+                                int added_words = count_words_in_string(req.content);
+                                session->virtual_word_count += added_words;
                                 session->edit_count++;
                                 
                                 log_event("  -> Recorded edit operation #%d (word %d) for socket %d", 
@@ -1389,45 +1598,57 @@ int main() {
                                     break;
                                 }
                                 
-                                // Replay edit operations with adjusted indices
+                                // Apply all edit operations atomically
                                 int validation_failed = 0;
-                                for (int i = 0; i < session->edit_count; i++) {
-                                    int original_idx = session->edit_ops[i].word_index;
-                                    int adjusted_idx = original_idx + word_offset;
-                                    
-                                    // Validate adjusted index against current sentence length
-                                    WordNode* temp_w = target->word_head;
-                                    int max_idx = 0;
-                                    while (temp_w != NULL) { max_idx++; temp_w = temp_w->next; }
-                                    
-                                    if (adjusted_idx < 0 || adjusted_idx > max_idx) {
-                                        log_event("  -> ERROR: Adjusted index %d out of bounds (valid range: 0-%d) for edit #%d", 
-                                                 adjusted_idx, max_idx, i);
-                                        send_simple_header(sock_fd, RES_ERROR);
-                                        validation_failed = 1;
-                                        break;
-                                    }
-                                    
-                                    log_event("  -> Replaying edit #%d: index %d -> %d (offset %d) at sentence %d", 
-                                             i, original_idx, adjusted_idx, word_offset, sentence_idx);
-                                    
-                                    char* content_copy = strdup(session->edit_ops[i].content);
-                                    handle_write_update_list(doc->doc_head, sentence_idx, adjusted_idx, content_copy);
-                                    free(content_copy);
-                                    
-                                    // After applying edit that might create new sentences, recalculate index
-                                    sentence_idx = 0;
-                                    temp = doc->doc_head;
-                                    while (temp != NULL && temp != target) {
-                                        sentence_idx++;
-                                        temp = temp->next;
-                                    }
-                                }
+
+                                // compute doc word count before applying edits
+                                int doc_words_before = 0;
+                                SentenceNode* tmp = doc->doc_head;
+                                while (tmp) { WordNode* tw = tmp->word_head; while (tw) { doc_words_before++; tw = tw->next; } tmp = tmp->next; }
+
+                                // The word_offset represents how many words were added to the locked sentence
+                                // by OTHER concurrent editors. We need to offset only the FIRST edit by this amount.
+                                // Subsequent edits from this client are cumulative (each builds on the previous).
+                                //
+                                // However, since apply_session_edits_to_sentence applies edits in order and
+                                // each edit shifts subsequent positions, we only need to offset the FIRST edit's index.
+                                // Actually, we need to think about this differently...
+                                //
+                                // The client sent edits with indices 0, 1, 2, etc. relative to their view.
+                                // If the sentence grew from other edits, ALL positions shift by word_offset.
+                                // But WITHIN this client's edits, they're cumulative.
+                                //
+                                // Solution: Just offset the first edit, since apply_session_edits_to_sentence
+                                // handles cumulative application correctly.
                                 
+                                if (session->edit_count > 0 && word_offset != 0) {
+                                    // Only adjust the first edit - subsequent edits are cumulative
+                                    session->edit_ops[0].word_index += word_offset;
+                                    log_event("  -> Adjusted first edit index by offset %d", word_offset);
+                                }
+
+                                // Apply edits atomically (this will split sentences only after all inserts)
+                                if (apply_session_edits_to_sentence(doc, target, session) != 0) {
+                                    log_event("  -> ERROR: Failed to apply session edits atomically");
+                                    send_simple_header(sock_fd, RES_ERROR);
+                                    validation_failed = 1;
+                                }
+
                                 if (!validation_failed) {
-                                    // Commit changes to file
-                                    rename(doc->original_path, doc->backup_path);
-                                    flush_list_to_file(doc->doc_head, doc->original_path);
+                                    // compute how many words were actually added to the document
+                                    int doc_words_after = 0;
+                                    tmp = doc->doc_head;
+                                    while (tmp) { WordNode* tw = tmp->word_head; while (tw) { doc_words_after++; tw = tw->next; } tmp = tmp->next; }
+                                    int added = doc_words_after - doc_words_before;
+                                    if (added != session->virtual_word_count) {
+                                        log_event("  -> ERROR: Virtual added words (%d) != actual added (%d). Rejecting.", session->virtual_word_count, added);
+                                        send_simple_header(sock_fd, RES_ERROR_INVALID_SENTENCE);
+                                        validation_failed = 1;
+                                    } else {
+                                        // Commit changes to file
+                                        rename(doc->original_path, doc->backup_path);
+                                        flush_list_to_file(doc->doc_head, doc->original_path);
+                                    }
                                 }
                                 
                                 // Clean up session
