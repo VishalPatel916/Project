@@ -10,7 +10,15 @@ FILE* nm_log_file;
 // --- 1. NM's Internal Data Structures (C-Style) ---
 #define MAX_CONNECTIONS FD_SETSIZE
 typedef struct { int active; char username[MAX_USERNAME]; char ip_addr[MAX_IP_LEN]; } ClientInfo;
-typedef struct { int active; char ip[MAX_IP_LEN]; int client_port; char ip_addr[MAX_IP_LEN]; } SSInfo;
+typedef struct { 
+    int active; 
+    char ip[MAX_IP_LEN]; 
+    int client_port; 
+    char ip_addr[MAX_IP_LEN]; 
+    char ss_id[MAX_USERNAME];    // Unique identifier (IP:port)
+    time_t last_heartbeat;       // Last successful heartbeat
+    int missed_heartbeats;       // Counter for failure detection
+} SSInfo;
 typedef struct {
     int active;
     char filename[MAX_FILENAME];
@@ -22,6 +30,7 @@ typedef struct {
     int word_count;
     int char_count;
     time_t last_modified;
+    int backup_ss_sock;          // Socket of backup storage server
 } FileMetadata;
 
 // --- 2. The NM's Global State ---
@@ -266,6 +275,112 @@ char* get_file_content_from_ss(SSInfo* ss, char* filename) {
     return script_content;
 }
 
+// --- Fault Tolerance Helper Functions ---
+int find_backup_ss(int primary_sock) {
+    // Find a different active SS to use as backup
+    for (int i = 0; i < MAX_CONNECTIONS; i++) {
+        if (ss_state[i].active && i != primary_sock) {
+            return i;
+        }
+    }
+    return -1; // No backup available
+}
+
+int count_active_ss() {
+    int count = 0;
+    for (int i = 0; i < MAX_CONNECTIONS; i++) {
+        if (ss_state[i].active) count++;
+    }
+    return count;
+}
+
+void replicate_to_backup(int backup_sock, FileMetadata* file) {
+    // Send async replication request to backup SS
+    Header header;
+    header.type = REQ_REPLICATE_FILE;
+    header.payload_size = sizeof(Msg_Replicate_File);
+    
+    Msg_Replicate_File rep_msg;
+    strncpy(rep_msg.filename, file->filename, MAX_FILENAME);
+    strncpy(rep_msg.owner, file->owner, MAX_USERNAME);
+    rep_msg.access_count = file->access_count;
+    for (int i = 0; i < file->access_count; i++) {
+        rep_msg.access_list[i] = file->access_list[i];
+    }
+    rep_msg.file_size = file->file_size;
+    
+    // Use MSG_DONTWAIT for async send
+    if (send(backup_sock, &header, sizeof(header), MSG_DONTWAIT) < 0) {
+        log_event("  -> Warning: Failed to send replication header to backup SS");
+        return;
+    }
+    if (send(backup_sock, &rep_msg, sizeof(rep_msg), MSG_DONTWAIT) < 0) {
+        log_event("  -> Warning: Failed to send replication data to backup SS");
+        return;
+    }
+    
+    log_event("  -> Async replication initiated for '%s' to backup SS (sock %d)", 
+             file->filename, backup_sock);
+}
+
+void sync_file_to_recovering_ss(int recovering_sock, int backup_sock, const char* filename) {
+    // Request file content from backup SS
+    Header req_header;
+    req_header.type = REQ_GET_FILE_CONTENT;
+    req_header.payload_size = sizeof(Msg_Sync_File);
+    
+    Msg_Sync_File sync_msg;
+    strncpy(sync_msg.filename, filename, MAX_FILENAME);
+    
+    send(backup_sock, &req_header, sizeof(req_header), 0);
+    send(backup_sock, &sync_msg, sizeof(sync_msg), 0);
+    
+    // Receive file size and content from backup
+    long file_size;
+    recv(backup_sock, &file_size, sizeof(long), 0);
+    
+    if (file_size > 0) {
+        char* content = malloc(file_size);
+        if (content) {
+            int received = 0;
+            while (received < file_size) {
+                int bytes = recv(backup_sock, content + received, file_size - received, 0);
+                if (bytes <= 0) break;
+                received += bytes;
+            }
+            
+            // Send to recovering SS
+            Header sync_header;
+            sync_header.type = REQ_SYNC_FROM_BACKUP;
+            sync_header.payload_size = sizeof(Msg_Sync_File);
+            
+            send(recovering_sock, &sync_header, sizeof(sync_header), 0);
+            send(recovering_sock, &sync_msg, sizeof(sync_msg), 0);
+            send(recovering_sock, &file_size, sizeof(long), 0);
+            send(recovering_sock, content, file_size, 0);
+            
+            free(content);
+            log_event("  -> Synced file '%s' (%ld bytes) to recovering SS", filename, file_size);
+        }
+    }
+}
+
+void sync_files_to_recovering_ss(int recovering_sock) {
+    // Find all files that belong to this SS and sync from their backups
+    int synced_count = 0;
+    for (int i = 0; i < MAX_FILES_IN_SYSTEM; i++) {
+        if (!file_catalog[i].active && file_catalog[i].ss_sock_fd == recovering_sock && 
+            file_catalog[i].backup_ss_sock >= 0 && ss_state[file_catalog[i].backup_ss_sock].active) {
+            
+            sync_file_to_recovering_ss(recovering_sock, file_catalog[i].backup_ss_sock, 
+                                      file_catalog[i].filename);
+            file_catalog[i].active = 1; // Reactivate file
+            synced_count++;
+        }
+    }
+    log_event("  -> Recovery complete: synced %d files to SS (sock %d)", synced_count, recovering_sock);
+}
+
 
 int main() {
     int listener_sock, new_sock, sock_fd;
@@ -295,7 +410,49 @@ int main() {
 
     while (1) {
         read_set = master_set;
-        if (select(fdmax + 1, &read_set, NULL, NULL, NULL) < 0) { log_event("select() error"); error_exit("select"); }
+        
+        // Heartbeat timeout: 10 seconds
+        struct timeval timeout;
+        timeout.tv_sec = 10;
+        timeout.tv_usec = 0;
+        
+        int activity = select(fdmax + 1, &read_set, NULL, NULL, &timeout);
+        if (activity < 0) { log_event("select() error"); error_exit("select"); }
+        
+        // Timeout: send heartbeat requests
+        if (activity == 0) {
+            for (int i = 0; i < MAX_CONNECTIONS; i++) {
+                if (ss_state[i].active) {
+                    // Send heartbeat request
+                    Header hb_req;
+                    hb_req.type = REQ_SS_HEARTBEAT;
+                    hb_req.payload_size = 0;
+                    
+                    if (send(i, &hb_req, sizeof(hb_req), MSG_DONTWAIT) < 0) {
+                        ss_state[i].missed_heartbeats++;
+                        log_event("  -> Heartbeat send failed to SS %d (missed: %d)", 
+                                 i, ss_state[i].missed_heartbeats);
+                    }
+                    
+                    // Check if SS has exceeded threshold
+                    if (ss_state[i].missed_heartbeats >= 3) {
+                        log_event("  -> SS %d FAILED (3 missed heartbeats). Marking offline.", i);
+                        ss_state[i].active = 0;
+                        
+                        // Mark all files on this SS as inactive
+                        for (int j = 0; j < MAX_FILES_IN_SYSTEM; j++) {
+                            if (file_catalog[j].active && file_catalog[j].ss_sock_fd == i) {
+                                file_catalog[j].active = 0;
+                                log_event("  -> File '%s' marked inactive (SS failure)", 
+                                         file_catalog[j].filename);
+                            }
+                        }
+                    }
+                }
+            }
+            continue; // Skip socket iteration
+        }
+        
         for (sock_fd = 0; sock_fd <= fdmax; sock_fd++) {
             if (FD_ISSET(sock_fd, &read_set)) {
                 
@@ -329,7 +486,31 @@ int main() {
                                 log_event("Socket %d (%s): SS registered at %s:%d. Expecting %d files.", sock_fd, peer_ip, msg.ss_ip, msg.client_port, msg.file_count);
                                 ss_state[sock_fd].active = 1; strncpy(ss_state[sock_fd].ip, msg.ss_ip, MAX_IP_LEN);
                                 ss_state[sock_fd].client_port = msg.client_port; strncpy(ss_state[sock_fd].ip_addr, peer_ip, MAX_IP_LEN);
+                                // Assign SS ID for heartbeat tracking
+                                snprintf(ss_state[sock_fd].ss_id, MAX_USERNAME, "%s:%d", msg.ss_ip, msg.client_port);
+                                ss_state[sock_fd].last_heartbeat = time(NULL);
+                                ss_state[sock_fd].missed_heartbeats = 0;
                                 client_state[sock_fd].active = 0;
+                                
+                                // Detect recovery scenario: file_count==0 but has inactive files with backups
+                                int is_recovering = (msg.file_count == 0);
+                                if (is_recovering) {
+                                    int has_backups = 0;
+                                    for (int i = 0; i < MAX_FILES_IN_SYSTEM; i++) {
+                                        if (!file_catalog[i].active && file_catalog[i].ss_sock_fd == sock_fd && 
+                                            file_catalog[i].backup_ss_sock >= 0) {
+                                            has_backups = 1;
+                                            break;
+                                        }
+                                    }
+                                    if (has_backups) {
+                                        log_event("  -> Detected recovery! Syncing files from backups...");
+                                        sync_files_to_recovering_ss(sock_fd);
+                                        send_ok_response(sock_fd);
+                                        break;
+                                    }
+                                }
+                                
                                 log_event("Receiving file list from SS %d...", sock_fd);
                                 for (int i = 0; i < msg.file_count; i++) {
                                     Msg_File_Item item; recv(sock_fd, &item, sizeof(item), 0);
@@ -343,6 +524,20 @@ int main() {
                                         for (int j = 0; j < item.access_count; j++) {
                                             file_catalog[slot].access_list[j] = item.access_list[j];
                                         }
+                                        
+                                        // Assign backup SS if multiple SS available
+                                        if (count_active_ss() >= 2) {
+                                            int backup = find_backup_ss(sock_fd);
+                                            if (backup >= 0) {
+                                                file_catalog[slot].backup_ss_sock = backup;
+                                                replicate_to_backup(backup, &file_catalog[slot]);
+                                            } else {
+                                                file_catalog[slot].backup_ss_sock = -1;
+                                            }
+                                        } else {
+                                            file_catalog[slot].backup_ss_sock = -1;
+                                        }
+                                        
                                         // ADD TO HASHMAP
                                         add_to_hashmap(item.filename, slot);
                                         log_event("  -> Cataloged '%s' (owner: %s, %d access entries) in slot %d", 
@@ -373,6 +568,20 @@ int main() {
                                             file_catalog[slot].active = 1; strncpy(file_catalog[slot].filename, req.filename, MAX_FILENAME);
                                             file_catalog[slot].ss_sock_fd = ss_sock; strncpy(file_catalog[slot].owner, client_state[sock_fd].username, MAX_USERNAME);
                                             file_catalog[slot].access_count = 0;
+                                            
+                                            // Assign backup and replicate
+                                            if (count_active_ss() >= 2) {
+                                                int backup = find_backup_ss(ss_sock);
+                                                if (backup >= 0) {
+                                                    file_catalog[slot].backup_ss_sock = backup;
+                                                    replicate_to_backup(backup, &file_catalog[slot]);
+                                                } else {
+                                                    file_catalog[slot].backup_ss_sock = -1;
+                                                }
+                                            } else {
+                                                file_catalog[slot].backup_ss_sock = -1;
+                                            }
+                                            
                                             // ADD TO HASHMAP
                                             add_to_hashmap(req.filename, slot);
                                             send_ok_response(sock_fd);
@@ -396,14 +605,22 @@ int main() {
                                     log_event("  -> Access Denied for user '%s'.", client_state[sock_fd].username);
                                     send_simple_header(sock_fd, RES_ERROR_ACCESS_DENIED); break;
                                 }
+                                
+                                // Check primary SS, failover to backup if down
                                 SSInfo* ss = &ss_state[meta->ss_sock_fd];
-                                if (!ss->active) { log_event("  -> Error: SS for file is offline."); send_simple_header(sock_fd, RES_ERROR); }
-                                else {
-                                    log_event("  -> File found on SS %d (%s:%d)", meta->ss_sock_fd, ss->ip, ss->client_port);
-                                    Header res_hdr; res_hdr.type = RES_READ_LOCATION; res_hdr.payload_size = sizeof(Msg_Read_Response);
-                                    Msg_Read_Response res_payload; strncpy(res_payload.ss_ip, ss->ip, MAX_IP_LEN); res_payload.ss_port = ss->client_port;
-                                    send(sock_fd, &res_hdr, sizeof(res_hdr), 0); send(sock_fd, &res_payload, sizeof(res_payload), 0);
+                                if (!ss->active && meta->backup_ss_sock >= 0 && ss_state[meta->backup_ss_sock].active) {
+                                    log_event("  -> Primary SS offline, failing over to backup SS %d", meta->backup_ss_sock);
+                                    ss = &ss_state[meta->backup_ss_sock];
+                                } else if (!ss->active) {
+                                    log_event("  -> Error: SS for file is offline and no backup available."); 
+                                    send_simple_header(sock_fd, RES_ERROR); 
+                                    break;
                                 }
+                                
+                                log_event("  -> File found on SS %d (%s:%d)", meta->ss_sock_fd, ss->ip, ss->client_port);
+                                Header res_hdr; res_hdr.type = RES_READ_LOCATION; res_hdr.payload_size = sizeof(Msg_Read_Response);
+                                Msg_Read_Response res_payload; strncpy(res_payload.ss_ip, ss->ip, MAX_IP_LEN); res_payload.ss_port = ss->client_port;
+                                send(sock_fd, &res_hdr, sizeof(res_hdr), 0); send(sock_fd, &res_payload, sizeof(res_payload), 0);
                                 break;
                             }
                             case REQ_LIST: {
@@ -433,6 +650,13 @@ int main() {
                                 Header ss_header; ss_header.type = REQ_SS_DELETE; ss_header.payload_size = sizeof(Msg_Filename_Request);
                                 send(ss_sock, &ss_header, sizeof(ss_header), 0); send(ss_sock, &req, sizeof(req), 0);
                                 recv(ss_sock, &header, sizeof(Header), 0);
+                                
+                                // Also delete from backup SS
+                                if (meta->backup_ss_sock >= 0 && ss_state[meta->backup_ss_sock].active) {
+                                    log_event("  -> Deleting from backup SS %d", meta->backup_ss_sock);
+                                    send(meta->backup_ss_sock, &ss_header, sizeof(ss_header), MSG_DONTWAIT);
+                                    send(meta->backup_ss_sock, &req, sizeof(req), MSG_DONTWAIT);
+                                }
                                 
                                 // REMOVE FROM HASHMAP & CACHE
                                 remove_from_hashmap(file_catalog[slot].filename);
@@ -1193,6 +1417,17 @@ int main() {
                                 break;
                             }
                             // --- END ACCESS REQUEST OPERATIONS ---
+
+                            case RES_SS_HEARTBEAT: {
+                                // Storage server responded to heartbeat
+                                if (ss_state[sock_fd].active) {
+                                    ss_state[sock_fd].last_heartbeat = time(NULL);
+                                    ss_state[sock_fd].missed_heartbeats = 0;
+                                    log_event("  -> Heartbeat received from SS %d (%s)", 
+                                             sock_fd, ss_state[sock_fd].ss_id);
+                                }
+                                break;
+                            }
 
                             default:
                                 log_event("Socket %d: Unknown message type %d", sock_fd, header.type);

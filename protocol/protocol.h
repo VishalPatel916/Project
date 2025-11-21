@@ -76,7 +76,14 @@ typedef enum {
     REQ_CHECK_REQUESTS,  // Client -> NM (owner checks pending requests)
     RES_REQUEST_LIST,    // NM -> Client (list of pending requests)
     REQ_APPROVE_REQUEST, // Client -> NM (approve a request)
-    REQ_DENY_REQUEST     // Client -> NM (deny/remove a request)
+    REQ_DENY_REQUEST,    // Client -> NM (deny/remove a request)
+
+    // --- NEW: Fault Tolerance Operations ---
+    REQ_REPLICATE_FILE,    // NM -> SS (replicate file to backup)
+    REQ_SS_HEARTBEAT,      // NM -> SS (heartbeat check)
+    RES_SS_HEARTBEAT,      // SS -> NM (heartbeat response)
+    REQ_SYNC_FROM_BACKUP,  // NM -> SS (sync file during recovery)
+    REQ_GET_FILE_CONTENT   // NM -> SS (get file for recovery)
 
 } MessageType;
 
@@ -141,6 +148,23 @@ typedef struct {
 } Msg_Request_Item;
 
 typedef struct { int request_id; } Msg_Request_Response;
+
+// --- Fault Tolerance Payloads ---
+typedef struct {
+    char filename[MAX_FILENAME];
+    char owner[MAX_USERNAME];
+    int access_count;
+    AccessEntry access_list[MAX_PERMISSIONS_PER_FILE];
+    long file_size;
+} Msg_Replicate_File;
+
+typedef struct {
+    char ss_id[MAX_USERNAME];  // Storage server identifier
+} Msg_SS_Heartbeat;
+
+typedef struct {
+    char filename[MAX_FILENAME];
+} Msg_Sync_File;
 
 
 // --- 6. HELPER FUNCTION ---

@@ -1,0 +1,51 @@
+# Compiled binaries
+client_app
+name_server
+storage_server
+
+# Object files
+*.o
+client/*.o
+name/*.o
+storage/*.o
+
+# Log files
+*.log
+nm.log
+ss.log
+
+# Storage directories (runtime data)
+ss_storage/
+ss1_storage/
+ss2_storage/
+ss3_storage/
+test_storage/
+ss1/
+ss2/
+
+# Test files
+test_commands.txt
+test_output.txt
+client_commands.txt
+client_output.txt
+
+# Backup files
+*.backup
+DEPLOYMENT.md.backup
+DISTRIBUTED_SETUP.md
+
+# IDE/Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+temp/
+tmp/
+*.tmp

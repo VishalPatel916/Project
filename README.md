@@ -10,3 +10,6 @@ Assumptions:
     Syntax for giving access
         CHECKREQUESTS
 5) write end . registers as end. while reading the file
+6) ./name_server
+   ./storage_server [port] [storage_path] [client_ip] [nm_ip]
+   ./client_app [nm_ip]

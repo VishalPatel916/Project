@@ -136,7 +136,13 @@ void handle_write_to_ss(char* filename, int sentence_num, char* ss_ip, int ss_po
 }
 
 
-int main() {
+int main(int argc, char* argv[]) {
+    // Command-line arg: ./client [nm_ip]
+    char nm_ip[MAX_IP_LEN] = "127.0.0.1";
+    if (argc >= 2) {
+        strncpy(nm_ip, argv[1], sizeof(nm_ip) - 1);
+    }
+    
     int sock;
     struct sockaddr_in nm_addr; char username[MAX_USERNAME];
     printf("Enter your username: ");
@@ -144,9 +150,9 @@ int main() {
     username[strcspn(username, "\n")] = 0;
     sock = socket(AF_INET, SOCK_STREAM, 0); if (sock < 0) error_exit("socket");
     memset(&nm_addr, 0, sizeof(nm_addr)); nm_addr.sin_family = AF_INET; nm_addr.sin_port = htons(NM_PORT);
-    if (inet_pton(AF_INET, "127.0.0.1", &nm_addr.sin_addr) <= 0) error_exit("inet_pton");
+    if (inet_pton(AF_INET, nm_ip, &nm_addr.sin_addr) <= 0) error_exit("inet_pton");
     if (connect(sock, (struct sockaddr *)&nm_addr, sizeof(nm_addr)) < 0) error_exit("connect");
-    printf("Connected to Name Server...\n");
+    printf("Connected to Name Server at %s...\n", nm_ip);
     Header header; header.type = REQ_CLIENT_REGISTER; header.payload_size = sizeof(Msg_Client_Register);
     Msg_Client_Register reg_msg; strncpy(reg_msg.username, username, MAX_USERNAME);
     if (send(sock, &header, sizeof(Header), 0) < 0) error_exit("send header");
@@ -164,9 +170,9 @@ int main() {
         char* command = strtok(line_buffer, " \n");
         if (command == NULL) continue;
 
-        if (strcmp(command, "create") == 0) {
+        if (strcmp(command, "CREATE") == 0) {
             char* filename = strtok(NULL, " \n");
-            if (filename == NULL) { printf("Usage: create <filename>\n"); }
+            if (filename == NULL) { printf("Usage: CREATE <filename>\n"); }
             else {
                 send_filename_request(sock, REQ_CREATE, filename);
                 recv(sock, &header, sizeof(header), 0);
@@ -175,9 +181,9 @@ int main() {
                 else printf("Error: Could not create file.\n");
             }
         } 
-        else if (strcmp(command, "read") == 0) {
+        else if (strcmp(command, "READ") == 0) {
             char* filename = strtok(NULL, " \n");
-            if (filename == NULL) { printf("Usage: read <filename>\n"); }
+            if (filename == NULL) { printf("Usage: READ <filename>\n"); }
             else {
                 send_filename_request(sock, REQ_READ, filename);
                 recv(sock, &header, sizeof(header), 0);
@@ -187,10 +193,10 @@ int main() {
                 else printf("Error: Could not read file.\n");
             }
         }
-        else if (strcmp(command, "write") == 0) {
+        else if (strcmp(command, "WRITE") == 0) {
             char* filename = strtok(NULL, " \n");
             char* sentence_str = strtok(NULL, " \n");
-            if (filename == NULL || sentence_str == NULL) { printf("Usage: write <filename> <sentence_number>\n"); }
+            if (filename == NULL || sentence_str == NULL) { printf("Usage: WRITE <filename> <sentence_number>\n"); }
             else {
                 int sentence_num = atoi(sentence_str);
                 send_filename_request(sock, REQ_WRITE, filename);
@@ -201,7 +207,7 @@ int main() {
                 else printf("Error: Could not write to file (NM error).\n");
             }
         }
-        else if (strcmp(command, "list") == 0) {
+        else if (strcmp(command, "LIST") == 0) {
             send_simple_header(sock, REQ_LIST);
             recv(sock, &header, sizeof(header), 0);
             if (header.type == RES_LIST_HDR) {
@@ -210,9 +216,9 @@ int main() {
                 for (int i = 0; i < list_hdr.user_count; i++) { Msg_List_Item item; recv(sock, &item, sizeof(item), 0); printf("  - %s\n", item.username); }
             }
         }
-        else if (strcmp(command, "delete") == 0) {
+        else if (strcmp(command, "DELETE") == 0) {
             char* filename = strtok(NULL, " \n");
-            if (filename == NULL) { printf("Usage: delete <filename>\n"); }
+            if (filename == NULL) { printf("Usage: DELETE <filename>\n"); }
             else {
                 send_filename_request(sock, REQ_DELETE, filename);
                 recv(sock, &header, sizeof(header), 0);
@@ -222,9 +228,9 @@ int main() {
                 else printf("Error: Could not delete file.\n");
             }
         }
-        else if (strcmp(command, "undo") == 0) {
+        else if (strcmp(command, "UNDO") == 0) {
             char* filename = strtok(NULL, " \n");
-            if (filename == NULL) { printf("Usage: undo <filename>\n"); }
+            if (filename == NULL) { printf("Usage: UNDO <filename>\n"); }
             else {
                 send_filename_request(sock, REQ_UNDO, filename);
                 recv(sock, &header, sizeof(header), 0);
@@ -234,9 +240,9 @@ int main() {
                 else printf("Error: Could not undo file.\n");
             }
         }
-        else if (strcmp(command, "stream") == 0) {
+        else if (strcmp(command, "STREAM") == 0) {
             char* filename = strtok(NULL, " \n");
-            if (filename == NULL) { printf("Usage: stream <filename>\n"); }
+            if (filename == NULL) { printf("Usage: STREAM <filename>\n"); }
             else {
                 send_filename_request(sock, REQ_STREAM, filename);
                 recv(sock, &header, sizeof(header), 0);
@@ -245,7 +251,7 @@ int main() {
                 else printf("Error: Could not stream file.\n");
             }
         }
-        else if (strcmp(command, "view") == 0) {
+        else if (strcmp(command, "VIEW") == 0) {
             char* flag = strtok(NULL, " \n");
             Msg_View_Request req;
             req.flag_a = 0; req.flag_l = 0;
@@ -277,9 +283,9 @@ int main() {
             }
             if(req.flag_l) print_metadata_footer();
         }
-        else if (strcmp(command, "info") == 0) {
+        else if (strcmp(command, "INFO") == 0) {
             char* filename = strtok(NULL, " \n");
-            if (filename == NULL) { printf("Usage: info <filename>\n"); }
+            if (filename == NULL) { printf("Usage: INFO <filename>\n"); }
             else {
                 send_filename_request(sock, REQ_INFO, filename);
                 recv(sock, &header, sizeof(header), 0);
@@ -300,18 +306,18 @@ int main() {
                 else if (header.type == RES_ERROR_ACCESS_DENIED) printf("Error: Access denied.\n");
             }
         }
-        else if (strcmp(command, "addaccess") == 0) {
+        else if (strcmp(command, "ADDACCESS") == 0) {
             char* flag = strtok(NULL, " \n");
             char* filename = strtok(NULL, " \n");
             // Capture the rest of the line as username (allow spaces)
             char* user = strtok(NULL, "\n");
-            if (flag == NULL || filename == NULL || user == NULL) { printf("Usage: addaccess -R|-W <filename> <username>\n"); }
+            if (flag == NULL || filename == NULL || user == NULL) { printf("Usage: ADDACCESS -R|-W <filename> <username>\n"); }
             else {
                 // Trim leading/trailing spaces around username
                 while (*user == ' ') user++;
                 size_t ulen = strlen(user);
                 while (ulen > 0 && user[ulen - 1] == ' ') { user[--ulen] = '\0'; }
-                if (ulen == 0) { printf("Usage: addaccess -R|-W <filename> <username>\n"); }
+                if (ulen == 0) { printf("Usage: ADDACCESS -R|-W <filename> <username>\n"); }
                 else {
                     Msg_Access_Request req;
                     strncpy(req.filename, filename, MAX_FILENAME);
@@ -329,16 +335,16 @@ int main() {
                 }
             }
         }
-        else if (strcmp(command, "remaccess") == 0) {
+        else if (strcmp(command, "REMACCESS") == 0) {
             char* filename = strtok(NULL, " \n");
             // Capture the rest of the line as username (allow spaces)
             char* user = strtok(NULL, "\n");
-            if (filename == NULL || user == NULL) { printf("Usage: remaccess <filename> <username>\n"); }
+            if (filename == NULL || user == NULL) { printf("Usage: REMACCESS <filename> <username>\n"); }
             else {
                 while (*user == ' ') user++;
                 size_t ulen = strlen(user);
                 while (ulen > 0 && user[ulen - 1] == ' ') { user[--ulen] = '\0'; }
-                if (ulen == 0) { printf("Usage: remaccess <filename> <username>\n"); }
+                if (ulen == 0) { printf("Usage: REMACCESS <filename> <username>\n"); }
                 else {
                     Msg_Access_Request req;
                     strncpy(req.filename, filename, MAX_FILENAME);
@@ -356,11 +362,11 @@ int main() {
         }
         
         // --- NEW: Access Request Commands ---
-        else if (strcmp(command, "reqaccess") == 0) {
+        else if (strcmp(command, "REQACCESS") == 0) {
             char* flag = strtok(NULL, " \n");
             char* filename = strtok(NULL, " \n");
             if (flag == NULL || filename == NULL) { 
-                printf("Usage: reqaccess -R|-W <filename>\n"); 
+                printf("Usage: REQACCESS -R|-W <filename>\n"); 
             } else {
                 Msg_Request_Access req;
                 strncpy(req.filename, filename, MAX_FILENAME);
@@ -382,7 +388,7 @@ int main() {
                     printf("Error: Could not send access request.\n");
             }
         }
-        else if (strcmp(command, "checkrequests") == 0) {
+        else if (strcmp(command, "CHECKREQUESTS") == 0) {
             header.type = REQ_CHECK_REQUESTS; 
             header.payload_size = 0;
             send(sock, &header, sizeof(header), 0);
@@ -464,9 +470,9 @@ int main() {
         }
         
         // --- NEW FOR EXEC ---
-        else if (strcmp(command, "exec") == 0) {
+        else if (strcmp(command, "EXEC") == 0) {
             char* filename = strtok(NULL, " \n");
-            if (filename == NULL) { printf("Usage: exec <filename>\n"); }
+            if (filename == NULL) { printf("Usage: EXEC <filename>\n"); }
             else {
                 send_filename_request(sock, REQ_EXEC, filename);
                 printf("--- Executing '%s' ---\n", filename);
@@ -497,10 +503,10 @@ int main() {
         // --- END EXEC ---
         
         // --- FOLDER COMMANDS ---
-        else if (strcmp(command, "createfolder") == 0) {
+        else if (strcmp(command, "CREATEFOLDER") == 0) {
             char* foldername = strtok(NULL, " \n");
             if (foldername == NULL) {
-                printf("Usage: createfolder <foldername>\n");
+                printf("Usage: CREATEFOLDER <foldername>\n");
             } else {
                 header.type = REQ_CREATEFOLDER;
                 header.payload_size = sizeof(Msg_Folder_Request);
@@ -518,11 +524,11 @@ int main() {
                 }
             }
         }
-        else if (strcmp(command, "move") == 0) {
+        else if (strcmp(command, "MOVE") == 0) {
             char* filename = strtok(NULL, " \n");
             char* foldername = strtok(NULL, " \n");
             if (filename == NULL || foldername == NULL) {
-                printf("Usage: move <filename> <foldername>\n");
+                printf("Usage: MOVE <filename> <foldername>\n");
             } else {
                 header.type = REQ_MOVE;
                 header.payload_size = sizeof(Msg_Move_Request);
@@ -545,10 +551,10 @@ int main() {
                 }
             }
         }
-        else if (strcmp(command, "viewfolder") == 0) {
+        else if (strcmp(command, "VIEWFOLDER") == 0) {
             char* foldername = strtok(NULL, " \n");
             if (foldername == NULL) {
-                printf("Usage: viewfolder <foldername>\n");
+                printf("Usage: VIEWFOLDER <foldername>\n");
             } else {
                 header.type = REQ_VIEWFOLDER;
                 header.payload_size = sizeof(Msg_Folder_Request);
@@ -581,11 +587,11 @@ int main() {
         // --- END FOLDER COMMANDS ---
         
         // --- CHECKPOINT COMMANDS ---
-        else if (strcmp(command, "checkpoint") == 0) {
+        else if (strcmp(command, "CHECKPOINT") == 0) {
             char* filename = strtok(NULL, " \n");
             char* tag = strtok(NULL, " \n");
             if (filename == NULL || tag == NULL) {
-                printf("Usage: checkpoint <filename> <checkpoint_tag>\n");
+                printf("Usage: CHECKPOINT <filename> <checkpoint_tag>\n");
             } else {
                 header.type = REQ_CHECKPOINT;
                 header.payload_size = sizeof(Msg_Checkpoint_Request);
@@ -604,11 +610,11 @@ int main() {
                 }
             }
         }
-        else if (strcmp(command, "viewcheckpoint") == 0) {
+        else if (strcmp(command, "VIEWCHECKPOINT") == 0) {
             char* filename = strtok(NULL, " \n");
             char* tag = strtok(NULL, " \n");
             if (filename == NULL || tag == NULL) {
-                printf("Usage: viewcheckpoint <filename> <checkpoint_tag>\n");
+                printf("Usage: VIEWcheckpoint <filename> <checkpoint_tag>\n");
             } else {
                 header.type = REQ_VIEWCHECKPOINT;
                 header.payload_size = sizeof(Msg_Checkpoint_Request);
@@ -637,11 +643,11 @@ int main() {
                 }
             }
         }
-        else if (strcmp(command, "revert") == 0) {
+        else if (strcmp(command, "REVERT") == 0) {
             char* filename = strtok(NULL, " \n");
             char* tag = strtok(NULL, " \n");
             if (filename == NULL || tag == NULL) {
-                printf("Usage: revert <filename> <checkpoint_tag>\n");
+                printf("Usage: REVERT <filename> <checkpoint_tag>\n");
             } else {
                 header.type = REQ_REVERT;
                 header.payload_size = sizeof(Msg_Checkpoint_Request);
@@ -660,10 +666,10 @@ int main() {
                 }
             }
         }
-        else if (strcmp(command, "listcheckpoints") == 0) {
+        else if (strcmp(command, "LISTCHECKPOINTS") == 0) {
             char* filename = strtok(NULL, " \n");
             if (filename == NULL) {
-                printf("Usage: listcheckpoints <filename>\n");
+                printf("Usage: LISTCHECKPOINTS <filename>\n");
             } else {
                 header.type = REQ_LISTCHECKPOINTS;
                 header.payload_size = sizeof(Msg_ListCheckpoints_Request);
@@ -698,7 +704,7 @@ int main() {
         }
         // --- END CHECKPOINT COMMANDS ---
         
-        else if (strcmp(command, "quit") == 0 || strcmp(command, "exit") == 0) {
+        else if (strcmp(command, "QUIT") == 0 || strcmp(command, "EXIT") == 0) {
             break;
         }
         else {

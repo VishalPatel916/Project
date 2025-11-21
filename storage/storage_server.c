@@ -17,6 +17,9 @@
 #define MAX_CONNECTIONS FD_SETSIZE
 #define MAX_LOCKS 100
 
+// --- Global Configuration (overridable via command-line) ---
+char g_storage_path[512] = MY_STORAGE_PATH;
+
 // --- Global Log File ---
 FILE* ss_log_file;
 
@@ -41,8 +44,8 @@ typedef struct {
     char filename[MAX_FILENAME];
     SentenceNode* doc_head; 
     int num_users_editing;  
-    char original_path[256];
-    char backup_path[256];
+    char original_path[768];
+    char backup_path[768];
 } ActiveDoc;
 ActiveDoc active_documents[MAX_FILES_IN_SYSTEM];
 
@@ -684,8 +687,8 @@ ActiveDoc* find_or_load_active_doc(char* filename) {
     ActiveDoc* doc = &active_documents[new_slot];
     log_event("  -> Loading file '%s' into active doc slot %d.", filename, new_slot);
     
-    sprintf(doc->original_path, "%s/%s", MY_STORAGE_PATH, filename);
-    sprintf(doc->backup_path, "%s/%s.bak", MY_STORAGE_PATH, filename);
+    sprintf(doc->original_path, "%s/%s", g_storage_path, filename);
+    sprintf(doc->backup_path, "%s/%s.bak", g_storage_path, filename);
     
     doc->doc_head = parse_file_to_list(doc->original_path);
     if (doc->doc_head == NULL) { log_event("  -> ERROR: Failed to parse file '%s' into list.", filename); return NULL; }
@@ -729,14 +732,14 @@ void calculate_and_send_metadata(int nm_sock, char* filename, char* file_path) {
     if (send(nm_sock, &msg, sizeof(msg), 0) < 0) log_event("  -> ERROR: send metadata payload failed");
 }
 void handle_create_file(char* filename, char* file_path) {
-    sprintf(file_path, "%s/%s", MY_STORAGE_PATH, filename);
+    sprintf(file_path, "%s/%s", g_storage_path, filename);
     log_event("  -> Creating file at: %s", file_path);
     FILE* f = fopen(file_path, "w");
     if (f) { fclose(f); }
 }
-void handle_send_file(int client_sock, char* filename) { char file_path[256]; sprintf(file_path, "%s/%s", MY_STORAGE_PATH, filename); int fd = open(file_path, O_RDONLY); if (fd < 0) { log_event("  -> File not found. Sending error to socket %d", client_sock); send_simple_header(client_sock, RES_ERROR_NOT_FOUND); return; } send_simple_header(client_sock, RES_SS_FILE_OK); log_event("  -> Sending file '%s' to socket %d", filename, client_sock); char buffer[FILE_BUFFER_SIZE]; int bytes_read; while ((bytes_read = read(fd, buffer, FILE_BUFFER_SIZE)) > 0) if (send(client_sock, buffer, bytes_read, 0) < 0) break; close(fd); log_event("  -> Finished sending file to socket %d", client_sock); }
+void handle_send_file(int client_sock, char* filename) { char file_path[768]; sprintf(file_path, "%s/%s", g_storage_path, filename); int fd = open(file_path, O_RDONLY); if (fd < 0) { log_event("  -> File not found. Sending error to socket %d", client_sock); send_simple_header(client_sock, RES_ERROR_NOT_FOUND); return; } send_simple_header(client_sock, RES_SS_FILE_OK); log_event("  -> Sending file '%s' to socket %d", filename, client_sock); char buffer[FILE_BUFFER_SIZE]; int bytes_read; while ((bytes_read = read(fd, buffer, FILE_BUFFER_SIZE)) > 0) if (send(client_sock, buffer, bytes_read, 0) < 0) break; close(fd); log_event("  -> Finished sending file to socket %d", client_sock); }
 void handle_stream_file(int client_sock, char* filename) {
-    char file_path[256]; sprintf(file_path, "%s/%s", MY_STORAGE_PATH, filename);
+    char file_path[768]; sprintf(file_path, "%s/%s", g_storage_path, filename);
     int fd = open(file_path, O_RDONLY);
     if (fd < 0) { log_event("  -> File not found. Sending error to socket %d", client_sock); send_simple_header(client_sock, RES_ERROR_NOT_FOUND); return; }
     send_simple_header(client_sock, RES_SS_FILE_OK);
@@ -840,9 +843,22 @@ void scan_directory_recursive(const char* base_path, const char* relative_path,
 
 
 // --- 8. Main Function ---
-int main() {
+int main(int argc, char* argv[]) {
+    // Command-line args: ./storage_server [port] [storage_path] [client_ip] [nm_ip]
+    int my_port = MY_PORT_FOR_CLIENTS;
+    char my_client_ip[MAX_IP_LEN] = MY_IP_FOR_CLIENTS;
+    char nm_ip[MAX_IP_LEN] = "127.0.0.1";
+    
+    if (argc >= 2) my_port = atoi(argv[1]);
+    if (argc >= 3) strncpy(g_storage_path, argv[2], sizeof(g_storage_path) - 1);
+    if (argc >= 4) strncpy(my_client_ip, argv[3], sizeof(my_client_ip) - 1);
+    if (argc >= 5) strncpy(nm_ip, argv[4], sizeof(nm_ip) - 1);
+    
     ss_log_file = fopen("ss.log", "a"); if (ss_log_file == NULL) error_exit("fopen ss.log");
     log_event("--- Storage Server Started ---");
+    log_event("Port: %d, Storage: %s, Client IP: %s, NM IP: %s", 
+              my_port, g_storage_path, my_client_ip, nm_ip);
+    
     int nm_sock, client_listener_sock, new_client_sock;
     struct sockaddr_in nm_addr, client_listen_addr, client_addr;
     socklen_t client_len; fd_set master_set, read_set; int fdmax;
@@ -850,21 +866,21 @@ int main() {
     for(int i = 0; i < MAX_CONNECTIONS; i++) { write_sessions[i].active = 0; write_sessions[i].virtual_word_count = 0; }
     for(int i = 0; i < MAX_FILES_IN_SYSTEM; i++) active_documents[i].active = 0; 
     
-    char my_files[MAX_FILES_PER_SS][MAX_FILENAME]; int file_count = 0; mkdir(MY_STORAGE_PATH, 0777);
-    log_event("Scanning storage directory: %s", MY_STORAGE_PATH);
-    scan_directory_recursive(MY_STORAGE_PATH, "", my_files, &file_count, MAX_FILES_PER_SS);
+    char my_files[MAX_FILES_PER_SS][MAX_FILENAME]; int file_count = 0; mkdir(g_storage_path, 0777);
+    log_event("Scanning storage directory: %s", g_storage_path);
+    scan_directory_recursive(g_storage_path, "", my_files, &file_count, MAX_FILES_PER_SS);
     log_event("Found %d files.", file_count);
     nm_sock = socket(AF_INET, SOCK_STREAM, 0); if (nm_sock < 0) error_exit("socket");
     memset(&nm_addr, 0, sizeof(nm_addr)); nm_addr.sin_family = AF_INET; nm_addr.sin_port = htons(NM_PORT);
-    if (inet_pton(AF_INET, "127.0.0.1", &nm_addr.sin_addr) <= 0) error_exit("inet_pton");
+    if (inet_pton(AF_INET, nm_ip, &nm_addr.sin_addr) <= 0) error_exit("inet_pton");
     if (connect(nm_sock, (struct sockaddr *)&nm_addr, sizeof(nm_addr)) < 0) error_exit("connect");
     log_event("Storage Server connected to Name Server on port %d", NM_PORT);
     Header header; header.type = REQ_SS_REGISTER; header.payload_size = sizeof(Msg_SS_Register);
-    Msg_SS_Register reg_msg; strncpy(reg_msg.ss_ip, MY_IP_FOR_CLIENTS, MAX_IP_LEN); reg_msg.client_port = MY_PORT_FOR_CLIENTS; reg_msg.file_count = file_count;
+    Msg_SS_Register reg_msg; strncpy(reg_msg.ss_ip, my_client_ip, MAX_IP_LEN); reg_msg.client_port = my_port; reg_msg.file_count = file_count;
     if (send(nm_sock, &header, sizeof(Header), 0) < 0) error_exit("send header");
     if (send(nm_sock, &reg_msg, sizeof(reg_msg), 0) < 0) error_exit("send payload");
     log_event("Sending file list with metadata...");
-    for (int i = 0; i < file_count; i++) { 
+    for (int i = 0; i < file_count; i++) {
         Msg_File_Item item; 
         strncpy(item.filename, my_files[i], MAX_FILENAME);
         load_file_metadata(my_files[i], item.owner, &item.access_count, item.access_list);
@@ -875,16 +891,16 @@ int main() {
     log_event("Registration successful!");
     log_event("Sending metadata for %d existing files...", file_count);
     for (int i = 0; i < file_count; i++) {
-        char file_path[256];
-        sprintf(file_path, "%s/%s", MY_STORAGE_PATH, my_files[i]);
+        char file_path[768];
+        sprintf(file_path, "%s/%s", g_storage_path, my_files[i]);
         calculate_and_send_metadata(nm_sock, my_files[i], file_path);
     }
     client_listener_sock = socket(AF_INET, SOCK_STREAM, 0); if (client_listener_sock < 0) error_exit("client listener socket");
     int yes = 1; if (setsockopt(client_listener_sock, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int)) < 0) error_exit("setsockopt");
-    memset(&client_listen_addr, 0, sizeof(client_listen_addr)); client_listen_addr.sin_family = AF_INET; client_listen_addr.sin_addr.s_addr = INADDR_ANY; client_listen_addr.sin_port = htons(MY_PORT_FOR_CLIENTS);
+    memset(&client_listen_addr, 0, sizeof(client_listen_addr)); client_listen_addr.sin_family = AF_INET; client_listen_addr.sin_addr.s_addr = INADDR_ANY; client_listen_addr.sin_port = htons(my_port);
     if (bind(client_listener_sock, (struct sockaddr *)&client_listen_addr, sizeof(client_listen_addr)) < 0) error_exit("client listener bind");
     if (listen(client_listener_sock, 10) < 0) error_exit("client listener listen");
-    log_event("Storage Server now listening for clients on port %d...", MY_PORT_FOR_CLIENTS);
+    log_event("Storage Server now listening for clients on port %d...", my_port);
     FD_ZERO(&master_set); FD_SET(nm_sock, &master_set); FD_SET(client_listener_sock, &master_set);
     fdmax = (nm_sock > client_listener_sock) ? nm_sock : client_listener_sock;
 
@@ -910,9 +926,9 @@ int main() {
                         case REQ_SS_DELETE: {
                             Msg_Filename_Request req; recv(nm_sock, &req, sizeof(req), 0);
                             log_event("Got REQ_SS_DELETE for '%s' from NM", req.filename);
-                            char file_path[256]; sprintf(file_path, "%s/%s", MY_STORAGE_PATH, req.filename);
+                            char file_path[256]; sprintf(file_path, "%s/%s", g_storage_path, req.filename);
                             if (remove(file_path) == 0) { log_event("  -> File deleted."); } else { log_event("  -> Error deleting file: %s", strerror(errno)); }
-                            char backup_path[256]; sprintf(backup_path, "%s/%s.bak", MY_STORAGE_PATH, req.filename); remove(backup_path);
+                            char backup_path[256]; sprintf(backup_path, "%s/%s.bak", g_storage_path, req.filename); remove(backup_path);
                             delete_file_metadata(req.filename);
                             send_simple_header(nm_sock, RES_OK);
                             break;
@@ -923,15 +939,15 @@ int main() {
                             
                             // Check if there's an __UNDO__ checkpoint from a recent revert
                             char undo_checkpoint[1024], redo_checkpoint[1024];
-                            sprintf(undo_checkpoint, "%s/.checkpoints/%s/__UNDO__", MY_STORAGE_PATH, req.filename);
-                            sprintf(redo_checkpoint, "%s/.checkpoints/%s/__REDO__", MY_STORAGE_PATH, req.filename);
+                            sprintf(undo_checkpoint, "%s/.checkpoints/%s/__UNDO__", g_storage_path, req.filename);
+                            sprintf(redo_checkpoint, "%s/.checkpoints/%s/__REDO__", g_storage_path, req.filename);
                             
                             struct stat st;
                             if (stat(undo_checkpoint, &st) == 0) {
                                 // Undo a revert operation - restore from __UNDO__ and save current to __REDO__
                                 log_event("  -> Found __UNDO__ checkpoint, restoring pre-revert state");
                                 char file_path[512];
-                                sprintf(file_path, "%s/%s", MY_STORAGE_PATH, req.filename);
+                                sprintf(file_path, "%s/%s", g_storage_path, req.filename);
                                 
                                 // First save current state to __REDO__ for toggling back
                                 FILE *current = fopen(file_path, "r");
@@ -982,13 +998,13 @@ int main() {
                                     send_simple_header(nm_sock, RES_ERROR);
                                 }
                                 char original_path[256];
-                                sprintf(original_path, "%s/%s", MY_STORAGE_PATH, req.filename);
+                                sprintf(original_path, "%s/%s", g_storage_path, req.filename);
                                 calculate_and_send_metadata(nm_sock, req.filename, original_path);
                             } else if (stat(redo_checkpoint, &st) == 0) {
                                 // Redo - toggle back to reverted state
                                 log_event("  -> Found __REDO__ checkpoint, toggling back to reverted state");
                                 char file_path[512];
-                                sprintf(file_path, "%s/%s", MY_STORAGE_PATH, req.filename);
+                                sprintf(file_path, "%s/%s", g_storage_path, req.filename);
                                 
                                 // Save current to __UNDO__ for toggling back again
                                 FILE *current = fopen(file_path, "r");
@@ -1039,14 +1055,14 @@ int main() {
                                     send_simple_header(nm_sock, RES_ERROR);
                                 }
                                 char original_path[256];
-                                sprintf(original_path, "%s/%s", MY_STORAGE_PATH, req.filename);
+                                sprintf(original_path, "%s/%s", g_storage_path, req.filename);
                                 calculate_and_send_metadata(nm_sock, req.filename, original_path);
                             } else {
                                 // No __UNDO__ or __REDO__ checkpoint, perform regular undo (swap with backup)
                                 char original_path[256], backup_path[256], temp_swap_path[256];
-                                sprintf(original_path, "%s/%s", MY_STORAGE_PATH, req.filename);
-                                sprintf(backup_path, "%s/%s.bak", MY_STORAGE_PATH, req.filename);
-                                sprintf(temp_swap_path, "%s/%s.swap", MY_STORAGE_PATH, req.filename);
+                                sprintf(original_path, "%s/%s", g_storage_path, req.filename);
+                                sprintf(backup_path, "%s/%s.bak", g_storage_path, req.filename);
+                                sprintf(temp_swap_path, "%s/%s.swap", g_storage_path, req.filename);
                                 rename(original_path, temp_swap_path); rename(backup_path, original_path); rename(temp_swap_path, backup_path);
                                 log_event("  -> Swapped backup file.");
                                 send_simple_header(nm_sock, RES_OK);
@@ -1095,8 +1111,8 @@ int main() {
                         case REQ_SS_CREATEFOLDER: {
                             Msg_Folder_Request req; recv(nm_sock, &req, sizeof(req), 0);
                             log_event("Got REQ_SS_CREATEFOLDER for '%s' from NM", req.foldername);
-                            char folder_path[512];
-                            sprintf(folder_path, "%s/%s", MY_STORAGE_PATH, req.foldername);
+                            char folder_path[768];
+                            sprintf(folder_path, "%s/%s", g_storage_path, req.foldername);
                             
                             // First check if folder already exists
                             struct stat st;
@@ -1112,7 +1128,7 @@ int main() {
                             temp_path[sizeof(temp_path) - 1] = '\0';
                             
                             int success = 1;
-                            for (char* p = temp_path + strlen(MY_STORAGE_PATH) + 1; *p; p++) {
+                            for (char* p = temp_path + strlen(g_storage_path) + 1; *p; p++) {
                                 if (*p == '/') {
                                     *p = '\0';
                                     if (mkdir(temp_path, 0777) != 0 && errno != EEXIST) {
@@ -1141,7 +1157,7 @@ int main() {
                             Msg_Folder_Request req; recv(nm_sock, &req, sizeof(req), 0);
                             log_event("Got REQ_SS_CHECKFOLDER for '%s' from NM", req.foldername);
                             char folder_path[512];
-                            sprintf(folder_path, "%s/%s", MY_STORAGE_PATH, req.foldername);
+                            sprintf(folder_path, "%s/%s", g_storage_path, req.foldername);
                             
                             struct stat st;
                             if (stat(folder_path, &st) == 0 && S_ISDIR(st.st_mode)) {
@@ -1166,9 +1182,9 @@ int main() {
                             }
                             
                             char old_path[512], new_path[512], folder_path[512];
-                            sprintf(old_path, "%s/%s", MY_STORAGE_PATH, req.filename);
-                            sprintf(folder_path, "%s/%s", MY_STORAGE_PATH, req.foldername);
-                            sprintf(new_path, "%s/%s/%s", MY_STORAGE_PATH, req.foldername, base_filename);
+                            sprintf(old_path, "%s/%s", g_storage_path, req.filename);
+                            sprintf(folder_path, "%s/%s", g_storage_path, req.foldername);
+                            sprintf(new_path, "%s/%s/%s", g_storage_path, req.foldername, base_filename);
                             
                             // Ensure folder exists
                             mkdir(folder_path, 0777);
@@ -1207,8 +1223,8 @@ int main() {
                             log_event("Got REQ_SS_CHECKPOINT for '%s' with tag '%s' from NM", req.filename, req.tag);
                             
                             char file_path[512], checkpoint_dir[512], checkpoint_path[1024];
-                            sprintf(file_path, "%s/%s", MY_STORAGE_PATH, req.filename);
-                            sprintf(checkpoint_dir, "%s/.checkpoints/%s", MY_STORAGE_PATH, req.filename);
+                            sprintf(file_path, "%s/%s", g_storage_path, req.filename);
+                            sprintf(checkpoint_dir, "%s/.checkpoints/%s", g_storage_path, req.filename);
                             sprintf(checkpoint_path, "%s/%s", checkpoint_dir, req.tag);
                             
                             // Check if file exists
@@ -1230,7 +1246,7 @@ int main() {
                             char temp_dir[512];
                             strncpy(temp_dir, checkpoint_dir, sizeof(temp_dir));
                             temp_dir[sizeof(temp_dir) - 1] = '\0';
-                            for (char* p = temp_dir + strlen(MY_STORAGE_PATH) + 1; *p; p++) {
+                            for (char* p = temp_dir + strlen(g_storage_path) + 1; *p; p++) {
                                 if (*p == '/') {
                                     *p = '\0';
                                     mkdir(temp_dir, 0777);
@@ -1265,7 +1281,7 @@ int main() {
                             log_event("Got REQ_SS_VIEWCHECKPOINT for '%s' tag '%s' from NM", req.filename, req.tag);
                             
                             char checkpoint_path[1024];
-                            sprintf(checkpoint_path, "%s/.checkpoints/%s/%s", MY_STORAGE_PATH, req.filename, req.tag);
+                            sprintf(checkpoint_path, "%s/.checkpoints/%s/%s", g_storage_path, req.filename, req.tag);
                             
                             struct stat st;
                             if (stat(checkpoint_path, &st) != 0) {
@@ -1304,9 +1320,9 @@ int main() {
                             log_event("Got REQ_SS_REVERT for '%s' to tag '%s' from NM", req.filename, req.tag);
                             
                             char file_path[512], checkpoint_path[1024], undo_path[1024];
-                            sprintf(file_path, "%s/%s", MY_STORAGE_PATH, req.filename);
-                            sprintf(checkpoint_path, "%s/.checkpoints/%s/%s", MY_STORAGE_PATH, req.filename, req.tag);
-                            sprintf(undo_path, "%s/.checkpoints/%s/__UNDO__", MY_STORAGE_PATH, req.filename);
+                            sprintf(file_path, "%s/%s", g_storage_path, req.filename);
+                            sprintf(checkpoint_path, "%s/.checkpoints/%s/%s", g_storage_path, req.filename, req.tag);
+                            sprintf(undo_path, "%s/.checkpoints/%s/__UNDO__", g_storage_path, req.filename);
                             
                             // Check if checkpoint exists
                             struct stat st;
@@ -1373,7 +1389,7 @@ int main() {
                             log_event("Got REQ_SS_LISTCHECKPOINTS for '%s' from NM", req.filename);
                             
                             char checkpoint_dir[512];
-                            sprintf(checkpoint_dir, "%s/.checkpoints/%s", MY_STORAGE_PATH, req.filename);
+                            sprintf(checkpoint_dir, "%s/.checkpoints/%s", g_storage_path, req.filename);
                             
                             // Count checkpoints
                             int count = 0;
@@ -1416,6 +1432,97 @@ int main() {
                             }
                             
                             log_event("  -> Sent %d checkpoint(s) for '%s'", count, req.filename);
+                            break;
+                        }
+                        case REQ_REPLICATE_FILE: {
+                            Msg_Replicate_File rep_msg; 
+                            recv(nm_sock, &rep_msg, sizeof(rep_msg), 0);
+                            log_event("Got REQ_REPLICATE_FILE for '%s' (backup copy)", rep_msg.filename);
+                            
+                            // Save metadata
+                            save_file_metadata(rep_msg.filename, rep_msg.owner, rep_msg.access_count, rep_msg.access_list);
+                            
+                            // Create empty file (actual content will come via async channel or ignored)
+                            char file_path[768];
+                            sprintf(file_path, "%s/%s", g_storage_path, rep_msg.filename);
+                            int fd = open(file_path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+                            if (fd >= 0) {
+                                close(fd);
+                                log_event("  -> Backup file '%s' created", rep_msg.filename);
+                            }
+                            break;
+                        }
+                        case REQ_SS_HEARTBEAT: {
+                            // Respond immediately
+                            Header hb_res;
+                            hb_res.type = RES_SS_HEARTBEAT;
+                            hb_res.payload_size = 0;
+                            send(nm_sock, &hb_res, sizeof(hb_res), 0);
+                            break;
+                        }
+                        case REQ_GET_FILE_CONTENT: {
+                            Msg_Sync_File sync_msg;
+                            recv(nm_sock, &sync_msg, sizeof(sync_msg), 0);
+                            log_event("Got REQ_GET_FILE_CONTENT for '%s' (backup restore)", sync_msg.filename);
+                            
+                            char file_path[768];
+                            sprintf(file_path, "%s/%s", g_storage_path, sync_msg.filename);
+                            
+                            FILE* file = fopen(file_path, "rb");
+                            if (!file) {
+                                long zero = 0;
+                                send(nm_sock, &zero, sizeof(long), 0);
+                                log_event("  -> File not found");
+                                break;
+                            }
+                            
+                            fseek(file, 0, SEEK_END);
+                            long file_size = ftell(file);
+                            fseek(file, 0, SEEK_SET);
+                            
+                            send(nm_sock, &file_size, sizeof(long), 0);
+                            
+                            char buffer[4096];
+                            int bytes_read;
+                            while ((bytes_read = fread(buffer, 1, sizeof(buffer), file)) > 0) {
+                                send(nm_sock, buffer, bytes_read, 0);
+                            }
+                            fclose(file);
+                            log_event("  -> Sent %ld bytes", file_size);
+                            break;
+                        }
+                        case REQ_SYNC_FROM_BACKUP: {
+                            Msg_Sync_File sync_msg;
+                            recv(nm_sock, &sync_msg, sizeof(sync_msg), 0);
+                            
+                            long file_size;
+                            recv(nm_sock, &file_size, sizeof(long), 0);
+                            
+                            log_event("Got REQ_SYNC_FROM_BACKUP for '%s' (%ld bytes)", 
+                                     sync_msg.filename, file_size);
+                            
+                            char file_path[768];
+                            sprintf(file_path, "%s/%s", g_storage_path, sync_msg.filename);
+                            
+                            FILE* file = fopen(file_path, "wb");
+                            if (!file) {
+                                log_event("  -> Error creating file");
+                                break;
+                            }
+                            
+                            char* content = malloc(file_size);
+                            if (content) {
+                                int received = 0;
+                                while (received < file_size) {
+                                    int bytes = recv(nm_sock, content + received, file_size - received, 0);
+                                    if (bytes <= 0) break;
+                                    received += bytes;
+                                }
+                                fwrite(content, 1, received, file);
+                                free(content);
+                                log_event("  -> File restored (%d bytes)", received);
+                            }
+                            fclose(file);
                             break;
                         }
                         default:
@@ -1524,10 +1631,13 @@ int main() {
                                 WordNode* w = target->word_head;
                                 while (w != NULL) { current_word_count++; w = w->next; }
                                 
-                                // Validate word index (0-based indexing, can insert at position 0 to current_word_count)
-                                if (req.word_index < 0 || req.word_index > current_word_count) {
+                                // Add virtual word count to allow indexing into pending edits
+                                int total_word_count = current_word_count + session->virtual_word_count;
+                                
+                                // Validate word index (0-based indexing, can insert at position 0 to total_word_count)
+                                if (req.word_index < 0 || req.word_index > total_word_count) {
                                     log_event("  -> ERROR: Word index %d out of bounds (valid range: 0-%d)", 
-                                             req.word_index, current_word_count);
+                                             req.word_index, total_word_count);
                                     Header response_header;
                                     response_header.type = RES_ERROR;
                                     response_header.payload_size = 0;
