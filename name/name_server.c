@@ -30,6 +30,7 @@ typedef struct {
     int word_count;
     int char_count;
     time_t last_modified;
+    time_t last_accessed;
     int backup_ss_sock;          // Socket of backup storage server
 } FileMetadata;
 
@@ -211,7 +212,7 @@ void send_full_metadata(int sock_fd, FileMetadata* meta) {
     strncpy(msg.filename, meta->filename, MAX_FILENAME);
     strncpy(msg.owner, meta->owner, MAX_USERNAME);
     msg.file_size = meta->file_size; msg.word_count = meta->word_count; msg.char_count = meta->char_count;
-    msg.last_modified = meta->last_modified; msg.access_count = meta->access_count;
+    msg.last_modified = meta->last_modified; msg.last_accessed = meta->last_accessed; msg.access_count = meta->access_count;
     if (meta->active == 1) { hdr.type = RES_VIEW_ITEM_LONG; meta->active = 2; }
     else { hdr.type = RES_INFO; }
     send(sock_fd, &hdr, sizeof(hdr), 0); send(sock_fd, &msg, sizeof(msg), 0);
@@ -694,6 +695,7 @@ int main() {
                                     file_catalog[slot].word_count = msg.word_count;
                                     file_catalog[slot].char_count = msg.char_count;
                                     file_catalog[slot].last_modified = msg.last_modified;
+                                    file_catalog[slot].last_accessed = msg.last_accessed;
                                     log_event("  -> Metadata updated for '%s'", msg.filename);
                                 } else { log_event("  -> ERROR: Received metadata for unknown file '%s'", msg.filename); }
                                 break;
@@ -704,6 +706,9 @@ int main() {
                                 int count = 0;
                                 for(int i=0; i < MAX_FILES_IN_SYSTEM; i++) {
                                     if (!file_catalog[i].active) continue;
+                                    // Filter internal files (.bak and checkpoint files)
+                                    char* filename = file_catalog[i].filename;
+                                    if (strstr(filename, ".bak") || strstr(filename, ".checkpoints/") || strstr(filename, "/.checkpoints/")) continue;
                                     if (req.flag_a || has_read_access(&file_catalog[i], client_state[sock_fd].username)) {
                                         count++;
                                     }
@@ -713,6 +718,9 @@ int main() {
                                 send(sock_fd, &res_hdr, sizeof(res_hdr), 0); send(sock_fd, &view_hdr, sizeof(view_hdr), 0);
                                 for(int i=0; i < MAX_FILES_IN_SYSTEM; i++) {
                                     if (!file_catalog[i].active) continue;
+                                    // Filter internal files (.bak and checkpoint files)
+                                    char* filename = file_catalog[i].filename;
+                                    if (strstr(filename, ".bak") || strstr(filename, ".checkpoints/") || strstr(filename, "/.checkpoints/")) continue;
                                     if (req.flag_a || has_read_access(&file_catalog[i], client_state[sock_fd].username)) {
                                         if (req.flag_l) {
                                             file_catalog[i].active = 1;

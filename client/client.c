@@ -11,21 +11,36 @@ void send_filename_request(int sock, MessageType type, char* filename) {
     if (send(sock, &req, sizeof(req), 0) < 0) error_exit("send payload");
 }
 
-// --- Helper: Print metadata ---
-void print_metadata(Msg_Full_Metadata* meta) {
+// --- Helper: Print metadata for VIEW -l (shows last accessed time) ---
+void print_metadata_view(Msg_Full_Metadata* meta) {
     char time_buf[50];
-    strftime(time_buf, sizeof(time_buf), "%Y-%m-%d %H:%M:%S", localtime(&meta->last_modified));
+    strftime(time_buf, sizeof(time_buf), "%Y-%m-%d %H:%M:%S", localtime(&meta->last_accessed));
     printf("| %-20s | %-12s | %-6ld | %-6d | %-6d | %s |\n",
         meta->filename, meta->owner, meta->file_size,
         meta->word_count, meta->char_count, time_buf);
 }
-void print_metadata_header() {
+void print_metadata_header_view() {
     printf("-------------------------------------------------------------------------------------------\n");
-    printf("| Filename             | Owner        | Size   | Words  | Chars  | Last Modified       |\n");
+    printf("| Filename             | Owner        | Size   | Words  | Chars  | Last Accessed       |\n");
     printf("-------------------------------------------------------------------------------------------\n");
 }
+
+// --- Helper: Print metadata for INFO (shows both times) ---
+void print_metadata_info(Msg_Full_Metadata* meta) {
+    char modified_buf[50], accessed_buf[50];
+    strftime(modified_buf, sizeof(modified_buf), "%Y-%m-%d %H:%M:%S", localtime(&meta->last_modified));
+    strftime(accessed_buf, sizeof(accessed_buf), "%Y-%m-%d %H:%M:%S", localtime(&meta->last_accessed));
+    printf("| %-20s | %-12s | %-6ld | %-6d | %-6d | %s | %s |\n",
+        meta->filename, meta->owner, meta->file_size,
+        meta->word_count, meta->char_count, modified_buf, accessed_buf);
+}
+void print_metadata_header_info() {
+    printf("----------------------------------------------------------------------------------------------------------------------\n");
+    printf("| Filename             | Owner        | Size   | Words  | Chars  | Last Modified       | Last Accessed       |\n");
+    printf("----------------------------------------------------------------------------------------------------------------------\n");
+}
 void print_metadata_footer() {
-    printf("-------------------------------------------------------------------------------------------\n");
+    printf("----------------------------------------------------------------------------------------------------------------------\n");
 }
 
 // --- Helper: Handle READ ---
@@ -264,7 +279,7 @@ int main(int argc, char* argv[]) {
             recv(sock, &header, sizeof(header), 0);
             Msg_View_Hdr view_hdr; recv(sock, &view_hdr, sizeof(view_hdr), 0);
             
-            if(req.flag_l) print_metadata_header();
+            if(req.flag_l) print_metadata_header_view();
             else printf("--- Files (%d) ---\n", view_hdr.file_count);
 
             for(int i=0; i < view_hdr.file_count; i++) {
@@ -274,7 +289,7 @@ int main(int argc, char* argv[]) {
                     printf("  %s\n", item.filename);
                 } else if (header.type == RES_VIEW_ITEM_LONG) {
                     Msg_Full_Metadata meta; recv(sock, &meta, sizeof(meta), 0);
-                    print_metadata(&meta);
+                    print_metadata_view(&meta);
                     if (meta.access_count > 0) {
                         AccessEntry dummy_list[MAX_PERMISSIONS_PER_FILE];
                         recv(sock, &dummy_list, sizeof(AccessEntry) * meta.access_count, 0);
@@ -291,8 +306,8 @@ int main(int argc, char* argv[]) {
                 recv(sock, &header, sizeof(header), 0);
                 if (header.type == RES_INFO) {
                     Msg_Full_Metadata meta; recv(sock, &meta, sizeof(meta), 0);
-                    print_metadata_header();
-                    print_metadata(&meta);
+                    print_metadata_header_info();
+                    print_metadata_info(&meta);
                     print_metadata_footer();
                     if (meta.access_count > 0) {
                         printf("Access List:\n");

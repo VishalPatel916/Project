@@ -107,11 +107,11 @@ typedef struct { char filename[MAX_FILENAME]; int sentence_num; } Msg_Client_Wri
 typedef struct { int word_index; char content[MAX_WORD_CONTENT]; } Msg_Write_Update;
 typedef struct { int user_count; } Msg_List_Hdr;
 typedef struct { char username[MAX_USERNAME]; } Msg_List_Item;
-typedef struct { char filename[MAX_FILENAME]; long file_size; int word_count; int char_count; time_t last_modified; } Msg_Update_Metadata;
+typedef struct { char filename[MAX_FILENAME]; long file_size; int word_count; int char_count; time_t last_modified; time_t last_accessed; } Msg_Update_Metadata;
 typedef struct { int flag_a; int flag_l; } Msg_View_Request;
 typedef struct { int file_count; } Msg_View_Hdr;
 typedef struct { char filename[MAX_FILENAME]; } Msg_View_Item_Short;
-typedef struct { char filename[MAX_FILENAME]; char owner[MAX_USERNAME]; long file_size; int word_count; int char_count; time_t last_modified; int access_count; } Msg_Full_Metadata;
+typedef struct { char filename[MAX_FILENAME]; char owner[MAX_USERNAME]; long file_size; int word_count; int char_count; time_t last_modified; time_t last_accessed; int access_count; } Msg_Full_Metadata;
 typedef struct { char filename[MAX_FILENAME]; char username[MAX_USERNAME]; PermissionLevel perm; } Msg_Access_Request;
 
 // --- NEW: Exec Payload ---
